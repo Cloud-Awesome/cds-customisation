@@ -1,4 +1,4 @@
-# d365-customisation
+# cds-customisation
 Solutions to automate or extend customisation/configuration of Dynamics 365/CDS
 
 ## Generate entities and related components
