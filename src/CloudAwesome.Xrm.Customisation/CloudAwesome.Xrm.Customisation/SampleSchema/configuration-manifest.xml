@@ -1,0 +1,198 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ConfigurationManifest>
+  <SolutionName>EntityCreationSandbox</SolutionName>
+  <PubilsherUniqueName>cloudawesome</PubilsherUniqueName>
+  <Clobber>false</Clobber>
+
+  <!-- CDS connection details -->
+  <!-- Can provide any of the below, or none if provided outside of config file 
+       (e.g. manual in CLI or from Key Vault) -->
+  <ConnectionType>AppRegistration</ConnectionType>
+  <CdsConnectionString>...</CdsConnectionString>
+  <CdsUrl>...</CdsUrl>
+  <CdsUserName>...</CdsUserName>
+  <CdsPassword>...</CdsPassword>
+  <CdsAppId>...</CdsAppId>
+  <CdsAppSecret>...</CdsAppSecret>
+  <!-- CDS connection details -->
+
+  <Entities>
+    <Entity>
+      <DisplayName>Laptop</DisplayName>
+      <PluralName>Laptops</PluralName>
+      <SchemaName>awe_laptop</SchemaName>
+      <Description>...</Description>
+      <OwnershipType>UserOwned</OwnershipType>
+      <PrimaryAttributeName>Name</PrimaryAttributeName>
+      <PrimaryAttributeMaxLength>50</PrimaryAttributeMaxLength>
+      <PrimaryAttributeDescription>...</PrimaryAttributeDescription>
+      <IsActivity>false</IsActivity>
+      <HasActivities>false</HasActivities>
+      <HasNotes>true</HasNotes>
+      <IsQuickCreateEnabled>true</IsQuickCreateEnabled>
+      <IsAuditEnabled>true</IsAuditEnabled>
+      <IsDuplicateDetectionEnabled>false</IsDuplicateDetectionEnabled>
+      <IsBusinessProcessEnabled>false</IsBusinessProcessEnabled>
+      <IsDocumentManagementEnabled>false</IsDocumentManagementEnabled>
+      <IsValidForQueue>true</IsValidForQueue>
+      <ChangeTrackingEnabled>false</ChangeTrackingEnabled>
+      <NavigationColour></NavigationColour>
+      <Attributes>
+        <Attribute>
+          <DisplayName>Laptop Make</DisplayName>
+          <SchemaName>awe_laptopmake</SchemaName>
+          <DataType>String</DataType>
+          <Description>The make of the laptop ...</Description>
+          <RequiredLevel>Recommended</RequiredLevel>
+          <IsAuditEnabled>true</IsAuditEnabled>
+          <MaxLength>8</MaxLength>
+          <StringFormat>Text</StringFormat>
+          <AddToForm>true</AddToForm>
+          <AddToViewOrder>1</AddToViewOrder>
+        </Attribute>
+        <Attribute>
+          <DisplayName>Producer Website</DisplayName>
+          <DataType>String</DataType>
+          <RequiredLevel>Recommended</RequiredLevel>
+          <IsAuditEnabled>true</IsAuditEnabled>
+          <MaxLength>200</MaxLength>
+          <Description>Producer website</Description>
+          <StringFormat>Url</StringFormat>
+          <AddToForm>true</AddToForm>
+          <AddToViewOrder>1</AddToViewOrder>
+        </Attribute>
+        <Attribute>
+          <DisplayName>Release Date</DisplayName>
+          <DataType>DateTime</DataType>
+          <Description>When was the laptop released in the UK</Description>
+          <DateTimeFormat>DateOnly</DateTimeFormat>
+          <AddToForm>true</AddToForm>
+          <AddToViewOrder>1</AddToViewOrder>
+        </Attribute>
+        <Attribute>
+          <DisplayName>Model</DisplayName>
+          <SchemaName>awe_model</SchemaName>
+          <DataType>Picklist</DataType>
+          <GlobalOptionSet>awe_model</GlobalOptionSet>
+          <Description>Make and model of the laptop</Description>
+          <RequiredLevel>ApplicationRequired</RequiredLevel>
+          <AddToForm>true</AddToForm>
+          <AddToViewOrder>1</AddToViewOrder>
+        </Attribute>
+        <Attribute>
+          <DisplayName>Valid for WFH</DisplayName>
+          <SchemaName>awe_isvalidforwfh</SchemaName>
+          <DataType>Boolean</DataType>
+          <Description>Is employee allowed to work from home with this model of laptop</Description>
+          <AddToForm>true</AddToForm>
+        </Attribute>
+        <Attribute>
+          <DisplayName>Remaining stock</DisplayName>
+          <DataType>Integer</DataType>
+          <Description>How many of these laptops are in stock</Description>
+          <MinValue>0</MinValue>
+          <MaxValue>400</MaxValue>
+          <AddToForm>true</AddToForm>
+        </Attribute>
+        <Attribute>
+          <DisplayName>Model description</DisplayName>
+          <DataType>Memo</DataType>
+          <Description>Longer form description of the laptop</Description>
+          <AddToForm>true</AddToForm>
+        </Attribute>
+      </Attributes>
+      <EntityPermissions>
+        <Permissions>
+          <Name>Laptop Administrator</Name>
+          <Create>Organization</Create>
+          <Read>ParentChild</Read>
+          <Write>ParentChild</Write>
+          <Delete>None</Delete>
+          <AppendTo>Organization</AppendTo>
+          <Append>Organization</Append>
+          <Share>User</Share>
+        </Permissions>
+        <Permissions>
+          <Name>Laptop User</Name>
+          <Create>ParentChild</Create>
+          <Read>ParentChild</Read>
+          <Write>User</Write>
+          <Delete>None</Delete>
+          <AppendTo>ParentChild</AppendTo>
+          <Append>ParentChild</Append>
+          <Share>None</Share>
+        </Permissions>
+      </EntityPermissions>
+    </Entity>
+    <Entity>
+      <DisplayName>Mouse</DisplayName>
+      <PluralName>Mice</PluralName>
+      <Description>Stock of mouses available to go with laptops</Description>
+      <OwnershipType>UserOwned</OwnershipType>
+      <PrimaryAttributeName>Name</PrimaryAttributeName>
+      <PrimaryAttributeMaxLength>50</PrimaryAttributeMaxLength>
+      <PrimaryAttributeDescription>...</PrimaryAttributeDescription>
+    </Entity>
+  </Entities>
+
+  <OptionSets>
+    <OptionSet>
+      <DisplayName>Laptop Model</DisplayName>
+      <SchemaName>awe_model</SchemaName>
+      <Items>
+        <Item>XPS 13</Item>
+        <Item>XPS 15</Item>
+        <Item>Surface Pro</Item>
+        <Item>Surface Go</Item>
+        <Item>Macbook Pro</Item>
+      </Items>
+    </OptionSet>
+    <OptionSet>
+      <DisplayName>Colour</DisplayName>
+      <SchemaName>awe_colour</SchemaName>
+      <Items>
+        <Item>Blue</Item>
+        <Item>Green</Item>
+        <Item>Black</Item>
+      </Items>
+    </OptionSet>
+  </OptionSets>
+
+  <SecurityRoles>
+    <SecurityRole>
+      <Name>Laptop Administrator</Name>
+      <Privileges>
+        <Privilege>prvbulkdelete</Privilege>
+        <Privilege>prvExportToExcel</Privilege>
+      </Privileges>
+    </SecurityRole>
+  </SecurityRoles>
+
+  <ModelDrivenApps>
+    <ModelDrivenApp>
+      <Name>Laptop Management</Name>
+      <UniqueName>awe_laptopmanagement</UniqueName>
+      <Description>...</Description>
+      <SiteMap>
+        <Areas>
+          <Area>
+            <Name>New Area</Name>
+            <Groups>
+              <Group>
+                <Name>New Group</Name>
+                <SubAreas>
+                  <SubArea>
+                    <Type>Entity</Type>
+                    <Entity>awe_laptop</Entity>
+                    <Title>Laptops</Title>
+                  </SubArea>
+                </SubAreas>
+              </Group>
+            </Groups>
+          </Area>
+        </Areas>
+      </SiteMap>
+    </ModelDrivenApp>
+  </ModelDrivenApps>
+
+</ConfigurationManifest>
