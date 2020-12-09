@@ -1,23 +1,20 @@
-# cds-customisation
-Solutions to automate or extend customisation/configuration of Dynamics 365/CDS
+# CloudAwesome.Xrm.Customisation
+Solutions to automate common and time-consuming tasks during customisation of Dynamics 365/CDS
 
-## Generate entities and related components
-- Create entity model from Excel
-- Create model driven app, forms and views from Excel
-- Create security roles from Excel
-- Create Field level security profiles from Excel
+![In progress](documentation/assets/Status-InProgress.svg)
 
-
-- Create entity model from zipped CSVs
-- Create entity model from Visio
-- Create entity model from existing SQL database
-- Create entity model from SQL script
-
-## Upload UI components from source
-- Web resources from Visual Studio, VS Code or Azure Pipelines
-- Manage forms, views, ribbon customisations, dashboards from source
-- Manage Business Process Flows and Business Rules from source
-
-## Register plugins
-- Register plugins, plugin steps and custom workflow activities programmatically
+## Features
+- Generate customisations from XML manifest
+    - Entities, forms, views, optionsets
+    - Security roles and field level security profiles
+    - Model driven apps and sitemap
+    - Quickly generate, test and tear down all artifacts during prototyping phases
+- Register plugins from XML manifest
+    - Plugins, steps, service endpoints, workflow assemblies, webhooks
+    - Keep plugin registration details in source alongside the plugin assemblies so don't need to open the Plugin Reg Tool and configure manually
+- Migrate Bulk Deletion Jobs between environments
+- Toggle process status from XML manifest
+    - Activate/Deactivate processes specified individually, included in solutions, or parented by assembly
+    - Useful for data migrations/imports
+    - Include in source control which processes should be disabled (or which shouldn't be re-enabled)
 
