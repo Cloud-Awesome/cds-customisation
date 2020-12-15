@@ -2,16 +2,16 @@
 <PluginManifest>
   <SolutionName>PluginRegistrationSandbox</SolutionName>
 
-  <!-- CDS connection details -->
-  <!-- Can provide any of the below, or none if provided outside of config file (e.g. manual in CLI or from Key Vault -->
-  <ConnectionType>AppRegistration</ConnectionType>
-  <CdsConnectionString>...</CdsConnectionString>
-  <CdsUrl>...</CdsUrl>
-  <CdsUserName>...</CdsUserName>
-  <CdsPassword>...</CdsPassword>
-  <CdsAppId>...</CdsAppId>
-  <CdsAppSecret>...</CdsAppSecret>
-  <!-- CDS connection details -->
+  <!-- Can provide any of the below, or none if provided outside of config file (e.g. manual in CLI or from Key Vault) -->
+  <CdsConnection>
+    <ConnectionType>AppRegistration</ConnectionType>
+    <CdsConnectionString>...</CdsConnectionString>
+    <CdsUrl>...</CdsUrl>
+    <CdsUserName>...</CdsUserName>
+    <CdsPassword>...</CdsPassword>
+    <CdsAppId>...</CdsAppId>
+    <CdsAppSecret>...</CdsAppSecret>
+  </CdsConnection>
 
   <PluginAssemblies>
     <PluginAssembly>
@@ -30,7 +30,7 @@
               <Name>Update Contact: On Update of Contact</Name>
               <FriendlyName>Update Contact: On Update of Contact</FriendlyName>
               <Description>...</Description>
-              <stage>PostOperation</stage>
+              <Stage>Postoperation</Stage>
               <ExecutionMode>Synchronous</ExecutionMode>
               <Message>update</Message>
               <PrimaryEntity>contact</PrimaryEntity>

@@ -15,8 +15,18 @@ namespace CloudAwesome.Xrm.Customisation
         /// </summary>
         /// <param name="manifest">XML plugin manifest</param>
         /// <param name="client">IOrganizationService client reference</param>
+        public void RegisterPlugins(PluginManifest manifest, IOrganizationService client)
+        {
+            RegisterPlugins(manifest, client, null);
+        }
+
+        /// <summary>
+        /// Loops through each PluginAssembly in the manifest and registers all assemblies, plugins, steps and images
+        /// </summary>
+        /// <param name="manifest">XML plugin manifest</param>
+        /// <param name="client">IOrganizationService client reference</param>
         /// <param name="logger">Optional ILogger implementation</param>
-        public void RegisterPlugins(PluginManifest manifest, IOrganizationService client, ILogger logger = null)
+        public void RegisterPlugins(PluginManifest manifest, IOrganizationService client, ILogger logger)
         {
             var t = new TracingHelper(logger);
             t.Debug($"Entering PluginWrapper.RegisterPlugins");

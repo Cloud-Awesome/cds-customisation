@@ -1,4 +1,6 @@
-﻿namespace CloudAwesome.Xrm.Customisation.Models
+﻿using System.Xml.Serialization;
+
+namespace CloudAwesome.Xrm.Customisation.Models
 {
     public class CdsPlugin
     {
@@ -8,6 +10,7 @@
 
         public string Description { get; set; }
 
+        [XmlArrayItem("Step")]
         public CdsPluginStep[] Steps { get; set; }
     }
 }

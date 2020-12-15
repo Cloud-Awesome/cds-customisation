@@ -1,4 +1,6 @@
-﻿namespace CloudAwesome.Xrm.Customisation.Models
+﻿using System.Xml.Serialization;
+
+namespace CloudAwesome.Xrm.Customisation.Models
 {
     public enum ServiceEndpointContract { Queue = 0, Topic = 1, OneWay = 2, TwoWay = 3, Rest = 4, EventHub = 5 }
     public enum ServiceEndpointMessageFormat { NETBinary = 0, Json = 1, XML = 2 }
@@ -28,6 +30,7 @@
 
         public string Description { get; set; }
 
+        [XmlArrayItem("Plugin")]
         public CdsPlugin[] Plugins { get; set; }
     }
 }

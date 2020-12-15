@@ -32,6 +32,7 @@ namespace CloudAwesome.Xrm.Customisation.Models
         [XmlArrayItem("Attribute")]
         public string[] FilteringAttributes { get; set; }
 
+        [XmlArrayItem("EntityImage")]
         public CdsEntityImage[] EntityImages { get; set; }
     }
 }
