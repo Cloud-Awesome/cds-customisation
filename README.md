@@ -4,14 +4,15 @@ Solutions to automate common and time-consuming tasks during customisation of Dy
 ![In progress](documentation/assets/Status-InProgress.svg) - See the [sandbox version](https://github.com/Cloud-Awesome/CloudAwesome.Xrm.Customisation.Sandbox) for the horrible messy version of where this is going!
 
 ## Features
+
+- Register plugins from XML manifest
+    - Plugins, steps, service endpoints, workflow assemblies, webhooks
+    - Keep plugin registration details in source alongside the plugin assemblies so don't need to open the Plugin Reg Tool and configure manually
 - Generate customisations from XML manifest
     - Entities, forms, views, optionsets
     - Security roles and field level security profiles
     - Model driven apps and sitemap
     - Quickly generate, test and tear down all artifacts during prototyping phases
-- Register plugins from XML manifest
-    - Plugins, steps, service endpoints, workflow assemblies, webhooks
-    - Keep plugin registration details in source alongside the plugin assemblies so don't need to open the Plugin Reg Tool and configure manually
 - Migrate Bulk Deletion Jobs between environments
 - Toggle process status from XML manifest
     - Activate/Deactivate processes specified individually, included in solutions, or parented by assembly
