@@ -1,7 +1,7 @@
 # CloudAwesome.Xrm.Customisation
 Solutions to automate common and time-consuming tasks during customisation of Dynamics 365/CDS
 
-![In progress](documentation/assets/Status-InProgress.svg)
+![In progress](documentation/assets/Status-InProgress.svg) - See the [sandbox version](https://github.com/Cloud-Awesome/CloudAwesome.Xrm.Customisation.Sandbox) for the horrible messy version of where this is going!
 
 ## Features
 - Generate customisations from XML manifest
