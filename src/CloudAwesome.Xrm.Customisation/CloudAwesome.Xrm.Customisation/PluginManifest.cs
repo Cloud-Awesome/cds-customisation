@@ -15,5 +15,6 @@ namespace CloudAwesome.Xrm.Customisation
         public CdsWebhook[] Webhooks { get; set; }
 
         public CdsWorkflowAssembly[] WorkflowAssemblies { get; set; }
+
     }
 }
