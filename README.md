@@ -18,4 +18,4 @@ Solutions to automate common and time-consuming tasks during customisation of Dy
     - Activate/Deactivate processes specified individually, included in solutions, or parented by assembly
     - Useful for data migrations/imports
     - Include in source control which processes should be disabled (or which shouldn't be re-enabled)
-
+    - Supports plugin steps, workflows, modern flows and case creation rules
