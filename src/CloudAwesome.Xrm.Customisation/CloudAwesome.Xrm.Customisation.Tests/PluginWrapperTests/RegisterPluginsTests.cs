@@ -1,28 +1,98 @@
-﻿using FakeXrmEasy;
+﻿using System.Collections.Generic;
+using System.Linq;
+using FakeXrmEasy;
+using Microsoft.Xrm.Sdk;
 using NUnit.Framework;
 
 namespace CloudAwesome.Xrm.Customisation.Tests.PluginWrapperTests
 {
+    // TODO - other tests to vary between create and update
+    // TODO - tests for tracing
+
     [TestFixture]
-    public class RegisterPluginsTests
+    public class RegisterPluginsTests: BaseFakeXrmTest
     {
         [Test]
-        [Ignore("Not ready - needs query results in faked context")]
-        public void HappyPath()
+        [Description("Plugin assembly and steps don't already exist and are registered successfully")]
+        public void AssemblyDoesNotAlreadyExist()
         {
-            var manifestPath = "../../../CloudAwesome.Xrm.Customisation/SampleSchema/plugin-manifest.xml";
+            var manifestPath = $"{TestManifestFolderPath}/plugin-manifest.xml";
             var manifest = SerialisationWrapper.DeserialiseFromFile<PluginManifest>(manifestPath);
 
             var context = new XrmFakedContext();
             var orgService = context.GetOrganizationService();
-            
-            // Wednesday...
-            // TODO - need to set up all the query results
-            // TODO - other tests to vary between create and update
-            // TODO - tests for tracing
+            context.Initialize(new List<Entity>()
+            {
+                UpdateSdkMessage
+            });
 
             var pluginWrapper = new PluginWrapper();
             pluginWrapper.RegisterPlugins(manifest, orgService);
+
+            var postRegisteredAssemblies = 
+                (from a in context.CreateQuery<PluginAssembly>()
+                 where a.Name == "SamplePluginAssembly" 
+                 select a).ToList();
+
+            Assert.AreEqual(1, postRegisteredAssemblies.Count);
+
         }
+
+        [Test]
+        [Description("Plugin assembly exists with no steps and are registered/updated successfully")]
+        public void AssemblyExistsWithNoRegisteredPlugins()
+        {
+            var manifestPath = $"{TestManifestFolderPath}/plugin-manifest.xml";
+            var manifest = SerialisationWrapper.DeserialiseFromFile<PluginManifest>(manifestPath);
+
+            var context = new XrmFakedContext();
+            var orgService = context.GetOrganizationService();
+            context.Initialize(new List<Entity>()
+            {
+                UpdateSdkMessage,
+                SamplePluginAssembly
+            });
+            
+            var pluginWrapper = new PluginWrapper();
+            pluginWrapper.RegisterPlugins(manifest, orgService);
+
+            var postRegisteredPluginTypes =
+                (from p in context.CreateQuery<PluginType>()
+                    select p).ToList();
+
+            Assert.AreEqual(2, postRegisteredPluginTypes.Count);
+
+        }
+
+        [Test]
+        [Description("Plugin assembly exists with one existing step. New step is added")]
+        public void RemovesPluginTypeFromExistingAssembly()
+        {
+            var manifestPath = $"{TestManifestFolderPath}/plugin-manifest.xml";
+            var manifest = SerialisationWrapper.DeserialiseFromFile<PluginManifest>(manifestPath);
+
+            var context = new XrmFakedContext();
+            var orgService = context.GetOrganizationService();
+            context.Initialize(new List<Entity>()
+            {
+                UpdateSdkMessage,
+                SamplePluginAssembly,
+                UpdateContact,
+                PluginTypeToBeRemoved
+            });
+
+            var pluginWrapper = new PluginWrapper();
+            pluginWrapper.RegisterPlugins(manifest, orgService);
+
+            var postRegisteredPluginTypes =
+                (from p in context.CreateQuery<PluginType>()
+                    where Equals(p.PluginAssemblyId, SamplePluginAssembly.ToEntityReference())
+                    select p).ToList();
+
+            Assert.AreEqual(2, postRegisteredPluginTypes.Count);
+            Assert.IsFalse(postRegisteredPluginTypes.Contains(PluginTypeToBeRemoved));
+
+        }
+
     }
 }

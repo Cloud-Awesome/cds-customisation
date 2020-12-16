@@ -6,6 +6,7 @@ namespace CloudAwesome.Xrm.Customisation
     public class PluginManifest
     {
         public string SolutionName { get; set; }
+        public bool Clobber { get; set; }
 
         public CdsConnection CdsConnection { get; set; }
 

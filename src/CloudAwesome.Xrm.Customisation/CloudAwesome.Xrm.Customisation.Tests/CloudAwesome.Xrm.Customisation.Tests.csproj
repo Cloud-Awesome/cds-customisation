@@ -94,9 +94,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BaseFakeXrmTest.cs" />
     <Compile Include="PluginWrapperTests\RegisterPluginsTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="TracingWrapperTests\DeserialiseFromFileTests.cs" />
+    <Compile Include="DeserialiseFromFileTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
@@ -104,12 +105,16 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="ModelTests\" />
+    <Folder Include="TracingWrapperTests\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\CloudAwesome.Xrm.Customisation\CloudAwesome.Xrm.Customisation.csproj">
       <Project>{4521b755-48e9-437a-a1bf-2211d9837f7e}</Project>
       <Name>CloudAwesome.Xrm.Customisation</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="TestManifests\PluginRegistration\plugin-manifest.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

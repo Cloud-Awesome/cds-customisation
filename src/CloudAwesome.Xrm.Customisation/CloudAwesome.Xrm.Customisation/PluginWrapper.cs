@@ -54,13 +54,19 @@ namespace CloudAwesome.Xrm.Customisation
                     Culture = pluginAssemblyInfo.Culture,
                     Version = pluginAssemblyInfo.Version,
                     PublicKeyToken = pluginAssemblyInfo.PublicKeyToken,
-                    SourceType = PluginAssembly_SourceType.Database,// Only database supported now
-                    IsolationMode = PluginAssembly_IsolationMode.Sandbox, // Only Sandbox supported now
+                    SourceType = PluginAssembly_SourceType.Database,// Only database supported for now
+                    IsolationMode = PluginAssembly_IsolationMode.Sandbox, // Only Sandbox supported for now
                     Content = Convert.ToBase64String(File.ReadAllBytes(pluginAssembly.Assembly))
                 };
-                
+
+                var existingAssemblyQuery = GetExistingAssemblyQuery(pluginAssembly.Name, pluginAssemblyInfo.Version);
+                if (manifest.Clobber)
+                {
+                    existingAssemblyQuery.DeleteSingleRecord(client);
+                }
+
                 var createdAssembly = new EntityReference(PluginAssembly.EntityLogicalName,
-                    assemblyEntity.CreateOrUpdate(client, GetExistingAssemblyQuery(pluginAssembly.Name, pluginAssemblyInfo.Version)));
+                    assemblyEntity.CreateOrUpdate(client, existingAssemblyQuery));
                 t.Info($"Assembly {pluginAssembly.FriendlyName} registered with ID {createdAssembly.Id}");
 
                 SolutionWrapper.AddSolutionComponent(client, targetSolutionName, createdAssembly.Id, ComponentType.PluginAssembly);

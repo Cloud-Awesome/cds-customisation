@@ -1,9 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <PluginManifest>
-  <SolutionName>PluginRegistrationSandbox</SolutionName>
+  <SolutionName></SolutionName>
   <Clobber>true</Clobber>
 
-  <!-- Can provide any of the below, or none if provided outside of config file (e.g. manual in CLI or from Key Vault) -->
   <CdsConnection>
     <ConnectionType>AppRegistration</ConnectionType>
     <CdsConnectionString>...</CdsConnectionString>
