@@ -86,6 +86,8 @@ namespace CloudAwesome.Xrm.Customisation
                         Description = plugin.Description
                     };
 
+                    var results = GetExistingPluginQuery(plugin.Name, createdAssembly.Id).RetrieveSingleRecord(client);
+
                     var createdPluginType = new EntityReference(PluginType.EntityLogicalName,
                         pluginType.CreateOrUpdate(client, GetExistingPluginQuery(plugin.Name, createdAssembly.Id)));
                     t.Info($"Plugin {plugin.FriendlyName} registered with ID {createdPluginType.Id}");
@@ -97,7 +99,11 @@ namespace CloudAwesome.Xrm.Customisation
                     {
                         t.Debug($"Processing Step = {pluginStep.FriendlyName}");
 
-                        var sdkMessage = GetSdkMessageQuery(pluginStep.Message).RetrieveSingleRecord(client);
+                        var sdkMessage = 
+                            GetSdkMessageQuery(pluginStep.Message).RetrieveSingleRecord(client);
+                        var sdkMessageFilter = 
+                            GetSdkMessageFilter(pluginStep.PrimaryEntity, sdkMessage.Id).RetrieveSingleRecord(client);
+
                         var sdkStep = new SdkMessageProcessingStep()
                         {
                             Name = pluginStep.Name,
@@ -109,13 +115,14 @@ namespace CloudAwesome.Xrm.Customisation
                             EventHandler = createdPluginType,
                             SdkMessageId = sdkMessage.ToEntityReference(),
                             Description = pluginStep.Description,
-                            AsyncAutoDelete = pluginStep.AsyncAutoDelete
+                            AsyncAutoDelete = pluginStep.AsyncAutoDelete,
+                            SdkMessageFilterId = sdkMessageFilter.ToEntityReference()
                             // TODO loop through attributes to create a single string?
                             //FilteringAttributes = step.FilteringAttributes.
                         };
 
                         var createdStep = new EntityReference(SdkMessageProcessingStep.EntityLogicalName,
-                            sdkStep.CreateOrUpdate(client, GetExistingPluginStepQuery(createdPluginType.Id, sdkStep.Id)));
+                            sdkStep.CreateOrUpdate(client, GetExistingPluginStepQuery(createdPluginType.Id, sdkMessage.Id)));
                         t.Info($"Plugin step {pluginStep.FriendlyName} registered with ID {createdStep.Id}");
 
                         SolutionWrapper.AddSolutionComponent(client, targetSolutionName,
@@ -123,6 +130,7 @@ namespace CloudAwesome.Xrm.Customisation
                         t.Debug($"Plugin Step {pluginStep.FriendlyName} added to solution {targetSolutionName}");
 
                         // 4. Register Entity Images
+                        if (pluginStep.EntityImages == null) continue;
                         foreach (var entityImage in pluginStep.EntityImages)
                         {
                             t.Debug($"Processing Entity Image = {entityImage.Name}");
@@ -159,7 +167,7 @@ namespace CloudAwesome.Xrm.Customisation
                     Conditions =
                     {
                         new ConditionExpression(PluginAssembly.PrimaryNameAttribute, ConditionOperator.Equal, assemblyName),
-                        new ConditionExpression("version", ConditionOperator.Equal, assemblyVersion)
+                        new ConditionExpression(PluginAssembly.Fields.Version, ConditionOperator.Equal, assemblyVersion)
                     }
                 }
             };
@@ -176,7 +184,7 @@ namespace CloudAwesome.Xrm.Customisation
                     Conditions =
                     {
                         new ConditionExpression(PluginType.PrimaryNameAttribute, ConditionOperator.Equal, pluginName),
-                        new ConditionExpression("pluginassemblyid", ConditionOperator.Equal, parentAssemblyId)
+                        new ConditionExpression(PluginType.Fields.PluginAssemblyId, ConditionOperator.Equal, parentAssemblyId)
                     }
                 }
             };
@@ -192,9 +200,9 @@ namespace CloudAwesome.Xrm.Customisation
                 {
                     Conditions =
                     {
-                        new ConditionExpression("eventhandler", ConditionOperator.Equal, parentPluginType),
-                        new ConditionExpression("sdkmessageid", ConditionOperator.Equal, sdkMessage),
-                        new ConditionExpression("stage", ConditionOperator.Equal,
+                        new ConditionExpression(SdkMessageProcessingStep.Fields.EventHandler, ConditionOperator.Equal, parentPluginType),
+                        new ConditionExpression(SdkMessageProcessingStep.Fields.SdkMessageId, ConditionOperator.Equal, sdkMessage),
+                        new ConditionExpression(SdkMessageProcessingStep.Fields.Stage, ConditionOperator.Equal,
                             (int)SdkMessageProcessingStep_Stage.Postoperation),
                     }
                 }
@@ -231,6 +239,25 @@ namespace CloudAwesome.Xrm.Customisation
                     {
                         new ConditionExpression(SdkMessage.PrimaryNameAttribute, ConditionOperator.Equal,
                             sdkMessageName)
+                    }
+                }
+            };
+        }
+
+        private static QueryBase GetSdkMessageFilter(string entityName, Guid sdkMessageId)
+        {
+            return new QueryExpression(SdkMessageFilter.EntityLogicalName)
+            {
+                ColumnSet = new ColumnSet(SdkMessageFilter.Fields.Name, 
+                    SdkMessageFilter.Fields.PrimaryObjectTypeCode, SdkMessageFilter.Fields.SdkMessageId),
+                Criteria = new FilterExpression()
+                {
+                    Conditions =
+                    {
+                        new ConditionExpression(SdkMessageFilter.Fields.PrimaryObjectTypeCode, 
+                            ConditionOperator.Equal, entityName),
+                        new ConditionExpression(SdkMessageFilter.Fields.SdkMessageId, 
+                            ConditionOperator.Equal, sdkMessageId.ToString())
                     }
                 }
             };

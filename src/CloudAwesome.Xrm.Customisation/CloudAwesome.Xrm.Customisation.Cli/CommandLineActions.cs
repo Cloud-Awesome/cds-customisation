@@ -19,9 +19,5 @@ namespace CloudAwesome.Xrm.Customisation.Cli
         [Option('m', "manifest", Required = true)]
         public string Manifest { get; set; }
 
-        // TODO - set this as an enum later...
-        [Option("auth", Required = true)]
-        public string AuthenticationType { get; set; }
-
     }
 }

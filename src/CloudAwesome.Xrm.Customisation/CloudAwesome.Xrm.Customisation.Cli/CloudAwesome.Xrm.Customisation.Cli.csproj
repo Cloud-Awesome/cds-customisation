@@ -145,6 +145,12 @@
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\CloudAwesome.Xrm.Customisation\CloudAwesome.Xrm.Customisation.csproj">
+      <Project>{4521b755-48e9-437a-a1bf-2211d9837f7e}</Project>
+      <Name>CloudAwesome.Xrm.Customisation</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PreBuildEvent>
