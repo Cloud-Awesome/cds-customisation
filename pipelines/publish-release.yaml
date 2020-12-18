@@ -1,0 +1,52 @@
+name: $(Year:yyyy).$(Month).$(DayOfMonth).$(Rev:r)
+
+pool:
+  vmImage: 'windows-latest'
+
+trigger:
+  tags:
+    include:
+    - v*
+
+steps:
+
+- task: NuGetCommand@2
+  displayName: Restore NuGet
+  inputs:
+    command: 'restore'
+    restoreSolution: '**/*.sln'
+    feedsToUse: 'select'
+
+- task: VSBuild@1
+  displayName: Build Solution
+  inputs:
+    solution: '**\*.sln'
+    configuration: 'release'
+
+- task: VSTest@2
+  displayName: Execute Unit Tests
+  inputs:
+    testSelector: 'testAssemblies'
+    testAssemblyVer2: |
+      **\*test*.dll
+      !**\*TestAdapter.dll
+      !**\obj\**
+    searchFolder: '$(System.DefaultWorkingDirectory)'
+    codeCoverageEnabled: true
+    testRunTitle: '$(Build.BuildNumber)'
+
+- task: NuGetCommand@2
+  displayName: Nuget Pack
+  inputs:
+    command: 'pack'
+    packagesToPack: '**/CloudAwesome.Xrm.Customisation.csproj'
+    configuration: 'release'
+    versioningScheme: 'byBuildNumber'
+
+- task: NuGetCommand@2
+  displayName: Nuget Push
+  inputs:
+    command: 'push'
+    packagesToPush: '$(Build.ArtifactStagingDirectory)/**/*.nupkg;!$(Build.ArtifactStagingDirectory)/**/*.symbols.nupkg'
+    nuGetFeedType: 'external'
+    publishFeedCredentials: 'cds.customisation'

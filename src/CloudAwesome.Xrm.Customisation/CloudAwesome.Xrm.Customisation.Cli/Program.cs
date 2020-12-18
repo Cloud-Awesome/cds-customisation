@@ -11,8 +11,7 @@ namespace CloudAwesome.Xrm.Customisation.Cli
     {
         static void Main(string[] args)
         {
-            var result = Parser.Default.ParseArguments<CommandLineActions>(args)
-                .WithParsed(Run);
+            Parser.Default.ParseArguments<CommandLineActions>(args).WithParsed(Run);
         }
 
         public static void Run(CommandLineActions options)

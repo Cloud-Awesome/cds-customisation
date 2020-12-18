@@ -175,6 +175,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
+    <None Include="CloudAwesome.Xrm.Customisation.nuspec" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup />
