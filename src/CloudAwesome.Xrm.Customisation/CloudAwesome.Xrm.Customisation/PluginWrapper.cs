@@ -65,8 +65,7 @@ namespace CloudAwesome.Xrm.Customisation
                     existingAssemblyQuery.DeleteSingleRecord(client);
                 }
 
-                var createdAssembly = new EntityReference(PluginAssembly.EntityLogicalName,
-                    assemblyEntity.CreateOrUpdate(client, existingAssemblyQuery));
+                var createdAssembly = assemblyEntity.CreateOrUpdate(client, existingAssemblyQuery);
                 t.Info($"Assembly {pluginAssembly.FriendlyName} registered with ID {createdAssembly.Id}");
 
                 SolutionWrapper.AddSolutionComponent(client, targetSolutionName, createdAssembly.Id, ComponentType.PluginAssembly);
@@ -86,10 +85,7 @@ namespace CloudAwesome.Xrm.Customisation
                         Description = plugin.Description
                     };
 
-                    var results = GetExistingPluginQuery(plugin.Name, createdAssembly.Id).RetrieveSingleRecord(client);
-
-                    var createdPluginType = new EntityReference(PluginType.EntityLogicalName,
-                        pluginType.CreateOrUpdate(client, GetExistingPluginQuery(plugin.Name, createdAssembly.Id)));
+                    var createdPluginType = pluginType.CreateOrUpdate(client, GetExistingPluginQuery(plugin.Name, createdAssembly.Id));
                     t.Info($"Plugin {plugin.FriendlyName} registered with ID {createdPluginType.Id}");
 
                     if (plugin.Steps == null) continue;
@@ -121,8 +117,7 @@ namespace CloudAwesome.Xrm.Customisation
                             //FilteringAttributes = step.FilteringAttributes.
                         };
 
-                        var createdStep = new EntityReference(SdkMessageProcessingStep.EntityLogicalName,
-                            sdkStep.CreateOrUpdate(client, GetExistingPluginStepQuery(createdPluginType.Id, sdkMessage.Id)));
+                        var createdStep = sdkStep.CreateOrUpdate(client, GetExistingPluginStepQuery(createdPluginType.Id, sdkMessage.Id));
                         t.Info($"Plugin step {pluginStep.FriendlyName} registered with ID {createdStep.Id}");
 
                         SolutionWrapper.AddSolutionComponent(client, targetSolutionName,

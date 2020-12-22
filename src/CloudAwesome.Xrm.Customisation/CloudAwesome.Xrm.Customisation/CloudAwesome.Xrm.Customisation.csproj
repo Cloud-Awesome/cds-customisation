@@ -32,7 +32,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="CloudAwesome.Xrm.Core, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\CloudAwesome.Xrm.Core.2020.12.16.1\lib\net48\CloudAwesome.Xrm.Core.dll</HintPath>
+      <HintPath>..\packages\CloudAwesome.Xrm.Core.2020.12.18.3\lib\net48\CloudAwesome.Xrm.Core.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Bcl.AsyncInterfaces, Version=5.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Bcl.AsyncInterfaces.5.0.0\lib\net461\Microsoft.Bcl.AsyncInterfaces.dll</HintPath>
@@ -157,7 +157,6 @@
     <Compile Include="EarlyBoundModels\SdkMessageResponseField.cs" />
     <Compile Include="EarlyBoundModels\ServiceEndpoint.cs" />
     <Compile Include="EarlyBoundModels\SiteMap.cs" />
-    <Compile Include="Models\CdsConnection.cs" />
     <Compile Include="Models\CdsEntityImage.cs" />
     <Compile Include="Models\CdsPlugin.cs" />
     <Compile Include="Models\CdsPluginAssembly.cs" />

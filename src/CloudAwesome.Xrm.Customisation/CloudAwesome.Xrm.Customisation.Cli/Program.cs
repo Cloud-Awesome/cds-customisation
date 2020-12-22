@@ -22,7 +22,7 @@ namespace CloudAwesome.Xrm.Customisation.Cli
                     Console.WriteLine("I'm registering plugins now!!");
 
                     var manifest = SerialisationWrapper.DeserialiseFromFile<PluginManifest>(options.Manifest);
-                    var client = GetClientFromManifestConfiguration(manifest.CdsConnection);
+                    var client = XrmClient.GetCrmServiceClientFromManifestConfiguration(manifest.CdsConnection);
 
                     var pluginWrapper = new PluginWrapper();
                     pluginWrapper.RegisterPlugins(manifest, client);
@@ -45,24 +45,6 @@ namespace CloudAwesome.Xrm.Customisation.Cli
                     Console.WriteLine("Only joking, this action hasn't been implemented yet. Soz");
                     break;
 
-                default:
-                    throw new ArgumentOutOfRangeException();
-            }
-        }
-
-        private static IOrganizationService GetClientFromManifestConfiguration(CdsConnection cdsConnection)
-        {
-            // TODO - Scope this out to the Core solution
-            switch (cdsConnection.ConnectionType)
-            {
-                case CdsConnectionType.AppRegistration:
-                    return XrmClient.GetCrmServiceClientWithClientSecret(cdsConnection.CdsUrl, cdsConnection.CdsAppId,
-                        cdsConnection.CdsAppSecret);
-                case CdsConnectionType.ConnectionString:
-                    return XrmClient.GetCrmServiceClient(cdsConnection.CdsConnectionString);
-                case CdsConnectionType.UserNameAndPassword:
-                    return XrmClient.GetCrmServiceClientWithO365(cdsConnection.CdsUrl, cdsConnection.CdsUserName,
-                        cdsConnection.CdsPassword);
                 default:
                     throw new ArgumentOutOfRangeException();
             }
