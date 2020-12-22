@@ -1,5 +1,6 @@
 ﻿using System;
 using CloudAwesome.Xrm.Core;
+using CloudAwesome.Xrm.Core.Loggers;
 using CloudAwesome.Xrm.Core.Models;
 using CommandLine;
 using Microsoft.Extensions.Logging;
@@ -20,28 +21,16 @@ namespace CloudAwesome.Xrm.Customisation.Cli
                 case CommandLineActions.ActionOptions.RegisterPlugins:
                     Console.WriteLine("I'm registering plugins now!!");
 
+                    // TODO - Verify the manifest against XSD before continuing #5
+
                     var manifest = SerialisationWrapper.DeserialiseFromFile<PluginManifest>(options.Manifest);
                     var client = XrmClient.GetCrmServiceClientFromManifestConfiguration(manifest.CdsConnection);
-
-                    if (manifest.LoggingConfiguration == null)
-                    {
-                        manifest.LoggingConfiguration = new LoggingConfiguration()
-                        {
-                            LoggerConfigurationType = LoggerConfigurationType.Console,
-                            LogLevelToTrace = LogLevel.Information
-                        };
-                        Console.WriteLine($"No logging directions were provided in the manifest. Defaulting to Console");
-                    }
-                    else
-                    {
-                        Console.WriteLine($"Logging data is being written to {manifest.LoggingConfiguration.LoggerConfigurationType} with detail described in the supplied manifest");
-                    }
-
-                    // Waiting on latest release from .Core
-                    //var logger = new TracingHelper();
+                    
+                    // Temp until LoggingConfiguration is resolved in .Core
+                    var consoleLogger = new ConsoleLogger(LogLevel.Debug);
 
                     var pluginWrapper = new PluginWrapper();
-                    pluginWrapper.RegisterPlugins(manifest, client);
+                    pluginWrapper.RegisterPlugins(manifest, client, consoleLogger);
 
                     Console.WriteLine("Plugin registration completed! Woop! =D");
                     break;

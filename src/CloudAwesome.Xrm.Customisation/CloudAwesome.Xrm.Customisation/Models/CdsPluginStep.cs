@@ -52,7 +52,7 @@ namespace CloudAwesome.Xrm.Customisation.Models
                 Description = this.Description,
                 AsyncAutoDelete = this.AsyncAutoDelete,
                 SdkMessageFilterId = sdkMessageFilter
-                // TODO loop through attributes to create a single string?
+                // TODO loop through attributes to create a single string? #3
                 //FilteringAttributes = step.FilteringAttributes.
             };
 

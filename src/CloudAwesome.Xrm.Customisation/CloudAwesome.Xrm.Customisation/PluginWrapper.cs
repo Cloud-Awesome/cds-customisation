@@ -20,7 +20,7 @@ namespace CloudAwesome.Xrm.Customisation
         {
             RegisterPlugins(manifest, client, null);
         }
-
+        
         /// <summary>
         /// Loops through each PluginAssembly in the manifest and registers all assemblies, plugins, steps and images
         /// </summary>
@@ -32,10 +32,13 @@ namespace CloudAwesome.Xrm.Customisation
             var t = new TracingHelper(logger);
             t.Debug($"Entering PluginWrapper.RegisterPlugins");
 
+            // TODO - verify existence all messages, entities and filters before continue #4
+            // TODO - if queried messages etc above, then you can extract the queries in loops below to save on hits to the API
+            
             if (manifest.Clobber)
             {
                 t.Info($"Manifest has 'Clobber' set to true. Deleting referenced Plugins before re-registering");
-                this.UnregisterPlugins(manifest, client);
+                this.UnregisterPlugins(manifest, client, logger);
             }
 
             // 1. Register Assemblies
@@ -59,6 +62,8 @@ namespace CloudAwesome.Xrm.Customisation
 
                 SolutionWrapper.AddSolutionComponent(client, targetSolutionName, createdAssembly.Id, ComponentType.PluginAssembly);
                 t.Debug($"Assembly {pluginAssembly.FriendlyName} added to solution {targetSolutionName}");
+
+                // TODO - manifest flag to update assembly code only (and cut out here int the loop. #2
 
                 // 2. Register Plugins
                 foreach (var plugin in pluginAssembly.Plugins)
@@ -106,6 +111,7 @@ namespace CloudAwesome.Xrm.Customisation
         public void UnregisterPlugins(PluginManifest manifest, IOrganizationService client, ILogger logger)
         {
             // God awful initial version in need of some refactoring!! :)
+            // TODO - Cut out if no child are returned (e.g. no images) #9
 
             var t = new TracingHelper(logger);
             t.Debug($"Entering PluginWrapper.UnregisterPlugins");
