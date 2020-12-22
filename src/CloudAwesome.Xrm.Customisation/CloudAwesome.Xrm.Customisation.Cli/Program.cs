@@ -1,9 +1,8 @@
 ﻿using System;
 using CloudAwesome.Xrm.Core;
-using CloudAwesome.Xrm.Customisation;
-using CloudAwesome.Xrm.Customisation.Models;
+using CloudAwesome.Xrm.Core.Models;
 using CommandLine;
-using Microsoft.Xrm.Sdk;
+using Microsoft.Extensions.Logging;
 
 namespace CloudAwesome.Xrm.Customisation.Cli
 {
@@ -24,10 +23,48 @@ namespace CloudAwesome.Xrm.Customisation.Cli
                     var manifest = SerialisationWrapper.DeserialiseFromFile<PluginManifest>(options.Manifest);
                     var client = XrmClient.GetCrmServiceClientFromManifestConfiguration(manifest.CdsConnection);
 
+                    if (manifest.LoggingConfiguration == null)
+                    {
+                        manifest.LoggingConfiguration = new LoggingConfiguration()
+                        {
+                            LoggerConfigurationType = LoggerConfigurationType.Console,
+                            LogLevelToTrace = LogLevel.Information
+                        };
+                        Console.WriteLine($"No logging directions were provided in the manifest. Defaulting to Console");
+                    }
+                    else
+                    {
+                        Console.WriteLine($"Logging data is being written to {manifest.LoggingConfiguration.LoggerConfigurationType} with detail described in the supplied manifest");
+                    }
+
+                    // Waiting on latest release from .Core
+                    //var logger = new TracingHelper();
+
                     var pluginWrapper = new PluginWrapper();
                     pluginWrapper.RegisterPlugins(manifest, client);
 
                     Console.WriteLine("Plugin registration completed! Woop! =D");
+                    break;
+
+                case CommandLineActions.ActionOptions.UnregisterPlugins:
+                    Console.WriteLine("I'm unregistering plugins now!!");
+
+                    var manifest2 = SerialisationWrapper.DeserialiseFromFile<PluginManifest>(options.Manifest);
+                    var client2 = XrmClient.GetCrmServiceClientFromManifestConfiguration(manifest2.CdsConnection);
+
+                    if (manifest2.LoggingConfiguration == null)
+                    {
+                        manifest2.LoggingConfiguration = new LoggingConfiguration()
+                        {
+                            LoggerConfigurationType = LoggerConfigurationType.Console,
+                            LogLevelToTrace = LogLevel.Information
+                        };
+                    }
+
+                    var pluginWrapper2 = new PluginWrapper();
+                    pluginWrapper2.UnregisterPlugins(manifest2, client2);
+
+                    Console.WriteLine("Plugin de-registration completed! Aaaggh! =D");
                     break;
 
                 case CommandLineActions.ActionOptions.GenerateCustomisations:

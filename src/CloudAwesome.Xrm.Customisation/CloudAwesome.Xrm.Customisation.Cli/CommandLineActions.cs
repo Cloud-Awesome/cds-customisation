@@ -10,7 +10,9 @@ namespace CloudAwesome.Xrm.Customisation.Cli
             RegisterPlugins = 0,
             GenerateCustomisations = 1,
             MigrateDeletionJobs = 2,
-            ToggleProcesses = 3
+            ToggleProcesses = 3,
+            UnregisterPlugins = 4
+
         }
 
         [Option('a', "action", Required = true)]

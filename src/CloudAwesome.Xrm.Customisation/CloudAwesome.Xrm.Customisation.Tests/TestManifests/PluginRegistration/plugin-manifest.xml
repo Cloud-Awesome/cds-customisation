@@ -13,6 +13,10 @@
     <CdsAppSecret>...</CdsAppSecret>
   </CdsConnection>
 
+  <LoggingConfiguration>
+    <LoggingCVonfigurationType>Console</LoggingCVonfigurationType>
+  </LoggingConfiguration>
+
   <PluginAssemblies>
     <PluginAssembly>
       <Name>SamplePluginAssembly</Name>

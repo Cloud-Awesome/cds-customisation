@@ -1,5 +1,6 @@
 ﻿using System;
-using System.IO;
+using System.Collections.Generic;
+using System.Linq;
 using CloudAwesome.Xrm.Core;
 using CloudAwesome.Xrm.Customisation.Models;
 using Microsoft.Extensions.Logging;
@@ -31,41 +32,29 @@ namespace CloudAwesome.Xrm.Customisation
             var t = new TracingHelper(logger);
             t.Debug($"Entering PluginWrapper.RegisterPlugins");
 
+            if (manifest.Clobber)
+            {
+                t.Info($"Manifest has 'Clobber' set to true. Deleting referenced Plugins before re-registering");
+                this.UnregisterPlugins(manifest, client);
+            }
+
             // 1. Register Assemblies
             foreach (var pluginAssembly in manifest.PluginAssemblies)
             {
+                t.Debug($"Processing Assembly FriendlyName = {pluginAssembly.FriendlyName}");
+
                 var targetSolutionName = string.Empty;
                 if (!string.IsNullOrEmpty(pluginAssembly.SolutionName))
                 {
                     targetSolutionName = pluginAssembly.SolutionName;
-
                 }
                 else if (!string.IsNullOrEmpty(manifest.SolutionName))
                 {
                     targetSolutionName = manifest.SolutionName;
                 }
 
-                t.Debug($"Processing Assembly FriendlyName = {pluginAssembly.FriendlyName}");
-                var pluginAssemblyInfo = new PluginAssemblyInfo(pluginAssembly.Assembly);
-
-                var assemblyEntity = new PluginAssembly()
-                {
-                    Name = pluginAssembly.Name,
-                    Culture = pluginAssemblyInfo.Culture,
-                    Version = pluginAssemblyInfo.Version,
-                    PublicKeyToken = pluginAssemblyInfo.PublicKeyToken,
-                    SourceType = PluginAssembly_SourceType.Database,// Only database supported for now
-                    IsolationMode = PluginAssembly_IsolationMode.Sandbox, // Only Sandbox supported for now
-                    Content = Convert.ToBase64String(File.ReadAllBytes(pluginAssembly.Assembly))
-                };
-
-                var existingAssemblyQuery = GetExistingAssemblyQuery(pluginAssembly.Name, pluginAssemblyInfo.Version);
-                if (manifest.Clobber)
-                {
-                    existingAssemblyQuery.DeleteSingleRecord(client);
-                }
-
-                var createdAssembly = assemblyEntity.CreateOrUpdate(client, existingAssemblyQuery);
+                t.Debug($"Registering Assembly {pluginAssembly.FriendlyName}");
+                var createdAssembly = pluginAssembly.Register(client);
                 t.Info($"Assembly {pluginAssembly.FriendlyName} registered with ID {createdAssembly.Id}");
 
                 SolutionWrapper.AddSolutionComponent(client, targetSolutionName, createdAssembly.Id, ComponentType.PluginAssembly);
@@ -74,18 +63,8 @@ namespace CloudAwesome.Xrm.Customisation
                 // 2. Register Plugins
                 foreach (var plugin in pluginAssembly.Plugins)
                 {
-                    t.Info($"PluginType FriendlyName = {plugin.FriendlyName}");
-
-                    var pluginType = new PluginType()
-                    {
-                        PluginAssemblyId = createdAssembly,
-                        TypeName = plugin.Name,
-                        FriendlyName = plugin.FriendlyName,
-                        Name = plugin.Name,
-                        Description = plugin.Description
-                    };
-
-                    var createdPluginType = pluginType.CreateOrUpdate(client, GetExistingPluginQuery(plugin.Name, createdAssembly.Id));
+                    t.Debug($"PluginType FriendlyName = {plugin.FriendlyName}");
+                    var createdPluginType = plugin.Register(client, createdAssembly);
                     t.Info($"Plugin {plugin.FriendlyName} registered with ID {createdPluginType.Id}");
 
                     if (plugin.Steps == null) continue;
@@ -95,33 +74,13 @@ namespace CloudAwesome.Xrm.Customisation
                     {
                         t.Debug($"Processing Step = {pluginStep.FriendlyName}");
 
-                        var sdkMessage = 
-                            GetSdkMessageQuery(pluginStep.Message).RetrieveSingleRecord(client);
-                        var sdkMessageFilter = 
-                            GetSdkMessageFilter(pluginStep.PrimaryEntity, sdkMessage.Id).RetrieveSingleRecord(client);
+                        var sdkMessage = GetSdkMessageQuery(pluginStep.Message).RetrieveSingleRecord(client);
+                        var sdkMessageFilter = GetSdkMessageFilter(pluginStep.PrimaryEntity, sdkMessage.Id).RetrieveSingleRecord(client);
 
-                        var sdkStep = new SdkMessageProcessingStep()
-                        {
-                            Name = pluginStep.Name,
-                            Configuration = pluginStep.UnsecureConfiguration,
-                            Mode = pluginStep.ExecutionMode,
-                            Rank = pluginStep.ExecutionOrder,
-                            Stage = pluginStep.Stage,
-                            SupportedDeployment = SdkMessageProcessingStep_SupportedDeployment.ServerOnly, // Only ServerOnly supported
-                            EventHandler = createdPluginType,
-                            SdkMessageId = sdkMessage.ToEntityReference(),
-                            Description = pluginStep.Description,
-                            AsyncAutoDelete = pluginStep.AsyncAutoDelete,
-                            SdkMessageFilterId = sdkMessageFilter.ToEntityReference()
-                            // TODO loop through attributes to create a single string?
-                            //FilteringAttributes = step.FilteringAttributes.
-                        };
-
-                        var createdStep = sdkStep.CreateOrUpdate(client, GetExistingPluginStepQuery(createdPluginType.Id, sdkMessage.Id));
+                        var createdStep = pluginStep.Register(client, createdPluginType, sdkMessage.ToEntityReference(), sdkMessageFilter.ToEntityReference());
                         t.Info($"Plugin step {pluginStep.FriendlyName} registered with ID {createdStep.Id}");
 
-                        SolutionWrapper.AddSolutionComponent(client, targetSolutionName,
-                            createdStep.Id, ComponentType.SDKMessageProcessingStep);
+                        SolutionWrapper.AddSolutionComponent(client, targetSolutionName, createdStep.Id, ComponentType.SDKMessageProcessingStep);
                         t.Debug($"Plugin Step {pluginStep.FriendlyName} added to solution {targetSolutionName}");
 
                         // 4. Register Entity Images
@@ -129,19 +88,7 @@ namespace CloudAwesome.Xrm.Customisation
                         foreach (var entityImage in pluginStep.EntityImages)
                         {
                             t.Debug($"Processing Entity Image = {entityImage.Name}");
-
-                            var stepImage = new SdkMessageProcessingStepImage()
-                            {
-                                Name = entityImage.Name,
-                                EntityAlias = entityImage.Name,
-                                Attributes1 = string.Join(",", entityImage.Attributes),
-                                ImageType = SdkMessageProcessingStepImage_ImageType.PreImage,
-                                MessagePropertyName = "Target",
-                                SdkMessageProcessingStepId = createdStep
-                            };
-
-                            var createdImage = stepImage.CreateOrUpdate(client,
-                                GetExistingEntityImageQuery(entityImage.Name, createdStep.Id));
+                            var createdImage = entityImage.Register(client, createdStep);
                             t.Info($"Entity image {entityImage.Name} registered with ID {createdImage}");
 
                         }
@@ -151,89 +98,53 @@ namespace CloudAwesome.Xrm.Customisation
             t.Debug($"Exiting PluginWrapper.RegisterPlugins");
         }
 
-        private static QueryBase GetExistingAssemblyQuery(string assemblyName, string assemblyVersion)
+        public void UnregisterPlugins(PluginManifest manifest, IOrganizationService client)
         {
-            return new QueryExpression()
-            {
-                EntityName = PluginAssembly.EntityLogicalName,
-                ColumnSet = new ColumnSet(PluginAssembly.PrimaryIdAttribute, PluginAssembly.PrimaryNameAttribute),
-                Criteria = new FilterExpression()
-                {
-                    Conditions =
-                    {
-                        new ConditionExpression(PluginAssembly.PrimaryNameAttribute, ConditionOperator.Equal, assemblyName),
-                        new ConditionExpression(PluginAssembly.Fields.Version, ConditionOperator.Equal, assemblyVersion)
-                    }
-                }
-            };
+            UnregisterPlugins(manifest, client, null);
         }
 
-        private static QueryBase GetExistingPluginQuery(string pluginName, Guid parentAssemblyId)
+        public void UnregisterPlugins(PluginManifest manifest, IOrganizationService client, ILogger logger)
         {
-            return new QueryExpression()
-            {
-                EntityName = PluginType.EntityLogicalName,
-                ColumnSet = new ColumnSet(PluginType.PrimaryIdAttribute, PluginType.PrimaryNameAttribute),
-                Criteria = new FilterExpression()
-                {
-                    Conditions =
-                    {
-                        new ConditionExpression(PluginType.PrimaryNameAttribute, ConditionOperator.Equal, pluginName),
-                        new ConditionExpression(PluginType.Fields.PluginAssemblyId, ConditionOperator.Equal, parentAssemblyId)
-                    }
-                }
-            };
-        }
+            // God awful initial version in need of some refactoring!! :)
 
-        private static QueryBase GetExistingPluginStepQuery(Guid parentPluginType, Guid sdkMessage)
-        {
-            return new QueryExpression(SdkMessageProcessingStep.EntityLogicalName)
+            var t = new TracingHelper(logger);
+            t.Debug($"Entering PluginWrapper.UnregisterPlugins");
+            
+            foreach (var pluginAssembly in manifest.PluginAssemblies)
             {
-                ColumnSet = new ColumnSet(SdkMessageProcessingStep.PrimaryIdAttribute,
-                    SdkMessageProcessingStep.PrimaryNameAttribute),
-                Criteria = new FilterExpression()
-                {
-                    Conditions =
-                    {
-                        new ConditionExpression(SdkMessageProcessingStep.Fields.EventHandler, ConditionOperator.Equal, parentPluginType),
-                        new ConditionExpression(SdkMessageProcessingStep.Fields.SdkMessageId, ConditionOperator.Equal, sdkMessage),
-                        new ConditionExpression(SdkMessageProcessingStep.Fields.Stage, ConditionOperator.Equal,
-                            (int)SdkMessageProcessingStep_Stage.Postoperation),
-                    }
-                }
-            };
-        }
+                var pluginAssemblyInfo = new PluginAssemblyInfo(pluginAssembly.Assembly);
+                var existingAssembly = pluginAssembly.GetExistingQuery(pluginAssemblyInfo.Version).RetrieveSingleRecord(client);
 
-        private static QueryBase GetExistingEntityImageQuery(string entityImageName, Guid parentPluginStep)
-        {
-            return new QueryExpression(SdkMessageProcessingStepImage.EntityLogicalName)
-            {
-                ColumnSet = new ColumnSet(SdkMessageProcessingStepImage.PrimaryIdAttribute,
-                    SdkMessageProcessingStep.PrimaryNameAttribute),
-                Criteria = new FilterExpression()
-                {
-                    Conditions =
-                    {
-                        new ConditionExpression(SdkMessageProcessingStepImage.PrimaryNameAttribute,
-                            ConditionOperator.Equal, entityImageName),
-                        new ConditionExpression(SdkMessageProcessingStep.PrimaryIdAttribute,
-                            ConditionOperator.Equal, parentPluginStep)
-                    }
-                }
-            };
+                if (existingAssembly == null) return;
+
+                var childPluginTypesResults = GetChildPluginTypes(client, existingAssembly.ToEntityReference()).RetrieveMultiple(client);
+                var pluginsList = childPluginTypesResults.Entities.Select(e => e.Id).ToList();
+
+                var childStepsResults = GetChildPluginSteps(client, pluginsList).RetrieveMultiple(client);
+                var pluginStepsList = childStepsResults.Entities.Select(e => e.Id).ToList();
+
+                GetChildEntityImages(client, pluginStepsList).DeleteAllResults(client);
+
+                GetChildPluginSteps(client, pluginsList).DeleteAllResults(client);
+                GetChildPluginTypes(client, existingAssembly.ToEntityReference()).DeleteAllResults(client);
+                pluginAssembly.GetExistingQuery(pluginAssemblyInfo.Version).DeleteSingleRecord(client);
+
+            }
+            t.Debug($"Exiting PluginWrapper.UnregisterPlugins");
         }
 
         private static QueryBase GetSdkMessageQuery(string sdkMessageName)
         {
             return new QueryExpression(SdkMessage.EntityLogicalName)
             {
-                ColumnSet = new ColumnSet(SdkMessage.PrimaryIdAttribute, SdkMessage.PrimaryNameAttribute),
+                ColumnSet = new ColumnSet(SdkMessage.PrimaryIdAttribute, 
+                    SdkMessage.PrimaryNameAttribute),
                 Criteria = new FilterExpression()
                 {
                     Conditions =
                     {
-                        new ConditionExpression(SdkMessage.PrimaryNameAttribute, ConditionOperator.Equal,
-                            sdkMessageName)
+                        new ConditionExpression(SdkMessage.PrimaryNameAttribute, 
+                            ConditionOperator.Equal, sdkMessageName)
                     }
                 }
             };
@@ -258,5 +169,52 @@ namespace CloudAwesome.Xrm.Customisation
             };
         }
 
+        private static QueryBase GetChildPluginTypes(IOrganizationService client, EntityReference existingAssembly)
+        {
+            return new QueryByAttribute()
+            {
+                EntityName = PluginType.EntityLogicalName,
+                ColumnSet = new ColumnSet(PluginType.PrimaryIdAttribute,
+                    PluginType.PrimaryNameAttribute),
+                Attributes = { PluginType.Fields.PluginAssemblyId },
+                Values = { existingAssembly.Id }
+            };
+        }
+
+        private static QueryBase GetChildPluginSteps(IOrganizationService client, List<Guid> parentPluginsList)
+        {
+            return new QueryExpression()
+            {
+                EntityName = SdkMessageProcessingStep.EntityLogicalName,
+                ColumnSet = new ColumnSet(SdkMessageProcessingStep.PrimaryIdAttribute,
+                    SdkMessageProcessingStep.PrimaryNameAttribute),
+                Criteria = new FilterExpression()
+                {
+                    Conditions =
+                    {
+                        new ConditionExpression(SdkMessageProcessingStep.Fields.PluginTypeId,
+                            ConditionOperator.In, parentPluginsList)
+                    }
+                }
+            };
+        }
+
+        private static QueryBase GetChildEntityImages(IOrganizationService client, List<Guid> parentStepsList)
+        {
+            return new QueryExpression()
+            {
+                EntityName = SdkMessageProcessingStepImage.EntityLogicalName,
+                ColumnSet = new ColumnSet(SdkMessageProcessingStepImage.PrimaryIdAttribute,
+                    SdkMessageProcessingStepImage.PrimaryNameAttribute),
+                Criteria = new FilterExpression()
+                {
+                    Conditions =
+                    {
+                        new ConditionExpression(SdkMessageProcessingStepImage.Fields.SdkMessageProcessingStepId,
+                            ConditionOperator.In, parentStepsList)
+                    }
+                }
+            };
+        }
     }
 }

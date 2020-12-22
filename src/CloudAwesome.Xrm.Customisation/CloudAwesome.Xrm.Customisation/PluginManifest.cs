@@ -9,6 +9,8 @@ namespace CloudAwesome.Xrm.Customisation
         public string SolutionName { get; set; }
         public bool Clobber { get; set; }
 
+        public LoggingConfiguration LoggingConfiguration { get; set; }
+
         public CdsConnection CdsConnection { get; set; }
 
         [XmlArrayItem("PluginAssembly")]
