@@ -1,12 +1,13 @@
-﻿using System.Xml.Serialization;
+﻿using System;
+using System.ServiceModel.Description;
+using System.Xml.Serialization;
+using CloudAwesome.Xrm.Core;
+using Microsoft.Xrm.Sdk;
+using Microsoft.Xrm.Sdk.Client;
+using Microsoft.Xrm.Sdk.Query;
 
 namespace CloudAwesome.Xrm.Customisation.Models
 {
-    public enum ServiceEndpointContract { Queue = 0, Topic = 1, OneWay = 2, TwoWay = 3, Rest = 4, EventHub = 5 }
-    public enum ServiceEndpointMessageFormat { NETBinary = 0, Json = 1, XML = 2 }
-    public enum ServiceEndpointAuthType { SASKey = 0, SASToken = 1 }
-    public enum ServiceEndpointUserClaim { None = 0, UserId = 1 }
-
     public class CdsServiceEndpoint
     {
         public string Name { get; set; }
@@ -14,23 +15,68 @@ namespace CloudAwesome.Xrm.Customisation.Models
         public string NamespaceAddress { get; set; }
 
         // aka DesignationType
-        public ServiceEndpointContract Contract { get; set; }
+        public ServiceEndpoint_Contract Contract { get; set; }
 
         public string Path { get; set; }
 
-        public ServiceEndpointMessageFormat MessageFormat { get; set; }
+        public ServiceEndpoint_MessageFormat MessageFormat { get; set; }
 
-        public ServiceEndpointAuthType AuthType { get; set; }
+        public ServiceEndpoint_AuthType AuthType { get; set; }
 
         public string SASKeyName { get; set; }
 
         public string SASKey { get; set; }
 
-        public ServiceEndpointUserClaim UserClaim { get; set; }
+        public ServiceEndpoint_UserClaim UserClaim { get; set; }
 
         public string Description { get; set; }
 
-        [XmlArrayItem("Plugin")]
-        public CdsPlugin[] Plugins { get; set; }
+        [XmlArrayItem("Step")]
+        public CdsPluginStep[] Steps { get; set; }
+
+        public EntityReference Register(IOrganizationService client)
+        {
+            var serviceEndpoint = new ServiceEndpoint()
+            {
+                Name = this.Name,
+                NamespaceAddress = this.NamespaceAddress,
+                NamespaceFormat = ServiceEndpoint_NamespaceFormat.NamespaceAddress,
+                Contract = this.Contract,
+                Path = this.Path,
+                MessageFormat = this.MessageFormat,
+                AuthType = ServiceEndpoint_AuthType.SASKey,
+                SASKeyName = this.SASKeyName,
+                SASKey = this.SASKey,
+                Description = this.Description,
+                UserClaim = ServiceEndpoint_UserClaim.None,
+            };
+
+            var existingServiceEndpointQuery = this.GetExistingServiceEndpoint();
+            
+            return serviceEndpoint.CreateOrUpdate(client, existingServiceEndpointQuery);
+        }
+
+        public void Unregister()
+        {
+            throw new NotImplementedException();
+        }
+
+        public QueryBase GetExistingServiceEndpoint()
+        {
+            return new QueryExpression()
+            {
+                EntityName = ServiceEndpoint.EntityLogicalName,
+                ColumnSet = new ColumnSet(ServiceEndpoint.PrimaryIdAttribute, 
+                    ServiceEndpoint.PrimaryNameAttribute),
+                Criteria = new FilterExpression()
+                {
+                    Conditions =
+                    {
+                        new ConditionExpression(ServiceEndpoint.PrimaryNameAttribute, 
+                            ConditionOperator.Equal, this.Name)
+                    }
+                }
+            };
+        }
     }
 }

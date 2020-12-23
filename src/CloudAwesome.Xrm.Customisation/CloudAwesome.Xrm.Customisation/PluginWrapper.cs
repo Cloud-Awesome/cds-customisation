@@ -100,6 +100,34 @@ namespace CloudAwesome.Xrm.Customisation
                     }
                 }
             }
+
+            // 1. Register Service Endpoints
+            foreach (var serviceEndpoint in manifest.ServiceEndpoints)
+            {
+                // TODO - logging, as above
+                // TODO - probably want to extract this out into a new method, not RegisterPlugins....
+                // TODO - does the second step overwrite the first? Needs extra filter criteria? Or are you just ready for nod... ;)
+                // Above would close #10 (well, depends on testing and documentation and that old gumpf...)
+
+                var createdEndpoint = serviceEndpoint.Register(client);
+
+                // 2. Register Steps
+                foreach (var step in serviceEndpoint.Steps)
+                {
+                    var sdkMessage = GetSdkMessageQuery(step.Message).RetrieveSingleRecord(client);
+                    var sdkMessageFilter = GetSdkMessageFilter(step.PrimaryEntity, sdkMessage.Id).RetrieveSingleRecord(client);
+
+                    var createdStep = step.Register(client, createdEndpoint, sdkMessage.ToEntityReference(), sdkMessageFilter.ToEntityReference());
+
+                    // 3. register Entity Images
+                    if (step.EntityImages == null) continue;
+                    foreach (var entityImage in step.EntityImages)
+                    {
+                        var createdImage = entityImage.Register(client, createdStep);
+                    }
+                }
+            }
+
             t.Debug($"Exiting PluginWrapper.RegisterPlugins");
         }
 
@@ -111,8 +139,7 @@ namespace CloudAwesome.Xrm.Customisation
         public void UnregisterPlugins(PluginManifest manifest, IOrganizationService client, ILogger logger)
         {
             // God awful initial version in need of some refactoring!! :)
-            // TODO - Cut out if no child are returned (e.g. no images) #9
-
+            
             var t = new TracingHelper(logger);
             t.Debug($"Entering PluginWrapper.UnregisterPlugins");
             
@@ -143,6 +170,12 @@ namespace CloudAwesome.Xrm.Customisation
                 pluginAssembly.GetExistingQuery(pluginAssemblyInfo.Version).DeleteSingleRecord(client);
 
             }
+
+            foreach (var serviceEndpoint in manifest.ServiceEndpoints)
+            {
+                
+            }
+
             t.Debug($"Exiting PluginWrapper.UnregisterPlugins");
         }
 
