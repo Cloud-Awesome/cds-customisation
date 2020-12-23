@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web.Hosting;
 using CloudAwesome.Xrm.Core;
 using CloudAwesome.Xrm.Customisation.Models;
 using Microsoft.Extensions.Logging;
@@ -12,6 +11,16 @@ namespace CloudAwesome.Xrm.Customisation
 {
     public class PluginWrapper
     {
+        private List<string> validationErrors = new List<string>();
+        
+        public List<string> ValidateManifest(PluginManifest manifest)
+        {
+            // TODO - verify existence all messages, entities and filters before continue #4
+            // TODO - if queried messages etc above, then you can extract the queries in loops below to save on hits to the API
+
+            return validationErrors;
+        }
+
         /// <summary>
         /// Loops through each PluginAssembly in the manifest and registers all assemblies, plugins, steps and images
         /// </summary>
@@ -33,9 +42,6 @@ namespace CloudAwesome.Xrm.Customisation
             var t = new TracingHelper(logger);
             t.Debug($"Entering PluginWrapper.RegisterPlugins");
 
-            // TODO - verify existence all messages, entities and filters before continue #4
-            // TODO - if queried messages etc above, then you can extract the queries in loops below to save on hits to the API
-            
             if (manifest.Clobber)
             {
                 t.Info($"Manifest has 'Clobber' set to true. Deleting referenced Plugins before re-registering");

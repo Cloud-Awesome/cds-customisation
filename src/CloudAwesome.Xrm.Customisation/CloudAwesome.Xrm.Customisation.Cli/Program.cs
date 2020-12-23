@@ -30,6 +30,15 @@ namespace CloudAwesome.Xrm.Customisation.Cli
                     var consoleLogger = new ConsoleLogger(LogLevel.Debug);
 
                     var pluginWrapper = new PluginWrapper();
+                    var validationOutput = pluginWrapper.ValidateManifest(manifest);
+
+                    if (validationOutput.Count > 0)
+                    {
+                        //  TODO - Output the errors
+
+                        return;
+                    }
+
                     pluginWrapper.RegisterPlugins(manifest, client, consoleLogger);
                     pluginWrapper.RegisterServiceEndpoints(manifest, client, consoleLogger);
 

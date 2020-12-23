@@ -178,6 +178,9 @@
     <None Include="app.config" />
     <None Include="CloudAwesome.Xrm.Customisation.nuspec" />
     <None Include="packages.config" />
+    <None Include="plugin-manifest.xsd">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

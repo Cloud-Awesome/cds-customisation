@@ -1,0 +1,238 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:simpleType name="ConnectionType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="AppRegistration"/>
+      <xs:enumeration value="ConnectionString"/>
+      <xs:enumeration value="UserNameAndPassword"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="LogLevel">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Trace"/>
+      <xs:enumeration value="Debug"/>
+      <xs:enumeration value="Information"/>
+      <xs:enumeration value="Warning"/>
+      <xs:enumeration value="Error"/>
+      <xs:enumeration value="Critical"/>
+      <xs:enumeration value="None"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="SdkProcessingStage">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Postoperation"/>
+      <xs:enumeration value="Preoperation"/>
+      <xs:enumeration value="Prevalidation"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="SdkExecutionMode">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Synchronous"/>
+      <xs:enumeration value="Asynchronous"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="EndpointContract">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Queue_Persistent"/>
+      <xs:enumeration value="Topic"/>
+      <xs:enumeration value="EventHub"/>
+      <xs:enumeration value="Webhook"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="MessageFormat">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Json"/>
+      <xs:enumeration value="BinaryXML"/>
+      <xs:enumeration value="TextXML"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:element name="PluginManifest">
+    <xs:complexType>
+      <xs:all>
+        <xs:element name="SolutionName" type="xs:string" minOccurs="0" />
+        <xs:element name="Clobber" type="xs:boolean" minOccurs="0" />
+        <xs:element name="UpdateAssemblyOnly" type="xs:boolean" minOccurs="0" />
+        <xs:element name="CdsConnection" maxOccurs="1" minOccurs="0">
+          <xs:complexType>
+            <xs:all>
+              <xs:element name="ConnectionType" type="ConnectionType" default="AppRegistration" />
+              <xs:element name="CdsConnectionString" type="xs:string" minOccurs="0" />
+              <xs:element name="CdsUrl" type="xs:string" minOccurs="0" />
+              <xs:element name="CdsUserName" type="xs:string" minOccurs="0" />
+              <xs:element name="CdsPassword" type="xs:string" minOccurs="0" />
+              <xs:element name="CdsAppId" type="xs:string" minOccurs="0" />
+              <xs:element name="CdsAppSecret" type="xs:string" minOccurs="0" />
+            </xs:all>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="LoggingConfiguration" maxOccurs="1" minOccurs="0">
+          <xs:complexType>
+            <xs:all>
+              <xs:element name="LoggingConfigurationType" type="xs:string" default="Console" />
+              <xs:element name="LogLevelToTrace" type="LogLevel" />
+              <xs:element name="TestFileOutputPath" type="xs:string" minOccurs="0" />
+              <xs:element name="ApplicationInsightsConnectionString" type="xs:string" minOccurs="0" />
+            </xs:all>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="PluginAssemblies" maxOccurs="1" minOccurs="0">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element maxOccurs="unbounded" minOccurs="0" name="PluginAssembly">
+                <xs:complexType>
+                  <xs:all>
+                    <xs:element name="Name" type="xs:string" />
+                    <xs:element name="FriendlyName" type="xs:string" />
+                    <xs:element name="Assembly" type="xs:string" />
+                    <xs:element name="SolutionName" type="xs:string" minOccurs="0" />
+                    <xs:element name="Plugins" maxOccurs="1">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element maxOccurs="unbounded" name="Plugin">
+                            <xs:complexType>
+                              <xs:all>
+                                <xs:element name="Name" type="xs:string" />
+                                <xs:element name="FriendlyName" type="xs:string" />
+                                <xs:element name="Description" type="xs:string" minOccurs="0" />
+                                <xs:element name="Steps" maxOccurs="1">
+                                  <xs:complexType>
+                                    <xs:sequence>
+                                      <xs:element maxOccurs="unbounded" name="Step">
+                                        <xs:complexType>
+                                          <xs:all>
+                                            <xs:element name="Name" type="xs:string" />
+                                            <xs:element name="FriendlyName" type="xs:string" />
+                                            <xs:element name="Description" type="xs:string" minOccurs="0" />
+                                            <xs:element name="Stage" type="SdkProcessingStage" />
+                                            <xs:element name="ExecutionMode" type="SdkExecutionMode" default="Asynchronous" />
+                                            <xs:element name="Message" type="xs:string" />
+                                            <xs:element name="PrimaryEntity" type="xs:string" />
+                                            <xs:element name="ExecutionOrder" type="xs:unsignedByte" />
+                                            <xs:element name="AsyncAutoDelete" type="xs:boolean" default="true" />
+                                            <xs:element name="FilteringAttributes" minOccurs="0">
+                                              <xs:complexType>
+                                                <xs:sequence>
+                                                  <xs:element maxOccurs="unbounded" name="Attribute" type="xs:string" />
+                                                </xs:sequence>
+                                              </xs:complexType>
+                                            </xs:element>
+                                            <xs:element name="UnsecureConfiguration" type="xs:string" minOccurs="0" />
+                                            <xs:element name="SecureConfiguration" type="xs:string" minOccurs="0" />
+                                            <xs:element minOccurs="0" name="EntityImages">
+                                              <xs:complexType>
+                                                <xs:sequence>
+                                                  <xs:element name="EntityImage">
+                                                    <xs:complexType>
+                                                      <xs:sequence>
+                                                        <xs:element name="Name" type="xs:string" />
+                                                        <xs:element name="Type" type="xs:string" />
+                                                        <xs:element name="Attributes">
+                                                          <xs:complexType>
+                                                            <xs:sequence>
+                                                              <xs:element maxOccurs="unbounded" name="Attribute" type="xs:string" />
+                                                            </xs:sequence>
+                                                          </xs:complexType>
+                                                        </xs:element>
+                                                      </xs:sequence>
+                                                    </xs:complexType>
+                                                  </xs:element>
+                                                </xs:sequence>
+                                              </xs:complexType>
+                                            </xs:element>
+                                          </xs:all>
+                                        </xs:complexType>
+                                      </xs:element>
+                                    </xs:sequence>
+                                  </xs:complexType>
+                                </xs:element>
+                              </xs:all>
+                            </xs:complexType>
+                          </xs:element>
+                        </xs:sequence>
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:all>
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="ServiceEndpoints" maxOccurs="1" minOccurs="0">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element maxOccurs="unbounded" name="ServiceEndpoint">
+                <xs:complexType>
+                  <xs:all>
+                    <xs:element name="Name" type="xs:string" />
+                    <xs:element name="NamespaceAddress" type="xs:string" />
+                    <xs:element name="Contract" type="EndpointContract" default="Queue_Persistent" />
+                    <xs:element name="Path" type="xs:string" />
+                    <xs:element name="MessageFormat" type="MessageFormat" default="Json" />
+                    <xs:element name="AuthType" type="xs:string" default="SASKey" />
+                    <xs:element name="SASKeyName" type="xs:string" />
+                    <xs:element name="SASKey" type="xs:string" />
+                    <xs:element name="UserClaim" type="xs:string" />
+                    <xs:element name="Description" type="xs:string" minOccurs="0" />
+                    <xs:element name="Steps">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element maxOccurs="unbounded" name="Step" minOccurs="1">
+                            <xs:complexType>
+                              <xs:sequence>
+                                <xs:element name="Name" type="xs:string" />
+                                <xs:element name="FriendlyName" type="xs:string"/>
+                                <xs:element name="Description" type="xs:string" minOccurs="0" />
+                                <xs:element name="Stage" type="SdkProcessingStage" />
+                                <xs:element name="ExecutionMode" type="SdkExecutionMode" fixed="Asynchronous" />
+                                <xs:element name="Message" type="xs:string" />
+                                <xs:element name="PrimaryEntity" type="xs:string" />
+                                <xs:element name="ExecutionOrder" type="xs:unsignedByte" />
+                                <xs:element name="AsyncAutoDelete" type="xs:boolean" default="true" />
+                                <xs:element name="FilteringAttributes" minOccurs="0">
+                                  <xs:complexType>
+                                    <xs:sequence>
+                                      <xs:element maxOccurs="unbounded" name="Attribute" type="xs:string" />
+                                    </xs:sequence>
+                                  </xs:complexType>
+                                </xs:element>
+                                <xs:element name="UnsecureConfiguration" type="xs:string" minOccurs="0" />
+                                <xs:element name="SecureConfiguration" type="xs:string" minOccurs="0" />
+                                <xs:element name="EntityImages" minOccurs="0">
+                                  <xs:complexType>
+                                    <xs:sequence>
+                                      <xs:element name="EntityImage">
+                                        <xs:complexType>
+                                          <xs:sequence>
+                                            <xs:element name="Name" type="xs:string" />
+                                            <xs:element name="Type" type="xs:string" />
+                                            <xs:element name="Attributes">
+                                              <xs:complexType>
+                                                <xs:sequence>
+                                                  <xs:element maxOccurs="unbounded" name="Attribute" type="xs:string" />
+                                                </xs:sequence>
+                                              </xs:complexType>
+                                            </xs:element>
+                                          </xs:sequence>
+                                        </xs:complexType>
+                                      </xs:element>
+                                    </xs:sequence>
+                                  </xs:complexType>
+                                </xs:element>
+                              </xs:sequence>
+                            </xs:complexType>
+                          </xs:element>
+                        </xs:sequence>
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:all>
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="Webhooks" minOccurs="0" />
+        <xs:element name="Workflows" minOccurs="0" />
+      </xs:all>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>
