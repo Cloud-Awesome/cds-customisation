@@ -1,4 +1,6 @@
-﻿namespace CloudAwesome.Xrm.Customisation.Models
+﻿using System.Xml.Serialization;
+
+namespace CloudAwesome.Xrm.Customisation.Models
 {
     public class CdsModelDrivenApp
     {

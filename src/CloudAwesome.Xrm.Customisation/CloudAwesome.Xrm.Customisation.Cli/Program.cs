@@ -68,6 +68,25 @@ namespace CloudAwesome.Xrm.Customisation.Cli
 
                 case CommandLineActions.ActionOptions.GenerateCustomisations:
                     Console.WriteLine("I'm generating entities and stuff now!!");
+
+                    var manifest3 = SerialisationWrapper.DeserialiseFromFile<ConfigurationManifest>(options.Manifest);
+                    var client3 = XrmClient.GetCrmServiceClientFromManifestConfiguration(manifest3.CdsConnection);
+
+                    // Temp until LoggingConfiguration is resolved in .Core
+                    var consoleLogger2 = new ConsoleLogger(LogLevel.Debug);
+
+                    if (manifest3.LoggingConfiguration == null)
+                    {
+                        manifest3.LoggingConfiguration = new LoggingConfiguration()
+                        {
+                            LoggerConfigurationType = LoggerConfigurationType.Console,
+                            LogLevelToTrace = LogLevel.Information
+                        };
+                    }
+
+                    var configurationWrapper = new ConfigurationWrapper();
+                    configurationWrapper.GenerateCustomisations(manifest3, client3, consoleLogger2);
+
                     Console.WriteLine("Only joking, this action hasn't been implemented yet. Soz");
                     break;
 

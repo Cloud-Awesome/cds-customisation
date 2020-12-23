@@ -136,6 +136,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ConfigurationManifest.cs" />
+    <Compile Include="ConfigurationWrapper.cs" />
     <Compile Include="EarlyBoundModels\AppElement.cs" />
     <Compile Include="EarlyBoundModels\AppModule.cs" />
     <Compile Include="EarlyBoundModels\AppModuleComponent.cs" />
