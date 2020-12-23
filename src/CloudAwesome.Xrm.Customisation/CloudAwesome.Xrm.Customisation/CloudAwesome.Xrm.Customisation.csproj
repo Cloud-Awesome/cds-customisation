@@ -135,6 +135,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ConfigurationManifest.cs" />
     <Compile Include="EarlyBoundModels\AppElement.cs" />
     <Compile Include="EarlyBoundModels\AppModule.cs" />
     <Compile Include="EarlyBoundModels\AppModuleComponent.cs" />
@@ -160,11 +161,21 @@
     <Compile Include="EarlyBoundModels\SdkMessageResponseField.cs" />
     <Compile Include="EarlyBoundModels\ServiceEndpoint.cs" />
     <Compile Include="EarlyBoundModels\SiteMap.cs" />
+    <Compile Include="Models\CdsAttribute.cs" />
+    <Compile Include="Models\CdsEntity.cs" />
     <Compile Include="Models\CdsEntityImage.cs" />
+    <Compile Include="Models\CdsEntityPermission.cs" />
+    <Compile Include="Models\CdsModelDrivenApp.cs" />
+    <Compile Include="Models\CdsOptionSet.cs" />
     <Compile Include="Models\CdsPlugin.cs" />
     <Compile Include="Models\CdsPluginAssembly.cs" />
     <Compile Include="Models\CdsPluginStep.cs" />
+    <Compile Include="Models\CdsSecurityRole.cs" />
     <Compile Include="Models\CdsServiceEndpoint.cs" />
+    <Compile Include="Models\CdsSiteMap.cs" />
+    <Compile Include="Models\CdsSiteMapArea.cs" />
+    <Compile Include="Models\CdsSiteMapGroup.cs" />
+    <Compile Include="Models\CdsSiteMapSubArea.cs" />
     <Compile Include="Models\CdsWebhook.cs" />
     <Compile Include="Models\CdsWorkflowAssembly.cs" />
     <Compile Include="Models\PluginAssemblyInfo.cs" />
