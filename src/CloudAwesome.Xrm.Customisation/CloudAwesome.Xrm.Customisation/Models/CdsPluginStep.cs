@@ -56,7 +56,7 @@ namespace CloudAwesome.Xrm.Customisation.Models
                 FilteringAttributes = string.Join(",", this.FilteringAttributes)
             };
 
-            var existingStepQuery = this.GetExistingQuery(parentPluginType.Id, sdkMessage.Id);
+            var existingStepQuery = this.GetExistingQuery(parentPluginType.Id, sdkMessage.Id, sdkMessageFilter.Id);
 
             return step.CreateOrUpdate(client, existingStepQuery);
         }
@@ -66,7 +66,7 @@ namespace CloudAwesome.Xrm.Customisation.Models
             throw new NotImplementedException();
         }
 
-        public QueryBase GetExistingQuery(Guid parentPluginType, Guid sdkMessage)
+        public QueryBase GetExistingQuery(Guid parentPluginType, Guid sdkMessage, Guid sdkMessageFilter)
         {
             return new QueryExpression(SdkMessageProcessingStep.EntityLogicalName)
             {
@@ -78,8 +78,10 @@ namespace CloudAwesome.Xrm.Customisation.Models
                     {
                         new ConditionExpression(SdkMessageProcessingStep.Fields.EventHandler, ConditionOperator.Equal, parentPluginType),
                         new ConditionExpression(SdkMessageProcessingStep.Fields.SdkMessageId, ConditionOperator.Equal, sdkMessage),
+                        new ConditionExpression(SdkMessageProcessingStep.Fields.SdkMessageFilterId,
+                            ConditionOperator.Equal, sdkMessageFilter),
                         new ConditionExpression(SdkMessageProcessingStep.Fields.Stage, ConditionOperator.Equal,
-                            (int)SdkMessageProcessingStep_Stage.Postoperation),
+                            (int)this.Stage),
                     }
                 }
             };

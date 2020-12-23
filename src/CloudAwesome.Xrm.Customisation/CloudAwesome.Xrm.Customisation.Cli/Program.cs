@@ -31,6 +31,7 @@ namespace CloudAwesome.Xrm.Customisation.Cli
 
                     var pluginWrapper = new PluginWrapper();
                     pluginWrapper.RegisterPlugins(manifest, client, consoleLogger);
+                    pluginWrapper.RegisterServiceEndpoints(manifest, client, consoleLogger);
 
                     Console.WriteLine("Plugin registration completed! Woop! =D");
                     break;

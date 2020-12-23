@@ -1,9 +1,7 @@
 ﻿using System;
-using System.ServiceModel.Description;
 using System.Xml.Serialization;
 using CloudAwesome.Xrm.Core;
 using Microsoft.Xrm.Sdk;
-using Microsoft.Xrm.Sdk.Client;
 using Microsoft.Xrm.Sdk.Query;
 
 namespace CloudAwesome.Xrm.Customisation.Models
@@ -14,7 +12,8 @@ namespace CloudAwesome.Xrm.Customisation.Models
 
         public string NamespaceAddress { get; set; }
 
-        // aka DesignationType
+        // aka DesignationType,
+        //  only Persistent_Queue is currently supported
         public ServiceEndpoint_Contract Contract { get; set; }
 
         public string Path { get; set; }
@@ -48,7 +47,7 @@ namespace CloudAwesome.Xrm.Customisation.Models
                 SASKeyName = this.SASKeyName,
                 SASKey = this.SASKey,
                 Description = this.Description,
-                UserClaim = ServiceEndpoint_UserClaim.None,
+                UserClaim = this.UserClaim,
             };
 
             var existingServiceEndpointQuery = this.GetExistingServiceEndpoint();

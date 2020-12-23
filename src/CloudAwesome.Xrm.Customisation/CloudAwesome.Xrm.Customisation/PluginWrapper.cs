@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Web.Hosting;
 using CloudAwesome.Xrm.Core;
 using CloudAwesome.Xrm.Customisation.Models;
 using Microsoft.Extensions.Logging;
@@ -80,7 +81,7 @@ namespace CloudAwesome.Xrm.Customisation
                         t.Debug($"Processing Step = {pluginStep.FriendlyName}");
 
                         var sdkMessage = GetSdkMessageQuery(pluginStep.Message).RetrieveSingleRecord(client);
-                        var sdkMessageFilter = GetSdkMessageFilter(pluginStep.PrimaryEntity, sdkMessage.Id).RetrieveSingleRecord(client);
+                        var sdkMessageFilter = GetSdkMessageFilterQuery(pluginStep.PrimaryEntity, sdkMessage.Id).RetrieveSingleRecord(client);
 
                         var createdStep = pluginStep.Register(client, createdPluginType, sdkMessage.ToEntityReference(), sdkMessageFilter.ToEntityReference());
                         t.Info($"Plugin step {pluginStep.FriendlyName} registered with ID {createdStep.Id}");
@@ -101,32 +102,7 @@ namespace CloudAwesome.Xrm.Customisation
                 }
             }
 
-            // 1. Register Service Endpoints
-            foreach (var serviceEndpoint in manifest.ServiceEndpoints)
-            {
-                // TODO - logging, as above
-                // TODO - probably want to extract this out into a new method, not RegisterPlugins....
-                // TODO - does the second step overwrite the first? Needs extra filter criteria? Or are you just ready for nod... ;)
-                // Above would close #10 (well, depends on testing and documentation and that old gumpf...)
-
-                var createdEndpoint = serviceEndpoint.Register(client);
-
-                // 2. Register Steps
-                foreach (var step in serviceEndpoint.Steps)
-                {
-                    var sdkMessage = GetSdkMessageQuery(step.Message).RetrieveSingleRecord(client);
-                    var sdkMessageFilter = GetSdkMessageFilter(step.PrimaryEntity, sdkMessage.Id).RetrieveSingleRecord(client);
-
-                    var createdStep = step.Register(client, createdEndpoint, sdkMessage.ToEntityReference(), sdkMessageFilter.ToEntityReference());
-
-                    // 3. register Entity Images
-                    if (step.EntityImages == null) continue;
-                    foreach (var entityImage in step.EntityImages)
-                    {
-                        var createdImage = entityImage.Register(client, createdStep);
-                    }
-                }
-            }
+            
 
             t.Debug($"Exiting PluginWrapper.RegisterPlugins");
         }
@@ -150,33 +126,116 @@ namespace CloudAwesome.Xrm.Customisation
 
                 if (existingAssembly == null) return;
 
-                var childPluginTypesResults = GetChildPluginTypes(client, existingAssembly.ToEntityReference()).RetrieveMultiple(client);
+                var childPluginTypesResults = GetChildPluginTypesQuery(existingAssembly.ToEntityReference()).RetrieveMultiple(client);
                 var pluginsList = childPluginTypesResults.Entities.Select(e => e.Id).ToList();
 
-                var childStepsResults = GetChildPluginSteps(client, pluginsList).RetrieveMultiple(client);
+                var childStepsResults = GetChildPluginStepsQuery(pluginsList).RetrieveMultiple(client);
                 var pluginStepsList = childStepsResults.Entities.Select(e => e.Id).ToList();
 
                 if (pluginStepsList.Count > 0)
                 {
-                    GetChildEntityImages(client, pluginStepsList).DeleteAllResults(client);
+                    GetChildEntityImagesQuery(pluginStepsList).DeleteAllResults(client);
                 }
 
                 if (pluginsList.Count > 0)
                 {
-                    GetChildPluginSteps(client, pluginsList).DeleteAllResults(client);
+                    GetChildPluginStepsQuery(pluginsList).DeleteAllResults(client);
                 }
 
-                GetChildPluginTypes(client, existingAssembly.ToEntityReference()).DeleteAllResults(client);
+                GetChildPluginTypesQuery(existingAssembly.ToEntityReference()).DeleteAllResults(client);
                 pluginAssembly.GetExistingQuery(pluginAssemblyInfo.Version).DeleteSingleRecord(client);
 
             }
 
-            foreach (var serviceEndpoint in manifest.ServiceEndpoints)
+            t.Debug($"Exiting PluginWrapper.UnregisterPlugins");
+        }
+
+        public void RegisterServiceEndpoints(PluginManifest manifest, IOrganizationService client)
+        {
+            RegisterServiceEndpoints(manifest, client, null);
+        }
+
+        public void RegisterServiceEndpoints(PluginManifest manifest, IOrganizationService client, ILogger logger)
+        {
+            var t = new TracingHelper(logger);
+            t.Debug($"Entering PluginWrapper.RegisterServiceEndpoints");
+
+            if (manifest.Clobber)
             {
-                
+                t.Info($"Manifest has 'Clobber' set to true. Deleting referenced Plugins before re-registering");
+                this.UnregisterServiceEndPoints(manifest, client, logger);
             }
 
-            t.Debug($"Exiting PluginWrapper.UnregisterPlugins");
+            // 1. Register Service Endpoints
+            foreach (var serviceEndpoint in manifest.ServiceEndpoints)
+            {
+                t.Debug($"Registering Assembly {serviceEndpoint.Name}");
+                var createdEndpoint = serviceEndpoint.Register(client);
+                t.Info($"Assembly {serviceEndpoint.Name} registered with ID {createdEndpoint.Id}");
+
+                SolutionWrapper.AddSolutionComponent(client, manifest.SolutionName, createdEndpoint.Id, ComponentType.ServiceEndpoint);
+                t.Debug($"Plugin Step {serviceEndpoint.Name} added to solution {manifest.SolutionName}");
+
+                // 2. Register Steps
+                foreach (var step in serviceEndpoint.Steps)
+                {
+                    t.Debug($"Processing Step = {step.FriendlyName}");
+
+                    var sdkMessage = GetSdkMessageQuery(step.Message).RetrieveSingleRecord(client);
+                    var sdkMessageFilter = GetSdkMessageFilterQuery(step.PrimaryEntity, sdkMessage.Id).RetrieveSingleRecord(client);
+
+                    var createdStep = step.Register(client, createdEndpoint, sdkMessage.ToEntityReference(), sdkMessageFilter.ToEntityReference());
+                    t.Info($"Plugin step {step.FriendlyName} registered with ID {createdStep.Id}");
+
+                    if (manifest.SolutionName != null)
+                    {
+                        SolutionWrapper.AddSolutionComponent(client, manifest.SolutionName, createdStep.Id, ComponentType.SDKMessageProcessingStep);
+                        t.Debug($"Plugin Step {step.FriendlyName} added to solution {manifest.SolutionName}");
+                    }
+
+                    // 3. register Entity Images
+                    if (step.EntityImages == null) continue;
+                    foreach (var entityImage in step.EntityImages)
+                    {
+                        t.Debug($"Processing Entity Image = {entityImage.Name}");
+                        var createdImage = entityImage.Register(client, createdStep);
+                        t.Info($"Entity image {entityImage.Name} registered with ID {createdImage}");
+                    }
+                }
+            }
+
+            t.Debug($"Exiting PluginWrapper.RegisterServiceEndpoints");
+        }
+
+        public void UnregisterServiceEndPoints(PluginManifest manifest, IOrganizationService client)
+        {
+            UnregisterServiceEndPoints(manifest, client, null);
+        }
+
+        public void UnregisterServiceEndPoints(PluginManifest manifest, IOrganizationService client, ILogger logger)
+        {
+            var t = new TracingHelper(logger);
+            t.Debug($"Entering PluginWrapper.UnregisterServiceEndPoints");
+
+            foreach (var serviceEndpoint in manifest.ServiceEndpoints)
+            {
+                var existingEndpoint = serviceEndpoint.GetExistingServiceEndpoint().RetrieveSingleRecord(client);
+                if (existingEndpoint == null) return;
+
+                var childStepsResults =
+                    GetChildPluginStepsQuery(existingEndpoint.ToEntityReference()).RetrieveMultiple(client);
+                var childStepsList = childStepsResults.Entities.Select(e => e.Id).ToList();
+
+                if (childStepsList.Count > 0)
+                {
+                    GetChildEntityImagesQuery(childStepsList).DeleteAllResults(client);
+                }
+
+                GetChildPluginStepsQuery(existingEndpoint.ToEntityReference()).DeleteAllResults(client);
+                serviceEndpoint.GetExistingServiceEndpoint().DeleteSingleRecord(client);
+            }
+
+            t.Debug($"Exiting PluginWrapper.UnregisterServiceEndPoints");
         }
 
         private static QueryBase GetSdkMessageQuery(string sdkMessageName)
@@ -196,7 +255,7 @@ namespace CloudAwesome.Xrm.Customisation
             };
         }
 
-        private static QueryBase GetSdkMessageFilter(string entityName, Guid sdkMessageId)
+        private static QueryBase GetSdkMessageFilterQuery(string entityName, Guid sdkMessageId)
         {
             return new QueryExpression(SdkMessageFilter.EntityLogicalName)
             {
@@ -215,7 +274,7 @@ namespace CloudAwesome.Xrm.Customisation
             };
         }
 
-        private static QueryBase GetChildPluginTypes(IOrganizationService client, EntityReference existingAssembly)
+        private static QueryBase GetChildPluginTypesQuery(EntityReference existingAssembly)
         {
             return new QueryByAttribute()
             {
@@ -227,7 +286,7 @@ namespace CloudAwesome.Xrm.Customisation
             };
         }
 
-        private static QueryBase GetChildPluginSteps(IOrganizationService client, List<Guid> parentPluginsList)
+        private static QueryBase GetChildPluginStepsQuery(List<Guid> parentPluginsList)
         {
             return new QueryExpression()
             {
@@ -245,7 +304,25 @@ namespace CloudAwesome.Xrm.Customisation
             };
         }
 
-        private static QueryBase GetChildEntityImages(IOrganizationService client, List<Guid> parentStepsList)
+        private static QueryBase GetChildPluginStepsQuery(EntityReference existingEndpoint)
+        {
+            return new QueryExpression()
+            {
+                EntityName = SdkMessageProcessingStep.EntityLogicalName,
+                ColumnSet = new ColumnSet(SdkMessageProcessingStep.PrimaryIdAttribute,
+                    SdkMessageProcessingStep.PrimaryNameAttribute),
+                Criteria = new FilterExpression()
+                {
+                    Conditions =
+                    {
+                        new ConditionExpression(SdkMessageProcessingStep.Fields.EventHandler, 
+                            ConditionOperator.Equal, existingEndpoint.Id)
+                    }
+                }
+            };
+        }
+
+        private static QueryBase GetChildEntityImagesQuery(List<Guid> parentStepsList)
         {
             return new QueryExpression()
             {
