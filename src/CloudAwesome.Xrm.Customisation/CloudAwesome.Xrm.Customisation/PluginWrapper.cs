@@ -129,8 +129,16 @@ namespace CloudAwesome.Xrm.Customisation
                 var childStepsResults = GetChildPluginSteps(client, pluginsList).RetrieveMultiple(client);
                 var pluginStepsList = childStepsResults.Entities.Select(e => e.Id).ToList();
 
-                GetChildEntityImages(client, pluginStepsList).DeleteAllResults(client);
-                GetChildPluginSteps(client, pluginsList).DeleteAllResults(client);
+                if (pluginStepsList.Count > 0)
+                {
+                    GetChildEntityImages(client, pluginStepsList).DeleteAllResults(client);
+                }
+
+                if (pluginsList.Count > 0)
+                {
+                    GetChildPluginSteps(client, pluginsList).DeleteAllResults(client);
+                }
+
                 GetChildPluginTypes(client, existingAssembly.ToEntityReference()).DeleteAllResults(client);
                 pluginAssembly.GetExistingQuery(pluginAssemblyInfo.Version).DeleteSingleRecord(client);
 

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Xml.Serialization;
 using CloudAwesome.Xrm.Core;
 using Microsoft.Xrm.Sdk;
@@ -39,7 +40,7 @@ namespace CloudAwesome.Xrm.Customisation.Models
         public EntityReference Register(IOrganizationService client, EntityReference parentPluginType,
             EntityReference sdkMessage, EntityReference sdkMessageFilter)
         {
-            var sdkStep = new SdkMessageProcessingStep()
+            var step = new SdkMessageProcessingStep()
             {
                 Name = this.Name,
                 Configuration = this.UnsecureConfiguration,
@@ -51,14 +52,13 @@ namespace CloudAwesome.Xrm.Customisation.Models
                 SdkMessageId = sdkMessage,
                 Description = this.Description,
                 AsyncAutoDelete = this.AsyncAutoDelete,
-                SdkMessageFilterId = sdkMessageFilter
-                // TODO loop through attributes to create a single string? #3
-                //FilteringAttributes = step.FilteringAttributes.
+                SdkMessageFilterId = sdkMessageFilter,
+                FilteringAttributes = string.Join(",", this.FilteringAttributes)
             };
 
             var existingStepQuery = this.GetExistingQuery(parentPluginType.Id, sdkMessage.Id);
 
-            return sdkStep.CreateOrUpdate(client, existingStepQuery);
+            return step.CreateOrUpdate(client, existingStepQuery);
         }
 
         public void Unregister(IOrganizationService client, EntityReference parentPluginType)
