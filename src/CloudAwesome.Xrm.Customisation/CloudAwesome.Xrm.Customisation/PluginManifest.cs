@@ -8,6 +8,7 @@ namespace CloudAwesome.Xrm.Customisation
     {
         public string SolutionName { get; set; }
         public bool Clobber { get; set; }
+        public bool UpdateAssemblyOnly { get; set; }
 
         public LoggingConfiguration LoggingConfiguration { get; set; }
 

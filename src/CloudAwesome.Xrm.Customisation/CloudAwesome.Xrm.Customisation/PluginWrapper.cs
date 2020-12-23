@@ -63,7 +63,7 @@ namespace CloudAwesome.Xrm.Customisation
                 SolutionWrapper.AddSolutionComponent(client, targetSolutionName, createdAssembly.Id, ComponentType.PluginAssembly);
                 t.Debug($"Assembly {pluginAssembly.FriendlyName} added to solution {targetSolutionName}");
 
-                // TODO - manifest flag to update assembly code only (and cut out here int the loop. #2
+                if (manifest.UpdateAssemblyOnly) continue;
 
                 // 2. Register Plugins
                 foreach (var plugin in pluginAssembly.Plugins)
@@ -130,7 +130,6 @@ namespace CloudAwesome.Xrm.Customisation
                 var pluginStepsList = childStepsResults.Entities.Select(e => e.Id).ToList();
 
                 GetChildEntityImages(client, pluginStepsList).DeleteAllResults(client);
-
                 GetChildPluginSteps(client, pluginsList).DeleteAllResults(client);
                 GetChildPluginTypes(client, existingAssembly.ToEntityReference()).DeleteAllResults(client);
                 pluginAssembly.GetExistingQuery(pluginAssemblyInfo.Version).DeleteSingleRecord(client);
