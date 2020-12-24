@@ -137,6 +137,7 @@
   <ItemGroup>
     <Compile Include="ConfigurationManifest.cs" />
     <Compile Include="ConfigurationWrapper.cs" />
+    <Compile Include="CustomisationExtensions.cs" />
     <Compile Include="EarlyBoundModels\AppElement.cs" />
     <Compile Include="EarlyBoundModels\AppModule.cs" />
     <Compile Include="EarlyBoundModels\AppModuleComponent.cs" />
@@ -149,6 +150,7 @@
     <Compile Include="EarlyBoundModels\OptionSets.cs" />
     <Compile Include="EarlyBoundModels\PluginAssembly.cs" />
     <Compile Include="EarlyBoundModels\PluginType.cs" />
+    <Compile Include="EarlyBoundModels\Publisher.cs" />
     <Compile Include="EarlyBoundModels\Role.cs" />
     <Compile Include="EarlyBoundModels\SdkMessage.cs" />
     <Compile Include="EarlyBoundModels\SdkMessageFilter.cs" />
@@ -162,6 +164,7 @@
     <Compile Include="EarlyBoundModels\SdkMessageResponseField.cs" />
     <Compile Include="EarlyBoundModels\ServiceEndpoint.cs" />
     <Compile Include="EarlyBoundModels\SiteMap.cs" />
+    <Compile Include="Exceptions\NotCustomisableException.cs" />
     <Compile Include="Models\CdsAttribute.cs" />
     <Compile Include="Models\CdsEntity.cs" />
     <Compile Include="Models\CdsEntityImage.cs" />
