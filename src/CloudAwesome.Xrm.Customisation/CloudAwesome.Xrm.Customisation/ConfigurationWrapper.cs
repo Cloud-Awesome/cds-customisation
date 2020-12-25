@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using CloudAwesome.Xrm.Core;
 using Microsoft.Extensions.Logging;
 using Microsoft.Xrm.Sdk;
@@ -26,17 +27,14 @@ namespace CloudAwesome.Xrm.Customisation
 
             foreach (var entity in manifest.Entities)
             {
-                // BUG - *** There's an error somewhere here where only the first two entities are being processed and the others in the manifest aren't.
-                // Pick it up here after Chrimbo - Wesołych Świąt ;)
-
                 t.Debug($"Processing entity: {entity.SchemaName}");
                 entity.CreateOrUpdate(client, publisherPrefix, manifest);
                 t.Info($"Entity {entity.SchemaName} successfully processed");
 
-                if (entity.Attributes == null) return;
+                if (entity.Attributes == null) continue;
                 foreach (var attribute in entity.Attributes)
                 {
-                    
+
                 }
             }
         }
