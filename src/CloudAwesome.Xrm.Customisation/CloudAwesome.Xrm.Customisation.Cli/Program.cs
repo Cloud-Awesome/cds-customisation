@@ -97,6 +97,26 @@ namespace CloudAwesome.Xrm.Customisation.Cli
 
                 case CommandLineActions.ActionOptions.ToggleProcesses:
                     Console.WriteLine("I'm either switching off a load of processes now, or I'm switching them back on...");
+
+                    var manifest4 =
+                        SerialisationWrapper.DeserialiseFromFile<ProcessActivationManifest>(options.Manifest);
+                    var client4 = XrmClient.GetCrmServiceClientFromManifestConfiguration(manifest4.CdsConnection);
+
+                    // Temp until LoggingConfiguration is resolved in .Core
+                    var consoleLogger4 = new ConsoleLogger(LogLevel.Debug);
+
+                    if (manifest4.LoggingConfiguration == null)
+                    {
+                        manifest4.LoggingConfiguration = new LoggingConfiguration()
+                        {
+                            LoggerConfigurationType = LoggerConfigurationType.Console,
+                            LogLevelToTrace = LogLevel.Information
+                        };
+                    }
+
+                    var processActivationWrapper = new ProcessActivationWrapper();
+                    processActivationWrapper.SetStatusFromManifest(client4, manifest4, consoleLogger4);
+
                     Console.WriteLine("Only joking, this action hasn't been implemented yet. Soz");
                     break;
 

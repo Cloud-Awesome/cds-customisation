@@ -164,6 +164,7 @@
     <Compile Include="EarlyBoundModels\SdkMessageResponseField.cs" />
     <Compile Include="EarlyBoundModels\ServiceEndpoint.cs" />
     <Compile Include="EarlyBoundModels\SiteMap.cs" />
+    <Compile Include="Exceptions\NoProcessToUpdateException.cs" />
     <Compile Include="Exceptions\NotCustomisableException.cs" />
     <Compile Include="Models\CdsAttribute.cs" />
     <Compile Include="Models\CdsEntity.cs" />
@@ -180,11 +181,14 @@
     <Compile Include="Models\CdsSiteMapArea.cs" />
     <Compile Include="Models\CdsSiteMapGroup.cs" />
     <Compile Include="Models\CdsSiteMapSubArea.cs" />
+    <Compile Include="Models\CdsSolution.cs" />
     <Compile Include="Models\CdsWebhook.cs" />
     <Compile Include="Models\CdsWorkflowAssembly.cs" />
     <Compile Include="Models\PluginAssemblyInfo.cs" />
     <Compile Include="PluginManifest.cs" />
     <Compile Include="PluginWrapper.cs" />
+    <Compile Include="ProcessActivationManifest.cs" />
+    <Compile Include="ProcessActivationWrapper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SerialisationWrapper.cs" />
     <Compile Include="SolutionWrapper.cs" />
@@ -201,6 +205,7 @@
   <ItemGroup>
     <Content Include="SampleSchema\configuration-manifest.xml" />
     <Content Include="SampleSchema\plugin-manifest.xml" />
+    <Content Include="SampleSchema\process-activation-manifest.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -1,0 +1,64 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ProcessActivationManifest>
+  <Status>Enabled</Status>
+  
+  <PluginAssemblies>
+    <PluginAssembly>
+      <Name>Account Plugin</Name>
+      <AllChildren>false</AllChildren>
+      <Steps>
+        <Step>
+          <Name>Account Plugin: On Update of an Account</Name>
+        </Step>
+      </Steps>
+    </PluginAssembly>
+  </PluginAssemblies>
+
+  <Solutions>
+    <Solution>
+      <Name>Test Processes Solution</Name>
+      <AllPluginSteps>false</AllPluginSteps>
+      <AllFlows>false</AllFlows>
+      <AllWorkflows>false</AllWorkflows>
+      <AllCaseCreationRules>false</AllCaseCreationRules>
+      <AllBusinessRules>false</AllBusinessRules>
+    </Solution>
+  </Solutions>
+
+  <Entities>
+    <Entity>
+      <Name>contact</Name>
+      <AllBusinessRules>false</AllBusinessRules>
+    </Entity>
+  </Entities>
+
+  <Workflows>
+    <Workflow>Test Workflow</Workflow>
+  </Workflows>
+
+  <ModernFlows>
+    <ModernFlow>Test Flow</ModernFlow>
+  </ModernFlows>
+
+  <RecordCreationRules>
+    <CaseCreationRule>Create Case on Email To Queue</CaseCreationRule>
+  </RecordCreationRules>
+
+  <CdsConnection>
+    <ConnectionType>AppRegistration</ConnectionType>
+    <CdsConnectionString>...</CdsConnectionString>
+    <CdsUrl>...</CdsUrl>
+    <CdsUserName>...</CdsUserName>
+    <CdsPassword>...</CdsPassword>
+    <CdsAppId>...</CdsAppId>
+    <CdsAppSecret>...</CdsAppSecret>
+  </CdsConnection>
+
+  <LoggingConfiguration>
+    <LoggerConfigurationType>Console</LoggerConfigurationType>
+    <LogLevelToTrace>Debug</LogLevelToTrace>
+    <ApplicationInsightsConnectionString>...</ApplicationInsightsConnectionString>
+    <TextFileOutputPath>...</TextFileOutputPath>
+  </LoggingConfiguration>
+
+</ProcessActivationManifest>

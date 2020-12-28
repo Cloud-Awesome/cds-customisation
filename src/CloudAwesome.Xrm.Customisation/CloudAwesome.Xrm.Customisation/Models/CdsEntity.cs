@@ -63,6 +63,8 @@ namespace CloudAwesome.Xrm.Customisation.Models
         public bool? ChangeTrackingEnabled { get; set; }
         public string NavigationColour { get; set; }
 
+        public bool AllBusinessRules { get; set; }
+
         [XmlArrayItem("Attribute")]
         public CdsAttribute[] Attributes { get; set; }
 

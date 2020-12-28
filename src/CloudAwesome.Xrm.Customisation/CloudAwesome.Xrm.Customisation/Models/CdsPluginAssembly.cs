@@ -13,12 +13,26 @@ namespace CloudAwesome.Xrm.Customisation.Models
 
         public string FriendlyName { get; set; }
 
+        /// <summary>
+        /// FilePath to the built assembly dll
+        /// </summary>
         public string Assembly { get; set; }
 
         public string SolutionName { get; set; }
 
+        /// <summary>
+        /// Process all child plugins/steps - Used in the ProcessActivation function
+        /// </summary>
+        public bool AllChildren { get; set; }
+
         [XmlArrayItem("Plugin")]
         public CdsPlugin[] Plugins { get; set; }
+
+        /// <summary>
+        /// Grandchild steps
+        /// </summary>
+        [XmlArrayItem("Step")]
+        public CdsPluginStep[] Steps { get; set; }
 
         public EntityReference Register(IOrganizationService client, PluginAssemblyInfo pluginAssemblyInfo = null)
         {

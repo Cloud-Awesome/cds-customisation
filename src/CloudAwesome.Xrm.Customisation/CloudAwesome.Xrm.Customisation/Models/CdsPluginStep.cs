@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Xml.Serialization;
 using CloudAwesome.Xrm.Core;
+using CloudAwesome.Xrm.Customisation.Exceptions;
 using Microsoft.Xrm.Sdk;
 using Microsoft.Xrm.Sdk.Query;
 
@@ -65,6 +66,52 @@ namespace CloudAwesome.Xrm.Customisation.Models
         {
             throw new NotImplementedException();
         }
+
+        public void ToggleStatus(IOrganizationService client, bool activate)
+        {
+            var status = activate
+                ? SdkMessageProcessingStep_StatusCode.Enabled
+                : SdkMessageProcessingStep_StatusCode.Disabled;
+
+            var queryStatus = activate
+                ? SdkMessageProcessingStep_StatusCode.Disabled
+                : SdkMessageProcessingStep_StatusCode.Enabled;
+
+            var state = activate
+                ? SdkMessageProcessingStepState.Enabled
+                : SdkMessageProcessingStepState.Disabled;
+
+            var existingStep = new QueryExpression()
+            {
+                EntityName = SdkMessageProcessingStep.EntityLogicalName,
+                ColumnSet = new ColumnSet(SdkMessageProcessingStep.PrimaryNameAttribute, 
+                    SdkMessageProcessingStep.Fields.StatusCode),
+                Criteria = new FilterExpression()
+                {
+                    Conditions =
+                    {
+                        new ConditionExpression(SdkMessageFilter.Fields.Name, 
+                            ConditionOperator.Equal, this.Name),
+                        new ConditionExpression(SdkMessageProcessingStep.Fields.StatusCode,
+                            ConditionOperator.Equal, (int)queryStatus)
+                    }
+                }
+            }.RetrieveSingleRecord(client);
+
+            if (existingStep == null)
+            {
+                throw new NoProcessToUpdateException("Process either doesn't exist or already in the required state");
+            }
+
+            var step = new SdkMessageProcessingStep()
+            {
+                Id = existingStep.Id,
+                StatusCode = status,
+                StateCode = state
+            };
+            step.Update(client);
+        }
+
 
         public QueryBase GetExistingQuery(Guid parentPluginType, Guid sdkMessage, Guid sdkMessageFilter)
         {
