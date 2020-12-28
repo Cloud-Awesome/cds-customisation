@@ -147,6 +147,7 @@
   <ItemGroup>
     <None Include="App.config" />
     <None Include="CloudAwesome.Xrm.Customisation.Cli.nuspec" />
+    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\CloudAwesome.Xrm.Customisation\CloudAwesome.Xrm.Customisation.csproj">
