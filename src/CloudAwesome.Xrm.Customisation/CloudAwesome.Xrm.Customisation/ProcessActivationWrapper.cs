@@ -24,8 +24,23 @@ namespace CloudAwesome.Xrm.Customisation
 
             var activate = manifest.Status == ProcessActivationStatus.Enabled;
 
+            // 1. Plugin steps
+            if (manifest.PluginAssemblies == null) return;
             foreach (var assembly in manifest.PluginAssemblies)
             {
+                t.Info($"Processing plugin step {assembly.Name}");
+
+                if (assembly.AllChildren)
+                {
+                    t.Debug($"Setting all grandchild steps to enabled = {activate}");
+                    // 1. Query all grandchild steps
+
+                    // 2. set state for all in bulk
+
+                    t.Info($"All grandchild steps processed");
+                    continue;
+                }
+
                 foreach (var step in assembly.Steps)
                 {
                     t.Info($"Processing plugin step {step.Name}");
@@ -45,6 +60,22 @@ namespace CloudAwesome.Xrm.Customisation
                     }
                 }
             }
+
+            // 2. Workflows
+
+
+            // 3. Flows
+
+
+            // 4. Record Creation Rules
+
+
+            // 5. Business Rules
+
+
+            // 6. All Solution Components
+
+
 
             t.Debug($"Exiting ProcessActivationWrapper.SetStatusFromManifest");
         }
