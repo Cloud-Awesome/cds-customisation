@@ -3,12 +3,12 @@
 namespace CloudAwesome.Xrm.Customisation.Tests
 {
     [TestFixture]
-    public class DeserialiseFromFileTests
+    public class DeserialiseFromFileTests: BaseFakeXrmTest
     {
         [Test]
         public void DeserialisePluginManifest()
         {
-            var manifestPath = "../../../CloudAwesome.Xrm.Customisation/SampleSchema/plugin-manifest.xml";
+            var manifestPath = $"{TestManifestFolderPath}/plugin-manifest.xml";
 
             var manifest = SerialisationWrapper.DeserialiseFromFile<PluginManifest>(manifestPath);
 
