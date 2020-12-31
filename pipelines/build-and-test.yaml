@@ -11,6 +11,15 @@ trigger:
 
 steps:
 
+- task: CopyFiles@2
+  displayName: TEMP - Copy manifests to relative path
+  inputs:
+    SourceFolder: 'src/CloudAwesome.Xrm.Customisation/CloudAwesome.Xrm.Customisation.Tests/TestManifests'
+    Contents: '**'
+    TargetFolder: 'D:/a/TestManifests'
+    CleanTargetFolder: true
+    OverWrite: true
+
 - task: SonarCloudPrepare@1
   displayName: Prep SonarCloud
   inputs:
@@ -37,10 +46,7 @@ steps:
   displayName: Execute Unit Tests
   inputs:
     testSelector: 'testAssemblies'
-    testAssemblyVer2: |
-      **\*test*.dll
-      !**\*TestAdapter.dll
-      !**\obj\**
+    testAssemblyVer2: src\CloudAwesome.Xrm.Customisation\CloudAwesome.Xrm.Customisation.Tests\bin\Release\CloudAwesome.Xrm.Customisation.Tests.dll
     searchFolder: '$(System.DefaultWorkingDirectory)'
     codeCoverageEnabled: true
     testRunTitle: '$(Build.BuildNumber)'
