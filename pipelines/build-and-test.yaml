@@ -11,6 +11,15 @@ trigger:
 
 steps:
 
+- task: CopyFiles@2
+  displayName: TEMP - Copy manifests to relative path
+  inputs:
+    SourceFolder: 'src/CloudAwesome.Xrm.Customisation/CloudAwesome.Xrm.Customisation.Tests/TestManifests/**'
+    Contents: '**'
+    TargetFolder: 'src/CloudAwesome.Xrm.Customisation/TestManifests/'
+    CleanTargetFolder: true
+    OverWrite: true
+
 - task: SonarCloudPrepare@1
   displayName: Prep SonarCloud
   inputs:
