@@ -37,10 +37,7 @@ steps:
   displayName: Execute Unit Tests
   inputs:
     testSelector: 'testAssemblies'
-    testAssemblyVer2: |
-      **\*test*.dll
-      !**\*TestAdapter.dll
-      !**\obj\**
+    testAssemblyVer2: src\CloudAwesome.Xrm.Customisation\CloudAwesome.Xrm.Customisation.Tests\bin\Release\CloudAwesome.Xrm.Customisation.Tests.dll
     searchFolder: '$(System.DefaultWorkingDirectory)'
     codeCoverageEnabled: true
     testRunTitle: '$(Build.BuildNumber)'
