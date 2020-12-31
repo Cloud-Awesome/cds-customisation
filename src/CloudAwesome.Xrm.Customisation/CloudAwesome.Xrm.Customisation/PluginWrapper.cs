@@ -11,16 +11,6 @@ namespace CloudAwesome.Xrm.Customisation
 {
     public class PluginWrapper
     {
-        private List<string> validationErrors = new List<string>();
-        
-        public List<string> ValidateManifest(PluginManifest manifest)
-        {
-            // TODO - verify existence all messages, entities and filters before continue #4
-            // TODO - if queried messages etc above, then you can extract the queries in loops below to save on hits to the API
-
-            return validationErrors;
-        }
-
         /// <summary>
         /// Loops through each PluginAssembly in the manifest and registers all assemblies, plugins, steps and images
         /// </summary>
@@ -28,24 +18,37 @@ namespace CloudAwesome.Xrm.Customisation
         /// <param name="client">IOrganizationService client reference</param>
         public void RegisterPlugins(PluginManifest manifest, IOrganizationService client)
         {
-            RegisterPlugins(manifest, client, null);
+            if (manifest.LoggingConfiguration != null)
+            {
+                var t = new TracingHelper(manifest.LoggingConfiguration);
+                RegisterPlugins(manifest, client, t);
+            }
+            else
+            {
+                RegisterPlugins(manifest, client, t: null);
+            }
         }
-        
+
+        public void RegisterPlugins(PluginManifest manifest, IOrganizationService client, ILogger logger)
+        {
+            var t = new TracingHelper(logger);
+            RegisterPlugins(manifest, client, t);
+        }
+
         /// <summary>
         /// Loops through each PluginAssembly in the manifest and registers all assemblies, plugins, steps and images
         /// </summary>
         /// <param name="manifest">XML plugin manifest</param>
         /// <param name="client">IOrganizationService client reference</param>
-        /// <param name="logger">Optional ILogger implementation</param>
-        public void RegisterPlugins(PluginManifest manifest, IOrganizationService client, ILogger logger)
+        /// <param name="t">Tracing helpers for logging</param>
+        public void RegisterPlugins(PluginManifest manifest, IOrganizationService client, TracingHelper t)
         {
-            var t = new TracingHelper(logger);
             t.Debug($"Entering PluginWrapper.RegisterPlugins");
 
             if (manifest.Clobber)
             {
                 t.Info($"Manifest has 'Clobber' set to true. Deleting referenced Plugins before re-registering");
-                this.UnregisterPlugins(manifest, client, logger);
+                this.UnregisterPlugins(manifest, client, t);
             }
 
             // 1. Register Assemblies
@@ -115,16 +118,27 @@ namespace CloudAwesome.Xrm.Customisation
 
         public void UnregisterPlugins(PluginManifest manifest, IOrganizationService client)
         {
-            UnregisterPlugins(manifest, client, null);
+            if (manifest.LoggingConfiguration != null)
+            {
+                var t = new TracingHelper(manifest.LoggingConfiguration);
+                UnregisterPlugins(manifest, client, t);
+            }
+            else
+            {
+                UnregisterPlugins(manifest, client, t: null);
+            }
         }
 
         public void UnregisterPlugins(PluginManifest manifest, IOrganizationService client, ILogger logger)
         {
-            // God awful initial version in need of some refactoring!! :)
-            
             var t = new TracingHelper(logger);
+            UnregisterPlugins(manifest, client, t);
+        }
+
+        public void UnregisterPlugins(PluginManifest manifest, IOrganizationService client, TracingHelper t)
+        {
             t.Debug($"Entering PluginWrapper.UnregisterPlugins");
-            
+
             foreach (var pluginAssembly in manifest.PluginAssemblies)
             {
                 var pluginAssemblyInfo = new PluginAssemblyInfo(pluginAssembly.Assembly);
@@ -155,7 +169,7 @@ namespace CloudAwesome.Xrm.Customisation
 
             t.Debug($"Exiting PluginWrapper.UnregisterPlugins");
         }
-
+        
         public void RegisterServiceEndpoints(PluginManifest manifest, IOrganizationService client)
         {
             RegisterServiceEndpoints(manifest, client, null);

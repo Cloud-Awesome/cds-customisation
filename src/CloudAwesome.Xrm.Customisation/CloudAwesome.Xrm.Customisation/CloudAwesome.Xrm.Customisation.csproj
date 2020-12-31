@@ -32,7 +32,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="CloudAwesome.Xrm.Core, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\CloudAwesome.Xrm.Core.2020.12.22.1\lib\net48\CloudAwesome.Xrm.Core.dll</HintPath>
+      <HintPath>..\packages\CloudAwesome.Xrm.Core.2020.12.29.1\lib\net48\CloudAwesome.Xrm.Core.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.ApplicationInsights, Version=2.16.0.18277, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.ApplicationInsights.2.16.0\lib\net46\Microsoft.ApplicationInsights.dll</HintPath>
@@ -166,6 +166,7 @@
     <Compile Include="EarlyBoundModels\SiteMap.cs" />
     <Compile Include="Exceptions\NoProcessToUpdateException.cs" />
     <Compile Include="Exceptions\NotCustomisableException.cs" />
+    <Compile Include="ICustomisationManifest.cs" />
     <Compile Include="Models\CdsAttribute.cs" />
     <Compile Include="Models\CdsEntity.cs" />
     <Compile Include="Models\CdsEntityImage.cs" />

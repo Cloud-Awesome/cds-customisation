@@ -1,6 +1,6 @@
 ﻿using NUnit.Framework;
 
-namespace CloudAwesome.Xrm.Customisation.Tests.TracingWrapperTests
+namespace CloudAwesome.Xrm.Customisation.Tests
 {
     [TestFixture]
     public class DeserialiseFromFileTests

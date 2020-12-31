@@ -95,7 +95,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BaseFakeXrmTest.cs" />
+    <Compile Include="CustomisationExtensions\CreateLabelFromStringTests.cs" />
+    <Compile Include="CustomisationExtensions\GenerateLogicalNameFromDisplayNameTests.cs" />
+    <Compile Include="CustomisationExtensions\PluraliseTests.cs" />
     <Compile Include="PluginWrapperTests\RegisterPluginsTests.cs" />
+    <Compile Include="PluginWrapperTests\RegisterServiceEndpointTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="DeserialiseFromFileTests.cs" />
   </ItemGroup>

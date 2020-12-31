@@ -6,7 +6,7 @@ namespace CloudAwesome.Xrm.Customisation
 {
     public enum ProcessActivationStatus { Enabled = 1, Disabled = 2 }
 
-    public class ProcessActivationManifest
+    public class ProcessActivationManifest: ICustomisationManifest
     {
         public ProcessActivationStatus Status { get; set; }
         public CdsConnection CdsConnection { get; set; }

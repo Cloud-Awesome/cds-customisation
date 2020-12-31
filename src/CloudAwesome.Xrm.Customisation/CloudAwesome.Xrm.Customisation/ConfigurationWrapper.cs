@@ -17,9 +17,27 @@ namespace CloudAwesome.Xrm.Customisation
             return validationErrors;
         }
 
+        public void GenerateCustomisations(ConfigurationManifest manifest, IOrganizationService client)
+        {
+            if (manifest.LoggingConfiguration != null)
+            {
+                var t = new TracingHelper(manifest.LoggingConfiguration);
+                GenerateCustomisations(manifest, client, t);
+            }
+            else
+            {
+                GenerateCustomisations(manifest, client, t: null);
+            }
+        }
+
         public void GenerateCustomisations(ConfigurationManifest manifest, IOrganizationService client, ILogger logger)
         {
             var t = new TracingHelper(logger);
+            GenerateCustomisations(manifest, client, t);
+        }
+
+        public void GenerateCustomisations(ConfigurationManifest manifest, IOrganizationService client, TracingHelper t)
+        {
             t.Debug($"Entering ConfigurationWrapper.GenerateCustomisations");
 
             var publisherPrefix = GetPublisherPrefixFromSolution(client, manifest.SolutionName);

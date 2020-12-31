@@ -17,9 +17,27 @@ namespace CloudAwesome.Xrm.Customisation
             return validationErrors;
         }
 
-        public void SetStatusFromManifest(IOrganizationService client, ProcessActivationManifest manifest, ILogger logger)
+        public void SetStatusFromManifest(IOrganizationService client, ProcessActivationManifest manifest)
+        {
+            if (manifest.LoggingConfiguration != null)
+            {
+                var t = new TracingHelper(manifest.LoggingConfiguration);
+                SetStatusFromManifest(manifest, client, t);
+            }
+            else
+            {
+                SetStatusFromManifest(manifest, client, t: null);
+            }
+        }
+
+        public void SetStatusFromManifest(ProcessActivationManifest manifest, IOrganizationService client, ILogger logger)
         {
             var t = new TracingHelper(logger);
+            SetStatusFromManifest(manifest, client, t);
+        }
+
+        public void SetStatusFromManifest(ProcessActivationManifest manifest, IOrganizationService client, TracingHelper t)
+        {
             t.Debug($"Entering ProcessActivationWrapper.SetStatusFromManifest");
 
             var activate = manifest.Status == ProcessActivationStatus.Enabled;

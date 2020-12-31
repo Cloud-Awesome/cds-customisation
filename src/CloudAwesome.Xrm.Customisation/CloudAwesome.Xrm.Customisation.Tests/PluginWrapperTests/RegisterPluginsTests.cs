@@ -23,7 +23,11 @@ namespace CloudAwesome.Xrm.Customisation.Tests.PluginWrapperTests
             var orgService = context.GetOrganizationService();
             context.Initialize(new List<Entity>()
             {
-                UpdateSdkMessage
+                UpdateSdkMessage,
+                CreateSdkMessage,
+                UpdateContactMessageFilter,
+                UpdateAccountMessageFilter,
+                CreateContactMessageFilter
             });
 
             var pluginWrapper = new PluginWrapper();
@@ -50,7 +54,10 @@ namespace CloudAwesome.Xrm.Customisation.Tests.PluginWrapperTests
             context.Initialize(new List<Entity>()
             {
                 UpdateSdkMessage,
-                SamplePluginAssembly
+                CreateSdkMessage,
+                UpdateContactMessageFilter,
+                UpdateAccountMessageFilter,
+                CreateContactMessageFilter
             });
             
             var pluginWrapper = new PluginWrapper();
@@ -75,18 +82,28 @@ namespace CloudAwesome.Xrm.Customisation.Tests.PluginWrapperTests
             var orgService = context.GetOrganizationService();
             context.Initialize(new List<Entity>()
             {
-                UpdateSdkMessage,
                 SamplePluginAssembly,
                 UpdateContact,
-                PluginTypeToBeRemoved
+                PluginTypeToBeRemoved,
+                UpdateSdkMessage,
+                CreateSdkMessage,
+                UpdateContactMessageFilter,
+                UpdateAccountMessageFilter,
+                CreateContactMessageFilter
             });
 
             var pluginWrapper = new PluginWrapper();
             pluginWrapper.RegisterPlugins(manifest, orgService);
 
+            var postRegisteredPluginAssembly =
+                (from a in context.CreateQuery<PluginAssembly>()
+                    where Equals(a.Name, SamplePluginAssembly.Name) 
+                          && Equals(a.Version, SamplePluginAssembly.Version)
+                    select a).FirstOrDefault();
+
             var postRegisteredPluginTypes =
                 (from p in context.CreateQuery<PluginType>()
-                    where Equals(p.PluginAssemblyId, SamplePluginAssembly.ToEntityReference())
+                    where Equals(p.PluginAssemblyId, postRegisteredPluginAssembly.ToEntityReference())
                     select p).ToList();
 
             Assert.AreEqual(2, postRegisteredPluginTypes.Count);

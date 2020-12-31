@@ -15,7 +15,8 @@ namespace CloudAwesome.Xrm.Customisation.Cli
 
         }
 
-        [Option('a', "action", Required = true)]
+        [Option('a', "action", Required = true, 
+            HelpText = "Currently supported actions are: 'RegisterPlugins', 'UnregisterPlugins', 'GenerateCustomisations', 'ToggleProcesses' and 'MigrateDeletionJobs'")]
         public ActionOptions Action { get; set; }
 
         [Option('m', "manifest", Required = true)]

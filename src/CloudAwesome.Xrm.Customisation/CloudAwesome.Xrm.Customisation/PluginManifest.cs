@@ -4,7 +4,7 @@ using CloudAwesome.Xrm.Customisation.Models;
 
 namespace CloudAwesome.Xrm.Customisation
 {
-    public class PluginManifest
+    public class PluginManifest: ICustomisationManifest
     {
         public string SolutionName { get; set; }
         public bool Clobber { get; set; }

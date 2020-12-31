@@ -1,30 +1,32 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <PluginManifest>
+
   <SolutionName>PluginRegistrationSandbox</SolutionName>
   <Clobber>true</Clobber>
+  <UpdateAssemblyOnly>false</UpdateAssemblyOnly>
 
-  <!-- Can provide any of the below, or none if provided outside of config file (e.g. manual in CLI or from Key Vault) -->
   <CdsConnection>
     <ConnectionType>AppRegistration</ConnectionType>
-    <CdsConnectionString>...</CdsConnectionString>
-    <CdsUrl>...</CdsUrl>
-    <CdsUserName>...</CdsUserName>
-    <CdsPassword>...</CdsPassword>
-    <CdsAppId>...</CdsAppId>
-    <CdsAppSecret>...</CdsAppSecret>
+    <CdsUrl>https://awesome-sandbox.crm11.dynamics.com</CdsUrl>
+    <CdsAppId>70173e6e-3bd4-4ae0-a3b0-460cf3ae3e5d</CdsAppId>
+    <CdsAppSecret>W.Ykma-6DNXxQOmVX96h151Si6_4Pc44x.</CdsAppSecret>
   </CdsConnection>
+
+  <LoggingConfiguration>
+    <LoggingConfigurationType>Console</LoggingConfigurationType>
+    <LogLevelToTrace>Debug</LogLevelToTrace>
+  </LoggingConfiguration>
 
   <PluginAssemblies>
     <PluginAssembly>
       <Name>SamplePluginAssembly</Name>
       <FriendlyName>Account and Contact Plugins</FriendlyName>
       <Assembly>../../../SamplePluginAssembly/bin/debug/SamplePluginAssembly.dll</Assembly>
-      <IsolationMode>Sandbox</IsolationMode>
-      <SolutionName></SolutionName>
+      <SolutionName>PluginRegistrationSandbox</SolutionName>
       <Plugins>
         <Plugin>
-          <Name>SamplePluginAssembly.UpdateContact</Name>
-          <FriendlyName>Update Contact</FriendlyName>
+          <Name>SamplePluginAssembly.ContactPlugin</Name>
+          <FriendlyName>Contact Plugin</FriendlyName>
           <Description>...</Description>
           <Steps>
             <Step>
@@ -56,19 +58,37 @@
                 </EntityImage>
               </EntityImages>
             </Step>
+            <Step>
+              <Name>Contact: On Create of Contact</Name>
+              <FriendlyName>Contact: On Create of Contact</FriendlyName>
+              <Description>...</Description>
+              <Stage>Postoperation</Stage>
+              <ExecutionMode>Synchronous</ExecutionMode>
+              <Message>create</Message>
+              <PrimaryEntity>contact</PrimaryEntity>
+              <ExecutionOrder>2</ExecutionOrder>
+              <AsyncAutoDelete>false</AsyncAutoDelete>
+              <FilteringAttributes>
+                <Attribute>firstname</Attribute>
+                <Attribute>middlename</Attribute>
+                <Attribute>lastname</Attribute>
+              </FilteringAttributes>
+              <UnsecureConfiguration>...</UnsecureConfiguration>
+              <SecureConfiguration>...</SecureConfiguration>
+            </Step>
           </Steps>
         </Plugin>
         <Plugin>
-          <Name>SamplePluginAssembly.UpdateAccount</Name>
+          <Name>SamplePluginAssembly.AccountPlugin</Name>
           <FriendlyName>Update Account</FriendlyName>
           <Description>Triggers on updates of an account record</Description>
           <Steps>
             <Step>
-              <Name>Update Account: On Update of an Account</Name>
-              <FriendlyName>Update Account: On Update of an Account</FriendlyName>
+              <Name>Account Plugin: On Update of an Account</Name>
+              <FriendlyName>Account Plugin: On Update of an Account</FriendlyName>
               <Description>...</Description>
-              <stage>PostOperation</stage>
-              <ExecutionMode>Synchronous</ExecutionMode>
+              <Stage>Postoperation</Stage>
+              <ExecutionMode>Asynchronous</ExecutionMode>
               <Message>update</Message>
               <PrimaryEntity>account</PrimaryEntity>
               <ExecutionOrder>1</ExecutionOrder>
@@ -77,16 +97,15 @@
                 <Attribute>telephone1</Attribute>
                 <Attribute>accountnumber</Attribute>
               </FilteringAttributes>
-              <UnsecureConfiguration>...</UnsecureConfiguration>
-              <SecureConfiguration>...</SecureConfiguration>
+              <UnsecureConfiguration></UnsecureConfiguration>
+              <SecureConfiguration></SecureConfiguration>
               <EntityImages>
                 <EntityImage>
                   <Name>AccountImage</Name>
                   <Type>PreImage</Type>
                   <Attributes>
-                    <Attribute>firstname</Attribute>
-                    <Attribute>middlename</Attribute>
-                    <Attribute>lastname</Attribute>
+                    <Attribute>telephone1</Attribute>
+                    <Attribute>emailaddress1</Attribute>
                   </Attributes>
                 </EntityImage>
               </EntityImages>
@@ -100,60 +119,77 @@
   <ServiceEndpoints>
     <ServiceEndpoint>
       <Name>TesterQueue</Name>
-      <NamespaceAddress>sb://xrmcustomisationsandbox.servicebus.windows.net</NamespaceAddress>
-      <Contract>Queue</Contract>
+      <NamespaceAddress>sb://xrmcustomisationsandbox.servicebus.windows.net/</NamespaceAddress>
+      <Contract>Queue_Persistent</Contract>
       <Path>Tester</Path>
       <MessageFormat>Json</MessageFormat>
       <AuthType>SASKey</AuthType>
       <SASKeyName>RootManageSharedAccessKey</SASKeyName>
-      <SASKey>+1hmU2vUsIo3ZyAxEstbcapIaHpHJIAIbQKx0PznPKM=</SASKey>
+      <SASKey>6SfGW7CuN6uWvi1dMEOGiRu4CLSD76DPMiLKF2yv4Y0=</SASKey>
       <UserClaim>UserId</UserClaim>
       <Description>This is the TesterQueue's description</Description>
-      <Plugins>
-        <!-- How best to register the assembly... It may have been registred above, or may not... -->
-        <Plugin>
-          <Name>SamplePluginAssembly.UpdateContact</Name>
-          <FriendlyName>Update Contact</FriendlyName>
+      <Steps>
+        <Step>
+          <Name>Tester Queue: On Update of Contact</Name>
+          <FriendlyName>Tester Queue: On Update of Contact</FriendlyName>
           <Description>...</Description>
-          <Steps>
-            <Step>
-              <Name>Update Contact: On Update of Contact</Name>
-              <FriendlyName>Update Contact: On Update of Contact</FriendlyName>
-              <Description>...</Description>
-              <stage>PostOperation</stage>
-              <ExecutionMode>Synchronous</ExecutionMode>
-              <Message>update</Message>
-              <PrimaryEntity>contact</PrimaryEntity>
-              <ExecutionOrder>1</ExecutionOrder>
-              <AsyncAutoDelete>false</AsyncAutoDelete>
-              <FilteringAttributes>
+          <Stage>Postoperation</Stage>
+          <ExecutionMode>Asynchronous</ExecutionMode>
+          <Message>update</Message>
+          <PrimaryEntity>contact</PrimaryEntity>
+          <ExecutionOrder>1</ExecutionOrder>
+          <AsyncAutoDelete>false</AsyncAutoDelete>
+          <FilteringAttributes>
+            <Attribute>firstname</Attribute>
+            <Attribute>middlename</Attribute>
+            <Attribute>lastname</Attribute>
+          </FilteringAttributes>
+          <UnsecureConfiguration>...</UnsecureConfiguration>
+          <SecureConfiguration>...</SecureConfiguration>
+          <EntityImages>
+            <EntityImage>
+              <Name>ContactImage</Name>
+              <Type>PreImage</Type>
+              <Attributes>
                 <Attribute>firstname</Attribute>
                 <Attribute>middlename</Attribute>
                 <Attribute>lastname</Attribute>
-              </FilteringAttributes>
-              <UnsecureConfiguration>...</UnsecureConfiguration>
-              <SecureConfiguration>...</SecureConfiguration>
-              <EntityImages>
-                <EntityImage>
-                  <Name>ContactImage</Name>
-                  <Type>PreImage</Type>
-                  <Attributes>
-                    <Attribute>firstname</Attribute>
-                    <Attribute>middlename</Attribute>
-                    <Attribute>lastname</Attribute>
-                  </Attributes>
-                </EntityImage>
-              </EntityImages>
-            </Step>
-          </Steps>
-        </Plugin>
-      </Plugins>
+              </Attributes>
+            </EntityImage>
+          </EntityImages>
+        </Step>
+        <Step>
+          <Name>Tester Queue: On Update of Account</Name>
+          <FriendlyName>Tester Queue: On Update of Account</FriendlyName>
+          <Description>...</Description>
+          <Stage>Postoperation</Stage>
+          <ExecutionMode>Asynchronous</ExecutionMode>
+          <Message>update</Message>
+          <PrimaryEntity>account</PrimaryEntity>
+          <ExecutionOrder>2</ExecutionOrder>
+          <AsyncAutoDelete>false</AsyncAutoDelete>
+          <FilteringAttributes>
+            <Attribute>emailaddress1</Attribute>
+            <Attribute>name</Attribute>
+          </FilteringAttributes>
+          <UnsecureConfiguration>...</UnsecureConfiguration>
+          <SecureConfiguration>...</SecureConfiguration>
+          <EntityImages>
+            <EntityImage>
+              <Name>AccountImage</Name>
+              <Type>PreImage</Type>
+              <Attributes>
+                <Attribute>emailaddress1</Attribute>
+                <Attribute>name</Attribute>
+              </Attributes>
+            </EntityImage>
+          </EntityImages>
+        </Step>
+      </Steps>
     </ServiceEndpoint>
   </ServiceEndpoints>
 
-  <!-- post-post-MVP -->
-  <Webhooks>...</Webhooks>
-  <Workflows>Maybe not as they're being deprecated..?</Workflows>
-  <!-- post-post-MVP -->
+  <Webhooks></Webhooks>
+  <Workflows></Workflows>
 
 </PluginManifest>

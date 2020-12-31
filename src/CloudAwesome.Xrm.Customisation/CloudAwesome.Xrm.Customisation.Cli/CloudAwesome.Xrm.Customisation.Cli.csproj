@@ -34,7 +34,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="CloudAwesome.Xrm.Core, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\CloudAwesome.Xrm.Core.2020.12.22.1\lib\net48\CloudAwesome.Xrm.Core.dll</HintPath>
+      <HintPath>..\packages\CloudAwesome.Xrm.Core.2020.12.29.1\lib\net48\CloudAwesome.Xrm.Core.dll</HintPath>
     </Reference>
     <Reference Include="CommandLine, Version=2.8.0.0, Culture=neutral, PublicKeyToken=5a870481e358d379, processorArchitecture=MSIL">
       <HintPath>..\packages\CommandLineParser.2.8.0\lib\net461\CommandLine.dll</HintPath>
@@ -140,6 +140,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Features\GenerateCustomisations.cs" />
+    <Compile Include="Features\RegisterPlugins.cs" />
+    <Compile Include="Features\ToggleProcesses.cs" />
+    <Compile Include="Features\UnregisterPlugins.cs" />
+    <Compile Include="IFeature.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="CommandLineActions.cs" />
@@ -155,9 +160,7 @@
       <Name>CloudAwesome.Xrm.Customisation</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Features\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PreBuildEvent>
