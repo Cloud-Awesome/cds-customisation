@@ -16,7 +16,7 @@ steps:
   inputs:
     SourceFolder: 'src/CloudAwesome.Xrm.Customisation/CloudAwesome.Xrm.Customisation.Tests/TestManifests'
     Contents: '**'
-    TargetFolder: 'src/CloudAwesome.Xrm.Customisation/TestManifests/'
+    TargetFolder: 'D:/a/TestManifests'
     CleanTargetFolder: true
     OverWrite: true
 
