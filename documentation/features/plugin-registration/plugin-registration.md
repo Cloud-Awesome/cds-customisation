@@ -1,6 +1,7 @@
 # Plugin Registration
 
 > API and Command line application to register plugin assemblies, service endpoints, steps and images from an XML manifest. 
+> 
 > Write your plugins and service bus message code then comit to your repo alongside a manifest to register them without opening the Plugin registration tool to manually register each step
 
 ## Manifest
