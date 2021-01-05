@@ -22,7 +22,7 @@
     <PluginAssembly>
       <Name>SamplePluginAssembly</Name>
       <FriendlyName>Account and Contact Plugins</FriendlyName>
-      <Assembly>../../../SamplePluginAssembly/bin/debug/SamplePluginAssembly.dll</Assembly>
+      <Assembly>../../../SamplePluginAssembly/bin/release/SamplePluginAssembly.dll</Assembly>
       <!--<SolutionName>PluginRegistrationSandbox</SolutionName>-->
       <Plugins>
         <Plugin>
