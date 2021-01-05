@@ -59,6 +59,15 @@ steps:
     configuration: 'release'
     versioningScheme: 'byBuildNumber'
 
+- task: NuGetCommand@2
+  displayName: Nuget Pack
+  inputs:
+    command: 'pack'
+    packagesToPack: '**/CloudAwesome.Xrm.Customisation.Cli.csproj'
+    configuration: 'release'
+    versioningScheme: 'byBuildNumber'
+    toolPackage: true
+
 - task: GitHubRelease@1
   displayName: Create GitHub Release with ChangeLog
   inputs:
