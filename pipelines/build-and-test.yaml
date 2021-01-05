@@ -55,8 +55,9 @@ steps:
   displayName: Execute Unit Tests
   inputs:
     testSelector: 'testAssemblies'
-    testAssemblyVer2: src\CloudAwesome.Xrm.Customisation\CloudAwesome.Xrm.Customisation.Tests\bin\Release\CloudAwesome.Xrm.Customisation.Tests.dll
+    testAssemblyVer2: 'src\CloudAwesome.Xrm.Customisation\CloudAwesome.Xrm.Customisation.Tests\bin\Release\CloudAwesome.Xrm.Customisation.Tests.dll'
     searchFolder: '$(System.DefaultWorkingDirectory)'
+    testFiltercriteria: 'Category!=IgnoreInPipeline'
     codeCoverageEnabled: true
     testRunTitle: '$(Build.BuildNumber)'
 
