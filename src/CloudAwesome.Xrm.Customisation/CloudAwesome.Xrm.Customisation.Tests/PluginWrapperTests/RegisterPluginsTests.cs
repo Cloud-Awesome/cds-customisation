@@ -14,6 +14,7 @@ namespace CloudAwesome.Xrm.Customisation.Tests.PluginWrapperTests
     {
         [Test]
         [Description("Plugin assembly and steps don't already exist and are registered successfully")]
+        [Category("IgnoreInPipeline")]
         public void AssemblyDoesNotAlreadyExist()
         {
             var manifestPath = $"{TestManifestFolderPath}/plugin-manifest.xml";
@@ -44,6 +45,7 @@ namespace CloudAwesome.Xrm.Customisation.Tests.PluginWrapperTests
 
         [Test]
         [Description("Plugin assembly exists with no steps and are registered/updated successfully")]
+        [Category("IgnoreInPipeline")]
         public void AssemblyExistsWithNoRegisteredPlugins()
         {
             var manifestPath = $"{TestManifestFolderPath}/plugin-manifest.xml";
@@ -73,6 +75,7 @@ namespace CloudAwesome.Xrm.Customisation.Tests.PluginWrapperTests
 
         [Test]
         [Description("Plugin assembly exists with one existing step. New step is added")]
+        [Category("IgnoreInPipeline")]
         public void RemovesPluginTypeFromExistingAssembly()
         {
             var manifestPath = $"{TestManifestFolderPath}/plugin-manifest.xml";

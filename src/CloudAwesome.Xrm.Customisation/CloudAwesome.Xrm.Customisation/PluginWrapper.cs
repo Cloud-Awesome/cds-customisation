@@ -57,6 +57,12 @@ namespace CloudAwesome.Xrm.Customisation
             {
                 t.Debug($"Processing Assembly FriendlyName = {pluginAssembly.FriendlyName}");
 
+                if (!File.Exists(pluginAssembly.Assembly))
+                {
+                    t.Critical($"Assembly {pluginAssembly.Assembly} cannot be found!");
+                    continue;
+                }
+
                 var targetSolutionName = string.Empty;
                 if (!string.IsNullOrEmpty(pluginAssembly.SolutionName))
                 {
@@ -146,8 +152,9 @@ namespace CloudAwesome.Xrm.Customisation
                 if (!File.Exists(pluginAssembly.Assembly))
                 {
                     t.Critical($"Assembly {pluginAssembly.Assembly} cannot be found!");
-                    throw new FileNotFoundException($"Assembly {pluginAssembly.Assembly} cannot be found!");
+                    continue;
                 }
+
                 var pluginAssemblyInfo = new PluginAssemblyInfo(pluginAssembly.Assembly);
                 var existingAssembly = pluginAssembly.GetExistingQuery(pluginAssemblyInfo.Version).RetrieveSingleRecord(client);
 
