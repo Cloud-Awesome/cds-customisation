@@ -20,3 +20,14 @@
     - Useful for data migrations/imports
     - Include in source control which processes should be disabled (or which shouldn't be re-enabled)
     - Supports plugin steps, workflows, modern flows and case creation rules
+
+## Installation
+
+Two versions are available on Nuget.
+
+1. Install the Console Application for stand alone use or use within a pipeline use [CloudAwesome.Xrm.Customisation.Cli](https://www.nuget.org/packages/CloudAwesome.Xrm.Customisation.Cli/)
+2. To integrate the API into your own solution, install [CloudAwesome.Xrm.Customisation](https://www.nuget.org/packages/CloudAwesome.Xrm.Customisation/)
+
+## Example usage
+
+[[[ More documentation is en route! ;) ]]]
