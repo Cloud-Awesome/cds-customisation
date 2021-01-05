@@ -1,6 +1,6 @@
 # CloudAwesome.Xrm.Customisation
 
-> Automate common and time-consuming tasks during customisation and configuration of Dynamics 365/CDS
+> Automate common, time-consuming and error prone tasks during customisation and configuration of Dynamics 365/CDS
 
 ![In progress](documentation/assets/Status-InProgress.svg)
 

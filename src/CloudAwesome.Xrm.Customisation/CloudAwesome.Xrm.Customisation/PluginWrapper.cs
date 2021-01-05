@@ -104,7 +104,7 @@ namespace CloudAwesome.Xrm.Customisation
                         {
                             t.Debug($"Processing Entity Image = {entityImage.Name}");
                             var createdImage = entityImage.Register(client, createdStep);
-                            t.Info($"Entity image {entityImage.Name} registered with ID {createdImage}");
+                            t.Info($"Entity image {entityImage.Name} registered with ID {createdImage.Id}");
 
                         }
                     }

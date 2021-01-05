@@ -135,6 +135,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AttributeMetadataContext.cs" />
     <Compile Include="ConfigurationManifest.cs" />
     <Compile Include="ConfigurationWrapper.cs" />
     <Compile Include="CustomisationExtensions.cs" />
@@ -167,6 +168,13 @@
     <Compile Include="Exceptions\NoProcessToUpdateException.cs" />
     <Compile Include="Exceptions\NotCustomisableException.cs" />
     <Compile Include="ICustomisationManifest.cs" />
+    <Compile Include="Models\AttributeMetadataTypes\BooleanAttributeMetadataType.cs" />
+    <Compile Include="Models\AttributeMetadataTypes\DateTimeAttributeMetadataType.cs" />
+    <Compile Include="Models\AttributeMetadataTypes\IntegerAttributeMetadataType.cs" />
+    <Compile Include="Models\AttributeMetadataTypes\LookupAttributeMetadataType.cs" />
+    <Compile Include="Models\AttributeMetadataTypes\MemoAttributeMetadataType.cs" />
+    <Compile Include="Models\AttributeMetadataTypes\PicklistAttributeMetadataType.cs" />
+    <Compile Include="Models\AttributeMetadataTypes\StringAttributeMetadataType.cs" />
     <Compile Include="Models\CdsAttribute.cs" />
     <Compile Include="Models\CdsEntity.cs" />
     <Compile Include="Models\CdsEntityImage.cs" />
@@ -185,6 +193,7 @@
     <Compile Include="Models\CdsSolution.cs" />
     <Compile Include="Models\CdsWebhook.cs" />
     <Compile Include="Models\CdsWorkflowAssembly.cs" />
+    <Compile Include="Models\IAttributeMetadataType.cs" />
     <Compile Include="Models\PluginAssemblyInfo.cs" />
     <Compile Include="PluginManifest.cs" />
     <Compile Include="PluginWrapper.cs" />

@@ -1,5 +1,4 @@
-﻿using System;
-using System.ServiceModel;
+﻿using System.ServiceModel;
 using System.Xml.Serialization;
 using CloudAwesome.Xrm.Customisation.Exceptions;
 using Microsoft.Xrm.Sdk;

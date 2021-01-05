@@ -11,7 +11,10 @@ namespace CloudAwesome.Xrm.Customisation
             var validNameChars = new Regex("[A-Z0-9]", RegexOptions.Compiled | RegexOptions.IgnoreCase);
 
             var result = new StringBuilder();
-            result.AppendFormat("{0}_", publisherPrefix);
+            if (!string.IsNullOrEmpty(publisherPrefix))
+            {
+                result.AppendFormat("{0}_", publisherPrefix);
+            }
             foreach (var match in validNameChars.Matches(displayName))
             {
                 result.Append(match);
