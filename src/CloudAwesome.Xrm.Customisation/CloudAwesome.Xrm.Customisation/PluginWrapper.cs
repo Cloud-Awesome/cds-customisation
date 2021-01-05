@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using CloudAwesome.Xrm.Core;
 using CloudAwesome.Xrm.Customisation.Models;
@@ -141,6 +142,12 @@ namespace CloudAwesome.Xrm.Customisation
 
             foreach (var pluginAssembly in manifest.PluginAssemblies)
             {
+                t.Debug($"Getting PluginAssemblyInfo from file {pluginAssembly.Assembly}");
+                if (!File.Exists(pluginAssembly.Assembly))
+                {
+                    t.Critical($"Assembly {pluginAssembly.Assembly} cannot be found!");
+                    throw new FileNotFoundException($"Assembly {pluginAssembly.Assembly} cannot be found!");
+                }
                 var pluginAssemblyInfo = new PluginAssemblyInfo(pluginAssembly.Assembly);
                 var existingAssembly = pluginAssembly.GetExistingQuery(pluginAssemblyInfo.Version).RetrieveSingleRecord(client);
 
