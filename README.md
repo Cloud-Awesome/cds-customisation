@@ -25,8 +25,8 @@
 
 Two versions are available on Nuget.
 
-1. Install the Console Application for stand alone use or use within a pipeline use [CloudAwesome.Xrm.Customisation.Cli](https://www.nuget.org/packages/CloudAwesome.Xrm.Customisation.Cli/)
-2. To integrate the API into your own solution, install [CloudAwesome.Xrm.Customisation](https://www.nuget.org/packages/CloudAwesome.Xrm.Customisation/)
+1. To use a Console Application for stand alone use or for use within a pipeline install [CloudAwesome.Xrm.Customisation.Cli](https://www.nuget.org/packages/CloudAwesome.Xrm.Customisation.Cli/)
+2. To integrate the API into your own solution, install the [CloudAwesome.Xrm.Customisation](https://www.nuget.org/packages/CloudAwesome.Xrm.Customisation/) package
 
 ## Example usage
 
