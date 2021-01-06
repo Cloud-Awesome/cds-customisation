@@ -2,7 +2,7 @@
 
 > The `<SolutionName>` node (which CRM solution to add the assembly to) can exist both at the root level of a manifest and also as a child of each `<PluginAssembly>` node. If the `<SolutionName>` node exists under a `<PluginAssembly>` node, it overides the root value
 >
-> This allows you to manage registration of assemblies in a number of ways to match your CRM solution architecture, plus your ALM and deployment strategy
+> This allows you to manage registration of assemblies in a number of ways to match your CRM solution architecture, team(s) structure plus your ALM and deployment strategy
 
 ## 1. One manifest, one solution
 
@@ -16,6 +16,7 @@
 - Solutions can be deployed to other environments as required
 - Could cause deployment issues if CRM solutions have cross-dependencies (or if different teams/developers are adding/remving plugin types without keeping the manifest up to date)
 - Suitable for smaller teams with regular or simultaneous deployments, or solutions with highly segregated dependencies
+- Suitable for projects with more functional consultants (and therefore more solutions) but fewer technical consultants/developers
 
 ## 3. One manifest per business area
 
