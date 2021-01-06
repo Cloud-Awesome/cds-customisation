@@ -117,14 +117,14 @@ The top level nodes are proccessed in the following order (or reverse order for 
 	</Attribute>
   </Attributes>
   <EntityPermissions>
-	<Name>Laptop User</Name>
-	<!--<Create>Deep</Create>-->
-	<!--<Read>Deep</Read>-->
-	<!--<Write>Local</Write>-->
-	<!--<Delete>Basic</Delete>-->
-	<!--<AppendTo>Deep</AppendTo>-->
-	<!--<Append>Deep</Append>-->
-	<!--<Share>Basic</Share>-->
+      <Name>Laptop User</Name>
+      <!--<Create>Deep</Create>-->
+      <!--<Read>Deep</Read>-->
+      <!--<Write>Local</Write>-->
+      <!--<Delete>Basic</Delete>-->
+      <!--<AppendTo>Deep</AppendTo>-->
+      <!--<Append>Deep</Append>-->
+      <!--<Share>Basic</Share>-->
   </EntityPermissions>
  </Entity>
 ```
