@@ -16,6 +16,7 @@
 - Solutions can be deployed to other environments as required
 - Could cause deployment issues if CRM solutions have cross-dependencies (or if different teams/developers are adding/remving plugin types without keeping the manifest up to date)
 - Suitable for smaller teams with regular or simultaneous deployments, or solutions with highly segregated dependencies
+- Suitable for projects with more functional consultants (and therefore more solutions) but fewer technical consultants/developers
 
 ## 3. One manifest per business area
 
