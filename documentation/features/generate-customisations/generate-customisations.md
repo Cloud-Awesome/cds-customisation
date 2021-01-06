@@ -76,6 +76,9 @@ The top level nodes are proccessed in the following order (or reverse order for 
   </SecurityRole>
 </SecurityRoles>
 ```
+N.B. On updates to an existing security role privileges are additive. Privileges removed from the manifest will not be removed from the role
+
+Currently role privileges must either be manually removed or use the `clobber` flag to delete and recreate the role
 
 ### Entities
 
@@ -84,7 +87,7 @@ The top level nodes are proccessed in the following order (or reverse order for 
   <Entity>
     <DisplayName>Laptop</DisplayName>
     <!--<PluralName>Laptops</PluralName>-->
-    <!--<SchemaName>awe_laptop</SchemaName>-->
+    <!--<SchemaName>new_laptop</SchemaName>-->
     <!--<Description>Stock of available laptops</Description>-->
     <!--<OwnershipType>UserOwned</OwnershipType>-->
     <!--<PrimaryAttributeName>Name</PrimaryAttributeName>-->
@@ -105,7 +108,7 @@ The top level nodes are proccessed in the following order (or reverse order for 
     <Attributes>
       <Attribute>
         <DisplayName>Laptop Make</DisplayName>
-        <!--<SchemaName>awe_laptopmake</SchemaName>-->
+        <!--<SchemaName>new_laptopmake</SchemaName>-->
         <!--<DataType>String</DataType>-->
         <!--<Description>The make of the laptop</Description>-->
         <!--<RequiredLevel>ApplicationRequired</RequiredLevel>-->
@@ -152,7 +155,7 @@ e.g. Assuming the 'EntityCreationSandbox' solution has a publisher with prefix o
 <ModelDrivenApps>
   <ModelDrivenApp>
     <Name>Laptop Management</Name>
-    <!--<UniqueName>awe_laptopmanagement</UniqueName>-->
+    <!--<UniqueName>new_laptopmanagement</UniqueName>-->
     <!--<Description>App for managing laptops and laptop reference data</Description>-->
     <!--<SiteMap>
       <Areas>
@@ -164,7 +167,7 @@ e.g. Assuming the 'EntityCreationSandbox' solution has a publisher with prefix o
               <SubAreas>
                 <SubArea>
                   <Type>Entity</Type>
-                  <Entity>awe_laptop</Entity>
+                  <Entity>new_laptop</Entity>
                   <Title>Laptops</Title>
                 </SubArea>
               </SubAreas>

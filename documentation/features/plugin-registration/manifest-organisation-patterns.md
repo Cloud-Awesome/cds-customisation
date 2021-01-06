@@ -29,7 +29,7 @@
 
 - Create a manifest for different technical areas, e.g. dynamics-application-manifest, integration-plugins-manifest, service-endpoint-manifest, data-migration-plugin-manifest
 - Different technical areas often progress at different times and different velocities
-- Plurality of solutions again is optional and controlled by the tehcnical teacm
+- Plurality of solutions again is optional and controlled by the technical team(s)
 - Allows build and release pipelines to be triggered on a more granular basis
 
 For anything other than smaller (2-3 developer) team projects, I usually prefer either patterns 3, 4 or a combination of the two. Because the registration of multiple manifests can be scripted and/or triggered in a pipeline, multiple manifests are usually safer than fewer.

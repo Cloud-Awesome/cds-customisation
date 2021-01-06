@@ -68,7 +68,7 @@ None of the above nodes are mandatory - either leave them blank or omit them ent
             <ExecutionMode>Synchronous</ExecutionMode>
             <Message>update</Message>
             <PrimaryEntity>contact</PrimaryEntity>
-            <ExecutionOrder>1</ExecutionOrder>
+            <!--<ExecutionOrder>1</ExecutionOrder>-->
             <!--<AsyncAutoDelete>false</AsyncAutoDelete>-->
             <!--<FilteringAttributes>
               <Attribute>firstname</Attribute>
@@ -145,7 +145,7 @@ None of the above nodes are mandatory - either leave them blank or omit them ent
 </ServiceEndpoints>
 ```
 
-Note that the `<Steps/>` node is not mandatory and can be omitted if only the empty service endpoint is required. Can be useful if alternative message posting methods are being used, e.g. customm plugin to service bus
+Note that the `<Steps/>` node is not mandatory and can be omitted if only the empty service endpoint is required. Can be useful if alternative message posting methods are being used, e.g. custom plugin to service bus
 
 ### Webhooks
 
