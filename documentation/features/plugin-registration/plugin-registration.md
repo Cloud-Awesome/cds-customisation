@@ -27,3 +27,5 @@ Easier to delete all steps/images etc. and re-register than potentially have a r
 
 Structuring multiple manifests vs. multiple solutions vs. single manifests with solutions per `PluginAssembly` node to enable various team management, deployment and solution segregation strategies
 
+See [Manifest Organisation Patters](manifest-organisation-patterns.md) for more details
+
