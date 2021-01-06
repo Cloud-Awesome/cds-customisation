@@ -187,7 +187,7 @@ Note that while the `<SiteMap/>` node is not mandatory, it will not produce a fu
 
 ### Clobber
 
-Delete everything defined or created in the manifest, change and re-build. Usually quicker than having to deal with certain settings that can't be changed. Does wipe data too though, so be careful!
+Delete everything defined or created in the manifest, change and re-build. Usually quicker than having to deal with certain settings that can't be changed. Deleting entities does of course delete any data too though, so be careful and only run this in Sandbox environments!
 
 N.B. Only gets rids of artifacts specified in the manifest so will fail if there are other dependencies created manually or externally to this manifest
 
