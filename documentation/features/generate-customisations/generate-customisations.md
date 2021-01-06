@@ -26,6 +26,8 @@
 
 ### Clobber
 
-Easier to delete all steps/images etc. and re-register than potentially have a registration failed due to badly merged plugin types
+Delete everything defined or created in the manifest, change and re-build. Usually quicker than having to deal with certain settings that can't be changed. Does wipe data too though, so be careful!
+
+Also, only gets rids of artifacts specified in the manifest so will fail if there are other dependencies created manually or externally to this manifest
 
   

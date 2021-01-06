@@ -29,3 +29,9 @@ Structuring multiple manifests vs. multiple solutions vs. single manifests with 
 
 See [Manifest Organisation Patters](manifest-organisation-patterns.md) for more details
 
+### Design decisions
+
+- todo ...
+- Why a manifest instead of decorating plugin code itself
+- Why SolutionName in multiple places (see above) 
+- ..
