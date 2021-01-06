@@ -37,29 +37,29 @@
   <!--<NavigationColour></NavigationColour>-->
   <!-- **And others** -->
   <Attributes>
-	<Attribute>
-		<DisplayName>Laptop Make</DisplayName>
-		<!--<SchemaName>awe_laptopmake</SchemaName>-->
-		<!--<DataType>String</DataType>-->
-		<!--<Description>The make of the laptop</Description>-->
-		<!--<RequiredLevel>ApplicationRequired</RequiredLevel>-->
-		<!--<IsAuditEnabled>true</IsAuditEnabled>-->
-		<!--<MaxLength>8</MaxLength>-->
-		<!--<StringFormat>Text</StringFormat>-->
-		<!--<AddToForm>true</AddToForm>-->
-		<!--<AddToViewOrder>1</AddToViewOrder>-->
-		<!-- **And others** -->
-	</Attribute>
+    <Attribute>
+      <DisplayName>Laptop Make</DisplayName>
+      <!--<SchemaName>awe_laptopmake</SchemaName>-->
+      <!--<DataType>String</DataType>-->
+      <!--<Description>The make of the laptop</Description>-->
+      <!--<RequiredLevel>ApplicationRequired</RequiredLevel>-->
+      <!--<IsAuditEnabled>true</IsAuditEnabled>-->
+      <!--<MaxLength>8</MaxLength>-->
+      <!--<StringFormat>Text</StringFormat>-->
+      <!--<AddToForm>true</AddToForm>-->
+      <!--<AddToViewOrder>1</AddToViewOrder>-->
+      <!-- **And others** -->
+    </Attribute>
   </Attributes>
   <EntityPermissions>
-	<Name>Laptop User</Name>
-	<!--<Create>Deep</Create>-->
-	<!--<Read>Deep</Read>-->
-	<!--<Write>Local</Write>-->
-	<!--<Delete>Basic</Delete>-->
-	<!--<AppendTo>Deep</AppendTo>-->
-	<!--<Append>Deep</Append>-->
-	<!--<Share>Basic</Share>-->
+      <Name>Laptop User</Name>
+      <!--<Create>Deep</Create>-->
+      <!--<Read>Deep</Read>-->
+      <!--<Write>Local</Write>-->
+      <!--<Delete>Basic</Delete>-->
+      <!--<AppendTo>Deep</AppendTo>-->
+      <!--<Append>Deep</Append>-->
+      <!--<Share>Basic</Share>-->
   </EntityPermissions>
  </Entity>
 ```
