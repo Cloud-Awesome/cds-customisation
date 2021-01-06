@@ -80,43 +80,44 @@ The top level nodes are proccessed in the following order (or reverse order for 
 ### Entities
 
 ```xml
-<Entity>
-  <DisplayName>Laptop</DisplayName>
-  <!--<PluralName>Laptops</PluralName>-->
-  <!--<SchemaName>new_laptop</SchemaName>-->
-  <!--<Description>Stock of available laptops</Description>-->
-  <!--<OwnershipType>UserOwned</OwnershipType>-->
-  <!--<PrimaryAttributeName>Name</PrimaryAttributeName>-->
-  <!--<PrimaryAttributeMaxLength>50</PrimaryAttributeMaxLength>-->
-  <!--<PrimaryAttributeDescription>...</PrimaryAttributeDescription>-->
-  <!--<IsActivity>false</IsActivity>-->
-  <!--<HasActivities>false</HasActivities>-->
-  <!--<HasNotes>true</HasNotes>-->
-  <!--<IsQuickCreateEnabled>true</IsQuickCreateEnabled>-->
-  <!--<IsAuditEnabled>true</IsAuditEnabled>-->
-  <!--<IsDuplicateDetectionEnabled>false</IsDuplicateDetectionEnabled>-->
-  <!--<IsBusinessProcessEnabled>false</IsBusinessProcessEnabled>-->
-  <!--<IsDocumentManagementEnabled>false</IsDocumentManagementEnabled>-->
-  <!--<IsValidForQueue>true</IsValidForQueue>-->
-  <!--<ChangeTrackingEnabled>false</ChangeTrackingEnabled>-->
-  <!--<NavigationColour></NavigationColour>-->
-  <!-- **And others** -->
-  <Attributes>
-	<Attribute>
-		<DisplayName>Laptop Make</DisplayName>
-		<!--<SchemaName>new_laptopmake</SchemaName>-->
-		<!--<DataType>String</DataType>-->
-		<!--<Description>The make of the laptop</Description>-->
-		<!--<RequiredLevel>ApplicationRequired</RequiredLevel>-->
-		<!--<IsAuditEnabled>true</IsAuditEnabled>-->
-		<!--<MaxLength>8</MaxLength>-->
-		<!--<StringFormat>Text</StringFormat>-->
-		<!--<AddToForm>true</AddToForm>-->
-		<!--<AddToViewOrder>1</AddToViewOrder>-->
-		<!-- **And others** -->
-	</Attribute>
-  </Attributes>
-  <EntityPermissions>
+<Entities>
+  <Entity>
+    <DisplayName>Laptop</DisplayName>
+    <!--<PluralName>Laptops</PluralName>-->
+    <!--<SchemaName>awe_laptop</SchemaName>-->
+    <!--<Description>Stock of available laptops</Description>-->
+    <!--<OwnershipType>UserOwned</OwnershipType>-->
+    <!--<PrimaryAttributeName>Name</PrimaryAttributeName>-->
+    <!--<PrimaryAttributeMaxLength>50</PrimaryAttributeMaxLength>-->
+    <!--<PrimaryAttributeDescription>...</PrimaryAttributeDescription>-->
+    <!--<IsActivity>false</IsActivity>-->
+    <!--<HasActivities>false</HasActivities>-->
+    <!--<HasNotes>true</HasNotes>-->
+    <!--<IsQuickCreateEnabled>true</IsQuickCreateEnabled>-->
+    <!--<IsAuditEnabled>true</IsAuditEnabled>-->
+    <!--<IsDuplicateDetectionEnabled>false</IsDuplicateDetectionEnabled>-->
+    <!--<IsBusinessProcessEnabled>false</IsBusinessProcessEnabled>-->
+    <!--<IsDocumentManagementEnabled>false</IsDocumentManagementEnabled>-->
+    <!--<IsValidForQueue>true</IsValidForQueue>-->
+    <!--<ChangeTrackingEnabled>false</ChangeTrackingEnabled>-->
+    <!--<NavigationColour></NavigationColour>-->
+    <!-- **And others** -->
+    <Attributes>
+      <Attribute>
+        <DisplayName>Laptop Make</DisplayName>
+        <!--<SchemaName>awe_laptopmake</SchemaName>-->
+        <!--<DataType>String</DataType>-->
+        <!--<Description>The make of the laptop</Description>-->
+        <!--<RequiredLevel>ApplicationRequired</RequiredLevel>-->
+        <!--<IsAuditEnabled>true</IsAuditEnabled>-->
+        <!--<MaxLength>8</MaxLength>-->
+        <!--<StringFormat>Text</StringFormat>-->
+        <!--<AddToForm>true</AddToForm>-->
+        <!--<AddToViewOrder>1</AddToViewOrder>-->
+        <!-- **And others** -->
+      </Attribute>
+    </Attributes>
+    <EntityPermissions>
       <Name>Laptop User</Name>
       <!--<Create>Deep</Create>-->
       <!--<Read>Deep</Read>-->
@@ -125,11 +126,12 @@ The top level nodes are proccessed in the following order (or reverse order for 
       <!--<AppendTo>Deep</AppendTo>-->
       <!--<Append>Deep</Append>-->
       <!--<Share>Basic</Share>-->
-  </EntityPermissions>
- </Entity>
+    </EntityPermissions>
+   </Entity>
+ </Entities>
 ```
 
-N.B. `DisplayName` is the only mandatory node, if an entity or attribute is being updated, the schema name is derived from the Display Name plus the publisher of the named solution. So it is often wise to include the `SchemaName` if the manifest includes existing entities to prevent duplication
+N.B. While `DisplayName` is the only mandatory node, if an entity or attribute is being updated, the schema name is derived from the Display Name plus the publisher of the named solution. So it is often wise to include the `SchemaName` if the manifest includes existing entities to prevent duplication
 
 e.g. Assuming the 'EntityCreationSandbox' solution has a publisher with prefix of 'new', the below manifest would create a new entity 'new_contact'
 
@@ -137,9 +139,9 @@ e.g. Assuming the 'EntityCreationSandbox' solution has a publisher with prefix o
 <ConfigurationManifest>
   <SolutionName>EntityCreationSandbox</SolutionName>
   <Entities>
-	<Entity>
-	  <DisplayName>Contact</DisplayName>
-	</Entity>
+    <Entity>
+      <DisplayName>Contact</DisplayName>
+    </Entity>
   </Entities>
 </ConfigurationManifest>
 ```

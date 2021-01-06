@@ -43,6 +43,8 @@ The manifest consists of the following top-level nodes:
 </PluginManifest>
 ```
 
+None of the above nodes are mandatory - either leave them blank or omit them entirely if they are not relevant to your requirements
+
 ### Plugin Assemblies
 
 ```xml
@@ -109,7 +111,6 @@ The manifest consists of the following top-level nodes:
     <SASKey>6notREAL7CuN1aQwi1dQWERiRu3FAKE!kEy2yv4Y0=</SASKey>
     <UserClaim>UserId</UserClaim>
     <!--<Description>This is the TesterQueue's description</Description>-->
-    <!-- No steps are required if alternative posting is used, e.g. custom plugin -->
     <Steps>
       <Step>
         <Name>Tester Queue: On Update of Contact</Name>
@@ -144,13 +145,15 @@ The manifest consists of the following top-level nodes:
 </ServiceEndpoints>
 ```
 
+Note that the `<Steps/>` node is not mandatory and can be omitted if only the empty service endpoint is required. Can be useful if alternative message posting methods are being used, e.g. customm plugin to service bus
+
 ### Webhooks
 
-Not yet implmented, but will be follow a very similar format to the `<ServiceEndpoints/>` schema
+Not yet implemented, but will be follow a very similar format to the `<ServiceEndpoints/>` schema
 
 ### Custom Workflow Assemblies
 
-Not yet implemented. Due to the general move away from workflow use in favour of Logic Apps/Power Automate etc., this may not be implemented
+Not yet implemented. Due to the general move away from workflow use in favour of Logic Apps/Power Automate etc., this may not be implemented. Drop me a feature request if it would be still be useful!
 
 ## Options
 
