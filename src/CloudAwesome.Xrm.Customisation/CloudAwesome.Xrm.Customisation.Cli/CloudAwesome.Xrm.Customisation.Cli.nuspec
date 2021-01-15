@@ -13,4 +13,7 @@
     <repository type="GitHub" url="https://github.com/Cloud-Awesome/cds-customisation" />
     <dependencies />
   </metadata>
+  <files>
+    <file src="../IncludeFolder/WithManifestExamples/WhenWritten.xml"/>
+  </files>
 </package>

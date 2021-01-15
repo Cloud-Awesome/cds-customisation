@@ -22,7 +22,7 @@ namespace CloudAwesome.Xrm.Customisation.Models
 
         public string Description
         {
-            get => _description ?? "A custom entity";
+            get => _description;
             set => _description = string.IsNullOrEmpty(value) ? "A custom entity" : value;
         }
         public OwnershipTypes OwnershipType { get; set; }
@@ -35,7 +35,7 @@ namespace CloudAwesome.Xrm.Customisation.Models
         
         public string PrimaryAttributeName
         {
-            get => _primaryAttributeName ?? "Name";
+            get => _primaryAttributeName;
             set => _primaryAttributeName = value ?? "Name";
         }
 
@@ -101,7 +101,9 @@ namespace CloudAwesome.Xrm.Customisation.Models
             {
                 LogicalName = string.Format($"{_publisherPrefix}_name"),
                 SchemaName = string.Format($"{_publisherPrefix}_name"),
-                DisplayName = this.PrimaryAttributeName.CreateLabelFromString(),
+                DisplayName = string.IsNullOrEmpty(this.PrimaryAttributeName) 
+                    ? "A custom entity".CreateLabelFromString() 
+                    : this.PrimaryAttributeName.CreateLabelFromString(),
                 MaxLength = this.PrimaryAttributeMaxLength,
                 Description = this.PrimaryAttributeDescription.CreateLabelFromString()
             };
@@ -150,7 +152,7 @@ namespace CloudAwesome.Xrm.Customisation.Models
                 : this.SchemaName;
 
             var existingMetadata = new EntityMetadata();
-            var existingEntity = false;
+            bool existingEntity;
             try
             {
                 var entity = new RetrieveEntityRequest()
