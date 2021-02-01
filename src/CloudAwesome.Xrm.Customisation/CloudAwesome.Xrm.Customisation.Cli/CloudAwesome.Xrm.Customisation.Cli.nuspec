@@ -14,7 +14,33 @@
     <dependencies />
   </metadata>
   <files>
-    <!--<file src="tools/ManifestSamples/WhenWritten.xml"/>-->
-    <file src="bin/Release/*.dll" target="tools" />
+    <!--<file src="tools/ExtraManifestSamples/WhenWritten.xml"/>-->
+    <file src="../CloudAwesome.Xrm.Customisation/SampleSchema/configuration-manifest.xml" target="sample-manifests" />
+    <file src="../CloudAwesome.Xrm.Customisation/SampleSchema/plugin-manifest.xml" target="sample-manifests" />
+    <file src="../CloudAwesome.Xrm.Customisation/SampleSchema/process-activation-manifest.xml" target="sample-manifests" />
+
+    <file src="bin/Release/CommandLine.dll" target="tools" />
+    <file src="bin/Release/CloudAwesome.Xrm.Core.dll" target="tools" />
+    <file src="bin/Release/CloudAwesome.Xrm.Customisation.dll" target="tools" />
+    <file src="bin/Release/Microsoft.ApplicationInsights.dll" target="tools" />
+    <file src="bin/Release/Microsoft.Crm.Sdk.Proxy.dll" target="tools" />
+    <file src="bin/Release/Microsoft.Extensions.Logging.dll" target="tools" />
+    <file src="bin/Release/Microsoft.Extensions.Logging.Abstractions.dll" target="tools" />
+    <file src="bin/Release/Microsoft.Extensions.Options.dll" target="tools" />
+    <file src="bin/Release/Microsoft.Extensions.Primitives.dll" target="tools" />
+    <file src="bin/Release/Microsoft.IdentityModel.Clients.ActiveDirectory.dll" target="tools" />
+    <file src="bin/Release/Microsoft.IdentityModel.Clients.ActiveDirectory.Platform.dll" target="tools" />
+    <file src="bin/Release/Microsoft.Rest.ClientRuntime.dll" target="tools" />
+    <file src="bin/Release/Microsoft.Xrm.Sdk.dll" target="tools" />
+    <file src="bin/Release/Microsoft.Xrm.Sdk.Deployment.dll" target="tools" />
+    <file src="bin/Release/Microsoft.Xrm.Sdk.Workflow.dll" target="tools" />
+    <file src="bin/Release/Microsoft.Xrm.Tooling.Connector.dll" target="tools" />
+    <file src="bin/Release/Newtonsoft.Json.dll" target="tools" />
+    <file src="bin/Release/System.Buffers.dll" target="tools" />
+    <file src="bin/Release/System.Diagnostics.DiagnosticSource.dll" target="tools" />
+    <file src="bin/Release/System.Memory.dll" target="tools" />
+    <file src="bin/Release/System.Numerics.Vectors.dll" target="tools" />
+    <file src="bin/Release/System.Threading.Tasks.Extensions.dll" target="tools" />
+    <file src="bin/Release/System.ValueTuple.dll" target="tools" />
   </files>
 </package>
