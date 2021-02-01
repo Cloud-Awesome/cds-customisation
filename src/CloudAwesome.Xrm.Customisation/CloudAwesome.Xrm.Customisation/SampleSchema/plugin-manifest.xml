@@ -7,9 +7,12 @@
 
   <CdsConnection>
     <ConnectionType>AppRegistration</ConnectionType>
-    <CdsUrl>https://awesome-sandbox.crm11.dynamics.com</CdsUrl>
-    <CdsAppId>70173e6e-3bd4-4ae0-a3b0-460cf3ae3e5d</CdsAppId>
-    <CdsAppSecret>W.Ykma-6DNXxQOmVX96h151Si6_4Pc44x.</CdsAppSecret>
+    <CdsConnectionString>...</CdsConnectionString>
+    <CdsUrl>...</CdsUrl>
+    <CdsUserName>...</CdsUserName>
+    <CdsPassword>...</CdsPassword>
+    <CdsAppId>...</CdsAppId>
+    <CdsAppSecret>...</CdsAppSecret>
   </CdsConnection>
 
   <LoggingConfiguration>
