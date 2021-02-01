@@ -1,5 +1,9 @@
 ﻿namespace CloudAwesome.Xrm.Customisation.Models
 {
+    public enum ApiBindingType { Global, Entity, EntityCollection }
+
+    public enum CustomProcessingStepType { None, AsyncOnly, SyncAndAsync }
+
     public class CdsCustomApi
     {
         public string Name { get; set; }
@@ -8,15 +12,15 @@
 
         public string Description { get; set; }
 
-        public string ExecutePrivilegeName { get; set; } // <- TODO - what's this? :) A string for rolepriv?
+        public string ExecutePrivilegeName { get; set; }
 
         public bool IsFunction { get; set; }
 
         public bool IsPrivate { get; set; }
 
-        public string AllowedCustomProcessingStepType { get; set; } // <- TODO - this is an enum?
+        public CustomProcessingStepType AllowedCustomProcessingStepType { get; set; }
 
-        public string BindingType { get; set; } // <- TODO - this is an enum?
+        public ApiBindingType BindingType { get; set; }
 
         public CdsRequestParameter[] RequestParameters { get; set; }
 

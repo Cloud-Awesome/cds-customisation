@@ -8,6 +8,6 @@
 
         public string Description { get; set; }
 
-        public string Type { get; set; } // <- TODO - this is an enum, get the values ;)
+        public CustomApiDataType Type { get; set; }
     }
 }

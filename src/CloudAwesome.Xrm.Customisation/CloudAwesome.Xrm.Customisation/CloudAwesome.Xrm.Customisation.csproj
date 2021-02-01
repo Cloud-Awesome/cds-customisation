@@ -159,6 +159,7 @@
     <Compile Include="Models\CdsSolution.cs" />
     <Compile Include="Models\CdsWebhook.cs" />
     <Compile Include="Models\CdsWorkflowAssembly.cs" />
+    <Compile Include="Models\CustomApiDataType.cs" />
     <Compile Include="Models\IAttributeMetadataType.cs" />
     <Compile Include="Models\PluginAssemblyInfo.cs" />
     <Compile Include="PluginManifest.cs" />
