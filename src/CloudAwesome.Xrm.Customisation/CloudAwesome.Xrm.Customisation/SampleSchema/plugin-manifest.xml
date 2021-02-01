@@ -80,6 +80,36 @@
               <SecureConfiguration>...</SecureConfiguration>
             </Step>
           </Steps>
+          <CustomApis>
+            <CustomApi>
+              <Name>awe_customapiexample</Name>
+              <FriendlyName>Custom API Example</FriendlyName>
+              <Description>...</Description>
+              <ExecutePrivilegeName></ExecutePrivilegeName>
+              <IsFunction></IsFunction>
+              <IsPrivate></IsPrivate>
+              <AllowedCustomProcessingStepType>None</AllowedCustomProcessingStepType>
+              <BindingType>Global</BindingType>
+              <RequestParameters>
+                <RequestParameter>
+                  <Name>awe_stringparameter</Name>
+                  <FriendlyName>String Parameter</FriendlyName>
+                  <Description>...</Description>
+                  <LogicalEntityName>contact</LogicalEntityName>
+                  <IsOptional>false</IsOptional>
+                  <Type>String</Type>
+                </RequestParameter>
+              </RequestParameters>
+              <ResponseProperties>
+                <ResponseProperty>
+                  <Name>awe_stringproperty</Name>
+                  <FriendlyName>String Property</FriendlyName>
+                  <Description>...</Description>
+                  <Type>String</Type>
+                </ResponseProperty>
+              </ResponseProperties>
+            </CustomApi>
+          </CustomApis>
         </Plugin>
         <Plugin>
           <Name>SamplePluginAssembly.AccountPlugin</Name>

@@ -17,6 +17,9 @@ namespace CloudAwesome.Xrm.Customisation.Models
         [XmlArrayItem("Step")]
         public CdsPluginStep[] Steps { get; set; }
 
+        [XmlArrayItem("CustomApi")]
+        public CdsCustomApi[] CustomApis { get; set; }
+
         public EntityReference Register(IOrganizationService client, EntityReference parentAssembly)
         {
             if (parentAssembly.LogicalName != PluginAssembly.EntityLogicalName)

@@ -139,6 +139,7 @@
     <Compile Include="Models\AttributeMetadataTypes\PicklistAttributeMetadataType.cs" />
     <Compile Include="Models\AttributeMetadataTypes\StringAttributeMetadataType.cs" />
     <Compile Include="Models\CdsAttribute.cs" />
+    <Compile Include="Models\CdsCustomApi.cs" />
     <Compile Include="Models\CdsEntity.cs" />
     <Compile Include="Models\CdsEntityImage.cs" />
     <Compile Include="Models\CdsEntityPermission.cs" />
@@ -147,6 +148,8 @@
     <Compile Include="Models\CdsPlugin.cs" />
     <Compile Include="Models\CdsPluginAssembly.cs" />
     <Compile Include="Models\CdsPluginStep.cs" />
+    <Compile Include="Models\CdsRequestParameter.cs" />
+    <Compile Include="Models\CdsResponseProperty.cs" />
     <Compile Include="Models\CdsSecurityRole.cs" />
     <Compile Include="Models\CdsServiceEndpoint.cs" />
     <Compile Include="Models\CdsSiteMap.cs" />

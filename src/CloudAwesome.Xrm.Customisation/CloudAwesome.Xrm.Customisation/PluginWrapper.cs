@@ -272,6 +272,11 @@ namespace CloudAwesome.Xrm.Customisation
             t.Debug($"Exiting PluginWrapper.UnregisterServiceEndPoints");
         }
 
+        public void RegisterCustomApis()
+        {
+            throw new NotImplementedException("Issue #32");
+        }
+
         private static QueryBase GetSdkMessageQuery(string sdkMessageName)
         {
             return new QueryExpression(SdkMessage.EntityLogicalName)
