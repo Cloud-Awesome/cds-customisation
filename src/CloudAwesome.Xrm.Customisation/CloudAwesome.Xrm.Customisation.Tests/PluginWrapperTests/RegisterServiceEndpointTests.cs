@@ -10,7 +10,7 @@ namespace CloudAwesome.Xrm.Customisation.Tests.PluginWrapperTests
     public class RegisterServiceEndpointTests: BaseFakeXrmTest
     {
         [Test]
-        [Description("Endpoint doesn't exist but is registered succesfully")]
+        [Description("Endpoint doesn't exist but is registered successfully")]
         public void ServiceEndPointDoeNotExist()
         {
             var manifestPath = $"{TestManifestFolderPath}/plugin-manifest.xml";
@@ -34,6 +34,7 @@ namespace CloudAwesome.Xrm.Customisation.Tests.PluginWrapperTests
                     select e).ToList();
 
             Assert.AreEqual(1, postRegisteredEndpoints.Count);
+            Assert.IsNotNull(postRegisteredEndpoints[0].Id);
 
         }
 

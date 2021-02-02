@@ -79,6 +79,8 @@
     <Compile Include="CustomisationExtensions\CreateLabelFromStringTests.cs" />
     <Compile Include="CustomisationExtensions\GenerateLogicalNameFromDisplayNameTests.cs" />
     <Compile Include="CustomisationExtensions\PluraliseTests.cs" />
+    <Compile Include="ModelTests\CdsEntityImageTests.cs" />
+    <Compile Include="ModelTests\CdsPluginStepTests.cs" />
     <Compile Include="PluginWrapperTests\RegisterPluginsTests.cs" />
     <Compile Include="PluginWrapperTests\RegisterServiceEndpointTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -89,7 +91,6 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="ModelTests\" />
     <Folder Include="TracingWrapperTests\" />
   </ItemGroup>
   <ItemGroup>

@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Linq;
 using System.Xml.Serialization;
 using CloudAwesome.Xrm.Core;
 using CloudAwesome.Xrm.Customisation.Exceptions;
@@ -44,7 +43,9 @@ namespace CloudAwesome.Xrm.Customisation.Models
             var step = new SdkMessageProcessingStep()
             {
                 Name = this.Name,
-                Configuration = this.UnsecureConfiguration,
+                Configuration = string.IsNullOrEmpty(this.UnsecureConfiguration)
+                    ? this.UnsecureConfiguration
+                    : "",
                 Mode = this.ExecutionMode,
                 Rank = this.ExecutionOrder,
                 Stage = this.Stage,
@@ -53,12 +54,15 @@ namespace CloudAwesome.Xrm.Customisation.Models
                 SdkMessageId = sdkMessage,
                 Description = this.Description,
                 AsyncAutoDelete = this.AsyncAutoDelete,
-                SdkMessageFilterId = sdkMessageFilter,
-                FilteringAttributes = string.Join(",", this.FilteringAttributes)
+                SdkMessageFilterId = sdkMessageFilter
             };
 
-            var existingStepQuery = this.GetExistingQuery(parentPluginType.Id, sdkMessage.Id, sdkMessageFilter.Id);
+            if (this.FilteringAttributes != null && this.FilteringAttributes.Length > 0)
+            {
+                step.FilteringAttributes = string.Join(",", this.FilteringAttributes);
+            }
 
+            var existingStepQuery = this.GetExistingQuery(parentPluginType.Id, sdkMessage.Id, sdkMessageFilter.Id);
             return step.CreateOrUpdate(client, existingStepQuery);
         }
 
