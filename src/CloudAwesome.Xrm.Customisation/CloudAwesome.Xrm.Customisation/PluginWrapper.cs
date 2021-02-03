@@ -48,7 +48,8 @@ namespace CloudAwesome.Xrm.Customisation
 
             if (manifest.Clobber)
             {
-                t.Info($"Manifest has 'Clobber' set to true. Deleting referenced Plugins before re-registering");
+                t.Warning($"Manifest has 'Clobber' set to true. Deleting referenced Plugins before re-registering");
+                this.UnregisterServiceEndPoints(manifest, client, t);
                 this.UnregisterPlugins(manifest, client, t);
             }
 
@@ -120,6 +121,7 @@ namespace CloudAwesome.Xrm.Customisation
                     // 3a. Register Custom APIs
                     if (plugin.CustomApis != null)
                     {
+                        // debug: view all apis and children with query - /api/data/v9.1/customapis?$select=uniquename,allowedcustomprocessingsteptype,bindingtype,boundentitylogicalname,description,displayname,executeprivilegename,isfunction,isprivate&$expand=CustomAPIRequestParameters($select=uniquename,name,description,displayname,type,logicalentityname,isoptional),CustomAPIResponseProperties($select=uniquename,name,description,displayname,type,logicalentityname),PluginTypeId($select=plugintypeid,typename,version,name,assemblyname)
                         foreach (var api in plugin.CustomApis)
                         {
                             t.Debug($"Processing Step = {api.FriendlyName}");
@@ -151,10 +153,10 @@ namespace CloudAwesome.Xrm.Customisation
                                 {
                                     t.Debug($"Processing Custom API response property '{responseProperty.FriendlyName}'");
                                     var createdProperty = responseProperty.Register(client, createdApi);
-                                    t.Info($"Request parameter '{responseProperty.FriendlyName} created with ID {createdProperty.Id}'");
+                                    t.Info($"Response property '{responseProperty.FriendlyName} created with ID {createdProperty.Id}'");
 
-                                    SolutionWrapper.AddSolutionComponent(client, targetSolutionName, createdProperty.Id, ComponentType.CustomApiRequestParameter);
-                                    t.Debug($"Request parameter '{responseProperty.FriendlyName}' added to solution {targetSolutionName}");
+                                    SolutionWrapper.AddSolutionComponent(client, targetSolutionName, createdProperty.Id, ComponentType.CustomApiResponseProperty);
+                                    t.Debug($"Response property '{responseProperty.FriendlyName}' added to solution {targetSolutionName}");
                                 }
                             }
                         }
@@ -188,6 +190,8 @@ namespace CloudAwesome.Xrm.Customisation
         {
             t.Debug($"Entering PluginWrapper.UnregisterPlugins");
 
+            // TODO - need to clobber Custom APIs and child parameters/properties too!!
+
             foreach (var pluginAssembly in manifest.PluginAssemblies)
             {
                 t.Debug($"Getting PluginAssemblyInfo from file {pluginAssembly.Assembly}");
@@ -204,6 +208,8 @@ namespace CloudAwesome.Xrm.Customisation
 
                 var childPluginTypesResults = GetChildPluginTypesQuery(existingAssembly.ToEntityReference()).RetrieveMultiple(client);
                 var pluginsList = childPluginTypesResults.Entities.Select(e => e.Id).ToList();
+
+                GetChildCustomApisQuery(pluginsList).DeleteAllResults(client);
 
                 var childStepsResults = GetChildPluginStepsQuery(pluginsList).RetrieveMultiple(client);
                 var pluginStepsList = childStepsResults.Entities.Select(e => e.Id).ToList();
@@ -228,18 +234,32 @@ namespace CloudAwesome.Xrm.Customisation
         
         public void RegisterServiceEndpoints(PluginManifest manifest, IOrganizationService client)
         {
-            RegisterServiceEndpoints(manifest, client, null);
+            if (manifest.LoggingConfiguration != null)
+            {
+                var t = new TracingHelper(manifest.LoggingConfiguration);
+                RegisterServiceEndpoints(manifest, client, t);
+            }
+            else
+            {
+                RegisterServiceEndpoints(manifest, client, t: null);
+            }
+
         }
 
         public void RegisterServiceEndpoints(PluginManifest manifest, IOrganizationService client, ILogger logger)
         {
             var t = new TracingHelper(logger);
+            RegisterServiceEndpoints(manifest, client, t);
+        }
+
+        public void RegisterServiceEndpoints(PluginManifest manifest, IOrganizationService client, TracingHelper t)
+        {
             t.Debug($"Entering PluginWrapper.RegisterServiceEndpoints");
 
             if (manifest.Clobber)
             {
-                t.Info($"Manifest has 'Clobber' set to true. Deleting referenced Plugins before re-registering");
-                this.UnregisterServiceEndPoints(manifest, client, logger);
+                t.Warning($"Manifest has 'Clobber' set to true. Deleting referenced Plugins before re-registering");
+                this.UnregisterServiceEndPoints(manifest, client, t);
             }
 
             // 1. Register Service Endpoints
@@ -285,12 +305,25 @@ namespace CloudAwesome.Xrm.Customisation
 
         public void UnregisterServiceEndPoints(PluginManifest manifest, IOrganizationService client)
         {
-            UnregisterServiceEndPoints(manifest, client, null);
+            if (manifest.LoggingConfiguration != null)
+            {
+                var t = new TracingHelper(manifest.LoggingConfiguration);
+                UnregisterServiceEndPoints(manifest, client, t);
+            }
+            else
+            {
+                UnregisterServiceEndPoints(manifest, client, t: null);
+            }
         }
 
         public void UnregisterServiceEndPoints(PluginManifest manifest, IOrganizationService client, ILogger logger)
         {
             var t = new TracingHelper(logger);
+            UnregisterServiceEndPoints(manifest, client, t);
+        }
+
+        public void UnregisterServiceEndPoints(PluginManifest manifest, IOrganizationService client, TracingHelper t)
+        {
             t.Debug($"Entering PluginWrapper.UnregisterServiceEndPoints");
 
             foreach (var serviceEndpoint in manifest.ServiceEndpoints)
@@ -374,6 +407,24 @@ namespace CloudAwesome.Xrm.Customisation
                     Conditions =
                     {
                         new ConditionExpression(SdkMessageProcessingStep.Fields.PluginTypeId,
+                            ConditionOperator.In, parentPluginsList)
+                    }
+                }
+            };
+        }
+
+        private static QueryBase GetChildCustomApisQuery(List<Guid> parentPluginsList)
+        {
+            return new QueryExpression()
+            {
+                EntityName = CustomAPI.EntityLogicalName,
+                ColumnSet = new ColumnSet(CustomAPI.PrimaryIdAttribute,
+                    CustomAPI.PrimaryNameAttribute),
+                Criteria = new FilterExpression()
+                {
+                    Conditions =
+                    {
+                        new ConditionExpression(CustomAPI.Fields.PluginTypeId,
                             ConditionOperator.In, parentPluginsList)
                     }
                 }

@@ -41,6 +41,7 @@ namespace CloudAwesome.Xrm.Customisation.Cli.Features
 
             var pluginWrapper = new PluginWrapper();
             pluginWrapper.RegisterPlugins(manifest, client);
+            pluginWrapper.RegisterServiceEndpoints(manifest, client);
         }
     }
 }

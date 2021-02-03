@@ -91,8 +91,8 @@ namespace CloudAwesome.Xrm.Customisation
         SlaItem = 153,
         ConvertRule = 154,
         ConvertRuleItem = 155,
-        CustomApi = 10546,
-        CustomApiRequestParameter = 10547,
-        CustomApiResponseProperty = 10548
+        CustomApi = 10148,
+        CustomApiRequestParameter = 10149,
+        CustomApiResponseProperty = 10150
     }
 }

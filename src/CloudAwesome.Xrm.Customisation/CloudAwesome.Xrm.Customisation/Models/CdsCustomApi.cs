@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Xml.Serialization;
 using CloudAwesome.Xrm.Core;
 using Microsoft.Xrm.Sdk;
 using Microsoft.Xrm.Sdk.Query;
@@ -27,8 +28,10 @@ namespace CloudAwesome.Xrm.Customisation.Models
 
         public CustomAPI_BindingType BindingType { get; set; }
 
+        [XmlArrayItem("RequestParameter")]
         public CdsRequestParameter[] RequestParameters { get; set; }
 
+        [XmlArrayItem("ResponseProperty")]
         public CdsResponseProperty[] ResponseProperties { get; set; }
 
         public EntityReference Register(IOrganizationService client, EntityReference parentPlugin)
@@ -57,7 +60,7 @@ namespace CloudAwesome.Xrm.Customisation.Models
             {
                 EntityName = CustomAPI.EntityLogicalName,
                 ColumnSet = new ColumnSet(CustomAPI.PrimaryIdAttribute,
-                    PluginType.PrimaryNameAttribute),
+                    CustomAPI.PrimaryNameAttribute),
                 Criteria = new FilterExpression()
                 {
                     Conditions =
