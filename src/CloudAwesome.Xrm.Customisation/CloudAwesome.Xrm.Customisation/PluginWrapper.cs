@@ -78,48 +78,90 @@ namespace CloudAwesome.Xrm.Customisation
                 t.Info($"Assembly {pluginAssembly.FriendlyName} registered with ID {createdAssembly.Id}");
 
                 SolutionWrapper.AddSolutionComponent(client, targetSolutionName, createdAssembly.Id, ComponentType.PluginAssembly);
-                t.Debug($"Assembly {pluginAssembly.FriendlyName} added to solution {targetSolutionName}");
+                t.Debug($"Assembly '{pluginAssembly.FriendlyName}' added to solution {targetSolutionName}");
 
                 if (manifest.UpdateAssemblyOnly) continue;
 
-                // 2. Register Plugins
+                // 2a. Register Plugins
                 foreach (var plugin in pluginAssembly.Plugins)
                 {
                     t.Debug($"PluginType FriendlyName = {plugin.FriendlyName}");
                     var createdPluginType = plugin.Register(client, createdAssembly);
                     t.Info($"Plugin {plugin.FriendlyName} registered with ID {createdPluginType.Id}");
 
-                    if (plugin.Steps == null) continue;
-
-                    // 3. Register Plugin Steps
-                    foreach (var pluginStep in plugin.Steps)
+                    if (plugin.Steps != null)
                     {
-                        t.Debug($"Processing Step = {pluginStep.FriendlyName}");
-
-                        var sdkMessage = GetSdkMessageQuery(pluginStep.Message).RetrieveSingleRecord(client);
-                        var sdkMessageFilter = GetSdkMessageFilterQuery(pluginStep.PrimaryEntity, sdkMessage.Id).RetrieveSingleRecord(client);
-
-                        var createdStep = pluginStep.Register(client, createdPluginType, sdkMessage.ToEntityReference(), sdkMessageFilter.ToEntityReference());
-                        t.Info($"Plugin step {pluginStep.FriendlyName} registered with ID {createdStep.Id}");
-
-                        SolutionWrapper.AddSolutionComponent(client, targetSolutionName, createdStep.Id, ComponentType.SDKMessageProcessingStep);
-                        t.Debug($"Plugin Step {pluginStep.FriendlyName} added to solution {targetSolutionName}");
-
-                        // 4. Register Entity Images
-                        if (pluginStep.EntityImages == null) continue;
-                        foreach (var entityImage in pluginStep.EntityImages)
+                        // 2b. Register Plugin Steps
+                        foreach (var pluginStep in plugin.Steps)
                         {
-                            t.Debug($"Processing Entity Image = {entityImage.Name}");
-                            var createdImage = entityImage.Register(client, createdStep);
-                            t.Info($"Entity image {entityImage.Name} registered with ID {createdImage.Id}");
+                            t.Debug($"Processing Step = {pluginStep.FriendlyName}");
 
+                            var sdkMessage = GetSdkMessageQuery(pluginStep.Message).RetrieveSingleRecord(client);
+                            var sdkMessageFilter = GetSdkMessageFilterQuery(pluginStep.PrimaryEntity, sdkMessage.Id).RetrieveSingleRecord(client);
+
+                            var createdStep = pluginStep.Register(client, createdPluginType, sdkMessage.ToEntityReference(), sdkMessageFilter.ToEntityReference());
+                            t.Info($"Plugin step {pluginStep.FriendlyName} registered with ID {createdStep.Id}");
+
+                            SolutionWrapper.AddSolutionComponent(client, targetSolutionName, createdStep.Id, ComponentType.SdkMessageProcessingStep);
+                            t.Debug($"Plugin Step '{pluginStep.FriendlyName}' added to solution {targetSolutionName}");
+
+                            // 2c. Register Entity Images
+                            if (pluginStep.EntityImages == null) continue;
+                            foreach (var entityImage in pluginStep.EntityImages)
+                            {
+                                t.Debug($"Processing Entity Image = {entityImage.Name}");
+                                var createdImage = entityImage.Register(client, createdStep);
+                                t.Info($"Entity image {entityImage.Name} registered with ID {createdImage.Id}");
+
+                            }
+                        }
+                    }
+
+                    // 3a. Register Custom APIs
+                    if (plugin.CustomApis != null)
+                    {
+                        foreach (var api in plugin.CustomApis)
+                        {
+                            t.Debug($"Processing Step = {api.FriendlyName}");
+
+                            var createdApi = api.Register(client, createdPluginType);
+                            t.Info($"CustomApi {api.FriendlyName} created with ID {createdApi.Id}");
+
+                            SolutionWrapper.AddSolutionComponent(client, targetSolutionName, createdApi.Id, ComponentType.CustomApi);
+                            t.Debug($"Custom API '{api.FriendlyName}' added to solution {targetSolutionName}");
+
+                            // 3b. Create/Update Request Parameters
+                            if (api.RequestParameters != null)
+                            {
+                                foreach (var requestParameter in api.RequestParameters)
+                                {
+                                    t.Debug($"Processing Custom API request parameter '{requestParameter.FriendlyName}'");
+                                    var createdParameter = requestParameter.Register(client, createdApi);
+                                    t.Info($"Request parameter '{requestParameter.FriendlyName} created with ID {createdParameter.Id}'");
+
+                                    SolutionWrapper.AddSolutionComponent(client, targetSolutionName, createdParameter.Id, ComponentType.CustomApiRequestParameter);
+                                    t.Debug($"Request parameter '{requestParameter.FriendlyName}' added to solution {targetSolutionName}");
+                                }
+                            }
+
+                            // 3c. Create/Update Response Properties
+                            if (api.ResponseProperties != null)
+                            {
+                                foreach (var responseProperty in api.ResponseProperties)
+                                {
+                                    t.Debug($"Processing Custom API response property '{responseProperty.FriendlyName}'");
+                                    var createdProperty = responseProperty.Register(client, createdApi);
+                                    t.Info($"Request parameter '{responseProperty.FriendlyName} created with ID {createdProperty.Id}'");
+
+                                    SolutionWrapper.AddSolutionComponent(client, targetSolutionName, createdProperty.Id, ComponentType.CustomApiRequestParameter);
+                                    t.Debug($"Request parameter '{responseProperty.FriendlyName}' added to solution {targetSolutionName}");
+                                }
+                            }
                         }
                     }
                 }
             }
-
             
-
             t.Debug($"Exiting PluginWrapper.RegisterPlugins");
         }
 
@@ -223,7 +265,7 @@ namespace CloudAwesome.Xrm.Customisation
 
                     if (manifest.SolutionName != null)
                     {
-                        SolutionWrapper.AddSolutionComponent(client, manifest.SolutionName, createdStep.Id, ComponentType.SDKMessageProcessingStep);
+                        SolutionWrapper.AddSolutionComponent(client, manifest.SolutionName, createdStep.Id, ComponentType.SdkMessageProcessingStep);
                         t.Debug($"Plugin Step {step.FriendlyName} added to solution {manifest.SolutionName}");
                     }
 
@@ -270,11 +312,6 @@ namespace CloudAwesome.Xrm.Customisation
             }
 
             t.Debug($"Exiting PluginWrapper.UnregisterServiceEndPoints");
-        }
-
-        public void RegisterCustomApis()
-        {
-            throw new NotImplementedException("Issue #32");
         }
 
         private static QueryBase GetSdkMessageQuery(string sdkMessageName)

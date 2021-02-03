@@ -7,11 +7,11 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+
 namespace CloudAwesome.Xrm.Customisation
 {
 	
 	[System.Runtime.Serialization.DataContractAttribute()]
-	[System.CodeDom.Compiler.GeneratedCodeAttribute("CrmSvcUtil", "9.1.0.45")]
 	public enum SdkMessageProcessingStepState
 	{
 		
@@ -27,7 +27,6 @@ namespace CloudAwesome.Xrm.Customisation
 	/// </summary>
 	[System.Runtime.Serialization.DataContractAttribute()]
 	[Microsoft.Xrm.Sdk.Client.EntityLogicalNameAttribute("sdkmessageprocessingstep")]
-	[System.CodeDom.Compiler.GeneratedCodeAttribute("CrmSvcUtil", "9.1.0.45")]
 	public partial class SdkMessageProcessingStep : Microsoft.Xrm.Sdk.Entity, System.ComponentModel.INotifyPropertyChanging, System.ComponentModel.INotifyPropertyChanged
 	{
 		
@@ -96,6 +95,10 @@ namespace CloudAwesome.Xrm.Customisation
 		public const string PrimaryIdAttribute = "sdkmessageprocessingstepid";
 		
 		public const string PrimaryNameAttribute = "name";
+		
+		public const string EntityLogicalCollectionName = "sdkmessageprocessingsteps";
+		
+		public const string EntitySetName = "sdkmessageprocessingsteps";
 		
 		public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
 		

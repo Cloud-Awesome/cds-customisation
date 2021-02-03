@@ -59,7 +59,7 @@ namespace CloudAwesome.Xrm.Customisation
         Attachment = 35,
         EmailTemplate = 36,
         ContractTemplate = 37,
-        KBArticleTemplate = 38,
+        KbArticleTemplate = 38,
         MailMergeTemplate = 39,
         DuplicateRule = 44,
         DuplicateRuleCondition = 45,
@@ -82,14 +82,17 @@ namespace CloudAwesome.Xrm.Customisation
         AppModule = 80,
         PluginType = 90,
         PluginAssembly = 91,
-        SDKMessageProcessingStep = 92,
-        SDKMessageProcessingStepImage = 93,
+        SdkMessageProcessingStep = 92,
+        SdkMessageProcessingStepImage = 93,
         ServiceEndpoint = 95,
         RoutingRule = 150,
         RoutingRuleItem = 151,
-        SLA = 152,
-        SLAItem = 153,
+        Sla = 152,
+        SlaItem = 153,
         ConvertRule = 154,
-        ConvertRuleItem = 155
+        ConvertRuleItem = 155,
+        CustomApi = 10546,
+        CustomApiRequestParameter = 10547,
+        CustomApiResponseProperty = 10548
     }
 }

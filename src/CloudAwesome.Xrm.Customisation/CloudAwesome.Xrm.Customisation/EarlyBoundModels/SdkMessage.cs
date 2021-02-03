@@ -7,6 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+
 namespace CloudAwesome.Xrm.Customisation
 {
 	
@@ -15,7 +16,6 @@ namespace CloudAwesome.Xrm.Customisation
 	/// </summary>
 	[System.Runtime.Serialization.DataContractAttribute()]
 	[Microsoft.Xrm.Sdk.Client.EntityLogicalNameAttribute("sdkmessage")]
-	[System.CodeDom.Compiler.GeneratedCodeAttribute("CrmSvcUtil", "9.1.0.45")]
 	public partial class SdkMessage : Microsoft.Xrm.Sdk.Entity, System.ComponentModel.INotifyPropertyChanging, System.ComponentModel.INotifyPropertyChanged
 	{
 		
@@ -69,6 +69,10 @@ namespace CloudAwesome.Xrm.Customisation
 		public const string PrimaryIdAttribute = "sdkmessageid";
 		
 		public const string PrimaryNameAttribute = "name";
+		
+		public const string EntityLogicalCollectionName = "sdkmessages";
+		
+		public const string EntitySetName = "sdkmessages";
 		
 		public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
 		
@@ -607,6 +611,26 @@ namespace CloudAwesome.Xrm.Customisation
 				this.OnPropertyChanging("message_sdkmessagepair");
 				this.SetRelatedEntities<CloudAwesome.Xrm.Customisation.SdkMessagePair>("message_sdkmessagepair", null, value);
 				this.OnPropertyChanged("message_sdkmessagepair");
+			}
+		}
+		
+		/// <summary>
+		/// 1:N sdkmessage_customapi
+		/// </summary>
+		[Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute("sdkmessage_customapi")]
+		public System.Collections.Generic.IEnumerable<CloudAwesome.Xrm.Customisation.CustomAPI> sdkmessage_customapi
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetRelatedEntities<CloudAwesome.Xrm.Customisation.CustomAPI>("sdkmessage_customapi", null);
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.OnPropertyChanging("sdkmessage_customapi");
+				this.SetRelatedEntities<CloudAwesome.Xrm.Customisation.CustomAPI>("sdkmessage_customapi", null, value);
+				this.OnPropertyChanged("sdkmessage_customapi");
 			}
 		}
 		

@@ -7,11 +7,11 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+
 namespace CloudAwesome.Xrm.Customisation
 {
 	
 	[System.Runtime.Serialization.DataContractAttribute()]
-	[System.CodeDom.Compiler.GeneratedCodeAttribute("CrmSvcUtil", "9.1.0.45")]
 	public enum AppModuleComponentEdgeState
 	{
 		
@@ -27,7 +27,6 @@ namespace CloudAwesome.Xrm.Customisation
 	/// </summary>
 	[System.Runtime.Serialization.DataContractAttribute()]
 	[Microsoft.Xrm.Sdk.Client.EntityLogicalNameAttribute("appmodulecomponentedge")]
-	[System.CodeDom.Compiler.GeneratedCodeAttribute("CrmSvcUtil", "9.1.0.45")]
 	public partial class AppModuleComponentEdge : Microsoft.Xrm.Sdk.Entity, System.ComponentModel.INotifyPropertyChanging, System.ComponentModel.INotifyPropertyChanged
 	{
 		
@@ -72,6 +71,10 @@ namespace CloudAwesome.Xrm.Customisation
 		public const string PrimaryIdAttribute = "appmodulecomponentedgeid";
 		
 		public const string PrimaryNameAttribute = "name";
+		
+		public const string EntityLogicalCollectionName = "appmodulecomponentedges";
+		
+		public const string EntitySetName = "appmodulecomponentedges";
 		
 		public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
 		

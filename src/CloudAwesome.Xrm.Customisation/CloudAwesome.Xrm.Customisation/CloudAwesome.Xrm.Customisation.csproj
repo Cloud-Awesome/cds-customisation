@@ -111,6 +111,9 @@
     <Compile Include="EarlyBoundModels\AppModuleRoles.cs" />
     <Compile Include="EarlyBoundModels\AppSetting.cs" />
     <Compile Include="EarlyBoundModels\CrmServiceContext.cs" />
+    <Compile Include="EarlyBoundModels\CustomAPI.cs" />
+    <Compile Include="EarlyBoundModels\CustomAPIRequestParameter.cs" />
+    <Compile Include="EarlyBoundModels\CustomAPIResponseProperty.cs" />
     <Compile Include="EarlyBoundModels\OptionSets.cs" />
     <Compile Include="EarlyBoundModels\PluginAssembly.cs" />
     <Compile Include="EarlyBoundModels\PluginType.cs" />
@@ -159,7 +162,6 @@
     <Compile Include="Models\CdsSolution.cs" />
     <Compile Include="Models\CdsWebhook.cs" />
     <Compile Include="Models\CdsWorkflowAssembly.cs" />
-    <Compile Include="Models\CustomApiDataType.cs" />
     <Compile Include="Models\IAttributeMetadataType.cs" />
     <Compile Include="Models\PluginAssemblyInfo.cs" />
     <Compile Include="PluginManifest.cs" />

@@ -7,6 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+
 namespace CloudAwesome.Xrm.Customisation
 {
 	
@@ -15,7 +16,6 @@ namespace CloudAwesome.Xrm.Customisation
 	/// </summary>
 	[System.Runtime.Serialization.DataContractAttribute()]
 	[Microsoft.Xrm.Sdk.Client.EntityLogicalNameAttribute("publisher")]
-	[System.CodeDom.Compiler.GeneratedCodeAttribute("CrmSvcUtil", "9.1.0.45")]
 	public partial class Publisher : Microsoft.Xrm.Sdk.Entity, System.ComponentModel.INotifyPropertyChanging, System.ComponentModel.INotifyPropertyChanged
 	{
 		
@@ -105,6 +105,10 @@ namespace CloudAwesome.Xrm.Customisation
 		public const string PrimaryIdAttribute = "publisherid";
 		
 		public const string PrimaryNameAttribute = "friendlyname";
+		
+		public const string EntityLogicalCollectionName = "publishers";
+		
+		public const string EntitySetName = "publishers";
 		
 		public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
 		
@@ -1364,6 +1368,26 @@ namespace CloudAwesome.Xrm.Customisation
 			get
 			{
 				return this.GetAttributeValue<System.Nullable<long>>("versionnumber");
+			}
+		}
+		
+		/// <summary>
+		/// 1:N publisher_appmodule
+		/// </summary>
+		[Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute("publisher_appmodule")]
+		public System.Collections.Generic.IEnumerable<CloudAwesome.Xrm.Customisation.AppModule> publisher_appmodule
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetRelatedEntities<CloudAwesome.Xrm.Customisation.AppModule>("publisher_appmodule", null);
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.OnPropertyChanging("publisher_appmodule");
+				this.SetRelatedEntities<CloudAwesome.Xrm.Customisation.AppModule>("publisher_appmodule", null, value);
+				this.OnPropertyChanged("publisher_appmodule");
 			}
 		}
 		

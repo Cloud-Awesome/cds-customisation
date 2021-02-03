@@ -7,11 +7,11 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+
 namespace CloudAwesome.Xrm.Customisation
 {
 	
 	[System.Runtime.Serialization.DataContractAttribute()]
-	[System.CodeDom.Compiler.GeneratedCodeAttribute("CrmSvcUtil", "9.1.0.45")]
 	public enum AppModuleState
 	{
 		
@@ -27,7 +27,6 @@ namespace CloudAwesome.Xrm.Customisation
 	/// </summary>
 	[System.Runtime.Serialization.DataContractAttribute()]
 	[Microsoft.Xrm.Sdk.Client.EntityLogicalNameAttribute("appmodule")]
-	[System.CodeDom.Compiler.GeneratedCodeAttribute("CrmSvcUtil", "9.1.0.45")]
 	public partial class AppModule : Microsoft.Xrm.Sdk.Entity, System.ComponentModel.INotifyPropertyChanging, System.ComponentModel.INotifyPropertyChanged
 	{
 		
@@ -72,6 +71,7 @@ namespace CloudAwesome.Xrm.Customisation
 			public const string VersionNumber = "versionnumber";
 			public const string WebResourceId = "webresourceid";
 			public const string WelcomePageId = "welcomepageid";
+			public const string publisher_appmodule = "publisher_appmodule";
 		}
 		
 		/// <summary>
@@ -83,6 +83,8 @@ namespace CloudAwesome.Xrm.Customisation
 		{
 		}
 		
+		public const string AlternateKeys = "componentstate,overwritetime,uniquename";
+		
 		public const string EntityLogicalName = "appmodule";
 		
 		public const string EntitySchemaName = "AppModule";
@@ -90,6 +92,10 @@ namespace CloudAwesome.Xrm.Customisation
 		public const string PrimaryIdAttribute = "appmoduleid";
 		
 		public const string PrimaryNameAttribute = "name";
+		
+		public const string EntityLogicalCollectionName = "appmodules";
+		
+		public const string EntitySetName = "appmodules";
 		
 		public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
 		
@@ -911,6 +917,27 @@ namespace CloudAwesome.Xrm.Customisation
 				this.OnPropertyChanging("appmoduleroles_association");
 				this.SetRelatedEntities<CloudAwesome.Xrm.Customisation.Role>("appmoduleroles_association", null, value);
 				this.OnPropertyChanged("appmoduleroles_association");
+			}
+		}
+		
+		/// <summary>
+		/// N:1 publisher_appmodule
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("publisherid")]
+		[Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute("publisher_appmodule")]
+		public CloudAwesome.Xrm.Customisation.Publisher publisher_appmodule
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetRelatedEntity<CloudAwesome.Xrm.Customisation.Publisher>("publisher_appmodule", null);
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.OnPropertyChanging("publisher_appmodule");
+				this.SetRelatedEntity<CloudAwesome.Xrm.Customisation.Publisher>("publisher_appmodule", null, value);
+				this.OnPropertyChanged("publisher_appmodule");
 			}
 		}
 		

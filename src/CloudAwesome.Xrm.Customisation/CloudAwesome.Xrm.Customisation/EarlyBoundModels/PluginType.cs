@@ -7,6 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+
 namespace CloudAwesome.Xrm.Customisation
 {
 	
@@ -15,7 +16,6 @@ namespace CloudAwesome.Xrm.Customisation
 	/// </summary>
 	[System.Runtime.Serialization.DataContractAttribute()]
 	[Microsoft.Xrm.Sdk.Client.EntityLogicalNameAttribute("plugintype")]
-	[System.CodeDom.Compiler.GeneratedCodeAttribute("CrmSvcUtil", "9.1.0.45")]
 	public partial class PluginType : Microsoft.Xrm.Sdk.Entity, System.ComponentModel.INotifyPropertyChanging, System.ComponentModel.INotifyPropertyChanged
 	{
 		
@@ -70,6 +70,10 @@ namespace CloudAwesome.Xrm.Customisation
 		public const string PrimaryIdAttribute = "plugintypeid";
 		
 		public const string PrimaryNameAttribute = "name";
+		
+		public const string EntityLogicalCollectionName = "plugintypes";
+		
+		public const string EntitySetName = "plugintypes";
 		
 		public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
 		
@@ -553,6 +557,26 @@ namespace CloudAwesome.Xrm.Customisation
 				this.OnPropertyChanging("WorkflowActivityGroupName");
 				this.SetAttributeValue("workflowactivitygroupname", value);
 				this.OnPropertyChanged("WorkflowActivityGroupName");
+			}
+		}
+		
+		/// <summary>
+		/// 1:N plugintype_customapi
+		/// </summary>
+		[Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute("plugintype_customapi")]
+		public System.Collections.Generic.IEnumerable<CloudAwesome.Xrm.Customisation.CustomAPI> plugintype_customapi
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetRelatedEntities<CloudAwesome.Xrm.Customisation.CustomAPI>("plugintype_customapi", null);
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.OnPropertyChanging("plugintype_customapi");
+				this.SetRelatedEntities<CloudAwesome.Xrm.Customisation.CustomAPI>("plugintype_customapi", null, value);
+				this.OnPropertyChanged("plugintype_customapi");
 			}
 		}
 		

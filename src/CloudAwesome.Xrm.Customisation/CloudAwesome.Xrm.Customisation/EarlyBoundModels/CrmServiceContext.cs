@@ -5,10 +5,11 @@
 //     Changes to this file may cause incorrect behavior and will be lost if
 //     the code is regenerated.
 // </auto-generated>
-// Created via this command line: "C:\Users\Oculu\AppData\Roaming\MscrmTools\XrmToolBox\Plugins\DLaB.EarlyBoundGenerator\crmsvcutil.exe" /url:"https://awesome-sandbox.api.crm11.dynamics.com/XRMServices/2011/Organization.svc" /namespace:"CloudAwesome.Xrm.Customisation" /out:"C:\Source\Cloud-Awesome\cds-customisation\src\CloudAwesome.Xrm.Customisation\CloudAwesome.Xrm.Customisation\EarlyBoundModels\CrmServiceContext.cs" /servicecontextname:"CrmServiceContext" /codecustomization:"DLaB.CrmSvcUtilExtensions.Entity.CustomizeCodeDomService,DLaB.CrmSvcUtilExtensions" /codegenerationservice:"DLaB.CrmSvcUtilExtensions.Entity.CustomCodeGenerationService,DLaB.CrmSvcUtilExtensions" /codewriterfilter:"DLaB.CrmSvcUtilExtensions.Entity.CodeWriterFilterService,DLaB.CrmSvcUtilExtensions" /namingservice:"DLaB.CrmSvcUtilExtensions.NamingService,DLaB.CrmSvcUtilExtensions" /metadataproviderservice:"DLaB.CrmSvcUtilExtensions.Entity.MetadataProviderService,DLaB.CrmSvcUtilExtensions" /username:"arthur@cloudawesome.uk" /password:"************************************" 
+// Created via this command line: "C:\Users\Oculu\AppData\Roaming\MscrmTools\XrmToolBox\Plugins\DLaB.EarlyBoundGenerator\crmsvcutil.exe" /url:"https://awesome-sandbox.api.crm11.dynamics.com" /namespace:"CloudAwesome.Xrm.Customisation" /out:"C:\Source\Cloud-Awesome\cds-customisation\src\CloudAwesome.Xrm.Customisation\CloudAwesome.Xrm.Customisation\EarlyBoundModels\CrmServiceContext.cs" /servicecontextname:"CrmServiceContext" /SuppressGeneratedCodeAttribute /codecustomization:"DLaB.CrmSvcUtilExtensions.Entity.CustomizeCodeDomService,DLaB.CrmSvcUtilExtensions" /codegenerationservice:"DLaB.CrmSvcUtilExtensions.Entity.CustomCodeGenerationService,DLaB.CrmSvcUtilExtensions" /codewriterfilter:"DLaB.CrmSvcUtilExtensions.Entity.CodeWriterFilterService,DLaB.CrmSvcUtilExtensions" /namingservice:"DLaB.CrmSvcUtilExtensions.NamingService,DLaB.CrmSvcUtilExtensions" /metadataproviderservice:"DLaB.CrmSvcUtilExtensions.Entity.MetadataProviderService,DLaB.CrmSvcUtilExtensions" /username:"arthur@cloudawesome.uk" /password:"************************************" 
 //------------------------------------------------------------------------------
 
 [assembly: Microsoft.Xrm.Sdk.Client.ProxyTypesAssemblyAttribute()]
+[assembly: System.CodeDom.Compiler.GeneratedCodeAttribute("CrmSvcUtil", "9.1.0.71")]
 
 namespace CloudAwesome.Xrm.Customisation
 {
@@ -16,7 +17,6 @@ namespace CloudAwesome.Xrm.Customisation
 	/// <summary>
 	/// Represents a source of entities bound to a CRM service. It tracks and manages changes made to the retrieved entities.
 	/// </summary>
-	[System.CodeDom.Compiler.GeneratedCodeAttribute("CrmSvcUtil", "9.1.0.45")]
 	public partial class CrmServiceContext : Microsoft.Xrm.Sdk.Client.OrganizationServiceContext
 	{
 		
@@ -30,6 +30,162 @@ namespace CloudAwesome.Xrm.Customisation
 		}
 		
 		/// <summary>
+		/// Gets a binding to the set of all <see cref="CloudAwesome.Xrm.Customisation.AppElement"/> entities.
+		/// </summary>
+		public System.Linq.IQueryable<CloudAwesome.Xrm.Customisation.AppElement> AppElementSet
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.CreateQuery<CloudAwesome.Xrm.Customisation.AppElement>();
+			}
+		}
+		
+		/// <summary>
+		/// Gets a binding to the set of all <see cref="CloudAwesome.Xrm.Customisation.AppModule"/> entities.
+		/// </summary>
+		public System.Linq.IQueryable<CloudAwesome.Xrm.Customisation.AppModule> AppModuleSet
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.CreateQuery<CloudAwesome.Xrm.Customisation.AppModule>();
+			}
+		}
+		
+		/// <summary>
+		/// Gets a binding to the set of all <see cref="CloudAwesome.Xrm.Customisation.AppModuleComponent"/> entities.
+		/// </summary>
+		public System.Linq.IQueryable<CloudAwesome.Xrm.Customisation.AppModuleComponent> AppModuleComponentSet
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.CreateQuery<CloudAwesome.Xrm.Customisation.AppModuleComponent>();
+			}
+		}
+		
+		/// <summary>
+		/// Gets a binding to the set of all <see cref="CloudAwesome.Xrm.Customisation.AppModuleComponentEdge"/> entities.
+		/// </summary>
+		public System.Linq.IQueryable<CloudAwesome.Xrm.Customisation.AppModuleComponentEdge> AppModuleComponentEdgeSet
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.CreateQuery<CloudAwesome.Xrm.Customisation.AppModuleComponentEdge>();
+			}
+		}
+		
+		/// <summary>
+		/// Gets a binding to the set of all <see cref="CloudAwesome.Xrm.Customisation.AppModuleComponentNode"/> entities.
+		/// </summary>
+		public System.Linq.IQueryable<CloudAwesome.Xrm.Customisation.AppModuleComponentNode> AppModuleComponentNodeSet
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.CreateQuery<CloudAwesome.Xrm.Customisation.AppModuleComponentNode>();
+			}
+		}
+		
+		/// <summary>
+		/// Gets a binding to the set of all <see cref="CloudAwesome.Xrm.Customisation.AppModuleMetadata"/> entities.
+		/// </summary>
+		public System.Linq.IQueryable<CloudAwesome.Xrm.Customisation.AppModuleMetadata> AppModuleMetadataSet
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.CreateQuery<CloudAwesome.Xrm.Customisation.AppModuleMetadata>();
+			}
+		}
+		
+		/// <summary>
+		/// Gets a binding to the set of all <see cref="CloudAwesome.Xrm.Customisation.AppModuleRoles"/> entities.
+		/// </summary>
+		public System.Linq.IQueryable<CloudAwesome.Xrm.Customisation.AppModuleRoles> AppModuleRolesSet
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.CreateQuery<CloudAwesome.Xrm.Customisation.AppModuleRoles>();
+			}
+		}
+		
+		/// <summary>
+		/// Gets a binding to the set of all <see cref="CloudAwesome.Xrm.Customisation.AppSetting"/> entities.
+		/// </summary>
+		public System.Linq.IQueryable<CloudAwesome.Xrm.Customisation.AppSetting> AppSettingSet
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.CreateQuery<CloudAwesome.Xrm.Customisation.AppSetting>();
+			}
+		}
+		
+		/// <summary>
+		/// Gets a binding to the set of all <see cref="CloudAwesome.Xrm.Customisation.CustomAPI"/> entities.
+		/// </summary>
+		public System.Linq.IQueryable<CloudAwesome.Xrm.Customisation.CustomAPI> CustomAPISet
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.CreateQuery<CloudAwesome.Xrm.Customisation.CustomAPI>();
+			}
+		}
+		
+		/// <summary>
+		/// Gets a binding to the set of all <see cref="CloudAwesome.Xrm.Customisation.CustomAPIRequestParameter"/> entities.
+		/// </summary>
+		public System.Linq.IQueryable<CloudAwesome.Xrm.Customisation.CustomAPIRequestParameter> CustomAPIRequestParameterSet
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.CreateQuery<CloudAwesome.Xrm.Customisation.CustomAPIRequestParameter>();
+			}
+		}
+		
+		/// <summary>
+		/// Gets a binding to the set of all <see cref="CloudAwesome.Xrm.Customisation.CustomAPIResponseProperty"/> entities.
+		/// </summary>
+		public System.Linq.IQueryable<CloudAwesome.Xrm.Customisation.CustomAPIResponseProperty> CustomAPIResponsePropertySet
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.CreateQuery<CloudAwesome.Xrm.Customisation.CustomAPIResponseProperty>();
+			}
+		}
+		
+		/// <summary>
+		/// Gets a binding to the set of all <see cref="CloudAwesome.Xrm.Customisation.PluginAssembly"/> entities.
+		/// </summary>
+		public System.Linq.IQueryable<CloudAwesome.Xrm.Customisation.PluginAssembly> PluginAssemblySet
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.CreateQuery<CloudAwesome.Xrm.Customisation.PluginAssembly>();
+			}
+		}
+		
+		/// <summary>
+		/// Gets a binding to the set of all <see cref="CloudAwesome.Xrm.Customisation.PluginType"/> entities.
+		/// </summary>
+		public System.Linq.IQueryable<CloudAwesome.Xrm.Customisation.PluginType> PluginTypeSet
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.CreateQuery<CloudAwesome.Xrm.Customisation.PluginType>();
+			}
+		}
+		
+		/// <summary>
 		/// Gets a binding to the set of all <see cref="CloudAwesome.Xrm.Customisation.Publisher"/> entities.
 		/// </summary>
 		public System.Linq.IQueryable<CloudAwesome.Xrm.Customisation.Publisher> PublisherSet
@@ -38,6 +194,162 @@ namespace CloudAwesome.Xrm.Customisation
 			get
 			{
 				return this.CreateQuery<CloudAwesome.Xrm.Customisation.Publisher>();
+			}
+		}
+		
+		/// <summary>
+		/// Gets a binding to the set of all <see cref="CloudAwesome.Xrm.Customisation.Role"/> entities.
+		/// </summary>
+		public System.Linq.IQueryable<CloudAwesome.Xrm.Customisation.Role> RoleSet
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.CreateQuery<CloudAwesome.Xrm.Customisation.Role>();
+			}
+		}
+		
+		/// <summary>
+		/// Gets a binding to the set of all <see cref="CloudAwesome.Xrm.Customisation.SdkMessage"/> entities.
+		/// </summary>
+		public System.Linq.IQueryable<CloudAwesome.Xrm.Customisation.SdkMessage> SdkMessageSet
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.CreateQuery<CloudAwesome.Xrm.Customisation.SdkMessage>();
+			}
+		}
+		
+		/// <summary>
+		/// Gets a binding to the set of all <see cref="CloudAwesome.Xrm.Customisation.SdkMessageFilter"/> entities.
+		/// </summary>
+		public System.Linq.IQueryable<CloudAwesome.Xrm.Customisation.SdkMessageFilter> SdkMessageFilterSet
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.CreateQuery<CloudAwesome.Xrm.Customisation.SdkMessageFilter>();
+			}
+		}
+		
+		/// <summary>
+		/// Gets a binding to the set of all <see cref="CloudAwesome.Xrm.Customisation.SdkMessagePair"/> entities.
+		/// </summary>
+		public System.Linq.IQueryable<CloudAwesome.Xrm.Customisation.SdkMessagePair> SdkMessagePairSet
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.CreateQuery<CloudAwesome.Xrm.Customisation.SdkMessagePair>();
+			}
+		}
+		
+		/// <summary>
+		/// Gets a binding to the set of all <see cref="CloudAwesome.Xrm.Customisation.SdkMessageProcessingStep"/> entities.
+		/// </summary>
+		public System.Linq.IQueryable<CloudAwesome.Xrm.Customisation.SdkMessageProcessingStep> SdkMessageProcessingStepSet
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.CreateQuery<CloudAwesome.Xrm.Customisation.SdkMessageProcessingStep>();
+			}
+		}
+		
+		/// <summary>
+		/// Gets a binding to the set of all <see cref="CloudAwesome.Xrm.Customisation.SdkMessageProcessingStepImage"/> entities.
+		/// </summary>
+		public System.Linq.IQueryable<CloudAwesome.Xrm.Customisation.SdkMessageProcessingStepImage> SdkMessageProcessingStepImageSet
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.CreateQuery<CloudAwesome.Xrm.Customisation.SdkMessageProcessingStepImage>();
+			}
+		}
+		
+		/// <summary>
+		/// Gets a binding to the set of all <see cref="CloudAwesome.Xrm.Customisation.SdkMessageProcessingStepSecureConfig"/> entities.
+		/// </summary>
+		public System.Linq.IQueryable<CloudAwesome.Xrm.Customisation.SdkMessageProcessingStepSecureConfig> SdkMessageProcessingStepSecureConfigSet
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.CreateQuery<CloudAwesome.Xrm.Customisation.SdkMessageProcessingStepSecureConfig>();
+			}
+		}
+		
+		/// <summary>
+		/// Gets a binding to the set of all <see cref="CloudAwesome.Xrm.Customisation.SdkMessageRequest"/> entities.
+		/// </summary>
+		public System.Linq.IQueryable<CloudAwesome.Xrm.Customisation.SdkMessageRequest> SdkMessageRequestSet
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.CreateQuery<CloudAwesome.Xrm.Customisation.SdkMessageRequest>();
+			}
+		}
+		
+		/// <summary>
+		/// Gets a binding to the set of all <see cref="CloudAwesome.Xrm.Customisation.SdkMessageRequestField"/> entities.
+		/// </summary>
+		public System.Linq.IQueryable<CloudAwesome.Xrm.Customisation.SdkMessageRequestField> SdkMessageRequestFieldSet
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.CreateQuery<CloudAwesome.Xrm.Customisation.SdkMessageRequestField>();
+			}
+		}
+		
+		/// <summary>
+		/// Gets a binding to the set of all <see cref="CloudAwesome.Xrm.Customisation.SdkMessageResponse"/> entities.
+		/// </summary>
+		public System.Linq.IQueryable<CloudAwesome.Xrm.Customisation.SdkMessageResponse> SdkMessageResponseSet
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.CreateQuery<CloudAwesome.Xrm.Customisation.SdkMessageResponse>();
+			}
+		}
+		
+		/// <summary>
+		/// Gets a binding to the set of all <see cref="CloudAwesome.Xrm.Customisation.SdkMessageResponseField"/> entities.
+		/// </summary>
+		public System.Linq.IQueryable<CloudAwesome.Xrm.Customisation.SdkMessageResponseField> SdkMessageResponseFieldSet
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.CreateQuery<CloudAwesome.Xrm.Customisation.SdkMessageResponseField>();
+			}
+		}
+		
+		/// <summary>
+		/// Gets a binding to the set of all <see cref="CloudAwesome.Xrm.Customisation.ServiceEndpoint"/> entities.
+		/// </summary>
+		public System.Linq.IQueryable<CloudAwesome.Xrm.Customisation.ServiceEndpoint> ServiceEndpointSet
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.CreateQuery<CloudAwesome.Xrm.Customisation.ServiceEndpoint>();
+			}
+		}
+		
+		/// <summary>
+		/// Gets a binding to the set of all <see cref="CloudAwesome.Xrm.Customisation.SiteMap"/> entities.
+		/// </summary>
+		public System.Linq.IQueryable<CloudAwesome.Xrm.Customisation.SiteMap> SiteMapSet
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.CreateQuery<CloudAwesome.Xrm.Customisation.SiteMap>();
 			}
 		}
 	}

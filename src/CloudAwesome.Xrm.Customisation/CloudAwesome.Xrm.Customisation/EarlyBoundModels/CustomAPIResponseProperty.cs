@@ -12,7 +12,7 @@ namespace CloudAwesome.Xrm.Customisation
 {
 	
 	[System.Runtime.Serialization.DataContractAttribute()]
-	public enum AppElementState
+	public enum CustomAPIResponsePropertyState
 	{
 		
 		[System.Runtime.Serialization.EnumMemberAttribute()]
@@ -23,67 +23,72 @@ namespace CloudAwesome.Xrm.Customisation
 	}
 	
 	/// <summary>
-	/// Associates a model-driven app with its components.
+	/// Entity that defines a response property for a custom API 
 	/// </summary>
 	[System.Runtime.Serialization.DataContractAttribute()]
-	[Microsoft.Xrm.Sdk.Client.EntityLogicalNameAttribute("appelement")]
-	public partial class AppElement : Microsoft.Xrm.Sdk.Entity, System.ComponentModel.INotifyPropertyChanging, System.ComponentModel.INotifyPropertyChanged
+	[Microsoft.Xrm.Sdk.Client.EntityLogicalNameAttribute("customapiresponseproperty")]
+	public partial class CustomAPIResponseProperty : Microsoft.Xrm.Sdk.Entity, System.ComponentModel.INotifyPropertyChanging, System.ComponentModel.INotifyPropertyChanged
 	{
 		
 		public static class Fields
 		{
-			public const string AppElementId = "appelementid";
-			public const string Id = "appelementid";
-			public const string CanvasAppId = "canvasappid";
 			public const string ComponentIdUnique = "componentidunique";
 			public const string ComponentState = "componentstate";
 			public const string CreatedBy = "createdby";
 			public const string CreatedOn = "createdon";
 			public const string CreatedOnBehalfBy = "createdonbehalfby";
+			public const string CustomAPIId = "customapiid";
+			public const string CustomAPIResponsePropertyId = "customapiresponsepropertyid";
+			public const string Id = "customapiresponsepropertyid";
+			public const string Description = "description";
+			public const string DisplayName = "displayname";
 			public const string ImportSequenceNumber = "importsequencenumber";
 			public const string IsCustomizable = "iscustomizable";
 			public const string IsManaged = "ismanaged";
+			public const string LogicalEntityName = "logicalentityname";
 			public const string ModifiedBy = "modifiedby";
 			public const string ModifiedOn = "modifiedon";
 			public const string ModifiedOnBehalfBy = "modifiedonbehalfby";
 			public const string Name = "name";
-			public const string OrganizationId = "organizationid";
 			public const string OverriddenCreatedOn = "overriddencreatedon";
 			public const string OverwriteTime = "overwritetime";
-			public const string ParentAppModuleId = "parentappmoduleid";
-			public const string PublishConfiguration = "publishconfiguration";
+			public const string OwnerId = "ownerid";
+			public const string OwningBusinessUnit = "owningbusinessunit";
+			public const string OwningTeam = "owningteam";
+			public const string OwningUser = "owninguser";
 			public const string SolutionId = "solutionid";
 			public const string StateCode = "statecode";
 			public const string StatusCode = "statuscode";
 			public const string TimeZoneRuleVersionNumber = "timezoneruleversionnumber";
+			public const string Type = "type";
 			public const string UniqueName = "uniquename";
 			public const string UTCConversionTimeZoneCode = "utcconversiontimezonecode";
 			public const string VersionNumber = "versionnumber";
-			public const string appmodule_appelement_parentappmoduleid = "appmodule_appelement_parentappmoduleid";
+			public const string customapi_customapiresponseproperty = "customapi_customapiresponseproperty";
 		}
 		
 		/// <summary>
 		/// Default Constructor.
 		/// </summary>
 		[System.Diagnostics.DebuggerNonUserCode()]
-		public AppElement() : 
+		public CustomAPIResponseProperty() : 
 				base(EntityLogicalName)
 		{
 		}
 		
-		public const string AlternateKeys = "uniquename,overwritetime,componentstate";
+		public const string AlternateKeys = "componentstate,customapiid,overwritetime,uniquename";
 		
-		public const string EntityLogicalName = "appelement";
+		public const string EntityLogicalName = "customapiresponseproperty";
 		
-		public const string EntitySchemaName = "AppElement";
+		public const string EntitySchemaName = "CustomAPIResponseProperty";
 		
-		public const string PrimaryIdAttribute = "appelementid";
+		public const string PrimaryIdAttribute = "customapiresponsepropertyid";
 		
 		public const string PrimaryNameAttribute = "name";
 		
-		public const string EntityLogicalCollectionName = "appelements";
+		public const string EntityLogicalCollectionName = "customapiresponseproperties";
 		
-		public const string EntitySetName = "appelements";
+		public const string EntitySetName = "customapiresponseproperties";
 		
 		public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
 		
@@ -104,69 +109,6 @@ namespace CloudAwesome.Xrm.Customisation
 			if ((this.PropertyChanging != null))
 			{
 				this.PropertyChanging(this, new System.ComponentModel.PropertyChangingEventArgs(propertyName));
-			}
-		}
-		
-		/// <summary>
-		/// Unique identifier for entity instances
-		/// </summary>
-		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("appelementid")]
-		public System.Nullable<System.Guid> AppElementId
-		{
-			[System.Diagnostics.DebuggerNonUserCode()]
-			get
-			{
-				return this.GetAttributeValue<System.Nullable<System.Guid>>("appelementid");
-			}
-			[System.Diagnostics.DebuggerNonUserCode()]
-			set
-			{
-				this.OnPropertyChanging("AppElementId");
-				this.SetAttributeValue("appelementid", value);
-				if (value.HasValue)
-				{
-					base.Id = value.Value;
-				}
-				else
-				{
-					base.Id = System.Guid.Empty;
-				}
-				this.OnPropertyChanged("AppElementId");
-			}
-		}
-		
-		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("appelementid")]
-		public override System.Guid Id
-		{
-			[System.Diagnostics.DebuggerNonUserCode()]
-			get
-			{
-				return base.Id;
-			}
-			[System.Diagnostics.DebuggerNonUserCode()]
-			set
-			{
-				this.AppElementId = value;
-			}
-		}
-		
-		/// <summary>
-		/// Unique identifier for CanvasApp associated with AppElement.
-		/// </summary>
-		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("canvasappid")]
-		public Microsoft.Xrm.Sdk.EntityReference CanvasAppId
-		{
-			[System.Diagnostics.DebuggerNonUserCode()]
-			get
-			{
-				return this.GetAttributeValue<Microsoft.Xrm.Sdk.EntityReference>("canvasappid");
-			}
-			[System.Diagnostics.DebuggerNonUserCode()]
-			set
-			{
-				this.OnPropertyChanging("CanvasAppId");
-				this.SetAttributeValue("canvasappid", value);
-				this.OnPropertyChanged("CanvasAppId");
 			}
 		}
 		
@@ -243,6 +185,109 @@ namespace CloudAwesome.Xrm.Customisation
 		}
 		
 		/// <summary>
+		/// Unique identifier for the custom API that owns this custom API response property
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("customapiid")]
+		public Microsoft.Xrm.Sdk.EntityReference CustomAPIId
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<Microsoft.Xrm.Sdk.EntityReference>("customapiid");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.OnPropertyChanging("CustomAPIId");
+				this.SetAttributeValue("customapiid", value);
+				this.OnPropertyChanged("CustomAPIId");
+			}
+		}
+		
+		/// <summary>
+		/// Unique identifier for custom API response property instances
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("customapiresponsepropertyid")]
+		public System.Nullable<System.Guid> CustomAPIResponsePropertyId
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<System.Nullable<System.Guid>>("customapiresponsepropertyid");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.OnPropertyChanging("CustomAPIResponsePropertyId");
+				this.SetAttributeValue("customapiresponsepropertyid", value);
+				if (value.HasValue)
+				{
+					base.Id = value.Value;
+				}
+				else
+				{
+					base.Id = System.Guid.Empty;
+				}
+				this.OnPropertyChanged("CustomAPIResponsePropertyId");
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("customapiresponsepropertyid")]
+		public override System.Guid Id
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return base.Id;
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.CustomAPIResponsePropertyId = value;
+			}
+		}
+		
+		/// <summary>
+		/// Localized description for custom API response property instances
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("description")]
+		public string Description
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<string>("description");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.OnPropertyChanging("Description");
+				this.SetAttributeValue("description", value);
+				this.OnPropertyChanged("Description");
+			}
+		}
+		
+		/// <summary>
+		/// Localized display name for custom API response property instances
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("displayname")]
+		public string DisplayName
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<string>("displayname");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.OnPropertyChanging("DisplayName");
+				this.SetAttributeValue("displayname", value);
+				this.OnPropertyChanged("DisplayName");
+			}
+		}
+		
+		/// <summary>
 		/// Sequence number of the import that created this record.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("importsequencenumber")]
@@ -296,6 +341,26 @@ namespace CloudAwesome.Xrm.Customisation
 		}
 		
 		/// <summary>
+		/// The logical name of the entity bound to the custom API response property
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("logicalentityname")]
+		public string LogicalEntityName
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<string>("logicalentityname");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.OnPropertyChanging("LogicalEntityName");
+				this.SetAttributeValue("logicalentityname", value);
+				this.OnPropertyChanged("LogicalEntityName");
+			}
+		}
+		
+		/// <summary>
 		/// Unique identifier of the user who modified the record.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("modifiedby")]
@@ -342,7 +407,7 @@ namespace CloudAwesome.Xrm.Customisation
 		}
 		
 		/// <summary>
-		/// The name of the AppElement entity.
+		/// The primary name of the custom API response property
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("name")]
 		public string Name
@@ -358,19 +423,6 @@ namespace CloudAwesome.Xrm.Customisation
 				this.OnPropertyChanging("Name");
 				this.SetAttributeValue("name", value);
 				this.OnPropertyChanged("Name");
-			}
-		}
-		
-		/// <summary>
-		/// Unique identifier for the organization
-		/// </summary>
-		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("organizationid")]
-		public Microsoft.Xrm.Sdk.EntityReference OrganizationId
-		{
-			[System.Diagnostics.DebuggerNonUserCode()]
-			get
-			{
-				return this.GetAttributeValue<Microsoft.Xrm.Sdk.EntityReference>("organizationid");
 			}
 		}
 		
@@ -408,42 +460,61 @@ namespace CloudAwesome.Xrm.Customisation
 		}
 		
 		/// <summary>
-		/// Unique identifier for AppModule associated with AppElement.
+		/// Owner Id
 		/// </summary>
-		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("parentappmoduleid")]
-		public Microsoft.Xrm.Sdk.EntityReference ParentAppModuleId
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("ownerid")]
+		public Microsoft.Xrm.Sdk.EntityReference OwnerId
 		{
 			[System.Diagnostics.DebuggerNonUserCode()]
 			get
 			{
-				return this.GetAttributeValue<Microsoft.Xrm.Sdk.EntityReference>("parentappmoduleid");
+				return this.GetAttributeValue<Microsoft.Xrm.Sdk.EntityReference>("ownerid");
 			}
 			[System.Diagnostics.DebuggerNonUserCode()]
 			set
 			{
-				this.OnPropertyChanging("ParentAppModuleId");
-				this.SetAttributeValue("parentappmoduleid", value);
-				this.OnPropertyChanged("ParentAppModuleId");
+				this.OnPropertyChanging("OwnerId");
+				this.SetAttributeValue("ownerid", value);
+				this.OnPropertyChanged("OwnerId");
 			}
 		}
 		
 		/// <summary>
-		/// Publishing configuration JSON for the app element.
+		/// Unique identifier for the business unit that owns the record
 		/// </summary>
-		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("publishconfiguration")]
-		public string PublishConfiguration
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("owningbusinessunit")]
+		public Microsoft.Xrm.Sdk.EntityReference OwningBusinessUnit
 		{
 			[System.Diagnostics.DebuggerNonUserCode()]
 			get
 			{
-				return this.GetAttributeValue<string>("publishconfiguration");
+				return this.GetAttributeValue<Microsoft.Xrm.Sdk.EntityReference>("owningbusinessunit");
 			}
+		}
+		
+		/// <summary>
+		/// Unique identifier for the team that owns the record.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("owningteam")]
+		public Microsoft.Xrm.Sdk.EntityReference OwningTeam
+		{
 			[System.Diagnostics.DebuggerNonUserCode()]
-			set
+			get
 			{
-				this.OnPropertyChanging("PublishConfiguration");
-				this.SetAttributeValue("publishconfiguration", value);
-				this.OnPropertyChanged("PublishConfiguration");
+				return this.GetAttributeValue<Microsoft.Xrm.Sdk.EntityReference>("owningteam");
+			}
+		}
+		
+		/// <summary>
+		/// Unique identifier for the user that owns the record.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("owninguser")]
+		public Microsoft.Xrm.Sdk.EntityReference OwningUser
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<Microsoft.Xrm.Sdk.EntityReference>("owninguser");
 			}
 		}
 		
@@ -461,10 +532,10 @@ namespace CloudAwesome.Xrm.Customisation
 		}
 		
 		/// <summary>
-		/// Status of the AppElement
+		/// Status of the Custom API Response Property
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("statecode")]
-		public System.Nullable<CloudAwesome.Xrm.Customisation.AppElementState> StateCode
+		public System.Nullable<CloudAwesome.Xrm.Customisation.CustomAPIResponsePropertyState> StateCode
 		{
 			[System.Diagnostics.DebuggerNonUserCode()]
 			get
@@ -472,25 +543,46 @@ namespace CloudAwesome.Xrm.Customisation
 				Microsoft.Xrm.Sdk.OptionSetValue optionSet = this.GetAttributeValue<Microsoft.Xrm.Sdk.OptionSetValue>("statecode");
 				if ((optionSet != null))
 				{
-					return ((CloudAwesome.Xrm.Customisation.AppElementState)(System.Enum.ToObject(typeof(CloudAwesome.Xrm.Customisation.AppElementState), optionSet.Value)));
+					return ((CloudAwesome.Xrm.Customisation.CustomAPIResponsePropertyState)(System.Enum.ToObject(typeof(CloudAwesome.Xrm.Customisation.CustomAPIResponsePropertyState), optionSet.Value)));
 				}
 				else
 				{
 					return null;
 				}
 			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.OnPropertyChanging("StateCode");
+				if ((value == null))
+				{
+					this.SetAttributeValue("statecode", null);
+				}
+				else
+				{
+					this.SetAttributeValue("statecode", new Microsoft.Xrm.Sdk.OptionSetValue(((int)(value))));
+				}
+				this.OnPropertyChanged("StateCode");
+			}
 		}
 		
 		/// <summary>
-		/// Reason for the status of the AppElement
+		/// Reason for the status of the Custom API Response Property
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("statuscode")]
-		public virtual AppElement_StatusCode? StatusCode
+		public virtual CustomAPIResponseProperty_StatusCode? StatusCode
 		{
 			[System.Diagnostics.DebuggerNonUserCode()]
 			get
 			{
-				return ((AppElement_StatusCode?)(EntityOptionSetEnum.GetEnum(this, "statuscode")));
+				return ((CustomAPIResponseProperty_StatusCode?)(EntityOptionSetEnum.GetEnum(this, "statuscode")));
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.OnPropertyChanging("StatusCode");
+				this.SetAttributeValue("statuscode", value.HasValue ? new Microsoft.Xrm.Sdk.OptionSetValue((int)value) : null);
+				this.OnPropertyChanged("StatusCode");
 			}
 		}
 		
@@ -515,7 +607,27 @@ namespace CloudAwesome.Xrm.Customisation
 		}
 		
 		/// <summary>
-		/// Unique name of the App Element.
+		/// The data type of the custom API response property
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("type")]
+		public virtual CustomAPIFieldType? Type
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return ((CustomAPIFieldType?)(EntityOptionSetEnum.GetEnum(this, "type")));
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.OnPropertyChanging("Type");
+				this.SetAttributeValue("type", value.HasValue ? new Microsoft.Xrm.Sdk.OptionSetValue((int)value) : null);
+				this.OnPropertyChanged("Type");
+			}
+		}
+		
+		/// <summary>
+		/// Unique name for the custom API response property
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("uniquename")]
 		public string UniqueName
@@ -568,23 +680,23 @@ namespace CloudAwesome.Xrm.Customisation
 		}
 		
 		/// <summary>
-		/// N:1 appmodule_appelement_parentappmoduleid
+		/// N:1 customapi_customapiresponseproperty
 		/// </summary>
-		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("parentappmoduleid")]
-		[Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute("appmodule_appelement_parentappmoduleid")]
-		public CloudAwesome.Xrm.Customisation.AppModule appmodule_appelement_parentappmoduleid
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("customapiid")]
+		[Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute("customapi_customapiresponseproperty")]
+		public CloudAwesome.Xrm.Customisation.CustomAPI customapi_customapiresponseproperty
 		{
 			[System.Diagnostics.DebuggerNonUserCode()]
 			get
 			{
-				return this.GetRelatedEntity<CloudAwesome.Xrm.Customisation.AppModule>("appmodule_appelement_parentappmoduleid", null);
+				return this.GetRelatedEntity<CloudAwesome.Xrm.Customisation.CustomAPI>("customapi_customapiresponseproperty", null);
 			}
 			[System.Diagnostics.DebuggerNonUserCode()]
 			set
 			{
-				this.OnPropertyChanging("appmodule_appelement_parentappmoduleid");
-				this.SetRelatedEntity<CloudAwesome.Xrm.Customisation.AppModule>("appmodule_appelement_parentappmoduleid", null, value);
-				this.OnPropertyChanged("appmodule_appelement_parentappmoduleid");
+				this.OnPropertyChanging("customapi_customapiresponseproperty");
+				this.SetRelatedEntity<CloudAwesome.Xrm.Customisation.CustomAPI>("customapi_customapiresponseproperty", null, value);
+				this.OnPropertyChanged("customapi_customapiresponseproperty");
 			}
 		}
 		
@@ -593,7 +705,7 @@ namespace CloudAwesome.Xrm.Customisation
 		/// <param name="anonymousType">LINQ anonymous type.</param>
 		/// </summary>
 		[System.Diagnostics.DebuggerNonUserCode()]
-		public AppElement(object anonymousType) : 
+		public CustomAPIResponseProperty(object anonymousType) : 
 				this()
 		{
             foreach (var p in anonymousType.GetType().GetProperties())
@@ -611,9 +723,9 @@ namespace CloudAwesome.Xrm.Customisation
                 {
                     case "id":
                         base.Id = (System.Guid)value;
-                        Attributes["appelementid"] = base.Id;
+                        Attributes["customapiresponsepropertyid"] = base.Id;
                         break;
-                    case "appelementid":
+                    case "customapiresponsepropertyid":
                         var id = (System.Nullable<System.Guid>) value;
                         if(id == null){ continue; }
                         base.Id = id.Value;

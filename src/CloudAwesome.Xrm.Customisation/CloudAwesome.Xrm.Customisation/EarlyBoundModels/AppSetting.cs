@@ -7,11 +7,11 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+
 namespace CloudAwesome.Xrm.Customisation
 {
 	
 	[System.Runtime.Serialization.DataContractAttribute()]
-	[System.CodeDom.Compiler.GeneratedCodeAttribute("CrmSvcUtil", "9.1.0.45")]
 	public enum AppSettingState
 	{
 		
@@ -27,7 +27,6 @@ namespace CloudAwesome.Xrm.Customisation
 	/// </summary>
 	[System.Runtime.Serialization.DataContractAttribute()]
 	[Microsoft.Xrm.Sdk.Client.EntityLogicalNameAttribute("appsetting")]
-	[System.CodeDom.Compiler.GeneratedCodeAttribute("CrmSvcUtil", "9.1.0.45")]
 	public partial class AppSetting : Microsoft.Xrm.Sdk.Entity, System.ComponentModel.INotifyPropertyChanging, System.ComponentModel.INotifyPropertyChanged
 	{
 		
@@ -73,6 +72,8 @@ namespace CloudAwesome.Xrm.Customisation
 		{
 		}
 		
+		public const string AlternateKeys = "overwritetime,componentstate,uniquename";
+		
 		public const string EntityLogicalName = "appsetting";
 		
 		public const string EntitySchemaName = "AppSetting";
@@ -80,6 +81,10 @@ namespace CloudAwesome.Xrm.Customisation
 		public const string PrimaryIdAttribute = "appsettingid";
 		
 		public const string PrimaryNameAttribute = "displayname";
+		
+		public const string EntityLogicalCollectionName = "appsettings";
+		
+		public const string EntitySetName = "appsettings";
 		
 		public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
 		
@@ -229,13 +234,6 @@ namespace CloudAwesome.Xrm.Customisation
 			{
 				return this.GetAttributeValue<string>("description");
 			}
-			[System.Diagnostics.DebuggerNonUserCode()]
-			set
-			{
-				this.OnPropertyChanging("Description");
-				this.SetAttributeValue("description", value);
-				this.OnPropertyChanged("Description");
-			}
 		}
 		
 		/// <summary>
@@ -248,13 +246,6 @@ namespace CloudAwesome.Xrm.Customisation
 			get
 			{
 				return this.GetAttributeValue<string>("displayname");
-			}
-			[System.Diagnostics.DebuggerNonUserCode()]
-			set
-			{
-				this.OnPropertyChanging("DisplayName");
-				this.SetAttributeValue("displayname", value);
-				this.OnPropertyChanged("DisplayName");
 			}
 		}
 		

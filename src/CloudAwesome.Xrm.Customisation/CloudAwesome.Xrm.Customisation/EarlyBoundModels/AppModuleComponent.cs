@@ -7,6 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+
 namespace CloudAwesome.Xrm.Customisation
 {
 	
@@ -15,7 +16,6 @@ namespace CloudAwesome.Xrm.Customisation
 	/// </summary>
 	[System.Runtime.Serialization.DataContractAttribute()]
 	[Microsoft.Xrm.Sdk.Client.EntityLogicalNameAttribute("appmodulecomponent")]
-	[System.CodeDom.Compiler.GeneratedCodeAttribute("CrmSvcUtil", "9.1.0.45")]
 	public partial class AppModuleComponent : Microsoft.Xrm.Sdk.Entity, System.ComponentModel.INotifyPropertyChanging, System.ComponentModel.INotifyPropertyChanged
 	{
 		
@@ -60,6 +60,10 @@ namespace CloudAwesome.Xrm.Customisation
 		public const string EntitySchemaName = "AppModuleComponent";
 		
 		public const string PrimaryIdAttribute = "appmodulecomponentid";
+		
+		public const string EntityLogicalCollectionName = "appmodulecomponents";
+		
+		public const string EntitySetName = "appmodulecomponents";
 		
 		public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
 		

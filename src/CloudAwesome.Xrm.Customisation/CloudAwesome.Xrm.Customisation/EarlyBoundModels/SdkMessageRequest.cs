@@ -7,6 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+
 namespace CloudAwesome.Xrm.Customisation
 {
 	
@@ -15,7 +16,6 @@ namespace CloudAwesome.Xrm.Customisation
 	/// </summary>
 	[System.Runtime.Serialization.DataContractAttribute()]
 	[Microsoft.Xrm.Sdk.Client.EntityLogicalNameAttribute("sdkmessagerequest")]
-	[System.CodeDom.Compiler.GeneratedCodeAttribute("CrmSvcUtil", "9.1.0.45")]
 	public partial class SdkMessageRequest : Microsoft.Xrm.Sdk.Entity, System.ComponentModel.INotifyPropertyChanging, System.ComponentModel.INotifyPropertyChanged
 	{
 		
@@ -58,6 +58,10 @@ namespace CloudAwesome.Xrm.Customisation
 		public const string EntitySchemaName = "SdkMessageRequest";
 		
 		public const string PrimaryIdAttribute = "sdkmessagerequestid";
+		
+		public const string EntityLogicalCollectionName = "sdkmessagerequests";
+		
+		public const string EntitySetName = "sdkmessagerequests";
 		
 		public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
 		
