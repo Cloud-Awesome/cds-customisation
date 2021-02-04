@@ -14,6 +14,8 @@ namespace CloudAwesome.Xrm.Customisation.Models
 
         public string Description { get; set; }
 
+        public EntityReference ParentAssembly { get; set; }
+
         [XmlArrayItem("Step")]
         public CdsPluginStep[] Steps { get; set; }
 
@@ -23,26 +25,42 @@ namespace CloudAwesome.Xrm.Customisation.Models
         public EntityReference Register(IOrganizationService client, EntityReference parentAssembly)
         {
             if (parentAssembly.LogicalName != PluginAssembly.EntityLogicalName)
-                throw new Exception($"Entity Reference '{nameof(parentAssembly)}' must be of type '{PluginAssembly.EntityLogicalName}'");
+                throw new ArgumentException($"Entity Reference '{nameof(parentAssembly)}' must be of type '{PluginAssembly.EntityLogicalName}'");
 
+            this.ParentAssembly = parentAssembly;
+            return this.Register(client);
+        }
+
+        public EntityReference Register(IOrganizationService client)
+        {
             var pluginType = new PluginType()
             {
-                PluginAssemblyId = parentAssembly,
+                PluginAssemblyId = this.ParentAssembly,
                 TypeName = this.Name,
                 FriendlyName = this.FriendlyName,
                 Name = this.Name,
                 Description = this.Description
             };
 
-            var existingPluginQuery = this.GetExistingQuery(parentAssembly.Id);
-
+            var existingPluginQuery = this.GetExistingQuery(this.ParentAssembly.Id);
             return pluginType.CreateOrUpdate(client, existingPluginQuery);
-
         }
 
-        public void Unregister()
+        public void Unregister(IOrganizationService client, EntityReference parentAssembly)
         {
-            throw new NotImplementedException();
+            if (parentAssembly.LogicalName != PluginAssembly.EntityLogicalName)
+                throw new ArgumentException($"Entity Reference '{nameof(parentAssembly)}' must be of type '{PluginAssembly.EntityLogicalName}'");
+
+            this.ParentAssembly = parentAssembly;
+            this.Unregister(client);
+        }
+
+        public void Unregister(IOrganizationService client)
+        {
+            throw new NotImplementedException("Issue #37");
+
+            if (this.ParentAssembly == null)
+                throw new ArgumentException("Cannot delete this Plugin - the parent Plugin Assembly is null and is required");
         }
 
         public QueryBase GetExistingQuery(Guid parentAssemblyId)

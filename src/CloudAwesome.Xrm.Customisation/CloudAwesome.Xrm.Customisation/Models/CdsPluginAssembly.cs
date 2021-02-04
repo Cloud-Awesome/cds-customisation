@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.IO.Abstractions;
 using System.Xml.Serialization;
 using CloudAwesome.Xrm.Core;
 using Microsoft.Xrm.Sdk;
@@ -9,6 +10,17 @@ namespace CloudAwesome.Xrm.Customisation.Models
 {
     public class CdsPluginAssembly
     {
+        private readonly IFileSystem _fileSystem;
+
+        public CdsPluginAssembly() : this (new FileSystem())
+        {
+        }
+
+        public CdsPluginAssembly(IFileSystem fileSystem)
+        {
+            this._fileSystem = fileSystem;
+        }
+
         public string Name { get; set; }
 
         public string FriendlyName { get; set; }
@@ -49,9 +61,9 @@ namespace CloudAwesome.Xrm.Customisation.Models
                 PublicKeyToken = pluginAssemblyInfo.PublicKeyToken,
                 SourceType = PluginAssembly_SourceType.Database,// Only database supported for now
                 IsolationMode = PluginAssembly_IsolationMode.Sandbox, // Only Sandbox supported for now
-                Content = Convert.ToBase64String(File.ReadAllBytes(this.Assembly))
+                Content = Convert.ToBase64String(_fileSystem.File.ReadAllBytes(this.Assembly))
             };
-
+            
             var existingAssemblyQuery = this.GetExistingQuery(pluginAssemblyInfo.Version);
 
             return assemblyEntity.CreateOrUpdate(client, existingAssemblyQuery);

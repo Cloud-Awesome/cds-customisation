@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.IO.Abstractions.TestingHelpers;
 using CloudAwesome.Xrm.Customisation.Models;
 using Microsoft.Xrm.Sdk;
 
@@ -97,14 +98,15 @@ namespace CloudAwesome.Xrm.Customisation.Tests
 
         public static readonly PluginAssembly ExistingPluginAssembly = new PluginAssembly()
         {
-            Name = "ExistingAssembly",
+            Name = "UnitTestAssembly",
+            Version = "1.0.0.0",
             Id = Guid.NewGuid()
         };
 
         public static readonly PluginType ExistingContactPluginType = new PluginType()
         {
             PluginAssemblyId = ExistingPluginAssembly.ToEntityReference(),
-            Name = "ExistingContactPluginType",
+            Name = "ContactPlugin",
             Id = Guid.NewGuid()
         };
 
@@ -128,7 +130,14 @@ namespace CloudAwesome.Xrm.Customisation.Tests
             Id = Guid.NewGuid()
         };
 
-        public static readonly CdsPluginStep Step = new CdsPluginStep()
+        public static readonly CdsPlugin UnitTestPlugin = new CdsPlugin()
+        {
+            Name = "ContactPlugin",
+            Description = "This is the plugin related to the Contact entity",
+            FriendlyName = " Contact Plugins"
+        };
+
+        public static readonly CdsPluginStep UnitTestPluginStep = new CdsPluginStep()
         {
             Name = "OnContactUpdate",
             Description = "This is triggered on update of a contact",
@@ -137,7 +146,7 @@ namespace CloudAwesome.Xrm.Customisation.Tests
             Stage = SdkMessageProcessingStep_Stage.Postoperation,
         };
 
-        public static readonly CdsEntityImage image = new CdsEntityImage()
+        public static readonly CdsEntityImage UnitTestImage = new CdsEntityImage()
         {
             Name = "ContactImage",
             Type = EntityImageType.PreImage,

@@ -24,6 +24,8 @@ namespace CloudAwesome.Xrm.Customisation.Models
 
         public bool? IsPrivate { get; set; }
 
+        public EntityReference ParentPlugin { get; set; }
+
         public CustomAPI_AllowedCustomProcessingStepType AllowedCustomProcessingStepType { get; set; }
 
         public CustomAPI_BindingType BindingType { get; set; }
@@ -52,6 +54,23 @@ namespace CloudAwesome.Xrm.Customisation.Models
 
             var existingApiQuery = this.GetExistingQuery(parentPlugin.Id);
             return apiEntity.CreateOrUpdate(client, existingApiQuery);
+        }
+
+        public bool Unregister(IOrganizationService client, EntityReference parentPlugin)
+        {
+            if (parentPlugin.LogicalName != PluginAssembly.EntityLogicalName)
+                throw new ArgumentException($"Entity Reference '{nameof(parentPlugin)}' must be of type '{PluginType.EntityLogicalName}'");
+
+            this.ParentPlugin = parentPlugin;
+            return this.Unregister(client);
+        }
+
+        public bool Unregister(IOrganizationService client)
+        {
+            throw new NotImplementedException();
+
+            if (this.ParentPlugin == null)
+                throw new ArgumentException("Cannot delete this Custom API - the parent Plugin is null and is required");
         }
 
         public QueryBase GetExistingQuery(Guid parentPluginId)

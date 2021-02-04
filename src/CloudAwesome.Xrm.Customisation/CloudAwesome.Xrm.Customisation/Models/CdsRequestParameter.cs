@@ -21,7 +21,6 @@ namespace CloudAwesome.Xrm.Customisation.Models
 
         public EntityReference Register(IOrganizationService client, EntityReference parentCustomApi)
         {
-            // TODO - validation: If API has Function == True, then this.Type cannot be Entity or Entity Collection
             var responseProperty = new CustomAPIRequestParameter()
             {
                 Name = this.Name,

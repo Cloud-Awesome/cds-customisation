@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using CloudAwesome.Xrm.Customisation.Models;
 using FakeXrmEasy;
 using Microsoft.Xrm.Sdk;
 using NUnit.Framework;
@@ -26,12 +24,12 @@ namespace CloudAwesome.Xrm.Customisation.Tests.ModelTests
                 ExistingPluginStep
             });
 
-            Step.Register(orgService, ExistingContactPluginType.ToEntityReference(),
+            UnitTestPluginStep.Register(orgService, ExistingContactPluginType.ToEntityReference(),
                 UpdateSdkMessage.ToEntityReference(), UpdateContactMessageFilter.ToEntityReference());
 
             var registeredStep =
                 (from e in context.CreateQuery<SdkMessageProcessingStep>()
-                    where e.Name == Step.Name
+                    where e.Name == UnitTestPluginStep.Name
                     select e).ToList();
 
             Assert.AreEqual(1, registeredStep.Count);
@@ -52,12 +50,12 @@ namespace CloudAwesome.Xrm.Customisation.Tests.ModelTests
                 UpdateContactMessageFilter
             });
             
-            Step.Register(orgService, ExistingContactPluginType.ToEntityReference(), 
+            UnitTestPluginStep.Register(orgService, ExistingContactPluginType.ToEntityReference(), 
                 UpdateSdkMessage.ToEntityReference(), UpdateContactMessageFilter.ToEntityReference());
 
             var registeredStep =
                 (from e in context.CreateQuery<SdkMessageProcessingStep>()
-                    where e.Name == Step.Name
+                    where e.Name == UnitTestPluginStep.Name
                     select e).ToList();
 
             Assert.AreEqual(1, registeredStep.Count);
@@ -78,13 +76,13 @@ namespace CloudAwesome.Xrm.Customisation.Tests.ModelTests
                 UpdateContactMessageFilter
             });
 
-            Step.FilteringAttributes = new[] {"one", "two", "three"};
-            Step.Register(orgService, ExistingContactPluginType.ToEntityReference(),
+            UnitTestPluginStep.FilteringAttributes = new[] {"one", "two", "three"};
+            UnitTestPluginStep.Register(orgService, ExistingContactPluginType.ToEntityReference(),
                 UpdateSdkMessage.ToEntityReference(), UpdateContactMessageFilter.ToEntityReference());
 
             var registeredStep =
                 (from e in context.CreateQuery<SdkMessageProcessingStep>()
-                    where e.Name == Step.Name
+                    where e.Name == UnitTestPluginStep.Name
                     select e).ToList();
 
             Assert.AreEqual(1, registeredStep.Count);
@@ -107,19 +105,17 @@ namespace CloudAwesome.Xrm.Customisation.Tests.ModelTests
                 ExistingPluginStep
             });
 
-            Step.FilteringAttributes = new[] { "one", "two" };
-            Step.Register(orgService, ExistingContactPluginType.ToEntityReference(),
+            UnitTestPluginStep.FilteringAttributes = new[] { "one", "two" };
+            UnitTestPluginStep.Register(orgService, ExistingContactPluginType.ToEntityReference(),
                 UpdateSdkMessage.ToEntityReference(), UpdateContactMessageFilter.ToEntityReference());
 
             var registeredStep =
                 (from e in context.CreateQuery<SdkMessageProcessingStep>()
-                    where e.Name == Step.Name
+                    where e.Name == UnitTestPluginStep.Name
                     select e).ToList();
 
             Assert.AreEqual(1, registeredStep.Count);
             Assert.AreEqual("one,two", registeredStep[0].FilteringAttributes);
         }
-
-        
     }
 }
