@@ -144,7 +144,7 @@ namespace CloudAwesome.Xrm.Customisation.Models
                 existingMetadata = ((RetrieveAttributeResponse) client.Execute(attribute)).AttributeMetadata;
                 existingAttribute = true;
             }
-            catch (FaultException e)
+            catch (FaultException)
             {
                 existingAttribute = false;
             }

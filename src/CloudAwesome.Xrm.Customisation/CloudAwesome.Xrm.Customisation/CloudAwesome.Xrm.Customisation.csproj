@@ -134,6 +134,7 @@
     <Compile Include="EarlyBoundModels\SdkMessageResponseField.cs" />
     <Compile Include="EarlyBoundModels\ServiceEndpoint.cs" />
     <Compile Include="EarlyBoundModels\SiteMap.cs" />
+    <Compile Include="Exceptions\InvalidManifestException.cs" />
     <Compile Include="Exceptions\NoProcessToUpdateException.cs" />
     <Compile Include="Exceptions\NotCustomisableException.cs" />
     <Compile Include="ICustomisationManifest.cs" />
@@ -169,6 +170,22 @@
     <Compile Include="Models\PluginAssemblyInfo.cs" />
     <Compile Include="PluginManifest.cs" />
     <Compile Include="PluginWrapper.cs" />
+    <Compile Include="PortalConfigurationManifest.cs" />
+    <Compile Include="PortalConfigurationModels\BasePortalConfigurationEntity.cs" />
+    <Compile Include="PortalConfigurationModels\IPortalConfigurationEntity.cs" />
+    <Compile Include="PortalConfigurationModels\PortalContentSnippet.cs" />
+    <Compile Include="PortalConfigurationModels\PortalEntityForm.cs" />
+    <Compile Include="PortalConfigurationModels\PortalEntityFormMetadata.cs" />
+    <Compile Include="PortalConfigurationModels\PortalEntityList.cs" />
+    <Compile Include="PortalConfigurationModels\PortalEntityPermission.cs" />
+    <Compile Include="PortalConfigurationModels\PortalPageTemplate.cs" />
+    <Compile Include="PortalConfigurationModels\PortalSiteSetting.cs" />
+    <Compile Include="PortalConfigurationModels\PortalWebFile.cs" />
+    <Compile Include="PortalConfigurationModels\PortalWebLinkSet.cs" />
+    <Compile Include="PortalConfigurationModels\PortalWebPage.cs" />
+    <Compile Include="PortalConfigurationModels\PortalWebRole.cs" />
+    <Compile Include="PortalConfigurationModels\PortalWebTemplate.cs" />
+    <Compile Include="PortalConfigurationWrapper.cs" />
     <Compile Include="ProcessActivationManifest.cs" />
     <Compile Include="ProcessActivationWrapper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -183,7 +200,6 @@
       <SubType>Designer</SubType>
     </None>
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
     <Content Include="SampleSchema\configuration-manifest.xml" />
     <Content Include="SampleSchema\plugin-manifest.xml" />
