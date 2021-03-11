@@ -163,7 +163,7 @@ namespace CloudAwesome.Xrm.Customisation.Models
                 existingMetadata = ((RetrieveEntityResponse) client.Execute(entity)).EntityMetadata;
                 existingEntity = true;
             }
-            catch (FaultException e)
+            catch (FaultException)
             {
                 existingEntity = false;
             }

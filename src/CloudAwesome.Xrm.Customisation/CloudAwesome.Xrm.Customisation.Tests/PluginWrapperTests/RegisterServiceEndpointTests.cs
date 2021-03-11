@@ -13,7 +13,7 @@ namespace CloudAwesome.Xrm.Customisation.Tests.PluginWrapperTests
         [Description("Endpoint doesn't exist but is registered successfully")]
         public void ServiceEndPointDoeNotExist()
         {
-            var manifestPath = $"{TestManifestFolderPath}/plugin-manifest.xml";
+            var manifestPath = $"{PluginManifestFolderPath}/plugin-manifest.xml";
             var manifest = SerialisationWrapper.DeserialiseFromFile<PluginManifest>(manifestPath);
 
             var context = new XrmFakedContext();
@@ -42,7 +42,7 @@ namespace CloudAwesome.Xrm.Customisation.Tests.PluginWrapperTests
         [Description("Endpoint already exists and Clobber is false but endpoint and steps are not duplicated")]
         public void ServiceEndpointAlreadyExistsWithNoClobber()
         {
-            var manifestPath = $"{TestManifestFolderPath}/plugin-manifest.xml";
+            var manifestPath = $"{PluginManifestFolderPath}/plugin-manifest.xml";
             var manifest = SerialisationWrapper.DeserialiseFromFile<PluginManifest>(manifestPath);
 
             var context = new XrmFakedContext();
@@ -78,7 +78,7 @@ namespace CloudAwesome.Xrm.Customisation.Tests.PluginWrapperTests
         [Description("Endpoint already exists and Clobber is true but endpoint is not duplicated")]
         public void ServiceEndpointAlreadyExistsWithClobber()
         {
-            var manifestPath = $"{TestManifestFolderPath}/plugin-manifest.xml";
+            var manifestPath = $"{PluginManifestFolderPath}/plugin-manifest.xml";
             var manifest = SerialisationWrapper.DeserialiseFromFile<PluginManifest>(manifestPath);
 
             var context = new XrmFakedContext();

@@ -21,7 +21,7 @@ namespace CloudAwesome.Xrm.Customisation.Tests.ModelTests
                 ExistingPluginStep
             });
 
-            image.Register(orgService, ExistingPluginStep.ToEntityReference());
+            UnitTestImage.Register(orgService, ExistingPluginStep.ToEntityReference());
 
             var registeredImage =
                 (from e in context.CreateQuery<SdkMessageProcessingStepImage>()
@@ -46,7 +46,7 @@ namespace CloudAwesome.Xrm.Customisation.Tests.ModelTests
                 ExistingImage
             });
 
-            image.Register(orgService, ExistingPluginStep.ToEntityReference());
+            UnitTestImage.Register(orgService, ExistingPluginStep.ToEntityReference());
 
             var registeredImage =
                 (from e in context.CreateQuery<SdkMessageProcessingStepImage>()

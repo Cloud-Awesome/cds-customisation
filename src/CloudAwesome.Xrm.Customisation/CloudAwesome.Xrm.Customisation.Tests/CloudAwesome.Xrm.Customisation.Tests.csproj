@@ -71,6 +71,12 @@
     <Reference Include="System" />
     <Reference Include="System.Activities" />
     <Reference Include="System.Core" />
+    <Reference Include="System.IO.Abstractions, Version=13.0.0.0, Culture=neutral, PublicKeyToken=96bf224d23c43e59, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.IO.Abstractions.13.2.9\lib\net461\System.IO.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="System.IO.Abstractions.TestingHelpers, Version=13.0.0.0, Culture=neutral, PublicKeyToken=96bf224d23c43e59, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.IO.Abstractions.TestingHelpers.13.2.9\lib\net461\System.IO.Abstractions.TestingHelpers.dll</HintPath>
+    </Reference>
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.ServiceModel.Web" />
   </ItemGroup>
@@ -79,8 +85,13 @@
     <Compile Include="CustomisationExtensions\CreateLabelFromStringTests.cs" />
     <Compile Include="CustomisationExtensions\GenerateLogicalNameFromDisplayNameTests.cs" />
     <Compile Include="CustomisationExtensions\PluraliseTests.cs" />
+    <Compile Include="ModelTests\CdsCustomApiTests.cs" />
     <Compile Include="ModelTests\CdsEntityImageTests.cs" />
+    <Compile Include="ModelTests\CdsPluginAssemblyTests.cs" />
     <Compile Include="ModelTests\CdsPluginStepTests.cs" />
+    <Compile Include="ModelTests\CdsPluginTests.cs" />
+    <Compile Include="ModelTests\CdsRequestParameterTests.cs" />
+    <Compile Include="ModelTests\CdsResponsePropertyTests.cs" />
     <Compile Include="PluginWrapperTests\RegisterPluginsTests.cs" />
     <Compile Include="PluginWrapperTests\RegisterServiceEndpointTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -101,6 +112,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="TestManifests\PluginRegistration\plugin-manifest.xml" />
+    <Content Include="TestManifests\PortalConfiguration\portal-manifest.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

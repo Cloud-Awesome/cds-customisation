@@ -107,7 +107,7 @@ namespace CloudAwesome.Xrm.Customisation
 
                         existingOptionSet = true;
                     }
-                    catch (FaultException e)
+                    catch (FaultException)
                     {
                         existingOptionSet = false;
                     }

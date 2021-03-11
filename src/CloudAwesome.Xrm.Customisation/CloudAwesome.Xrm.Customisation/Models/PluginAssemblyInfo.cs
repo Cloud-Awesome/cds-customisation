@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
+﻿using System.IO;
 using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CloudAwesome.Xrm.Customisation.Models
 {
@@ -13,6 +8,13 @@ namespace CloudAwesome.Xrm.Customisation.Models
         public string Version { get; set; }
         public string Culture { get; set; }
         public string PublicKeyToken { get; set; }
+
+        public PluginAssemblyInfo(string version, string culture, string publicKeyToken)
+        {
+            Version = version;
+            Culture = culture;
+            PublicKeyToken = publicKeyToken;
+        }
 
         public PluginAssemblyInfo(string assemblyFilePath)
         {

@@ -1,0 +1,144 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<PortalManifest>
+
+    <Website>Test Website</Website>
+
+    <WebPages>
+        <WebPage>
+            <Name>Home</Name>
+            <PartialUrl>/</PartialUrl>
+            <ParentPage></ParentPage>
+            <PageTemplate></PageTemplate>
+            <EntityList></EntityList>
+            <EntityForm></EntityForm>
+            <Description></Description>
+            <Title></Title>
+            <Summary></Summary>
+            <Copy></Copy>
+            <Navigation></Navigation>
+        </WebPage>
+    </WebPages>
+
+    <PageTemplates>
+        <PageTemplate>
+
+        </PageTemplate>
+    </PageTemplates>
+
+    <EntityForms>
+        <EntityForm>
+            <Name>EntityForm1</Name>
+            <EntityName>Contact</EntityName>
+            <FormName>Portal Contact</FormName>
+            <TabName>Collection Tab</TabName>
+            <Mode>Edit</Mode>
+            <RecordSourceType>QueryString</RecordSourceType>
+            <RecordIdQueryStringParameterName>id</RecordIdQueryStringParameterName>
+            <EnableEntityPermission>True</EnableEntityPermission>
+            <ValidationSummaryCssClass>error-details</ValidationSummaryCssClass>
+            <ValidationSummaryHeaderText>...</ValidationSummaryHeaderText>
+            <OnSuccess>Redirect</OnSuccess>
+            <RedirectWebPage>Home</RedirectWebPage>
+            <ExternalUrl>...</ExternalUrl>
+            <AppendExistingQueryString>False</AppendExistingQueryString>
+            <AppendRecordIdToQueryString>True</AppendRecordIdToQueryString>
+            <RedirectRecordIdQueryStringParameterName>id</RedirectRecordIdQueryStringParameterName>
+            <SubmitAction>
+                <ButtonLabel>Continue</ButtonLabel>
+            </SubmitAction>
+            <EntityFormMetadata>
+                <Metadata>
+                    <Type>Attribute</Type>
+                    <LogicalName>awe_string</LogicalName>
+                    <Label>This is a label</Label>
+                    <CssClass>...</CssClass>
+                    <ControlStyle>...</ControlStyle>
+                    <AddDescription>Yes</AddDescription>
+                    <UseAttributesDescriptionProperty>No</UseAttributesDescriptionProperty>
+                    <Description>This is a description of the attribute</Description>
+                    <FieldIsRequired>true</FieldIsRequired>
+                    <RequiredFeidlValidationErrorMessage>This field is mandatory</RequiredFeidlValidationErrorMessage>
+                </Metadata>
+            </EntityFormMetadata>
+        </EntityForm>
+    </EntityForms>
+
+    <EntityLists>
+        <EntityList>
+
+        </EntityList>
+    </EntityLists>
+
+    <ContentSnippets>
+        <ContentSnippet>
+
+        </ContentSnippet>
+    </ContentSnippets>
+
+    <SiteSettings>
+        <SiteSetting>
+            <Name></Name>
+            <Value></Value>
+        </SiteSetting>
+    </SiteSettings>
+
+    <WebLinkSets>
+        <WebLinkSet>
+            <WebLink>
+                <Name></Name>
+                <Page></Page>
+            </WebLink>
+        </WebLinkSet>
+    </WebLinkSets>
+
+    <WebTemplates>
+        <WebTemplate>
+            <Name>...</Name>
+            <SourceFile>../../../tester.xml</SourceFile>
+        </WebTemplate>
+    </WebTemplates>
+
+    <WebFiles>
+        <WebFile>
+            <Name>bootstrap.min.css</Name>
+            <PartialUrl>bootstrap.min.css</PartialUrl>
+            <ParentPage>Home</ParentPage>
+            <SourceFile>../../bootstrap.min.css</SourceFile>
+        </WebFile>
+    </WebFiles>
+
+    <EntityPermissions>
+        <EntityPermission>
+            <Name>Case/CreateReadWrite</Name>
+            <EntityName>Case</EntityName>
+            <Scope>Contact</Scope>
+            <Read>Yes</Read>
+            <Write>Yes</Write>
+            <Create>Yes</Create>
+            <Delete>No</Delete>
+            <Append>No</Append>
+            <AppendTo>No</AppendTo>
+            <!-- Others to follow, e.g. ContactRelationship, etc... -->
+        </EntityPermission>
+    </EntityPermissions>
+
+    <WebRoles>
+        <WebRole>
+            <Name>Authenticated User</Name>
+            <Description>...</Description>
+            <AuthenticatedUsersRole>Yes</AuthenticatedUsersRole>
+            <AnonymousUsersRule>No</AnonymousUsersRule>
+            <EntityPermissions>
+                <EntityPermission>Case/CreateReadWrite</EntityPermission>
+            </EntityPermissions>
+        </WebRole>
+    </WebRoles>
+
+    <CdsConnection>
+        <ConnectionType>AppRegistration</ConnectionType>
+        <CdsUrl>https://cxmportalpoc.crm11.dynamics.com/</CdsUrl>
+        <CdsAppId>bf347d67-fd45-445c-93bf-9fb30103893e</CdsAppId>
+        <CdsAppSecret>plf0Z7R.8w-l.r7-H~J.GeQ~tCo045I18Z</CdsAppSecret>
+    </CdsConnection>
+
+</PortalManifest>

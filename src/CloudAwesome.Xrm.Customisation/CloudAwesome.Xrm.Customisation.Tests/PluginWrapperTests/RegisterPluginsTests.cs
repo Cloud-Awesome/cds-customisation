@@ -17,7 +17,7 @@ namespace CloudAwesome.Xrm.Customisation.Tests.PluginWrapperTests
         [Category("IgnoreInPipeline")]
         public void AssemblyDoesNotAlreadyExist()
         {
-            var manifestPath = $"{TestManifestFolderPath}/plugin-manifest.xml";
+            var manifestPath = $"{PluginManifestFolderPath}/plugin-manifest.xml";
             var manifest = SerialisationWrapper.DeserialiseFromFile<PluginManifest>(manifestPath);
 
             var context = new XrmFakedContext();
@@ -48,7 +48,7 @@ namespace CloudAwesome.Xrm.Customisation.Tests.PluginWrapperTests
         [Category("IgnoreInPipeline")]
         public void AssemblyExistsWithNoRegisteredPlugins()
         {
-            var manifestPath = $"{TestManifestFolderPath}/plugin-manifest.xml";
+            var manifestPath = $"{PluginManifestFolderPath}/plugin-manifest.xml";
             var manifest = SerialisationWrapper.DeserialiseFromFile<PluginManifest>(manifestPath);
 
             var context = new XrmFakedContext();
@@ -78,7 +78,7 @@ namespace CloudAwesome.Xrm.Customisation.Tests.PluginWrapperTests
         [Category("IgnoreInPipeline")]
         public void RemovesPluginTypeFromExistingAssembly()
         {
-            var manifestPath = $"{TestManifestFolderPath}/plugin-manifest.xml";
+            var manifestPath = $"{PluginManifestFolderPath}/plugin-manifest.xml";
             var manifest = SerialisationWrapper.DeserialiseFromFile<PluginManifest>(manifestPath);
 
             var context = new XrmFakedContext();
