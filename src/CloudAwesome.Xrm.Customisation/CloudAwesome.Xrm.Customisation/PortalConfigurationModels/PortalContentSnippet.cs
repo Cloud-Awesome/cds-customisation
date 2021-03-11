@@ -2,7 +2,7 @@
 
 namespace CloudAwesome.Xrm.Customisation.PortalConfigurationModels
 {
-    public class PortalContentSnippet: Entity
+    public class PortalContentSnippet: BasePortalConfigurationEntity, IPortalConfigurationEntity
     {
         
     }

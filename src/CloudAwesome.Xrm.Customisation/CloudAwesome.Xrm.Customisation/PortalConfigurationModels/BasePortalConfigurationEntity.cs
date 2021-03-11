@@ -7,7 +7,7 @@ namespace CloudAwesome.Xrm.Customisation.PortalConfigurationModels
     {
         public string EntityName = string.Empty;
         
-        public EntityReference CreateOrUpdate()
+        public EntityReference CreateOrUpdate(IOrganizationService client)
         {
             throw new NotImplementedException();
         }

@@ -203,6 +203,7 @@
   <ItemGroup>
     <Content Include="SampleSchema\configuration-manifest.xml" />
     <Content Include="SampleSchema\plugin-manifest.xml" />
+    <Content Include="SampleSchema\portal-manifest.xml" />
     <Content Include="SampleSchema\process-activation-manifest.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

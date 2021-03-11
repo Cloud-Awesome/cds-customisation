@@ -4,7 +4,7 @@ namespace CloudAwesome.Xrm.Customisation.PortalConfigurationModels
 {
     public interface IPortalConfigurationEntity
     {
-        //EntityReference Create();
-        
+        EntityReference CreateOrUpdate(IOrganizationService client);
+
     }
 }

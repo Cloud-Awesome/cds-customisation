@@ -1,6 +1,6 @@
 ﻿namespace CloudAwesome.Xrm.Customisation.PortalConfigurationModels
 {
-    public class PortalEntityPermission: IPortalConfigurationEntity
+    public class PortalEntityPermission: BasePortalConfigurationEntity, IPortalConfigurationEntity
     {
     }
 }

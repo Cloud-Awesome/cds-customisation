@@ -16,7 +16,7 @@ namespace CloudAwesome.Xrm.Customisation.Models
     {
         private string _publisherPrefix;
         private string _solutionName;
-        private string description;
+        private string _description;
 
         public string EntitySchemaName { get; set; }
         public string DisplayName { get; set; }
@@ -26,8 +26,8 @@ namespace CloudAwesome.Xrm.Customisation.Models
 
         public string Description
         {
-            get => description ?? this.DisplayName;
-            set => description = value ?? this.DisplayName;
+            get => _description ?? this.DisplayName;
+            set => _description = value ?? this.DisplayName;
         }
         public AttributeRequiredLevel RequiredLevel { get; set; }
         public bool IsAuditEnabled { get; set; }

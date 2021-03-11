@@ -1,6 +1,6 @@
 ﻿namespace CloudAwesome.Xrm.Customisation.PortalConfigurationModels
 {
-    public class PortalWebFile: IPortalConfigurationEntity
+    public class PortalWebFile: BasePortalConfigurationEntity, IPortalConfigurationEntity
     {
     }
 }

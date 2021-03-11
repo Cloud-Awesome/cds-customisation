@@ -1,6 +1,6 @@
 ﻿namespace CloudAwesome.Xrm.Customisation.PortalConfigurationModels
 {
-    public class PortalEntityFormMetadata: IPortalConfigurationEntity
+    public class PortalEntityFormMetadata: BasePortalConfigurationEntity, IPortalConfigurationEntity
     {
         
     }
