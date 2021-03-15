@@ -37,6 +37,9 @@ namespace CloudAwesome.Xrm.Customisation.Models
         /// </summary>
         public bool AllChildren { get; set; }
 
+        /// <summary>
+        /// Child plugins
+        /// </summary>
         [XmlArrayItem("Plugin")]
         public CdsPlugin[] Plugins { get; set; }
 

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using CloudAwesome.Xrm.Core;
+using CloudAwesome.Xrm.Customisation.Exceptions;
 using CloudAwesome.Xrm.Customisation.Models;
 using Microsoft.Extensions.Logging;
 using Microsoft.Xrm.Sdk;
@@ -12,6 +13,26 @@ namespace CloudAwesome.Xrm.Customisation
 {
     public class PluginWrapper
     {
+        public ManifestValidationResult Validate(PluginManifest manifest)
+        {
+            var validator = new PluginManifestValidator();
+            var result = validator.Validate(manifest);
+
+            if (!result.IsValid)
+            {
+                return new ManifestValidationResult()
+                {
+                    IsValid = false,
+                    Errors = result.Errors.Select(e => e.ErrorMessage)
+                };
+            }
+
+            return new ManifestValidationResult()
+            {
+                IsValid = true
+            };
+        }
+        
         /// <summary>
         /// Loops through each PluginAssembly in the manifest and registers all assemblies, plugins, steps and images
         /// </summary>
@@ -46,6 +67,14 @@ namespace CloudAwesome.Xrm.Customisation
         {
             t.Debug($"Entering PluginWrapper.RegisterPlugins");
 
+            // 0. Validate manifest before continuing
+            var manifestValidation = this.Validate(manifest);
+            if (!manifestValidation.IsValid)
+            {
+                t.Critical($"Manifest is invalid and has {manifestValidation.Errors.Count()} errors");
+                throw new InvalidManifestException(manifestValidation.Errors.ToString());
+            }
+            
             if (manifest.Clobber)
             {
                 t.Warning($"Manifest has 'Clobber' set to true. Deleting referenced Plugins before re-registering");
