@@ -1,6 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System;
 using CloudAwesome.Xrm.Core;
 using CloudAwesome.Xrm.Core.Models;
+using CloudAwesome.Xrm.Customisation.Exceptions;
+using CloudAwesome.Xrm.Customisation.Models;
 using Microsoft.Extensions.Logging;
 
 namespace CloudAwesome.Xrm.Customisation.Cli.Features
@@ -8,26 +10,31 @@ namespace CloudAwesome.Xrm.Customisation.Cli.Features
     public class RegisterPlugins: IFeature
     {
         public string FeatureName => nameof(RegisterPlugins);
-        public List<string> ValidationErrors { get; set; }
-        
-        public List<string> ValidateManifest(ICustomisationManifest manifest)
+        public ManifestValidationResult ValidationResult { get; set; }
+
+        public ManifestValidationResult ValidateManifest(ICustomisationManifest manifest)
         {
-            // TODO - validate manifest
-            // TODO - move this back to the wrapper class, not in the CLI!
-            ValidationErrors = new List<string>();
-            return ValidationErrors;
+            var pluginManifest = (PluginManifest) manifest;
+            var pluginWrapper = new PluginWrapper();
+
+            ValidationResult = pluginWrapper.Validate(pluginManifest);
+            
+            return ValidationResult;
         }
 
         public void Run(string manifestPath)
         {
             var manifest = SerialisationWrapper.DeserialiseFromFile<PluginManifest>(manifestPath);
-            var client = XrmClient.GetCrmServiceClientFromManifestConfiguration(manifest.CdsConnection);
-
+            
             ValidateManifest(manifest);
-            if (ValidationErrors.Count > 0)
+            if (!ValidationResult.IsValid)
             {
-                // TODO - throw a good error ;)
-                return;
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine($"Manifest is not valid. Not progressing with registration");
+                Console.WriteLine($"\nErrors found in manifest validation:\n{ValidationResult}");
+                Console.ResetColor();
+                
+                throw new InvalidManifestException("Exiting processing with exception - Manifest is no valid");
             }
 
             if (manifest.LoggingConfiguration == null)
@@ -39,6 +46,8 @@ namespace CloudAwesome.Xrm.Customisation.Cli.Features
                 };
             }
 
+            var client = XrmClient.GetCrmServiceClientFromManifestConfiguration(manifest.CdsConnection);
+            
             var pluginWrapper = new PluginWrapper();
             pluginWrapper.RegisterPlugins(manifest, client);
             pluginWrapper.RegisterServiceEndpoints(manifest, client);

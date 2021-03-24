@@ -4,6 +4,7 @@ using System.IO.Abstractions.TestingHelpers;
 using System.Linq;
 using CloudAwesome.Xrm.Customisation.Models;
 using FakeXrmEasy;
+using FluentAssertions;
 using Microsoft.Xrm.Sdk;
 using NUnit.Framework;
 
@@ -56,9 +57,9 @@ namespace CloudAwesome.Xrm.Customisation.Tests.ModelTests
                 (from a in context.CreateQuery<PluginAssembly>()
                     where a.Name == _unitTestPluginAssembly.Name
                     select a).ToList();
-
-            Assert.AreEqual(1, updatedAssembly.Count);
-            Assert.IsNotNull(updatedAssembly[0].Id);
+            
+            updatedAssembly.Should().HaveCount(1);
+            updatedAssembly[0].Id.Should().NotBeEmpty();
         }
 
         [Test]
@@ -88,7 +89,7 @@ namespace CloudAwesome.Xrm.Customisation.Tests.ModelTests
                     where a.Name == _unitTestPluginAssembly.Name && a.Version == "2.0.0.0"
                     select a).ToList();
 
-            Assert.AreEqual(1, updatedAssemblyV2.Count);
+            updatedAssemblyV2.Should().HaveCount(1);
         }
 
         [Test]
@@ -104,9 +105,9 @@ namespace CloudAwesome.Xrm.Customisation.Tests.ModelTests
                 (from a in context.CreateQuery<PluginAssembly>()
                     where a.Name == _unitTestPluginAssembly.Name
                     select a).ToList();
-
-            Assert.AreEqual(1, updatedAssembly.Count);
-            Assert.IsNotNull(updatedAssembly[0].Id);
+            
+            updatedAssembly.Should().HaveCount(1);
+            updatedAssembly[0].Id.Should().NotBeEmpty();
         }
     }
 }

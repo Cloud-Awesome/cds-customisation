@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using CloudAwesome.Xrm.Core;
 using CloudAwesome.Xrm.Core.Models;
+using CloudAwesome.Xrm.Customisation.Models;
 using Microsoft.Extensions.Logging;
 
 namespace CloudAwesome.Xrm.Customisation.Cli.Features
@@ -8,13 +9,16 @@ namespace CloudAwesome.Xrm.Customisation.Cli.Features
     public class ToggleProcesses: IFeature
     {
         public string FeatureName => nameof(ToggleProcesses);
-        public List<string> ValidationErrors { get; set; }
-        public List<string> ValidateManifest(ICustomisationManifest manifest)
+        public ManifestValidationResult ValidationResult { get; set; }
+
+        public ManifestValidationResult ValidateManifest(ICustomisationManifest manifest)
         {
-            // TODO - validate manifest
-            // TODO - move this back to the wrapper class, not in the CLI!
-            ValidationErrors = new List<string>();
-            return ValidationErrors;
+            ValidationResult = new ManifestValidationResult
+            {
+                IsValid = true
+            };
+
+            return ValidationResult;
         }
 
         public void Run(string manifestPath)
@@ -23,7 +27,7 @@ namespace CloudAwesome.Xrm.Customisation.Cli.Features
             var client = XrmClient.GetCrmServiceClientFromManifestConfiguration(manifest.CdsConnection);
 
             ValidateManifest(manifest);
-            if (ValidationErrors.Count > 0)
+            if (!ValidationResult.IsValid)
             {
                 // TODO - throw a good error ;)
                 return;

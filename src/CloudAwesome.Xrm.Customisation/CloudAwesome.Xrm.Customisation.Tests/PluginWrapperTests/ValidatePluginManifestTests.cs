@@ -1,4 +1,5 @@
-﻿using CloudAwesome.Xrm.Customisation.Models;
+﻿using CloudAwesome.Xrm.Core.Models;
+using CloudAwesome.Xrm.Customisation.Models;
 using FluentAssertions;
 using NUnit.Framework;
 
@@ -10,12 +11,20 @@ namespace CloudAwesome.Xrm.Customisation.Tests.PluginWrapperTests
         [Test]
         public void Valid_Plugin_Manifest_Returns_Positive_Result()
         {
-            var manifest = new PluginManifest();
+            var manifest = new PluginManifest()
+            {
+                CdsConnection = new CdsConnection()
+                {
+                    CdsUrl = "https://testurl.crm.dynamics.com",
+                    CdsAppId = "ID",
+                    CdsAppSecret = "SECRET!"
+                }
+            };
             var wrapper = new PluginWrapper();
 
             var result = wrapper.Validate(manifest);
 
-            result.IsValid.Should().BeTrue("an empty manifest is valid");
+            result.IsValid.Should().BeTrue("only CDS connection is required");
         }
 
         [Test]
@@ -23,6 +32,12 @@ namespace CloudAwesome.Xrm.Customisation.Tests.PluginWrapperTests
         {
             var manifest = new PluginManifest()
             {
+                CdsConnection = new CdsConnection()
+                {
+                    CdsUrl = "https://testurl.crm.dynamics.com",
+                    CdsAppId = "ID",
+                    CdsAppSecret = "SECRET!"
+                },
                 PluginAssemblies = new[]
                 {
                     new CdsPluginAssembly()

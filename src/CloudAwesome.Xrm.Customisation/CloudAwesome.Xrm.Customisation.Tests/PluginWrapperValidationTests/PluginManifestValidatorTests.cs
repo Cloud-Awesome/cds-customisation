@@ -1,4 +1,5 @@
 ﻿using System;
+using CloudAwesome.Xrm.Core.Models;
 using CloudAwesome.Xrm.Customisation.Models;
 using FluentAssertions;
 using NUnit.Framework;
@@ -11,11 +12,19 @@ namespace CloudAwesome.Xrm.Customisation.Tests.PluginWrapperValidationTests
         [Test]
         public void Empty_Manifest_Should_Throw_No_Errors()
         {
-            var manifest = new PluginManifest();
+            var manifest = new PluginManifest()
+            {
+                CdsConnection = new CdsConnection()
+                {
+                    CdsUrl = "https://testurl.crm.dynamics.com",
+                    CdsAppId = "ID",
+                    CdsAppSecret = "SECRET!"
+                }
+            };
             var validator = new PluginManifestValidator();
             var result = validator.Validate(manifest);
 
-            result.IsValid.Should().BeTrue("nothing is mandatory in the manifest");
+            result.IsValid.Should().BeTrue("only CDS connection is mandatory in the manifest");
         }
 
         [Test]
@@ -23,6 +32,12 @@ namespace CloudAwesome.Xrm.Customisation.Tests.PluginWrapperValidationTests
         {
             var manifest = new PluginManifest()
             {
+                CdsConnection = new CdsConnection()
+                {
+                    CdsUrl = "https://testurl.crm.dynamics.com",
+                    CdsAppId = "ID",
+                    CdsAppSecret = "SECRET!"
+                },
                 PluginAssemblies = new CdsPluginAssembly[]
                 {
                     new CdsPluginAssembly()
@@ -43,6 +58,12 @@ namespace CloudAwesome.Xrm.Customisation.Tests.PluginWrapperValidationTests
         {
             var manifest = new PluginManifest()
             {
+                CdsConnection = new CdsConnection()
+                {
+                    CdsUrl = "https://testurl.crm.dynamics.com",
+                    CdsAppId = "ID",
+                    CdsAppSecret = "SECRET!"
+                },
                 PluginAssemblies = new CdsPluginAssembly[]
                 {
                     new CdsPluginAssembly()
