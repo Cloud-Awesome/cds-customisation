@@ -8,7 +8,9 @@
 
 ### XSD 
 
-The correct version of manifest schema definition (xsd) is included in the related release of source/cli and *will* (to be: are) also available online here: https://cloudawesome.xyz/cloudawesome.xrm.customisation/schemas
+The correct version of manifest schema definition (xsd) is included in the related release of source/cli. 
+
+( // TODO - publish xsd versions in awe CDN too ...)
 
 The manifest consists of the following top-level nodes:
 
@@ -34,7 +36,7 @@ The manifest consists of the following top-level nodes:
   <!-- Not yet implemented (due to general move away from workflows, may never be implemented) -->
   <Workflows></Workflows>
 
-  <!-- Define how the app connects to the target CDS environment -->
+  <!-- Define how the app connects to the target CDS environment. Can also be overriden in CLI actions -->
   <CdsConnection></CdsConnection>
 
   <!-- Define pre-rolled logging outputs -->
@@ -169,7 +171,7 @@ See [Manifest Organisation Patterns](manifest-organisation-patterns.md) for more
 
 ### Design decisions
 
-- [todo] ...
+- [ \\ todo] ...
 - Why a manifest instead of decorating plugin code itself
 - Why SolutionName in multiple places (see above) 
 - ..

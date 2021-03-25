@@ -21,7 +21,7 @@ namespace CloudAwesome.Xrm.Customisation.Cli.Features
             return ValidationResult;
         }
 
-        public void Run(string manifestPath)
+        public void Run(string manifestPath, CdsConnection cdsConnection)
         {
             var manifest = SerialisationWrapper.DeserialiseFromFile<ConfigurationManifest>(manifestPath);
             var client = XrmClient.GetCrmServiceClientFromManifestConfiguration(manifest.CdsConnection);

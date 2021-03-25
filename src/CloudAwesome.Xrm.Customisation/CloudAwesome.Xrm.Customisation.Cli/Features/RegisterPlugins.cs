@@ -22,9 +22,14 @@ namespace CloudAwesome.Xrm.Customisation.Cli.Features
             return ValidationResult;
         }
 
-        public void Run(string manifestPath)
+        public void Run(string manifestPath, CdsConnection cdsConnection)
         {
             var manifest = SerialisationWrapper.DeserialiseFromFile<PluginManifest>(manifestPath);
+            
+            if (cdsConnection != null)
+            {
+                manifest.CdsConnection = cdsConnection;
+            }
             
             ValidateManifest(manifest);
             if (!ValidationResult.IsValid)

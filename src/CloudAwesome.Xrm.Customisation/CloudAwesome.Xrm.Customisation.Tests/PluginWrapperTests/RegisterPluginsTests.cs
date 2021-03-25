@@ -1,11 +1,13 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using FakeXrmEasy;
+using FluentAssertions;
 using Microsoft.Xrm.Sdk;
 using NUnit.Framework;
 
 namespace CloudAwesome.Xrm.Customisation.Tests.PluginWrapperTests
 {
+    // TODO - remove reference to the XML file from all tests and just pass through a serialised model
     // TODO - other tests to vary between create and update
     // TODO - tests for tracing
 
@@ -14,8 +16,7 @@ namespace CloudAwesome.Xrm.Customisation.Tests.PluginWrapperTests
     {
         [Test]
         [Description("Plugin assembly and steps don't already exist and are registered successfully")]
-        [Category("IgnoreInPipeline")]
-        public void AssemblyDoesNotAlreadyExist()
+        public void New_Plugin_Assembly_Ans_Steps_Should_Be_Registered()
         {
             var manifestPath = $"{PluginManifestFolderPath}/plugin-manifest.xml";
             var manifest = SerialisationWrapper.DeserialiseFromFile<PluginManifest>(manifestPath);
@@ -39,14 +40,13 @@ namespace CloudAwesome.Xrm.Customisation.Tests.PluginWrapperTests
                  where a.Name == "SamplePluginAssembly" 
                  select a).ToList();
 
-            Assert.AreEqual(1, postRegisteredAssemblies.Count);
+            postRegisteredAssemblies.Should().HaveCount(1);
 
         }
 
         [Test]
         [Description("Plugin assembly exists with no steps and are registered/updated successfully")]
-        [Category("IgnoreInPipeline")]
-        public void AssemblyExistsWithNoRegisteredPlugins()
+        public void Existing_Assembly_With_No_Plugins_Should_Update_Assembly_WithNew_Plugins()
         {
             var manifestPath = $"{PluginManifestFolderPath}/plugin-manifest.xml";
             var manifest = SerialisationWrapper.DeserialiseFromFile<PluginManifest>(manifestPath);
@@ -69,14 +69,11 @@ namespace CloudAwesome.Xrm.Customisation.Tests.PluginWrapperTests
                 (from p in context.CreateQuery<PluginType>()
                     select p).ToList();
 
-            Assert.AreEqual(2, postRegisteredPluginTypes.Count);
-
+            postRegisteredPluginTypes.Should().HaveCount(2);
         }
 
         [Test]
-        [Description("Plugin assembly exists with one existing step. New step is added")]
-        [Category("IgnoreInPipeline")]
-        public void RemovesPluginTypeFromExistingAssembly()
+        public void Clobbering_Existing_Assembly_Removes_Deleted_Steps_And_Registers_New_Steps()
         {
             var manifestPath = $"{PluginManifestFolderPath}/plugin-manifest.xml";
             var manifest = SerialisationWrapper.DeserialiseFromFile<PluginManifest>(manifestPath);
@@ -108,10 +105,10 @@ namespace CloudAwesome.Xrm.Customisation.Tests.PluginWrapperTests
                 (from p in context.CreateQuery<PluginType>()
                     where Equals(p.PluginAssemblyId, postRegisteredPluginAssembly.ToEntityReference())
                     select p).ToList();
-
-            Assert.AreEqual(2, postRegisteredPluginTypes.Count);
-            Assert.IsFalse(postRegisteredPluginTypes.Contains(PluginTypeToBeRemoved));
-
+            
+            postRegisteredPluginTypes.Should().HaveCount(2);
+            postRegisteredPluginTypes.Should().NotContain(PluginTypeToBeRemoved);
+            
         }
 
     }

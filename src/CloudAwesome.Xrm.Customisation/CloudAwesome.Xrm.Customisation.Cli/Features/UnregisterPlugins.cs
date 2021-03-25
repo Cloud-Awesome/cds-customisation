@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using CloudAwesome.Xrm.Core.Models;
 using CloudAwesome.Xrm.Customisation.Models;
 using Microsoft.Extensions.Logging;
 using Microsoft.Xrm.Sdk;
@@ -20,7 +21,7 @@ namespace CloudAwesome.Xrm.Customisation.Cli.Features
             return ValidationResult;
         }
 
-        public void Run(string manifestPath)
+        public void Run(string manifestPath, CdsConnection cdsConnection)
         {
             throw new System.NotImplementedException();
         }

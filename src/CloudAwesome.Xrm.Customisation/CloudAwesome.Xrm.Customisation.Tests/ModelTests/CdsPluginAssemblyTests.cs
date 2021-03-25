@@ -41,7 +41,7 @@ namespace CloudAwesome.Xrm.Customisation.Tests.ModelTests
 
         [Test]
         [Description("Registering an assembly which already exists should update existing assembly")]
-        public void RegisterExistingAssemblyShouldUpdate()
+        public void Register_Existing_Assembly_Should_Update()
         {
             var context = new XrmFakedContext();
             var orgService = context.GetOrganizationService();
@@ -64,7 +64,7 @@ namespace CloudAwesome.Xrm.Customisation.Tests.ModelTests
 
         [Test]
         [Description("Registering an assembly with a more advanced version number should create a new assembly alongside the old version")]
-        public void RegisterAssemblyWithNewVersionNumberShouldCreateNew()
+        public void Register_Assembly_With_Higher_Version_Number_Should_Create_New()
         {
             var context = new XrmFakedContext();
             var orgService = context.GetOrganizationService();
@@ -94,7 +94,7 @@ namespace CloudAwesome.Xrm.Customisation.Tests.ModelTests
 
         [Test]
         [Description("Registering an assembly which doesn't exist should create a new assembly")]
-        public void RegisterNonExistentAssemblyShouldCreateNew()
+        public void Register_NonExistent_Assembly_Should_Create_New()
         {
             var context = new XrmFakedContext();
             var orgService = context.GetOrganizationService();

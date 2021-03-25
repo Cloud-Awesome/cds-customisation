@@ -72,7 +72,7 @@ namespace CloudAwesome.Xrm.Customisation
             if (!manifestValidation.IsValid)
             {
                 t.Critical($"Manifest is invalid and has {manifestValidation.Errors.Count()} errors");
-                throw new InvalidManifestException(manifestValidation.Errors.ToString());
+                throw new InvalidManifestException(manifestValidation.ToString());
             }
             
             if (manifest.Clobber)
@@ -85,7 +85,7 @@ namespace CloudAwesome.Xrm.Customisation
             // 1. Register Assemblies
             foreach (var pluginAssembly in manifest.PluginAssemblies)
             {
-                t.Debug($"Processing Assembly FriendlyName = {pluginAssembly.FriendlyName}");
+                t.Debug($"Processing Assembly FriendlyName {pluginAssembly.FriendlyName}");
 
                 if (!File.Exists(pluginAssembly.Assembly))
                 {

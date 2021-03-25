@@ -22,7 +22,15 @@ namespace CloudAwesome.Xrm.Customisation.Cli
                 { CommandLineActions.ActionOptions.ToggleProcesses, new ToggleProcesses() },
             };
 
-            features[options.Action].Run(options.Manifest);
+            if (options.OverrideManifestConnectionDetails)
+            {
+                features[options.Action].Run(options.Manifest, options.CdsConnectionDetails);    
+            }
+            else
+            {
+                features[options.Action].Run(options.Manifest);
+            }
+            
         }
     }
 }
