@@ -47,7 +47,8 @@ namespace CloudAwesome.Xrm.Customisation
             }
             else
             {
-                RegisterPlugins(manifest, client, t: null);
+                var t = new TracingHelper();
+                RegisterPlugins(manifest, client, t);
             }
         }
 

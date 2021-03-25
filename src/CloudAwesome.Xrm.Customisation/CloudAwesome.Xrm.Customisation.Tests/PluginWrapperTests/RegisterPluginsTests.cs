@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using CloudAwesome.Xrm.Customisation.Models;
 using FakeXrmEasy;
 using FluentAssertions;
 using Microsoft.Xrm.Sdk;
@@ -7,7 +8,6 @@ using NUnit.Framework;
 
 namespace CloudAwesome.Xrm.Customisation.Tests.PluginWrapperTests
 {
-    // TODO - remove reference to the XML file from all tests and just pass through a serialised model
     // TODO - other tests to vary between create and update
     // TODO - tests for tracing
 
@@ -18,9 +18,6 @@ namespace CloudAwesome.Xrm.Customisation.Tests.PluginWrapperTests
         [Description("Plugin assembly and steps don't already exist and are registered successfully")]
         public void New_Plugin_Assembly_Ans_Steps_Should_Be_Registered()
         {
-            var manifestPath = $"{PluginManifestFolderPath}/plugin-manifest.xml";
-            var manifest = SerialisationWrapper.DeserialiseFromFile<PluginManifest>(manifestPath);
-
             var context = new XrmFakedContext();
             var orgService = context.GetOrganizationService();
             context.Initialize(new List<Entity>()
@@ -33,7 +30,7 @@ namespace CloudAwesome.Xrm.Customisation.Tests.PluginWrapperTests
             });
 
             var pluginWrapper = new PluginWrapper();
-            pluginWrapper.RegisterPlugins(manifest, orgService);
+            pluginWrapper.RegisterPlugins(SampleFullPluginManifest, orgService);
 
             var postRegisteredAssemblies = 
                 (from a in context.CreateQuery<PluginAssembly>()
@@ -48,9 +45,6 @@ namespace CloudAwesome.Xrm.Customisation.Tests.PluginWrapperTests
         [Description("Plugin assembly exists with no steps and are registered/updated successfully")]
         public void Existing_Assembly_With_No_Plugins_Should_Update_Assembly_WithNew_Plugins()
         {
-            var manifestPath = $"{PluginManifestFolderPath}/plugin-manifest.xml";
-            var manifest = SerialisationWrapper.DeserialiseFromFile<PluginManifest>(manifestPath);
-
             var context = new XrmFakedContext();
             var orgService = context.GetOrganizationService();
             context.Initialize(new List<Entity>()
@@ -63,10 +57,10 @@ namespace CloudAwesome.Xrm.Customisation.Tests.PluginWrapperTests
             });
             
             var pluginWrapper = new PluginWrapper();
-            pluginWrapper.RegisterPlugins(manifest, orgService);
+            pluginWrapper.RegisterPlugins(SampleFullPluginManifest, orgService);
 
             var postRegisteredPluginTypes =
-                (from p in context.CreateQuery<PluginType>()
+                (from p in context.CreateQuery<PluginType>() 
                     select p).ToList();
 
             postRegisteredPluginTypes.Should().HaveCount(2);
@@ -75,9 +69,6 @@ namespace CloudAwesome.Xrm.Customisation.Tests.PluginWrapperTests
         [Test]
         public void Clobbering_Existing_Assembly_Removes_Deleted_Steps_And_Registers_New_Steps()
         {
-            var manifestPath = $"{PluginManifestFolderPath}/plugin-manifest.xml";
-            var manifest = SerialisationWrapper.DeserialiseFromFile<PluginManifest>(manifestPath);
-
             var context = new XrmFakedContext();
             var orgService = context.GetOrganizationService();
             context.Initialize(new List<Entity>()
@@ -91,9 +82,11 @@ namespace CloudAwesome.Xrm.Customisation.Tests.PluginWrapperTests
                 UpdateAccountMessageFilter,
                 CreateContactMessageFilter
             });
+            
+            SampleFullPluginManifest.Clobber = true;
 
             var pluginWrapper = new PluginWrapper();
-            pluginWrapper.RegisterPlugins(manifest, orgService);
+            pluginWrapper.RegisterPlugins(SampleFullPluginManifest, orgService);
 
             var postRegisteredPluginAssembly =
                 (from a in context.CreateQuery<PluginAssembly>()

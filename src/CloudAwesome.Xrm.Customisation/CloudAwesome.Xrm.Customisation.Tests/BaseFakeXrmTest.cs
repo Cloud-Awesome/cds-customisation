@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.IO.Abstractions.TestingHelpers;
+using CloudAwesome.Xrm.Core.Models;
 using CloudAwesome.Xrm.Customisation.Models;
 using Microsoft.Xrm.Sdk;
 
@@ -14,6 +15,65 @@ namespace CloudAwesome.Xrm.Customisation.Tests
         #region Query definitions and test data
         // TODO - rearrange/organise the test objects...
 
+        public static readonly CdsConnection MockCdsConnection = new CdsConnection()
+        {
+            ConnectionType = CdsConnectionType.AppRegistration,
+            CdsAppSecret = "ThisIsASecret",
+            CdsAppId = "--This_Is_A_Sample_Secret--"
+        };
+        
+        public static readonly PluginManifest SampleFullPluginManifest = new PluginManifest()
+        {
+            CdsConnection = MockCdsConnection,
+            PluginAssemblies = new CdsPluginAssembly[]
+            {
+                new CdsPluginAssembly()
+                {
+                    Name = "SamplePluginAssembly",
+                    FriendlyName = "Account and Contact Plugins",
+                    Assembly = "../../../SamplePluginAssembly/bin/release/SamplePluginAssembly.dll",
+                    Plugins = new CdsPlugin[]
+                    {
+                        new CdsPlugin()
+                        {
+                            Name = "SamplePluginAssembly.ContactPlugin",
+                            FriendlyName = "Contact Plugin",
+                            Steps = new CdsPluginStep[]
+                            {
+                                new CdsPluginStep()
+                                {
+                                    Name = "Update Contact: On Update of Contact",
+                                    FriendlyName = "Update Contact: On Update of Contact",
+                                    Stage = SdkMessageProcessingStep_Stage.Postoperation,
+                                    ExecutionMode = SdkMessageProcessingStep_Mode.Synchronous,
+                                    Message = "update",
+                                    PrimaryEntity = "contact"
+                                }
+                            }
+                        },
+                        new CdsPlugin()
+                        {
+                            Name = "SamplePluginAssembly.AccountPlugin",
+                            FriendlyName = "Account Plugin",
+                            Steps = new CdsPluginStep[]
+                            {
+                                new CdsPluginStep()
+                                {
+                                    Name = "Account Plugin: On Update of an Account",
+                                    FriendlyName = "Account Plugin: On Update of an Account",
+                                    Stage = SdkMessageProcessingStep_Stage.Postoperation,
+                                    ExecutionMode = SdkMessageProcessingStep_Mode.Synchronous,
+                                    Message = "update",
+                                    PrimaryEntity = "account"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            ServiceEndpoints = new CdsServiceEndpoint[]{}
+        };
+        
         public static readonly SdkMessage UpdateSdkMessage = new SdkMessage()
         {
             Id = Guid.NewGuid(),
