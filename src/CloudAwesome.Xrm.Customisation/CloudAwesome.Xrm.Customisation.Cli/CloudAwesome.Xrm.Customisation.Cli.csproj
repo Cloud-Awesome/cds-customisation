@@ -184,6 +184,11 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CommandLineVerbs\BaseCliVerb.cs" />
+    <Compile Include="CommandLineVerbs\GenerateCustomisationsVerb.cs" />
+    <Compile Include="CommandLineVerbs\RegisterPluginsVerb.cs" />
+    <Compile Include="CommandLineVerbs\ToggleProcessesVerb.cs" />
+    <Compile Include="CommandLineVerbs\UnregisterPluginsVerb.cs" />
     <Compile Include="Features\GenerateCustomisations.cs" />
     <Compile Include="Features\RegisterPlugins.cs" />
     <Compile Include="Features\ToggleProcesses.cs" />
@@ -204,7 +209,6 @@
       <Name>CloudAwesome.Xrm.Customisation</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PreBuildEvent>

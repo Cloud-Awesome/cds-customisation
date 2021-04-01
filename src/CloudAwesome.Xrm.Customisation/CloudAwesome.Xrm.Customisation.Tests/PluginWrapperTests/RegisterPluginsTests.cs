@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using CloudAwesome.Xrm.Customisation.Models;
 using FakeXrmEasy;
 using FluentAssertions;
 using Microsoft.Xrm.Sdk;
@@ -16,7 +15,7 @@ namespace CloudAwesome.Xrm.Customisation.Tests.PluginWrapperTests
     {
         [Test]
         [Description("Plugin assembly and steps don't already exist and are registered successfully")]
-        public void New_Plugin_Assembly_Ans_Steps_Should_Be_Registered()
+        public void New_Plugin_Assembly_And_Steps_Should_Be_Registered()
         {
             var context = new XrmFakedContext();
             var orgService = context.GetOrganizationService();
@@ -43,7 +42,7 @@ namespace CloudAwesome.Xrm.Customisation.Tests.PluginWrapperTests
 
         [Test]
         [Description("Plugin assembly exists with no steps and are registered/updated successfully")]
-        public void Existing_Assembly_With_No_Plugins_Should_Update_Assembly_WithNew_Plugins()
+        public void Existing_Assembly_With_No_Plugins_Should_Update_Assembly_With_New_Plugins()
         {
             var context = new XrmFakedContext();
             var orgService = context.GetOrganizationService();

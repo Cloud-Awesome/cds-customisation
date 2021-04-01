@@ -28,7 +28,7 @@ namespace CloudAwesome.Xrm.Customisation.Tests.ModelTests
             var mockFileSystem = new MockFileSystem();
             var mockAssemblyFile = new MockFileData(buffer);
             mockFileSystem.AddFile("../UnitTestAssembly.dll", mockAssemblyFile);
-
+ 
             _pluginAssemblyInfo = new PluginAssemblyInfo("1.0.0.0", "neutral", "615679ec018eccbc");
 
             _unitTestPluginAssembly = new CdsPluginAssembly(mockFileSystem)

@@ -1,5 +1,6 @@
-﻿using System.Collections.Generic;
-using CloudAwesome.Xrm.Customisation.Cli.Features;
+﻿using System;
+using System.Linq;
+using System.Reflection;
 using CommandLine;
 
 namespace CloudAwesome.Xrm.Customisation.Cli
@@ -8,29 +9,28 @@ namespace CloudAwesome.Xrm.Customisation.Cli
     {
         static void Main(string[] args)
         {
-            Parser.Default.ParseArguments<CommandLineActions>(args)
-                .WithParsed(RunFeature);
+            var verbs = LoadVerbs();
+
+            Parser.Default.ParseArguments(args, verbs)
+                .WithParsed<BaseCliVerb>(RunFeature);
         }
 
-        public static void RunFeature(CommandLineActions options)
+        private static void RunFeature(BaseCliVerb options)
         {
-            var features = new Dictionary<CommandLineActions.ActionOptions, IFeature>
-            {
-                { CommandLineActions.ActionOptions.GenerateCustomisations, new GenerateCustomisations() },
-                { CommandLineActions.ActionOptions.RegisterPlugins, new RegisterPlugins() },
-                { CommandLineActions.ActionOptions.UnregisterPlugins, new UnregisterPlugins() },
-                { CommandLineActions.ActionOptions.ToggleProcesses, new ToggleProcesses() },
-            };
-
             if (options.OverrideManifestConnectionDetails)
             {
-                features[options.Action].Run(options.Manifest, options.CdsConnectionDetails);    
+                options.Run(options.Manifest, options.CdsConnectionDetails);    
             }
             else
             {
-                features[options.Action].Run(options.Manifest);
+                options.Run(options.Manifest);
             }
-            
+        }
+        
+        private static Type[] LoadVerbs()
+        {
+            return Assembly.GetExecutingAssembly().GetTypes()
+                .Where(t => t.GetCustomAttribute<VerbAttribute>() != null).ToArray();
         }
     }
 }
