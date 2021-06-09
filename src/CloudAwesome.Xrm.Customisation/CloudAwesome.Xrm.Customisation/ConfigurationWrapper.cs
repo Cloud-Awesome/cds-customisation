@@ -1,8 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
+using System.Linq;
 using System.ServiceModel;
 using CloudAwesome.Xrm.Core;
 using CloudAwesome.Xrm.Customisation.Exceptions;
+using CloudAwesome.Xrm.Customisation.Models;
 using Microsoft.Crm.Sdk.Messages;
 using Microsoft.Extensions.Logging;
 using Microsoft.Xrm.Sdk;
@@ -14,14 +15,26 @@ namespace CloudAwesome.Xrm.Customisation
 {
     public class ConfigurationWrapper
     {
-        private List<string> validationErrors = new List<string>();
-
-        public List<string> ValidateManifest(PluginManifest manifest)
+        public ManifestValidationResult Validate(ConfigurationManifest manifest)
         {
-            // TODO - validate manifest
-            return validationErrors;
-        }
+            var validator = new ConfigurationManifestValidator();
+            var result = validator.Validate(manifest);
 
+            if (!result.IsValid)
+            {
+                return new ManifestValidationResult()
+                {
+                    IsValid = false,
+                    Errors = result.Errors.Select(e => e.ErrorMessage)
+                };
+            }
+
+            return new ManifestValidationResult()
+            {
+                IsValid = true
+            };
+        }
+        
         public void GenerateCustomisations(ConfigurationManifest manifest, IOrganizationService client)
         {
             if (manifest.LoggingConfiguration != null)
@@ -50,6 +63,7 @@ namespace CloudAwesome.Xrm.Customisation
         public void GenerateCustomisations(ConfigurationManifest manifest, IOrganizationService client, TracingHelper t)
         {
             t.Debug($"Entering ConfigurationWrapper.GenerateCustomisations");
+            t.Debug($"Customisations with be generated in {manifest.SolutionName}");
 
             var publisherPrefix = GetPublisherPrefixFromSolution(client, manifest.SolutionName);
             t.Debug($"Publisher prefix retrieved: {publisherPrefix}");
@@ -104,6 +118,7 @@ namespace CloudAwesome.Xrm.Customisation
                         targetOptionSet.DisplayName = optionSet.DisplayName == null
                             ? retrievedMetadataAttribute.DisplayName
                             : optionSet.DisplayName.CreateLabelFromString();
+                        targetOptionSet.MetadataId = retrievedMetadataAttribute.MetadataId;
 
                         existingOptionSet = true;
                     }
@@ -119,14 +134,20 @@ namespace CloudAwesome.Xrm.Customisation
                             MergeLabels = true,
                             OptionSet = targetOptionSet
                         });
+                        if (targetOptionSet.MetadataId != null)
+                        {
+                            SolutionWrapper.AddSolutionComponent(client, manifest.SolutionName, targetOptionSet.MetadataId.Value, ComponentType.OptionSet);
+                        }
                     }
                     else
                     {
-                        client.Execute(new CreateOptionSetRequest()
+                        var response = (CreateOptionSetResponse) client.Execute(new CreateOptionSetRequest()
                         {
                             OptionSet = targetOptionSet
                         });
+                        SolutionWrapper.AddSolutionComponent(client, manifest.SolutionName, response.OptionSetId, ComponentType.OptionSet);
                     }
+                    
                     t.Info($"Successfully processed global option set: {optionSet.DisplayName}");
                 }
             }

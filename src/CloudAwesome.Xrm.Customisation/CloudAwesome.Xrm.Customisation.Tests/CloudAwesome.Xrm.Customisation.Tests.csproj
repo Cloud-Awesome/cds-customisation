@@ -214,6 +214,8 @@
     <Compile Include="CustomisationExtensions\CreateLabelFromStringTests.cs" />
     <Compile Include="CustomisationExtensions\GenerateLogicalNameFromDisplayNameTests.cs" />
     <Compile Include="CustomisationExtensions\PluraliseTests.cs" />
+    <Compile Include="CustomisationWrapperValidationTests\CdsEntityValidatorTests.cs" />
+    <Compile Include="CustomisationWrapperValidationTests\ConfigurationManifestValidatorTests.cs" />
     <Compile Include="ModelTests\CdsCustomApiTests.cs" />
     <Compile Include="ModelTests\CdsEntityImageTests.cs" />
     <Compile Include="ModelTests\CdsPluginAssemblyTests.cs" />
@@ -239,6 +241,8 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="CustomisationWrapperTests" />
+    <Folder Include="TestManifests\CrmConfiguration" />
     <Folder Include="TracingWrapperTests\" />
   </ItemGroup>
   <ItemGroup>

@@ -22,7 +22,7 @@ namespace CloudAwesome.Xrm.Customisation.Models
 
         public string Description
         {
-            get => _description;
+            get => _description ?? "A custom entity";
             set => _description = string.IsNullOrEmpty(value) ? "A custom entity" : value;
         }
         public OwnershipTypes OwnershipType { get; set; }
@@ -92,15 +92,25 @@ namespace CloudAwesome.Xrm.Customisation.Models
                 HasNotes = this.HasNotes
             };
 
-            if (this.IsActivity != null && this.IsActivity.Value)
+            var isActivityEntity = this.IsActivity != null && this.IsActivity.Value; 
+
+            if (isActivityEntity)
             {
                 entityMetadata.OwnershipType = OwnershipTypes.UserOwned;
+                entityMetadata.IsAvailableOffline = true;
+                entityMetadata.HasNotes = true;
+                entityMetadata.IsDuplicateDetectionEnabled = new BooleanManagedProperty(true);
+                entityMetadata.ChangeTrackingEnabled = true;
+                entityMetadata.IsOfflineInMobileClient = new BooleanManagedProperty(true);
+                entityMetadata.HasFeedback = true;
+                entityMetadata.IsConnectionsEnabled = new BooleanManagedProperty(true);
+                entityMetadata.IsValidForQueue = new BooleanManagedProperty(true);
             }
 
             var primaryAttribute = new StringAttributeMetadata()
             {
-                LogicalName = string.Format($"{_publisherPrefix}_name"),
-                SchemaName = string.Format($"{_publisherPrefix}_name"),
+                LogicalName = isActivityEntity? "Subject": string.Format($"{_publisherPrefix}_name"),
+                SchemaName = isActivityEntity? "Subject": string.Format($"{_publisherPrefix}_name"),
                 DisplayName = string.IsNullOrEmpty(this.PrimaryAttributeName) 
                     ? "A custom entity".CreateLabelFromString() 
                     : this.PrimaryAttributeName.CreateLabelFromString(),
@@ -110,6 +120,7 @@ namespace CloudAwesome.Xrm.Customisation.Models
 
             var createEntityRequest = new CreateEntityRequest()
             {
+                HasNotes = entityMetadata.HasNotes != null && entityMetadata.HasNotes.Value,
                 Entity = entityMetadata,
                 SolutionUniqueName = this._solutionName,
                 PrimaryAttribute = primaryAttribute

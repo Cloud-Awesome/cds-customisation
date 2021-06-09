@@ -155,6 +155,7 @@
   <ItemGroup>
     <Compile Include="AttributeMetadataContext.cs" />
     <Compile Include="ConfigurationManifest.cs" />
+    <Compile Include="ConfigurationManifestValidator.cs" />
     <Compile Include="ConfigurationWrapper.cs" />
     <Compile Include="CustomisationExtensions.cs" />
     <Compile Include="EarlyBoundModels\AppElement.cs" />
@@ -229,7 +230,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SerialisationWrapper.cs" />
     <Compile Include="SolutionWrapper.cs" />
+    <Compile Include="Validators\CdsAttributeValidator.cs" />
     <Compile Include="Validators\CdsEntityImageValidator.cs" />
+    <Compile Include="Validators\CdsEntityValidator.cs" />
     <Compile Include="Validators\CdsPluginAssemblyValidator.cs" />
     <Compile Include="Validators\CdsPluginStepValidator.cs" />
     <Compile Include="Validators\CdsPluginValidator.cs" />
