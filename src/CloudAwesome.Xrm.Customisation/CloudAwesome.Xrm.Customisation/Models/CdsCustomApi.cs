@@ -68,9 +68,6 @@ namespace CloudAwesome.Xrm.Customisation.Models
         public bool Unregister(IOrganizationService client)
         {
             throw new NotImplementedException();
-
-            if (this.ParentPlugin == null)
-                throw new ArgumentException("Cannot delete this Custom API - the parent Plugin is null and is required");
         }
 
         public QueryBase GetExistingQuery(Guid parentPluginId)

@@ -7,9 +7,6 @@ using NUnit.Framework;
 
 namespace CloudAwesome.Xrm.Customisation.Tests.PluginWrapperTests
 {
-    // TODO - other tests to vary between create and update
-    // TODO - tests for tracing
-
     [TestFixture]
     public class RegisterPluginsTests: BaseFakeXrmTest
     {
@@ -38,6 +35,13 @@ namespace CloudAwesome.Xrm.Customisation.Tests.PluginWrapperTests
 
             postRegisteredAssemblies.Should().HaveCount(1);
 
+        }
+
+        [Test]
+        [Description("Plugin registration should accept a custom ILogger input")]
+        public void Plugin_registration_helper_should_accept_custom_ILogger_parameter()
+        {
+            
         }
 
         [Test]

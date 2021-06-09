@@ -58,9 +58,6 @@ namespace CloudAwesome.Xrm.Customisation.Models
         public void Unregister(IOrganizationService client)
         {
             throw new NotImplementedException("Issue #37");
-
-            if (this.ParentAssembly == null)
-                throw new ArgumentException("Cannot delete this Plugin - the parent Plugin Assembly is null and is required");
         }
 
         public QueryBase GetExistingQuery(Guid parentAssemblyId)
