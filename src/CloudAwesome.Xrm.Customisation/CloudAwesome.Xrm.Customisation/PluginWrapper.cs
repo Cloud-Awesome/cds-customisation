@@ -52,6 +52,13 @@ namespace CloudAwesome.Xrm.Customisation
             }
         }
 
+        /// <summary>
+        /// Loops through each PluginAssembly in the manifest and registers all assemblies, plugins, steps and images.
+        /// Accepts custom ILogger implementation for custom logging output 
+        /// </summary>
+        /// <param name="manifest"></param>
+        /// <param name="client"></param>
+        /// <param name="logger"></param>
         public void RegisterPlugins(PluginManifest manifest, IOrganizationService client, ILogger logger)
         {
             var t = new TracingHelper(logger);

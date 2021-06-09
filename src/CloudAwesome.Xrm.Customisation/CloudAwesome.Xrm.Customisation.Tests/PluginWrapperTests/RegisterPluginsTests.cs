@@ -1,7 +1,14 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using CloudAwesome.Xrm.Core.Loggers;
+using CloudAwesome.Xrm.Core.Models;
+using CloudAwesome.Xrm.Customisation.Exceptions;
+using CloudAwesome.Xrm.Customisation.Tests.Stubs;
 using FakeXrmEasy;
 using FluentAssertions;
+using Microsoft.Extensions.Logging;
 using Microsoft.Xrm.Sdk;
 using NUnit.Framework;
 
@@ -35,13 +42,6 @@ namespace CloudAwesome.Xrm.Customisation.Tests.PluginWrapperTests
 
             postRegisteredAssemblies.Should().HaveCount(1);
 
-        }
-
-        [Test]
-        [Description("Plugin registration should accept a custom ILogger input")]
-        public void Plugin_registration_helper_should_accept_custom_ILogger_parameter()
-        {
-            
         }
 
         [Test]
@@ -107,5 +107,113 @@ namespace CloudAwesome.Xrm.Customisation.Tests.PluginWrapperTests
             
         }
 
+        [Test]
+        [Description("Plugin registration should accept a custom ILogger input")]
+        public void Plugin_registration_helper_should_accept_custom_ILogger_parameter()
+        {
+            var context = new XrmFakedContext();
+            var orgService = context.GetOrganizationService();
+            context.Initialize(new List<Entity>()
+            {
+                UpdateSdkMessage,
+                CreateSdkMessage,
+                UpdateContactMessageFilter,
+                UpdateAccountMessageFilter,
+                CreateContactMessageFilter
+            });
+
+            var logger = new StubLogger();
+            var pluginWrapper = new PluginWrapper();
+            pluginWrapper.RegisterPlugins(SampleFullPluginManifest, orgService, logger);
+            
+            var postRegisteredAssemblies = 
+                (from a in context.CreateQuery<PluginAssembly>()
+                    where a.Name == "SamplePluginAssembly" 
+                    select a).ToList();
+
+            postRegisteredAssemblies.Should().HaveCount(1);
+
+            // Stub logger only stores the last call
+            logger.ResponseMessage.Should().Be("Exiting PluginWrapper.RegisterPlugins");
+            logger.ResponseLogLevel.Should().Be(LogLevel.Debug);
+        }
+
+        [Test]
+        [Description("Plugin wrapper consumes tracing configuration from manifest")]
+        public void Plugin_wrapper_consumes_tracing_configuration_from_manifest()
+        {
+            var context = new XrmFakedContext();
+            var orgService = context.GetOrganizationService();
+            context.Initialize(new List<Entity>()
+            {
+                UpdateSdkMessage,
+                CreateSdkMessage,
+                UpdateContactMessageFilter,
+                UpdateAccountMessageFilter,
+                CreateContactMessageFilter
+            });
+
+            SampleFullPluginManifest.LoggingConfiguration = new LoggingConfiguration()
+            {
+                LoggerConfigurationType = LoggerConfigurationType.Console,
+                LogLevelToTrace = LogLevel.Debug
+            };
+
+            var originalConsole = Console.Out;
+            var testConsole = new StringWriter();
+            Console.SetOut(testConsole);
+            
+            var pluginWrapper = new PluginWrapper();
+            pluginWrapper.RegisterPlugins(SampleFullPluginManifest, orgService);
+            
+            Console.SetOut(originalConsole);
+            testConsole.ToString().Should().Contain("Exiting PluginWrapper.RegisterPlugins");
+        }
+
+        [Test]
+        [Description("Invalid manifest should throw an InvalidManifestException")]
+        public void Invalid_plugin_manifest_should_throw_correct_exception()
+        {
+            var context = new XrmFakedContext();
+            var orgService = context.GetOrganizationService();
+
+            var pluginWrapper = new PluginWrapper();
+            Action sut = () => pluginWrapper.RegisterPlugins(InvalidPluginManifest, orgService);
+
+            sut.Should().Throw<InvalidManifestException>()
+                .Where(e => e.Message.Contains("'Name' must not be empty"));
+        }
+        
+        [Test]
+        [Description("Plugin registration should exit after assembly registration if manifest is set to update only")]
+        public void Plugin_registration_should_exit_after_assembly_reg_if_update_only()
+        {
+            var context = new XrmFakedContext();
+            var orgService = context.GetOrganizationService();
+            context.Initialize(new List<Entity>()
+            {
+                UpdateSdkMessage,
+                CreateSdkMessage,
+                UpdateContactMessageFilter,
+                UpdateAccountMessageFilter,
+                CreateContactMessageFilter
+            });
+            SampleFullPluginManifest.UpdateAssemblyOnly = true;
+            
+            var pluginWrapper = new PluginWrapper();
+            pluginWrapper.RegisterPlugins(SampleFullPluginManifest, orgService);
+            
+            var postRegisteredAssemblies = 
+                (from a in context.CreateQuery<PluginAssembly>()
+                    where a.Name == "SamplePluginAssembly" 
+                    select a).ToList();
+
+            var postRegistrationPlugins =
+                (from p in context.CreateQuery<PluginType>()
+                    select p).ToList();
+
+            postRegisteredAssemblies.Should().HaveCount(1, "assembly should always be registered");
+            postRegistrationPlugins.Should().HaveCount(0, "would be 2 if UpdateAssemblyOnly == false"); 
+        }
     }
 }

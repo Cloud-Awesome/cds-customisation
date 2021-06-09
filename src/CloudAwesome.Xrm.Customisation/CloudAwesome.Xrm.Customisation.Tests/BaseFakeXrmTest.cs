@@ -21,6 +21,15 @@ namespace CloudAwesome.Xrm.Customisation.Tests
             CdsAppSecret = "ThisIsASecret",
             CdsAppId = "--This_Is_A_Sample_Secret--"
         };
+
+        public static readonly PluginManifest InvalidPluginManifest = new PluginManifest()
+        {
+            CdsConnection = MockCdsConnection,
+            PluginAssemblies = new CdsPluginAssembly[]
+            {
+                new CdsPluginAssembly()
+            }
+        };
         
         public static readonly PluginManifest SampleFullPluginManifest = new PluginManifest()
         {

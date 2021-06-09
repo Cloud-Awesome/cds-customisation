@@ -232,6 +232,7 @@
     <Compile Include="PluginWrapperValidationTests\PluginManifestValidatorTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="DeserialiseFromFileTests.cs" />
+    <Compile Include="Stubs\StubLogger.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
