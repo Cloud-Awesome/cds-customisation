@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ServiceModel;
+using CloudAwesome.Xrm.Customisation.ConfigurationManagement;
 using CloudAwesome.Xrm.Customisation.Exceptions;
 using Microsoft.Xrm.Sdk;
 using Microsoft.Xrm.Sdk.Messages;

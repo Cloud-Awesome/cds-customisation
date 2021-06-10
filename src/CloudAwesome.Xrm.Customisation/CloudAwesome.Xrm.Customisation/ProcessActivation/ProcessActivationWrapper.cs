@@ -2,10 +2,11 @@
 using System.Collections.Generic;
 using CloudAwesome.Xrm.Core;
 using CloudAwesome.Xrm.Customisation.Exceptions;
+using CloudAwesome.Xrm.Customisation.PluginRegistration;
 using Microsoft.Extensions.Logging;
 using Microsoft.Xrm.Sdk;
 
-namespace CloudAwesome.Xrm.Customisation
+namespace CloudAwesome.Xrm.Customisation.ProcessActivation
 {
     public class ProcessActivationWrapper
     {

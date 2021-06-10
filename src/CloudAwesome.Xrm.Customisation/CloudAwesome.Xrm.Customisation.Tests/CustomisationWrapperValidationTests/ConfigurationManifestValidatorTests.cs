@@ -1,4 +1,5 @@
-﻿using FluentAssertions;
+﻿using CloudAwesome.Xrm.Customisation.ConfigurationManagement;
+using FluentAssertions;
 using NUnit.Framework;
 
 namespace CloudAwesome.Xrm.Customisation.Tests.CustomisationWrapperValidationTests

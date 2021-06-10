@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using CloudAwesome.Xrm.Core;
 using CloudAwesome.Xrm.Core.Models;
+using CloudAwesome.Xrm.Customisation.ConfigurationManagement;
 using CloudAwesome.Xrm.Customisation.Exceptions;
 using CloudAwesome.Xrm.Customisation.Models;
 using Microsoft.Extensions.Logging;

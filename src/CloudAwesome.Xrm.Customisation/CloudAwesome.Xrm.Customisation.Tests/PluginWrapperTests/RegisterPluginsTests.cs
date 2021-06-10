@@ -5,6 +5,7 @@ using System.Linq;
 using CloudAwesome.Xrm.Core.Loggers;
 using CloudAwesome.Xrm.Core.Models;
 using CloudAwesome.Xrm.Customisation.Exceptions;
+using CloudAwesome.Xrm.Customisation.PluginRegistration;
 using CloudAwesome.Xrm.Customisation.Tests.Stubs;
 using FakeXrmEasy;
 using FluentAssertions;

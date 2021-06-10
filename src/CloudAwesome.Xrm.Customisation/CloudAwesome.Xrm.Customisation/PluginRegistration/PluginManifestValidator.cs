@@ -1,7 +1,7 @@
 ﻿using CloudAwesome.Xrm.Customisation.Validators;
 using FluentValidation;
 
-namespace CloudAwesome.Xrm.Customisation
+namespace CloudAwesome.Xrm.Customisation.PluginRegistration
 {
     public class PluginManifestValidator: AbstractValidator<PluginManifest>
     {

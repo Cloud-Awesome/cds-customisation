@@ -154,9 +154,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AttributeMetadataContext.cs" />
-    <Compile Include="ConfigurationManifest.cs" />
-    <Compile Include="ConfigurationManifestValidator.cs" />
-    <Compile Include="ConfigurationWrapper.cs" />
+    <Compile Include="ConfigurationManagement\ConfigurationManifest.cs" />
+    <Compile Include="ConfigurationManagement\ConfigurationManifestValidator.cs" />
+    <Compile Include="ConfigurationManagement\ConfigurationWrapper.cs" />
+    <Compile Include="ConfigurationManagement\FormHelper.cs" />
     <Compile Include="CustomisationExtensions.cs" />
     <Compile Include="EarlyBoundModels\AppElement.cs" />
     <Compile Include="EarlyBoundModels\AppModule.cs" />
@@ -190,7 +191,6 @@
     <Compile Include="Exceptions\InvalidManifestException.cs" />
     <Compile Include="Exceptions\NoProcessToUpdateException.cs" />
     <Compile Include="Exceptions\NotCustomisableException.cs" />
-    <Compile Include="FormHelper.cs" />
     <Compile Include="ICustomisationManifest.cs" />
     <Compile Include="Models\AttributeMetadataTypes\BooleanAttributeMetadataType.cs" />
     <Compile Include="Models\AttributeMetadataTypes\DateTimeAttributeMetadataType.cs" />
@@ -223,11 +223,11 @@
     <Compile Include="Models\IAttributeMetadataType.cs" />
     <Compile Include="Models\ManifestValidationResult.cs" />
     <Compile Include="Models\PluginAssemblyInfo.cs" />
-    <Compile Include="PluginManifest.cs" />
-    <Compile Include="PluginManifestValidator.cs" />
-    <Compile Include="PluginWrapper.cs" />
-    <Compile Include="ProcessActivationManifest.cs" />
-    <Compile Include="ProcessActivationWrapper.cs" />
+    <Compile Include="PluginRegistration\PluginManifest.cs" />
+    <Compile Include="PluginRegistration\PluginManifestValidator.cs" />
+    <Compile Include="PluginRegistration\PluginWrapper.cs" />
+    <Compile Include="ProcessActivation\ProcessActivationManifest.cs" />
+    <Compile Include="ProcessActivation\ProcessActivationWrapper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SerialisationWrapper.cs" />
     <Compile Include="SolutionWrapper.cs" />
@@ -242,7 +242,7 @@
     <None Include="app.config" />
     <None Include="CloudAwesome.Xrm.Customisation.nuspec" />
     <None Include="packages.config" />
-    <None Include="plugin-manifest.xsd">
+    <None Include="PluginRegistration\plugin-manifest.xsd">
       <SubType>Designer</SubType>
     </None>
   </ItemGroup>

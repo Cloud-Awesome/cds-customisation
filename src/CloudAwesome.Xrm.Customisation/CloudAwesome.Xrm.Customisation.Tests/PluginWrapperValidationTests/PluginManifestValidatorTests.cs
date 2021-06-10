@@ -1,6 +1,7 @@
 ﻿using System;
 using CloudAwesome.Xrm.Core.Models;
 using CloudAwesome.Xrm.Customisation.Models;
+using CloudAwesome.Xrm.Customisation.PluginRegistration;
 using FluentAssertions;
 using NUnit.Framework;
 

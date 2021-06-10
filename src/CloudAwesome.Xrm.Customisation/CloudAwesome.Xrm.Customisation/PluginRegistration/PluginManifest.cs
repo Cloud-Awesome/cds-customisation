@@ -2,7 +2,7 @@
 using CloudAwesome.Xrm.Core.Models;
 using CloudAwesome.Xrm.Customisation.Models;
 
-namespace CloudAwesome.Xrm.Customisation
+namespace CloudAwesome.Xrm.Customisation.PluginRegistration
 {
     public class PluginManifest: ICustomisationManifest
     {

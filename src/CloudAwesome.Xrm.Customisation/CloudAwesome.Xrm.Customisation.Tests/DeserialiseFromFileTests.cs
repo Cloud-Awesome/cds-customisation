@@ -1,4 +1,5 @@
-﻿using NUnit.Framework;
+﻿using CloudAwesome.Xrm.Customisation.PluginRegistration;
+using NUnit.Framework;
 
 namespace CloudAwesome.Xrm.Customisation.Tests
 {

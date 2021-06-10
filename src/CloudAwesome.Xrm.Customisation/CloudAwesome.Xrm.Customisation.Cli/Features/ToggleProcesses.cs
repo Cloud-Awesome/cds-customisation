@@ -2,6 +2,7 @@
 using CloudAwesome.Xrm.Core;
 using CloudAwesome.Xrm.Core.Models;
 using CloudAwesome.Xrm.Customisation.Models;
+using CloudAwesome.Xrm.Customisation.ProcessActivation;
 using Microsoft.Extensions.Logging;
 
 namespace CloudAwesome.Xrm.Customisation.Cli.Features

@@ -1,9 +1,7 @@
-﻿using System.Linq;
-using CloudAwesome.Xrm.Customisation.Models;
-using CloudAwesome.Xrm.Customisation.Validators;
+﻿using CloudAwesome.Xrm.Customisation.Validators;
 using FluentValidation;
 
-namespace CloudAwesome.Xrm.Customisation
+namespace CloudAwesome.Xrm.Customisation.ConfigurationManagement
 {
     public class ConfigurationManifestValidator: AbstractValidator<ConfigurationManifest>
     {

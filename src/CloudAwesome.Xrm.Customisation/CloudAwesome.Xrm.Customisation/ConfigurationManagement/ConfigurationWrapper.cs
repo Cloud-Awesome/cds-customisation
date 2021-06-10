@@ -1,5 +1,4 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using System.ServiceModel;
 using System.Xml;
 using CloudAwesome.Xrm.Core;
@@ -12,7 +11,7 @@ using Microsoft.Xrm.Sdk.Messages;
 using Microsoft.Xrm.Sdk.Metadata;
 using Microsoft.Xrm.Sdk.Query;
 
-namespace CloudAwesome.Xrm.Customisation
+namespace CloudAwesome.Xrm.Customisation.ConfigurationManagement
 {
     public class ConfigurationWrapper
     {
@@ -305,51 +304,77 @@ namespace CloudAwesome.Xrm.Customisation
                     else
                     {
                         // TODO - extract this out into a new method (and refactor the CreateSecurityRoles method too)
-                        // TODO - only does Create at the moment... in refactored method, support all permissions
+
+                        var rootBusinessUnit = XrmClient.GetRootBusinessUnit(client);
+                        
                         foreach (var entityPermission in entity.EntityPermissions)
                         {
-                            var role = GetExistingSecurityRoleQuery(entityPermission.Name,
-                                XrmClient.GetRootBusinessUnit(client)).RetrieveSingleRecord(client);
-                            
-                            var retrievePrivilegesByName = new QueryExpression("privilege")
-                            {
-                                ColumnSet = new ColumnSet(true),
-                                Criteria = new FilterExpression
-                                {
-                                    Conditions =
-                                    {
-                                        new ConditionExpression("name", ConditionOperator.Equal, $"prvCreate{entity.SchemaName}")
-                                    }
-                                }
-                            };
-                            var privilegeId = retrievePrivilegesByName.RetrieveSingleRecord(client);
-                            if (privilegeId == null)
-                            {
-                                t.Warning($"Privilege with name prvCreate{entity.SchemaName} cannot be found. " +
-                                          $"prvCreate{entity.SchemaName} for role {entityPermission.Name} has been skipped");
-                                continue;
-                            }
-
-                            var addedPrivilege = new AddPrivilegesRoleRequest()
-                            {
-                                RoleId = role.Id,
-                                Privileges = new []
-                                {
-                                    new RolePrivilege()
-                                    {
-                                        PrivilegeId = privilegeId.Id,
-                                        Depth = PrivilegeDepth.Global
-                                    }
-                                }
-                            };
-                            client.Execute(addedPrivilege);
-                            t.Debug($"{entityPermission.Name} role updated with permissions for entity {entity.DisplayName}");
+                            UpdateSecurityRoleEntityPermission(client, entity.SchemaName, entityPermission.RoleName,
+                                "Create", entityPermission.Create, rootBusinessUnit, t);
+                            UpdateSecurityRoleEntityPermission(client, entity.SchemaName, entityPermission.RoleName,
+                                "Read", entityPermission.Read, rootBusinessUnit, t);
+                            UpdateSecurityRoleEntityPermission(client, entity.SchemaName, entityPermission.RoleName,
+                                "Write", entityPermission.Write, rootBusinessUnit, t);
+                            UpdateSecurityRoleEntityPermission(client, entity.SchemaName, entityPermission.RoleName,
+                                "Delete", entityPermission.Delete, rootBusinessUnit, t);
+                            UpdateSecurityRoleEntityPermission(client, entity.SchemaName, entityPermission.RoleName,
+                                "Append", entityPermission.Append, rootBusinessUnit, t);
+                            UpdateSecurityRoleEntityPermission(client, entity.SchemaName, entityPermission.RoleName,
+                                "AppendTo", entityPermission.AppendTo, rootBusinessUnit, t);
+                            UpdateSecurityRoleEntityPermission(client, entity.SchemaName, entityPermission.RoleName,
+                                "Share", entityPermission.Share, rootBusinessUnit, t);
                         }
                     }
 
                     t.Info($"Entity {entity.DisplayName} successfully processed");
                 }
             }
+        }
+
+        private void UpdateSecurityRoleEntityPermission(IOrganizationService client, string entitySchemaName,
+            string securityRoleName, string privilege, PrivilegeDepth? privilegeDepth, EntityReference rootBusinessUnit,
+            TracingHelper t)
+        {
+            if (privilegeDepth == null) return;
+
+            var entityPrivilegeName = $"prv{privilege}{entitySchemaName}";
+            var role = GetExistingSecurityRoleQuery(securityRoleName, rootBusinessUnit)
+                .RetrieveSingleRecord(client);
+
+            var retrievePrivilegesByName = new QueryExpression("privilege")
+            {
+                ColumnSet = new ColumnSet(true),
+                Criteria = new FilterExpression
+                {
+                    Conditions =
+                    {
+                        new ConditionExpression("name",
+                            ConditionOperator.Equal, $"{entityPrivilegeName}")
+                    }
+                }
+            };
+            var privilegeId = retrievePrivilegesByName.RetrieveSingleRecord(client);
+            if (privilegeId == null)
+            {
+                t.Warning($"Privilege with name {entityPrivilegeName} cannot be found. " +
+                          $"{entityPrivilegeName} for role {securityRoleName} has been skipped");
+                return;
+            }
+
+            var addedPrivilege = new AddPrivilegesRoleRequest()
+            {
+                RoleId = role.Id,
+                Privileges = new[]
+                {
+                    new RolePrivilege()
+                    {
+                        PrivilegeId = privilegeId.Id,
+                        Depth = privilegeDepth.Value
+                    }
+                }
+            };
+            client.Execute(addedPrivilege);
+            t.Debug($"{securityRoleName} role updated with permissions for entity {entityPrivilegeName}: {privilegeDepth.Value}");
         }
 
         /// <summary>

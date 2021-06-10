@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using CloudAwesome.Xrm.Customisation.PluginRegistration;
 using FakeXrmEasy;
 using Microsoft.Xrm.Sdk;
 using NUnit.Framework;
