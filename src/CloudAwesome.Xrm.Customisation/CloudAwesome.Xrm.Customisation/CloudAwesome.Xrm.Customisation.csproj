@@ -190,6 +190,7 @@
     <Compile Include="Exceptions\InvalidManifestException.cs" />
     <Compile Include="Exceptions\NoProcessToUpdateException.cs" />
     <Compile Include="Exceptions\NotCustomisableException.cs" />
+    <Compile Include="FormHelper.cs" />
     <Compile Include="ICustomisationManifest.cs" />
     <Compile Include="Models\AttributeMetadataTypes\BooleanAttributeMetadataType.cs" />
     <Compile Include="Models\AttributeMetadataTypes\DateTimeAttributeMetadataType.cs" />

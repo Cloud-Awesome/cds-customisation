@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.ServiceModel;
+using System.Xml;
 using CloudAwesome.Xrm.Core;
 using CloudAwesome.Xrm.Customisation.Exceptions;
 using CloudAwesome.Xrm.Customisation.Models;
@@ -35,6 +36,11 @@ namespace CloudAwesome.Xrm.Customisation
             };
         }
         
+        /// <summary>
+        /// Process ConfigurationManifest to generate Entity model, Security roles and Model driven apps
+        /// </summary>
+        /// <param name="manifest"></param>
+        /// <param name="client"></param>
         public void GenerateCustomisations(ConfigurationManifest manifest, IOrganizationService client)
         {
             if (manifest.LoggingConfiguration != null)
@@ -48,6 +54,13 @@ namespace CloudAwesome.Xrm.Customisation
             }
         }
 
+        /// <summary>
+        /// Process ConfigurationManifest to generate Entity model, Security roles and Model driven apps
+        /// Accepts custom ILogger implementation for custom logging output 
+        /// </summary>
+        /// <param name="manifest"></param>
+        /// <param name="client"></param>
+        /// <param name="logger"></param>
         public void GenerateCustomisations(ConfigurationManifest manifest, IOrganizationService client, ILogger logger)
         {
             var t = new TracingHelper(logger);
@@ -73,6 +86,9 @@ namespace CloudAwesome.Xrm.Customisation
             GenerateEntityModel(manifest, client, t, publisherPrefix);
             CreateModelDrivenApps(manifest, client, t, publisherPrefix);
 
+            t.Info(">> Publishing all customisations");
+            PublishAllCustomisations(client);
+            
             t.Debug($"Exiting ConfigurationWrapper.GenerateCustomisations");
         }
         
@@ -170,7 +186,6 @@ namespace CloudAwesome.Xrm.Customisation
             {
                 var rootBusinessUnit = XrmClient.GetRootBusinessUnit(client);
 
-                // TODO - create/update security roles
                 foreach (var securityRole in manifest.SecurityRoles)
                 {
                     var existingRole = GetExistingSecurityRoleQuery(securityRole.Name, rootBusinessUnit)
@@ -199,6 +214,12 @@ namespace CloudAwesome.Xrm.Customisation
                             }
                         };
                         var privilegeId = retrievePrivilegesByName.RetrieveSingleRecord(client);
+                        if (privilegeId == null)
+                        {
+                            t.Warning($"Privilege with name {rolePrivilege} cannot be found. " +
+                                      $"{rolePrivilege} for role {securityRole.Name} has been skipped");
+                            continue;
+                        }
 
                         var addedPrivilege = new AddPrivilegesRoleRequest()
                         {
@@ -245,6 +266,8 @@ namespace CloudAwesome.Xrm.Customisation
                     }
                     else
                     {
+                        XmlDocument formXml = null;
+                        
                         foreach (var attribute in entity.Attributes)
                         {
                             t.Debug($"Processing attribute: {attribute.DisplayName}");
@@ -252,23 +275,26 @@ namespace CloudAwesome.Xrm.Customisation
 
                             try
                             {
-                                attribute.CreateOrUpdate(client, publisherPrefix, manifest);
+                                var attributeMetaData = attribute.CreateOrUpdate(client, publisherPrefix, manifest);
+                                
+                                if (attribute.AddToForm) FormHelper.AddAttributeToForm(attributeMetaData, ref formXml);
+                                t.Debug($"Attribute {attribute.DisplayName} added to form");
+                                
+                                // TODO - add to views
+                                if (attribute.AddToViewOrder.HasValue) attribute.AddToSystemViews();
+                                t.Debug($"Attribute {attribute.DisplayName} added to views");
+                                
                                 t.Info($"Attribute {attribute.DisplayName} successfully processed");
                             }
                             catch (NotCustomisableException e)
                             {
                                 t.Warning(e.Message);
                             }
+                        }
 
-                            // TODO - add to form
-                            if (attribute.AddToForm) attribute.AddToSystemForms();
-                            t.Debug($"Attribute {attribute.DisplayName} added to form");
-
-                            // TODO - add to views
-                            if (attribute.AddToViewOrder.HasValue) attribute.AddToSystemViews();
-                            t.Debug($"Attribute {attribute.DisplayName} added to views");
-
-                            t.Info($"Attribute {attribute.DisplayName} successfully processed");
+                        if (formXml != null)
+                        {
+                            FormHelper.UpdateFormXml(client, entity.SchemaName, formXml, "Information");   
                         }
                     }
 
@@ -278,7 +304,47 @@ namespace CloudAwesome.Xrm.Customisation
                     }
                     else
                     {
-                        // TODO - update security roles                        
+                        // TODO - extract this out into a new method (and refactor the CreateSecurityRoles method too)
+                        // TODO - only does Create at the moment... in refactored method, support all permissions
+                        foreach (var entityPermission in entity.EntityPermissions)
+                        {
+                            var role = GetExistingSecurityRoleQuery(entityPermission.Name,
+                                XrmClient.GetRootBusinessUnit(client)).RetrieveSingleRecord(client);
+                            
+                            var retrievePrivilegesByName = new QueryExpression("privilege")
+                            {
+                                ColumnSet = new ColumnSet(true),
+                                Criteria = new FilterExpression
+                                {
+                                    Conditions =
+                                    {
+                                        new ConditionExpression("name", ConditionOperator.Equal, $"prvCreate{entity.SchemaName}")
+                                    }
+                                }
+                            };
+                            var privilegeId = retrievePrivilegesByName.RetrieveSingleRecord(client);
+                            if (privilegeId == null)
+                            {
+                                t.Warning($"Privilege with name prvCreate{entity.SchemaName} cannot be found. " +
+                                          $"prvCreate{entity.SchemaName} for role {entityPermission.Name} has been skipped");
+                                continue;
+                            }
+
+                            var addedPrivilege = new AddPrivilegesRoleRequest()
+                            {
+                                RoleId = role.Id,
+                                Privileges = new []
+                                {
+                                    new RolePrivilege()
+                                    {
+                                        PrivilegeId = privilegeId.Id,
+                                        Depth = PrivilegeDepth.Global
+                                    }
+                                }
+                            };
+                            client.Execute(addedPrivilege);
+                            t.Debug($"{entityPermission.Name} role updated with permissions for entity {entity.DisplayName}");
+                        }
                     }
 
                     t.Info($"Entity {entity.DisplayName} successfully processed");
@@ -297,7 +363,12 @@ namespace CloudAwesome.Xrm.Customisation
         {
 
         }
-
+        
+        public static void PublishAllCustomisations(IOrganizationService client)
+        {
+            client.Execute(new PublishAllXmlRequest());
+        }
+        
         public string GetPublisherPrefixFromSolution(IOrganizationService client, string solutionName)
         {
             var fetchQuery = SolutionPublisherQuery.Replace("{{SolutionName}}", solutionName);

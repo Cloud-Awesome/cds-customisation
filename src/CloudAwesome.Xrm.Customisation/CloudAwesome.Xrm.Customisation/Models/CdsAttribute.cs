@@ -54,7 +54,7 @@ namespace CloudAwesome.Xrm.Customisation.Models
             //throw new NotImplementedException();
         }
 
-        public void Create(IOrganizationService client)
+        public AttributeMetadata Create(IOrganizationService client)
         {
             var attributeContext = new AttributeMetadataContext(this, this._publisherPrefix);
             var attributeMetadata = attributeContext.GetAttributeMetadataType(this.DataType).AttributeMetadata;
@@ -95,7 +95,8 @@ namespace CloudAwesome.Xrm.Customisation.Models
                     OneToManyRelationship = relationshipMetadata,
                     SolutionUniqueName = this._solutionName
                 };
-                client.Execute(request);
+                var response = (CreateOneToManyResponse) client.Execute(request);
+                attributeMetadata.MetadataId = response.AttributeId;
             }
             else
             {
@@ -105,11 +106,14 @@ namespace CloudAwesome.Xrm.Customisation.Models
                     EntityName = this.EntitySchemaName,
                     SolutionUniqueName = this._solutionName
                 };
-                client.Execute(request);
+                var response = (CreateAttributeResponse) client.Execute(request);
+                attributeMetadata.MetadataId = response.AttributeId;
             }
+
+            return attributeMetadata;
         }
 
-        public void Update(IOrganizationService client, AttributeMetadata existingMetadata)
+        public AttributeMetadata Update(IOrganizationService client, AttributeMetadata existingMetadata)
         {
             var attributeContext = new AttributeMetadataContext(this, this._publisherPrefix, existingMetadata);
             var attributeMetadata = attributeContext.GetAttributeMetadataType(this.DataType).AttributeMetadata;
@@ -121,9 +125,11 @@ namespace CloudAwesome.Xrm.Customisation.Models
                 SolutionUniqueName = this._solutionName
             };
             client.Execute(request);
+            
+            return attributeMetadata;
         }
 
-        public void CreateOrUpdate(IOrganizationService client, string publisherPrefix, ConfigurationManifest manifest)
+        public AttributeMetadata CreateOrUpdate(IOrganizationService client, string publisherPrefix, ConfigurationManifest manifest)
         {
             bool existingAttribute;
             this._publisherPrefix = publisherPrefix;
@@ -149,6 +155,7 @@ namespace CloudAwesome.Xrm.Customisation.Models
                 existingAttribute = false;
             }
 
+            AttributeMetadata attributeMetadata;
             if (existingAttribute)
             {
                 if (existingMetadata.IsCustomizable != null && 
@@ -157,12 +164,14 @@ namespace CloudAwesome.Xrm.Customisation.Models
                     throw  new NotCustomisableException(
                         $"Attribute '{this.SchemaName}' on entity '{this.EntitySchemaName}' is managed and cannot be customised");
                 }
-                this.Update(client, existingMetadata);
+                attributeMetadata = this.Update(client, existingMetadata);
             }
             else
             {
-                this.Create(client);
+                attributeMetadata = this.Create(client);
             }
+
+            return attributeMetadata;
         }
     }
 }
