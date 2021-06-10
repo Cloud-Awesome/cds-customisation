@@ -131,11 +131,11 @@ namespace CloudAwesome.Xrm.Customisation.Tests.PluginWrapperTests
                     where a.Name == "SamplePluginAssembly" 
                     select a).ToList();
 
-            postRegisteredAssemblies.Should().HaveCount(1);
-
             // Stub logger only stores the last call
             logger.ResponseMessage.Should().Be("Exiting PluginWrapper.RegisterPlugins");
             logger.ResponseLogLevel.Should().Be(LogLevel.Debug);
+            
+            postRegisteredAssemblies.Should().HaveCount(1);
         }
 
         [Test]
