@@ -45,7 +45,7 @@ steps:
 - task: CopyFiles@2
   displayName: TEMP - Copy sample assembly to relative path
   inputs:
-    SourceFolder: 'src/CloudAwesome.Xrm.Customisation/SamplePluginAssembly/bin/release/SamplePluginAssembly.dll'
+    SourceFolder: '$(System.DefaultWorkingDirectory)/src/CloudAwesome.Xrm.Customisation/SamplePluginAssembly/bin/release/SamplePluginAssembly.dll'
     Contents: '**'
     TargetFolder: 'D:/SamplePluginAssembly/bin/release'
     CleanTargetFolder: true
