@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using CloudAwesome.Xrm.Core;
 using Microsoft.Crm.Sdk.Messages;
 using Microsoft.Xrm.Sdk;
+using Microsoft.Xrm.Sdk.Query;
 
 namespace CloudAwesome.Xrm.Customisation
 {
@@ -25,8 +27,44 @@ namespace CloudAwesome.Xrm.Customisation
                 SolutionUniqueName = solutionName
             });
         }
-    }
 
+        public static EntityCollection RetrieveSolutionComponents(IOrganizationService client, string solutionName, ComponentType componentType = ComponentType.All)
+        {
+            var solutionComponents = new QueryExpression()
+            {
+                EntityName = "solutioncomponent",
+                ColumnSet = new ColumnSet(true),
+                Criteria = new FilterExpression()
+                {
+                    Conditions =
+                    {
+                        new ConditionExpression("componenttype", ConditionOperator.Equal, (int)componentType)
+                    }
+                },
+                LinkEntities =
+                {
+                    new LinkEntity()
+                    {
+                        LinkFromEntityName = "solutioncomponent",
+                        LinkToEntityName = "solution",
+                        LinkFromAttributeName = "solutionid",
+                        LinkToAttributeName = "solutionid",
+                        JoinOperator = JoinOperator.Inner,
+                        LinkCriteria = new FilterExpression()
+                        {
+                            Conditions =
+                            {
+                                new ConditionExpression("uniquename", ConditionOperator.Equal, solutionName)
+                            }
+                        }
+                    }
+                }
+            }.RetrieveMultiple(client);
+
+            return solutionComponents;
+        }
+    }
+    
     // TODO - This Enum is probably woefully out of date ;)
     public enum ComponentType
     {

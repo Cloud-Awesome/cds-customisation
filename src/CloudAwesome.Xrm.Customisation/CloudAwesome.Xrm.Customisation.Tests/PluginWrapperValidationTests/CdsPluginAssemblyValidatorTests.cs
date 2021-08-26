@@ -5,7 +5,7 @@ using NUnit.Framework;
 
 namespace CloudAwesome.Xrm.Customisation.Tests.PluginWrapperValidationTests
 {
-    [TestFixture]
+    
     public class CdsPluginAssemblyValidatorTests
     {
         [Test]

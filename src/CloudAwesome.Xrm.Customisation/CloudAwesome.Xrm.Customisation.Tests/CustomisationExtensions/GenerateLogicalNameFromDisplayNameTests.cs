@@ -2,7 +2,6 @@
 
 namespace CloudAwesome.Xrm.Customisation.Tests.CustomisationExtensions
 {
-    [TestFixture]
     public class GenerateLogicalNameFromDisplayNameTests
     {
         [Test]

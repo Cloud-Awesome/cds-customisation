@@ -15,7 +15,7 @@ using NUnit.Framework;
 
 namespace CloudAwesome.Xrm.Customisation.Tests.PluginWrapperTests
 {
-    [TestFixture]
+    
     public class RegisterPluginsTests: BaseFakeXrmTest
     {
         [Test]

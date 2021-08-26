@@ -3,7 +3,6 @@ using NUnit.Framework;
 
 namespace CloudAwesome.Xrm.Customisation.Tests.CustomisationExtensions
 {
-    [TestFixture]
     public class CreateLabelFromStringTests
     {
         [Test]

@@ -10,7 +10,6 @@ using NUnit.Framework;
 
 namespace CloudAwesome.Xrm.Customisation.Tests.ModelTests
 {
-    [TestFixture]
     public class CdsPluginAssemblyTests: BaseFakeXrmTest
     {
         private CdsPluginAssembly _unitTestPluginAssembly;

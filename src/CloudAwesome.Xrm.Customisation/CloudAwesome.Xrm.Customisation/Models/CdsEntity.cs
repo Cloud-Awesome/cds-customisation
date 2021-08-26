@@ -1,4 +1,6 @@
-﻿using System.ServiceModel;
+﻿using System;
+using System.Linq;
+using System.ServiceModel;
 using System.Xml.Serialization;
 using CloudAwesome.Xrm.Customisation.ConfigurationManagement;
 using CloudAwesome.Xrm.Customisation.Exceptions;
@@ -127,6 +129,22 @@ namespace CloudAwesome.Xrm.Customisation.Models
                 PrimaryAttribute = primaryAttribute
             };
             client.Execute(createEntityRequest);
+        }
+
+        private Entity Retrieve(IOrganizationService client)
+        {
+            // c.f. https://dev.azure.com/cloud-awesome/_git/Argus?path=%2FAdministration%2FAdmin%20Library%2FDocumentationHelper.cs&version=GBdevelop&line=16&lineEnd=17&lineStartColumn=1&lineEndColumn=1&lineStyle=plain&_a=contents
+            
+            var retrieveEntityRequest = new RetrieveEntityRequest()
+            {
+                LogicalName = SchemaName
+            };
+
+            var retrieveEntityResponse = (RetrieveEntityResponse) client.Execute(retrieveEntityRequest);
+
+            //this.DisplayName = retrieveEntityResponse.EntityMetadata.DisplayName.LocalizedLabels
+
+            throw new NotImplementedException();
         }
 
         private void Update(IOrganizationService client, EntityMetadata metadata)

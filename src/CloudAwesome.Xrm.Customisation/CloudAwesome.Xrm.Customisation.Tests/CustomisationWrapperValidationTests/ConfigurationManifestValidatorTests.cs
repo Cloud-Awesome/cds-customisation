@@ -4,7 +4,6 @@ using NUnit.Framework;
 
 namespace CloudAwesome.Xrm.Customisation.Tests.CustomisationWrapperValidationTests
 {
-    [TestFixture]
     public class ConfigurationManifestValidatorTests
     {
         [Test]

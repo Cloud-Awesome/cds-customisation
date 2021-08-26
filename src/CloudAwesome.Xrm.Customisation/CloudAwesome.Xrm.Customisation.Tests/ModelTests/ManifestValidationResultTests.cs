@@ -5,7 +5,7 @@ using NUnit.Framework;
 
 namespace CloudAwesome.Xrm.Customisation.Tests.ModelTests
 {
-    [TestFixture]
+    
     public class ManifestValidationResultTests
     {
         [Test]

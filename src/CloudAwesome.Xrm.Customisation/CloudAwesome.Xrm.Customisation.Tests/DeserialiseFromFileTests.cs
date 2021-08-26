@@ -3,7 +3,6 @@ using NUnit.Framework;
 
 namespace CloudAwesome.Xrm.Customisation.Tests
 {
-    [TestFixture]
     public class DeserialiseFromFileTests: BaseFakeXrmTest
     {
         [Test]
