@@ -57,7 +57,8 @@ namespace CloudAwesome.Xrm.Customisation.Tests.PluginWrapperTests
                 CreateSdkMessage,
                 UpdateContactMessageFilter,
                 UpdateAccountMessageFilter,
-                CreateContactMessageFilter
+                CreateContactMessageFilter,
+                SamplePluginAssembly
             });
             
             var pluginWrapper = new PluginWrapper();
@@ -215,6 +216,27 @@ namespace CloudAwesome.Xrm.Customisation.Tests.PluginWrapperTests
 
             postRegisteredAssemblies.Should().HaveCount(1, "assembly should always be registered");
             postRegistrationPlugins.Should().HaveCount(0, "would be 2 if UpdateAssemblyOnly == false"); 
+        }
+
+        [Test]
+        public void Plugin_registration_should_register_new_custom_api_steps()
+        {
+            var context = new XrmFakedContext();
+            var orgService = context.GetOrganizationService();
+
+            var pluginWrapper = new PluginWrapper();
+            pluginWrapper.RegisterPlugins(SampleCustomApiManifest, orgService);
+
+            var registeredApis =
+                (from a in context.CreateQuery<CustomAPI>()
+                    select a).ToList();
+
+            var registeredInputParams =
+                (from p in context.CreateQuery<CustomAPIRequestParameter>()
+                    select p).ToList();
+            
+            registeredApis.Should().HaveCount(1);
+            registeredInputParams.Should().HaveCount(2);
         }
     }
 }

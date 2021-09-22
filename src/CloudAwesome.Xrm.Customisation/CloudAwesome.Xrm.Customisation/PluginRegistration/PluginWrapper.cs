@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using CloudAwesome.Xrm.Core;
+using CloudAwesome.Xrm.Core.Loggers;
 using CloudAwesome.Xrm.Customisation.Exceptions;
 using CloudAwesome.Xrm.Customisation.Models;
 using Microsoft.Extensions.Logging;
@@ -13,13 +14,13 @@ namespace CloudAwesome.Xrm.Customisation.PluginRegistration
 {
     public class PluginWrapper
     {
-        public ManifestValidationResult Validate(PluginManifest manifest)
+        public static ManifestValidationResult Validate(PluginManifest manifest)
         {
             var validator = new PluginManifestValidator();
             var result = validator.Validate(manifest);
-
+            
             if (!result.IsValid)
-            {
+            {   
                 return new ManifestValidationResult()
                 {
                     IsValid = false,
@@ -47,8 +48,10 @@ namespace CloudAwesome.Xrm.Customisation.PluginRegistration
             }
             else
             {
-                //var t = new TracingHelper();
-                //RegisterPlugins(manifest, client, t);
+                // Default to a console logger if all else fails
+                ILogger consoleLogger = new ConsoleLogger(LogLevel.Information);
+                var t = new TracingHelper(consoleLogger);
+                RegisterPlugins(manifest, client, t);
             }
         }
 
@@ -76,7 +79,8 @@ namespace CloudAwesome.Xrm.Customisation.PluginRegistration
             t.Debug($"Entering PluginWrapper.RegisterPlugins");
 
             // 0. Validate manifest before continuing
-            var manifestValidation = this.Validate(manifest);
+            
+            var manifestValidation = Validate(manifest);
             if (!manifestValidation.IsValid)
             {
                 t.Critical($"Manifest is invalid and has {manifestValidation.Errors.Count()} errors");

@@ -8,7 +8,11 @@ namespace CloudAwesome.Xrm.Customisation.PluginRegistration
         public PluginManifestValidator()
         {
             RuleFor(manifest => manifest.CdsConnection).NotEmpty();
-            RuleForEach(manifest => manifest.PluginAssemblies).SetValidator(new CdsPluginAssemblyValidator());
+            When(manifest => manifest.PluginAssemblies != null, () =>
+            {
+                RuleForEach(manifest => manifest.PluginAssemblies)
+                    .SetValidator(new CdsPluginAssemblyValidator());
+            });
         }
     }
 }

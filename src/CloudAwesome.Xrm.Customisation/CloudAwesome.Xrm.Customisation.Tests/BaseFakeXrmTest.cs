@@ -42,6 +42,7 @@ namespace CloudAwesome.Xrm.Customisation.Tests
                     Name = "SamplePluginAssembly",
                     FriendlyName = "Account and Contact Plugins",
                     Assembly = "../../../SamplePluginAssembly/bin/release/SamplePluginAssembly.dll",
+                    // TODO - ^^ This is a test smell and should mock the file system instead of relying on a real dll =/
                     Plugins = new CdsPlugin[]
                     {
                         new CdsPlugin()
@@ -75,6 +76,63 @@ namespace CloudAwesome.Xrm.Customisation.Tests
                                     ExecutionMode = SdkMessageProcessingStep_Mode.Synchronous,
                                     Message = "update",
                                     PrimaryEntity = "account"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            ServiceEndpoints = new CdsServiceEndpoint[]{}
+        };
+        
+        public static readonly PluginManifest SampleCustomApiManifest = new PluginManifest()
+        {
+            CdsConnection = MockCdsConnection,
+            PluginAssemblies = new CdsPluginAssembly[]
+            {
+                new CdsPluginAssembly()
+                {
+                    Name = "SamplePluginAssembly",
+                    FriendlyName = "Account and Contact Plugins",
+                    Assembly = "../../../SamplePluginAssembly/bin/release/SamplePluginAssembly.dll",
+                    // TODO - ^^ This is a test smell and should mock the file system instead of relying on a real dll =/
+                    Plugins = new CdsPlugin[]
+                    {
+                        new CdsPlugin()
+                        {
+                            Name = "SamplePluginAssembly.ContactPlugin",
+                            FriendlyName = "Contact Plugin",
+                            CustomApis = new CdsCustomApi[]
+                            {
+                                new CdsCustomApi()
+                                {
+                                    Name = "ContactCreationApi",
+                                    FriendlyName = "Contact Creation API",
+                                    IsFunction = false,
+                                    AllowedCustomProcessingStepType = CustomAPI_AllowedCustomProcessingStepType.AsyncOnly,
+                                    BindingType = CustomAPI_BindingType.Global,
+                                    Description = "This does something on creation of a Contact......",
+                                    RequestParameters = new CdsRequestParameter[]
+                                    {
+                                        new CdsRequestParameter()
+                                        {
+                                            Name = "First name",
+                                            Description = "What is the contact's first name"
+                                        },
+                                        new CdsRequestParameter()
+                                        {
+                                            Name = "Last name",
+                                            Description = "What is the contact's last name"
+                                        }
+                                    },
+                                    ResponseProperties = new CdsResponseProperty[]
+                                    {
+                                        new CdsResponseProperty()
+                                        {
+                                            Name = "Full name",
+                                            Type = CustomAPIFieldType.String
+                                        }
+                                    }
                                 }
                             }
                         }

@@ -18,7 +18,7 @@ namespace CloudAwesome.Xrm.Customisation.Cli.Features
             var pluginManifest = (PluginManifest) manifest;
             var pluginWrapper = new PluginWrapper();
 
-            ValidationResult = pluginWrapper.Validate(pluginManifest);
+            ValidationResult = PluginWrapper.Validate(pluginManifest);
             
             return ValidationResult;
         }

@@ -5,7 +5,9 @@ namespace CloudAwesome.Xrm.Customisation.Tests.Stubs
 {
     public class StubLogger: ILogger
     {
+        #pragma warning disable 649
         private readonly LogLevel _logLevel;
+        #pragma warning restore 649
 
         public string ResponseMessage;
         public LogLevel ResponseLogLevel;

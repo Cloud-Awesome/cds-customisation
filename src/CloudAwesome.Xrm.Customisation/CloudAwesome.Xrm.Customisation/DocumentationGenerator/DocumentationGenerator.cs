@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Serialization;
+using System.Text;
 using CloudAwesome.MarkdownMaker;
 using Microsoft.Xrm.Sdk;
 using Microsoft.Xrm.Sdk.Metadata;
@@ -10,7 +12,10 @@ namespace CloudAwesome.Xrm.Customisation.DocumentationGenerator
     public class DocumentationGenerator
     {
         // c.f. https://dev.azure.com/cloud-awesome/_git/Argus?path=%2FAdministration%2FAdmin%20Library%2FDocumentationHelper.cs&version=GBdevelop&line=16&lineEnd=17&lineStartColumn=1&lineEndColumn=1&lineStyle=plain&_a=contents
-        
+
+        private IEnumerable<string> EntityNamesInSolution;
+        private IEnumerable<string> ExcludeEntitiesFromErd = new[] { "processsession", "syncerror", "phonetocaseprocess", "queueitem" };
+
         public void GenerateDocumentForSolution(IOrganizationService client, string solutionName, string outputFolder)
         {
             var entitiesInSolution = SolutionWrapper.RetrieveSolutionComponents(client, solutionName, ComponentType.Entity);
@@ -21,12 +26,16 @@ namespace CloudAwesome.Xrm.Customisation.DocumentationGenerator
             var solutionMetadata = allMetadata.Where(
                 e => e.MetadataId != null && entityIds.Contains(e.MetadataId.Value));
 
-            foreach (var entityMetadata in solutionMetadata)
-            {
-                GenerateEntityDocumentation(client, entityMetadata, $"{outputFolder}");
-            }
+            EntityNamesInSolution = solutionMetadata.Select(e => e.LogicalName);
+            
+            // foreach (var entityMetadata in solutionMetadata)
+            // {
+            //     GenerateEntityDocumentation(client, entityMetadata, $"{outputFolder}");
+            // }
+            
+            GenerateEntityRelationshipDiagram(solutionMetadata, outputFolder);
         }
-
+        
         public void GenerateEntityDocumentation(IOrganizationService client, EntityMetadata entityMetadata, string folderPath)
         {
             // Top-level entity
@@ -135,11 +144,42 @@ namespace CloudAwesome.Xrm.Customisation.DocumentationGenerator
 
         }
         
-        
-
-        public void GenerateEntityRelationshipDiagram()
+        public void GenerateEntityRelationshipDiagram(IEnumerable<EntityMetadata> solutionMetadata, string folderPath)
         {
-            
+            var stringBuilder = new StringBuilder();
+            stringBuilder.Append($"erDiagram \n");
+
+            foreach (var entity in solutionMetadata)
+            {
+                if (ExcludeEntitiesFromErd.Contains(entity.LogicalName))
+                {
+                    continue;
+                }
+
+                stringBuilder.Append($"\t{entity.LogicalName}\n");
+                
+                foreach (var relationship in entity.OneToManyRelationships)
+                {
+                    if (EntityNamesInSolution.Contains(relationship.ReferencingEntity) && 
+                        !ExcludeEntitiesFromErd.Contains(relationship.ReferencingEntity))
+                    {
+                        stringBuilder.Append($"\t{entity.LogicalName}" +
+                                             " ||--o{ " +
+                                             $"{relationship.ReferencingEntity} : \" \"\n");   
+                    }
+                }
+            }
+
+            var docFxHeader = $"---{Environment.NewLine}" +
+                              $"documentType: Erd{Environment.NewLine}" +
+                              $"---{Environment.NewLine}";
+
+            var document = new MdDocument($"{folderPath}/erd.md")
+                .Add(new MdPlainText(docFxHeader))
+                .Add(new MdHeader("Entity relationship diagram", 1))
+                .Add(new MdCodeBlock(stringBuilder.ToString(), "mermaid"))
+                .Save();
+
         }
 
         public void GenerateSecurityModelDocumentation()
