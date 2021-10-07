@@ -1,7 +1,10 @@
-﻿namespace CloudAwesome.Xrm.Customisation.DocumentationGenerator
+﻿using System.Diagnostics.CodeAnalysis;
+
+namespace CloudAwesome.Xrm.Customisation.DocumentationGenerator
 {
     public class PortalDocumentationGenerator
     {
+        [ExcludeFromCodeCoverage] // Alpha dev. Parked for now
         public void GenerateDocumentationFromWebsite()
         {
             

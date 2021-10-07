@@ -1,4 +1,4 @@
-﻿using CloudAwesome.Xrm.Customisation.Validators;
+﻿using CloudAwesome.Xrm.Customisation.ModelValidators;
 using FluentValidation;
 
 namespace CloudAwesome.Xrm.Customisation.PluginRegistration

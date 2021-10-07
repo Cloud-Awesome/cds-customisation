@@ -243,12 +243,12 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SerialisationWrapper.cs" />
     <Compile Include="SolutionWrapper.cs" />
-    <Compile Include="Validators\CdsAttributeValidator.cs" />
-    <Compile Include="Validators\CdsEntityImageValidator.cs" />
-    <Compile Include="Validators\CdsEntityValidator.cs" />
-    <Compile Include="Validators\CdsPluginAssemblyValidator.cs" />
-    <Compile Include="Validators\CdsPluginStepValidator.cs" />
-    <Compile Include="Validators\CdsPluginValidator.cs" />
+    <Compile Include="ModelValidators\CdsAttributeValidator.cs" />
+    <Compile Include="ModelValidators\CdsEntityImageValidator.cs" />
+    <Compile Include="ModelValidators\CdsEntityValidator.cs" />
+    <Compile Include="ModelValidators\CdsPluginAssemblyValidator.cs" />
+    <Compile Include="ModelValidators\CdsPluginStepValidator.cs" />
+    <Compile Include="ModelValidators\CdsPluginValidator.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

@@ -2,7 +2,7 @@
 using FluentAssertions;
 using NUnit.Framework;
 
-namespace CloudAwesome.Xrm.Customisation.Tests.CustomisationWrapperValidationTests
+namespace CloudAwesome.Xrm.Customisation.Tests.CustomisationManagementTests
 {
     public class ConfigurationManifestValidatorTests
     {

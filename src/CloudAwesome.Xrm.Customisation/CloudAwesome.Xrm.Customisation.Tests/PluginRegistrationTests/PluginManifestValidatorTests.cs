@@ -1,11 +1,10 @@
-﻿using System;
-using CloudAwesome.Xrm.Core.Models;
+﻿using CloudAwesome.Xrm.Core.Models;
 using CloudAwesome.Xrm.Customisation.Models;
 using CloudAwesome.Xrm.Customisation.PluginRegistration;
 using FluentAssertions;
 using NUnit.Framework;
 
-namespace CloudAwesome.Xrm.Customisation.Tests.PluginWrapperValidationTests
+namespace CloudAwesome.Xrm.Customisation.Tests.PluginRegistrationTests
 {
     
     public class PluginManifestValidatorTests

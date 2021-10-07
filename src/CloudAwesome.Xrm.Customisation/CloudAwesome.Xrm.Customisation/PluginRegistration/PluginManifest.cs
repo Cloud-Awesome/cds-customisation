@@ -1,4 +1,5 @@
-﻿using System.Xml.Serialization;
+﻿using System.Diagnostics.CodeAnalysis;
+using System.Xml.Serialization;
 using CloudAwesome.Xrm.Core.Models;
 using CloudAwesome.Xrm.Customisation.Models;
 
@@ -23,6 +24,7 @@ namespace CloudAwesome.Xrm.Customisation.PluginRegistration
         [XmlArrayItem("Webhook")]
         public CdsWebhook[] Webhooks { get; set; }
 
+        [ExcludeFromCodeCoverage] // No functionality implemented. Likely to be removed soon 
         [XmlArrayItem("WorkflowAssembly")]
         public CdsWorkflowAssembly[] WorkflowAssemblies { get; set; }
 

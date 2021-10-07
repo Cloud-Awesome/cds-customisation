@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using CloudAwesome.Xrm.Core.Loggers;
 using CloudAwesome.Xrm.Core.Models;
 using CloudAwesome.Xrm.Customisation.Exceptions;
 using CloudAwesome.Xrm.Customisation.PluginRegistration;
@@ -13,7 +12,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Xrm.Sdk;
 using NUnit.Framework;
 
-namespace CloudAwesome.Xrm.Customisation.Tests.PluginWrapperTests
+namespace CloudAwesome.Xrm.Customisation.Tests.PluginRegistrationTests
 {
     
     public class RegisterPluginsTests: BaseFakeXrmTest

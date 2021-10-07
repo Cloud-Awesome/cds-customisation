@@ -4,7 +4,7 @@ using CloudAwesome.Xrm.Customisation.PluginRegistration;
 using FluentAssertions;
 using NUnit.Framework;
 
-namespace CloudAwesome.Xrm.Customisation.Tests.PluginWrapperTests
+namespace CloudAwesome.Xrm.Customisation.Tests.PluginRegistrationTests
 {
     
     public class ValidatePluginManifestTests

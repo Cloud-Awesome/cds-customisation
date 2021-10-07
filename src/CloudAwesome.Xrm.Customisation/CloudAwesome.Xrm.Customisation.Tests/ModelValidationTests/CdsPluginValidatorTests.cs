@@ -1,9 +1,9 @@
 ﻿using CloudAwesome.Xrm.Customisation.Models;
-using CloudAwesome.Xrm.Customisation.Validators;
+using CloudAwesome.Xrm.Customisation.ModelValidators;
 using FluentAssertions;
 using NUnit.Framework;
 
-namespace CloudAwesome.Xrm.Customisation.Tests.PluginWrapperValidationTests
+namespace CloudAwesome.Xrm.Customisation.Tests.ModelValidationTests
 {
     
     public class CdsPluginValidatorTests

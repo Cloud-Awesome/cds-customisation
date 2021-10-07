@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Runtime.Serialization;
 using System.Text;
@@ -9,6 +10,7 @@ using Microsoft.Xrm.Sdk.Metadata;
 
 namespace CloudAwesome.Xrm.Customisation.DocumentationGenerator
 {
+    [ExcludeFromCodeCoverage] // Alpha dev. Parked for now
     public class DocumentationGenerator
     {
         // c.f. https://dev.azure.com/cloud-awesome/_git/Argus?path=%2FAdministration%2FAdmin%20Library%2FDocumentationHelper.cs&version=GBdevelop&line=16&lineEnd=17&lineStartColumn=1&lineEndColumn=1&lineStyle=plain&_a=contents

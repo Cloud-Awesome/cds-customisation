@@ -1,7 +1,7 @@
 ﻿using CloudAwesome.Xrm.Customisation.Models;
 using FluentValidation;
 
-namespace CloudAwesome.Xrm.Customisation.Validators
+namespace CloudAwesome.Xrm.Customisation.ModelValidators
 {
     public class CdsEntityValidator: AbstractValidator<CdsEntity>
     {
@@ -9,10 +9,10 @@ namespace CloudAwesome.Xrm.Customisation.Validators
         {
             RuleFor(entity => entity.DisplayName).NotEmpty();
 
-            When(entity => entity.IsActivity != null && entity.IsActivity.Value, () =>
-            {
-                
-            });
+            // When(entity => entity.IsActivity != null && entity.IsActivity.Value, () =>
+            // {
+            //     
+            // });
 
             RuleForEach(entity => entity.Attributes).SetValidator(new CdsAttributeValidator());
         }

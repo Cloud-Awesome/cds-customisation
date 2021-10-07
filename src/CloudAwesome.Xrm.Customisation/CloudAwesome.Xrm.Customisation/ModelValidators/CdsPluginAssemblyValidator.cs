@@ -1,7 +1,7 @@
 ﻿using CloudAwesome.Xrm.Customisation.Models;
 using FluentValidation;
 
-namespace CloudAwesome.Xrm.Customisation.Validators
+namespace CloudAwesome.Xrm.Customisation.ModelValidators
 {
     public class CdsPluginAssemblyValidator: AbstractValidator<CdsPluginAssembly>
     {

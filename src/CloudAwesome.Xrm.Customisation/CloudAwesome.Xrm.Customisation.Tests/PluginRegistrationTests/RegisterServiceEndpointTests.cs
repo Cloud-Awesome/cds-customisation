@@ -5,7 +5,7 @@ using FakeXrmEasy;
 using Microsoft.Xrm.Sdk;
 using NUnit.Framework;
 
-namespace CloudAwesome.Xrm.Customisation.Tests.PluginWrapperTests
+namespace CloudAwesome.Xrm.Customisation.Tests.PluginRegistrationTests
 {
     
     public class RegisterServiceEndpointTests: BaseFakeXrmTest

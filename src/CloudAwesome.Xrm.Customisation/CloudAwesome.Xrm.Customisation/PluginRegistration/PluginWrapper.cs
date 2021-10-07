@@ -243,7 +243,9 @@ namespace CloudAwesome.Xrm.Customisation.PluginRegistration
                 }
 
                 var pluginAssemblyInfo = new PluginAssemblyInfo(pluginAssembly.Assembly);
-                var existingAssembly = pluginAssembly.GetExistingQuery(pluginAssemblyInfo.Version).RetrieveSingleRecord(client);
+                var existingAssembly = 
+                    pluginAssembly.GetExistingQuery(pluginAssemblyInfo.Version)
+                        .RetrieveSingleRecord(client);
 
                 if (existingAssembly == null) return;
 

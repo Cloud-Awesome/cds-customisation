@@ -46,19 +46,21 @@ namespace CloudAwesome.Xrm.Customisation.Models
             return pluginType.CreateOrUpdate(client, existingPluginQuery);
         }
 
-        public void Unregister(IOrganizationService client, EntityReference parentAssembly)
-        {
-            if (parentAssembly.LogicalName != PluginAssembly.EntityLogicalName)
-                throw new ArgumentException($"Entity Reference '{nameof(parentAssembly)}' must be of type '{PluginAssembly.EntityLogicalName}'");
+        // Maybe redundant as covered in a different method in the PluginWrapper
+        // public void Unregister(IOrganizationService client, EntityReference parentAssembly)
+        // {
+        //     if (parentAssembly.LogicalName != PluginAssembly.EntityLogicalName)
+        //         throw new ArgumentException($"Entity Reference '{nameof(parentAssembly)}' must be of type '{PluginAssembly.EntityLogicalName}'");
+        //
+        //     this.ParentAssembly = parentAssembly;
+        //     this.Unregister(client);
+        // }
 
-            this.ParentAssembly = parentAssembly;
-            this.Unregister(client);
-        }
-
-        public void Unregister(IOrganizationService client)
-        {
-            throw new NotImplementedException("Issue #37");
-        }
+        // Maybe redundant as covered in a different method in the PluginWrapper
+        // public void Unregister(IOrganizationService client)
+        // {
+        //     throw new NotImplementedException("Issue #37");
+        // }
 
         public QueryBase GetExistingQuery(Guid parentAssemblyId)
         {
