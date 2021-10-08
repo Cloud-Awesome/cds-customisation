@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Diagnostics.CodeAnalysis;
 
 namespace CloudAwesome.Xrm.Customisation.Exceptions
 {
+    [ExcludeFromCodeCoverage]
     public class InvalidManifestException: Exception
     {
         public InvalidManifestException()

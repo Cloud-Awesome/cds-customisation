@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
+﻿using System.IO;
 using System.Linq;
 using CloudAwesome.Xrm.Core;
 using CloudAwesome.Xrm.Core.Loggers;
@@ -8,30 +6,35 @@ using CloudAwesome.Xrm.Customisation.Exceptions;
 using CloudAwesome.Xrm.Customisation.Models;
 using Microsoft.Extensions.Logging;
 using Microsoft.Xrm.Sdk;
-using Microsoft.Xrm.Sdk.Query;
 
 namespace CloudAwesome.Xrm.Customisation.PluginRegistration
 {
     public class PluginWrapper
     {
-        public static ManifestValidationResult Validate(PluginManifest manifest)
+        public static ManifestValidationResult Validate(PluginManifest manifest, 
+            bool throwOnError = false, TracingHelper t = null)
         {
             var validator = new PluginManifestValidator();
             var result = validator.Validate(manifest);
+
+            if (result.IsValid)
+                return new ManifestValidationResult()
+                {
+                    IsValid = true
+                };
             
-            if (!result.IsValid)
-            {   
+            if (!throwOnError)
                 return new ManifestValidationResult()
                 {
                     IsValid = false,
                     Errors = result.Errors.Select(e => e.ErrorMessage)
                 };
-            }
-
-            return new ManifestValidationResult()
             {
-                IsValid = true
-            };
+                var errorsList = string.Join(",", result.Errors);
+                
+                t.Critical($"Manifest is invalid and has {result.Errors.Count()} errors: {errorsList}");
+                throw new InvalidManifestException(errorsList);
+            }
         }
         
         /// <summary>
@@ -77,15 +80,7 @@ namespace CloudAwesome.Xrm.Customisation.PluginRegistration
         public void RegisterPlugins(PluginManifest manifest, IOrganizationService client, TracingHelper t)
         {
             t.Debug($"Entering PluginWrapper.RegisterPlugins");
-
-            // 0. Validate manifest before continuing
-            
-            var manifestValidation = Validate(manifest);
-            if (!manifestValidation.IsValid)
-            {
-                t.Critical($"Manifest is invalid and has {manifestValidation.Errors.Count()} errors");
-                throw new InvalidManifestException(manifestValidation.ToString());
-            }
+            var manifestValidation = Validate(manifest, true, t);
             
             if (manifest.Clobber)
             {
@@ -93,112 +88,51 @@ namespace CloudAwesome.Xrm.Customisation.PluginRegistration
                 this.UnregisterServiceEndPoints(manifest, client, t);
                 this.UnregisterPlugins(manifest, client, t);
             }
-
-            // 1. Register Assemblies
+            
             foreach (var pluginAssembly in manifest.PluginAssemblies)
             {
-                t.Debug($"Processing Assembly FriendlyName {pluginAssembly.FriendlyName}");
-
-                if (!File.Exists(pluginAssembly.Assembly))
-                {
-                    t.Critical($"Assembly {pluginAssembly.Assembly} cannot be found!");
-                    continue;
-                }
-
-                var targetSolutionName = string.Empty;
-                if (!string.IsNullOrEmpty(pluginAssembly.SolutionName))
-                {
-                    targetSolutionName = pluginAssembly.SolutionName;
-                }
-                else if (!string.IsNullOrEmpty(manifest.SolutionName))
-                {
-                    targetSolutionName = manifest.SolutionName;
-                }
-
-                t.Debug($"Registering Assembly {pluginAssembly.FriendlyName}");
-                var createdAssembly = pluginAssembly.Register(client);
-                t.Info($"Assembly {pluginAssembly.FriendlyName} registered with ID {createdAssembly.Id}");
-
-                SolutionWrapper.AddSolutionComponent(client, targetSolutionName, createdAssembly.Id, ComponentType.PluginAssembly);
-                t.Debug($"Assembly '{pluginAssembly.FriendlyName}' added to solution {targetSolutionName}");
-
+                var targetSolutionName = SolutionWrapper.DefineSolutionNameFromManifest(manifest, pluginAssembly);
+                var createdAssembly = RegisterPluginAssembly.Run(client, manifest, pluginAssembly, targetSolutionName, t);
                 if (manifest.UpdateAssemblyOnly) continue;
-
-                // 2a. Register Plugins
+                
                 foreach (var plugin in pluginAssembly.Plugins)
                 {
-                    t.Debug($"PluginType FriendlyName = {plugin.FriendlyName}");
-                    var createdPluginType = plugin.Register(client, createdAssembly);
-                    t.Info($"Plugin {plugin.FriendlyName} registered with ID {createdPluginType.Id}");
+                    var createdPluginType = RegisterPluginType.Run(plugin, createdAssembly, client, t);
 
                     if (plugin.Steps != null)
                     {
-                        // 2b. Register Plugin Steps
                         foreach (var pluginStep in plugin.Steps)
                         {
-                            t.Debug($"Processing Step = {pluginStep.FriendlyName}");
-
-                            var sdkMessage = GetSdkMessageQuery(pluginStep.Message).RetrieveSingleRecord(client);
-                            var sdkMessageFilter = GetSdkMessageFilterQuery(pluginStep.PrimaryEntity, sdkMessage.Id).RetrieveSingleRecord(client);
-
-                            var createdStep = pluginStep.Register(client, createdPluginType, sdkMessage.ToEntityReference(), sdkMessageFilter.ToEntityReference());
-                            t.Info($"Plugin step {pluginStep.FriendlyName} registered with ID {createdStep.Id}");
-
-                            SolutionWrapper.AddSolutionComponent(client, targetSolutionName, createdStep.Id, ComponentType.SdkMessageProcessingStep);
-                            t.Debug($"Plugin Step '{pluginStep.FriendlyName}' added to solution {targetSolutionName}");
-
-                            // 2c. Register Entity Images
+                            var createdStep = RegisterPluginStep.Run(pluginStep, createdPluginType, targetSolutionName, client, t);
+                            
                             if (pluginStep.EntityImages == null) continue;
                             foreach (var entityImage in pluginStep.EntityImages)
                             {
-                                t.Debug($"Processing Entity Image = {entityImage.Name}");
-                                var createdImage = entityImage.Register(client, createdStep);
-                                t.Info($"Entity image {entityImage.Name} registered with ID {createdImage.Id}");
-
+                                var image = RegisterEntityImage.Run(entityImage, createdStep, client, t);
                             }
                         }
                     }
 
-                    // 3a. Register Custom APIs
-                    if (plugin.CustomApis != null)
+                    if (plugin.CustomApis == null) continue;
+                    foreach (var api in plugin.CustomApis)
                     {
-                        // debug: view all apis and children with query - /api/data/v9.1/customapis?$select=uniquename,allowedcustomprocessingsteptype,bindingtype,boundentitylogicalname,description,displayname,executeprivilegename,isfunction,isprivate&$expand=CustomAPIRequestParameters($select=uniquename,name,description,displayname,type,logicalentityname,isoptional),CustomAPIResponseProperties($select=uniquename,name,description,displayname,type,logicalentityname),PluginTypeId($select=plugintypeid,typename,version,name,assemblyname)
-                        foreach (var api in plugin.CustomApis)
+                        var createdApi = RegisterCustomApi.Run(api, createdPluginType, targetSolutionName, client, t);
+                        
+                        if (api.RequestParameters != null)
                         {
-                            t.Debug($"Processing Step = {api.FriendlyName}");
-
-                            var createdApi = api.Register(client, createdPluginType);
-                            t.Info($"CustomApi {api.FriendlyName} created with ID {createdApi.Id}");
-
-                            SolutionWrapper.AddSolutionComponent(client, targetSolutionName, createdApi.Id, ComponentType.CustomApi);
-                            t.Debug($"Custom API '{api.FriendlyName}' added to solution {targetSolutionName}");
-
-                            // 3b. Create/Update Request Parameters
-                            if (api.RequestParameters != null)
+                            foreach (var requestParameter in api.RequestParameters)
                             {
-                                foreach (var requestParameter in api.RequestParameters)
-                                {
-                                    t.Debug($"Processing Custom API request parameter '{requestParameter.FriendlyName}'");
-                                    var createdParameter = requestParameter.Register(client, createdApi);
-                                    t.Info($"Request parameter '{requestParameter.FriendlyName} created with ID {createdParameter.Id}'");
-
-                                    SolutionWrapper.AddSolutionComponent(client, targetSolutionName, createdParameter.Id, ComponentType.CustomApiRequestParameter);
-                                    t.Debug($"Request parameter '{requestParameter.FriendlyName}' added to solution {targetSolutionName}");
-                                }
+                                var createdRequestParameter = RegisterCustomApiRequestParameter.Run(requestParameter,
+                                    createdApi, targetSolutionName, client, t);
                             }
+                        }
 
-                            // 3c. Create/Update Response Properties
-                            if (api.ResponseProperties != null)
+                        if (api.ResponseProperties != null)
+                        {
+                            foreach (var responseProperty in api.ResponseProperties)
                             {
-                                foreach (var responseProperty in api.ResponseProperties)
-                                {
-                                    t.Debug($"Processing Custom API response property '{responseProperty.FriendlyName}'");
-                                    var createdProperty = responseProperty.Register(client, createdApi);
-                                    t.Info($"Response property '{responseProperty.FriendlyName} created with ID {createdProperty.Id}'");
-
-                                    SolutionWrapper.AddSolutionComponent(client, targetSolutionName, createdProperty.Id, ComponentType.CustomApiResponseProperty);
-                                    t.Debug($"Response property '{responseProperty.FriendlyName}' added to solution {targetSolutionName}");
-                                }
+                                var createdResponseProperty = RegisterCustomerApiResponseProperty.Run(responseProperty,
+                                    createdApi, targetSolutionName, client, t);
                             }
                         }
                     }
@@ -249,25 +183,25 @@ namespace CloudAwesome.Xrm.Customisation.PluginRegistration
 
                 if (existingAssembly == null) return;
 
-                var childPluginTypesResults = GetChildPluginTypesQuery(existingAssembly.ToEntityReference()).RetrieveMultiple(client);
+                var childPluginTypesResults = PluginQueries.GetChildPluginTypesQuery(existingAssembly.ToEntityReference()).RetrieveMultiple(client);
                 var pluginsList = childPluginTypesResults.Entities.Select(e => e.Id).ToList();
 
-                GetChildCustomApisQuery(pluginsList).DeleteAllResults(client);
+                PluginQueries.GetChildCustomApisQuery(pluginsList).DeleteAllResults(client);
 
-                var childStepsResults = GetChildPluginStepsQuery(pluginsList).RetrieveMultiple(client);
+                var childStepsResults = PluginQueries.GetChildPluginStepsQuery(pluginsList).RetrieveMultiple(client);
                 var pluginStepsList = childStepsResults.Entities.Select(e => e.Id).ToList();
 
                 if (pluginStepsList.Count > 0)
                 {
-                    GetChildEntityImagesQuery(pluginStepsList).DeleteAllResults(client);
+                    PluginQueries.GetChildEntityImagesQuery(pluginStepsList).DeleteAllResults(client);
                 }
 
                 if (pluginsList.Count > 0)
                 {
-                    GetChildPluginStepsQuery(pluginsList).DeleteAllResults(client);
+                    PluginQueries.GetChildPluginStepsQuery(pluginsList).DeleteAllResults(client);
                 }
 
-                GetChildPluginTypesQuery(existingAssembly.ToEntityReference()).DeleteAllResults(client);
+                PluginQueries.GetChildPluginTypesQuery(existingAssembly.ToEntityReference()).DeleteAllResults(client);
                 pluginAssembly.GetExistingQuery(pluginAssemblyInfo.Version).DeleteSingleRecord(client);
 
             }
@@ -286,7 +220,6 @@ namespace CloudAwesome.Xrm.Customisation.PluginRegistration
             {
                 RegisterServiceEndpoints(manifest, client, t: null);
             }
-
         }
 
         public void RegisterServiceEndpoints(PluginManifest manifest, IOrganizationService client, ILogger logger)
@@ -320,19 +253,20 @@ namespace CloudAwesome.Xrm.Customisation.PluginRegistration
                 {
                     t.Debug($"Processing Step = {step.FriendlyName}");
 
-                    var sdkMessage = GetSdkMessageQuery(step.Message).RetrieveSingleRecord(client);
-                    var sdkMessageFilter = GetSdkMessageFilterQuery(step.PrimaryEntity, sdkMessage.Id).RetrieveSingleRecord(client);
+                    var sdkMessage = PluginQueries.GetSdkMessageQuery(step.Message).RetrieveSingleRecord(client);
+                    var sdkMessageFilter = 
+                        PluginQueries.GetSdkMessageFilterQuery(step.PrimaryEntity, sdkMessage.Id)
+                            .RetrieveSingleRecord(client);
 
-                    var createdStep = step.Register(client, createdEndpoint, sdkMessage.ToEntityReference(), sdkMessageFilter.ToEntityReference());
+                    var createdStep = 
+                        step.Register(client, createdEndpoint, 
+                            sdkMessage.ToEntityReference(), sdkMessageFilter.ToEntityReference());
                     t.Info($"Plugin step {step.FriendlyName} registered with ID {createdStep.Id}");
 
-                    if (manifest.SolutionName != null)
-                    {
-                        SolutionWrapper.AddSolutionComponent(client, manifest.SolutionName, createdStep.Id, ComponentType.SdkMessageProcessingStep);
-                        t.Debug($"Plugin Step {step.FriendlyName} added to solution {manifest.SolutionName}");
-                    }
+                    SolutionWrapper.AddSolutionComponent(client, manifest.SolutionName, 
+                        createdStep.Id, ComponentType.SdkMessageProcessingStep);
 
-                    // 3. register Entity Images
+                    // 3. Register Entity Images
                     if (step.EntityImages == null) continue;
                     foreach (var entityImage in step.EntityImages)
                     {
@@ -375,139 +309,20 @@ namespace CloudAwesome.Xrm.Customisation.PluginRegistration
                 if (existingEndpoint == null) return;
 
                 var childStepsResults =
-                    GetChildPluginStepsQuery(existingEndpoint.ToEntityReference()).RetrieveMultiple(client);
+                    PluginQueries.GetChildPluginStepsQuery(existingEndpoint.ToEntityReference()).RetrieveMultiple(client);
                 var childStepsList = childStepsResults.Entities.Select(e => e.Id).ToList();
 
                 if (childStepsList.Count > 0)
                 {
-                    GetChildEntityImagesQuery(childStepsList).DeleteAllResults(client);
+                    PluginQueries.GetChildEntityImagesQuery(childStepsList).DeleteAllResults(client);
                 }
 
-                GetChildPluginStepsQuery(existingEndpoint.ToEntityReference()).DeleteAllResults(client);
+                PluginQueries.GetChildPluginStepsQuery(existingEndpoint.ToEntityReference()).DeleteAllResults(client);
                 serviceEndpoint.GetExistingServiceEndpoint().DeleteSingleRecord(client);
             }
 
             t.Debug($"Exiting PluginWrapper.UnregisterServiceEndPoints");
         }
-
-        private static QueryBase GetSdkMessageQuery(string sdkMessageName)
-        {
-            return new QueryExpression(SdkMessage.EntityLogicalName)
-            {
-                ColumnSet = new ColumnSet(SdkMessage.PrimaryIdAttribute, 
-                    SdkMessage.PrimaryNameAttribute),
-                Criteria = new FilterExpression()
-                {
-                    Conditions =
-                    {
-                        new ConditionExpression(SdkMessage.PrimaryNameAttribute, 
-                            ConditionOperator.Equal, sdkMessageName)
-                    }
-                }
-            };
-        }
-
-        private static QueryBase GetSdkMessageFilterQuery(string entityName, Guid sdkMessageId)
-        {
-            return new QueryExpression(SdkMessageFilter.EntityLogicalName)
-            {
-                ColumnSet = new ColumnSet(SdkMessageFilter.Fields.Name, 
-                    SdkMessageFilter.Fields.PrimaryObjectTypeCode, SdkMessageFilter.Fields.SdkMessageId),
-                Criteria = new FilterExpression()
-                {
-                    Conditions =
-                    {
-                        new ConditionExpression(SdkMessageFilter.Fields.PrimaryObjectTypeCode, 
-                            ConditionOperator.Equal, entityName),
-                        new ConditionExpression(SdkMessageFilter.Fields.SdkMessageId, 
-                            ConditionOperator.Equal, sdkMessageId.ToString())
-                    }
-                }
-            };
-        }
-
-        private static QueryBase GetChildPluginTypesQuery(EntityReference existingAssembly)
-        {
-            return new QueryByAttribute()
-            {
-                EntityName = PluginType.EntityLogicalName,
-                ColumnSet = new ColumnSet(PluginType.PrimaryIdAttribute,
-                    PluginType.PrimaryNameAttribute),
-                Attributes = { PluginType.Fields.PluginAssemblyId },
-                Values = { existingAssembly.Id }
-            };
-        }
-
-        private static QueryBase GetChildPluginStepsQuery(List<Guid> parentPluginsList)
-        {
-            return new QueryExpression()
-            {
-                EntityName = SdkMessageProcessingStep.EntityLogicalName,
-                ColumnSet = new ColumnSet(SdkMessageProcessingStep.PrimaryIdAttribute,
-                    SdkMessageProcessingStep.PrimaryNameAttribute),
-                Criteria = new FilterExpression()
-                {
-                    Conditions =
-                    {
-                        new ConditionExpression(SdkMessageProcessingStep.Fields.PluginTypeId,
-                            ConditionOperator.In, parentPluginsList)
-                    }
-                }
-            };
-        }
-
-        private static QueryBase GetChildCustomApisQuery(List<Guid> parentPluginsList)
-        {
-            return new QueryExpression()
-            {
-                EntityName = CustomAPI.EntityLogicalName,
-                ColumnSet = new ColumnSet(CustomAPI.PrimaryIdAttribute,
-                    CustomAPI.PrimaryNameAttribute),
-                Criteria = new FilterExpression()
-                {
-                    Conditions =
-                    {
-                        new ConditionExpression(CustomAPI.Fields.PluginTypeId,
-                            ConditionOperator.In, parentPluginsList)
-                    }
-                }
-            };
-        }
-
-        private static QueryBase GetChildPluginStepsQuery(EntityReference existingEndpoint)
-        {
-            return new QueryExpression()
-            {
-                EntityName = SdkMessageProcessingStep.EntityLogicalName,
-                ColumnSet = new ColumnSet(SdkMessageProcessingStep.PrimaryIdAttribute,
-                    SdkMessageProcessingStep.PrimaryNameAttribute),
-                Criteria = new FilterExpression()
-                {
-                    Conditions =
-                    {
-                        new ConditionExpression(SdkMessageProcessingStep.Fields.EventHandler, 
-                            ConditionOperator.Equal, existingEndpoint.Id)
-                    }
-                }
-            };
-        }
-
-        private static QueryBase GetChildEntityImagesQuery(List<Guid> parentStepsList)
-        {
-            return new QueryExpression()
-            {
-                EntityName = SdkMessageProcessingStepImage.EntityLogicalName,
-                ColumnSet = new ColumnSet(SdkMessageProcessingStepImage.PrimaryIdAttribute,
-                    SdkMessageProcessingStepImage.PrimaryNameAttribute),
-                Criteria = new FilterExpression()
-                {
-                    Conditions =
-                    {
-                        new ConditionExpression(SdkMessageProcessingStepImage.Fields.SdkMessageProcessingStepId,
-                            ConditionOperator.In, parentStepsList)
-                    }
-                }
-            };
-        }
+        
     }
 }

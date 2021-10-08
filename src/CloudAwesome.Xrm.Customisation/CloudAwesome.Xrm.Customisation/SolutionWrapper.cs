@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using CloudAwesome.Xrm.Core;
+using CloudAwesome.Xrm.Customisation.Models;
+using CloudAwesome.Xrm.Customisation.PluginRegistration;
 using Microsoft.Crm.Sdk.Messages;
 using Microsoft.Xrm.Sdk;
 using Microsoft.Xrm.Sdk.Query;
@@ -12,6 +14,13 @@ namespace CloudAwesome.Xrm.Customisation
 {
     public static class SolutionWrapper
     {
+        public static string DefineSolutionNameFromManifest(PluginManifest manifest, CdsPluginAssembly assembly)
+        {
+            return !string.IsNullOrEmpty(assembly.SolutionName) ? 
+                assembly.SolutionName : 
+                manifest.SolutionName;
+        } 
+            
         public static void AddSolutionComponent(IOrganizationService client, string solutionName,
             Guid solutionComponentId, ComponentType solutionComponentTypeCode)
         {

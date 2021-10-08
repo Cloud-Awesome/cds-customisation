@@ -14,7 +14,6 @@ using NUnit.Framework;
 
 namespace CloudAwesome.Xrm.Customisation.Tests.PluginRegistrationTests
 {
-    
     public class RegisterPluginsTests: BaseFakeXrmTest
     {
         [Test]
@@ -41,9 +40,9 @@ namespace CloudAwesome.Xrm.Customisation.Tests.PluginRegistrationTests
                  select a).ToList();
 
             postRegisteredAssemblies.Should().HaveCount(1);
-
+            postRegisteredAssemblies.FirstOrDefault()?.Name.Should().Be("SamplePluginAssembly");
         }
-
+        
         [Test]
         [Description("Plugin assembly exists with no steps and are registered/updated successfully")]
         public void Existing_Assembly_With_No_Plugins_Should_Update_Assembly_With_New_Plugins()
@@ -181,8 +180,46 @@ namespace CloudAwesome.Xrm.Customisation.Tests.PluginRegistrationTests
             var pluginWrapper = new PluginWrapper();
             Action sut = () => pluginWrapper.RegisterPlugins(InvalidPluginManifest, orgService);
 
-            sut.Should().Throw<InvalidManifestException>()
-                .Where(e => e.Message.Contains("'Name' must not be empty"));
+            sut.Should().Throw<InvalidManifestException>();
+        }
+        
+        [Test]
+        public void Register_Plugins_With_Invalid_Manifest_Throws_InvalidManifestException()
+        {
+            var context = new XrmFakedContext();
+            var orgService = context.GetOrganizationService();
+
+            var stubLogger = new StubLogger();
+            var manifest = new PluginManifest();
+            var pluginWrapper = new PluginWrapper();
+            
+            Action sut = () => pluginWrapper.RegisterPlugins(manifest, orgService, stubLogger);
+
+            sut.Should()
+                .Throw<InvalidManifestException>()
+                .WithMessage("*'CDS Connection' must not be empty*");
+            
+            stubLogger.ResponseMessage.Should().Contain("Manifest is invalid");
+            stubLogger.ResponseLogLevel.Should().Be(LogLevel.Critical);
+        }
+        
+        [Test]
+        [Description("Invalid manifest should throw an InvalidManifestException")]
+        public void When_Assembly_Is_Not_Found_Should_Throw_Correct_Exception()
+        {
+            SampleFullPluginManifest.PluginAssemblies[0].Assembly =
+                "this_file_doesnt_exist";
+            
+            var context = new XrmFakedContext();
+            var orgService = context.GetOrganizationService();
+
+            var stubLogger = new StubLogger();
+            var pluginWrapper = new PluginWrapper();
+            
+            pluginWrapper.RegisterPlugins(SampleFullPluginManifest, orgService, stubLogger);
+            stubLogger.AllLogs.Should()
+                .Contain($"Critical: Assembly {SampleFullPluginManifest.PluginAssemblies[0].Assembly} cannot be found!");
+
         }
         
         [Test]

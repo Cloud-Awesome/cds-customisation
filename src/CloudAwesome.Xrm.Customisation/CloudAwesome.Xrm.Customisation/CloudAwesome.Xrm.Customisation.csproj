@@ -237,7 +237,15 @@
     <Compile Include="Models\PluginAssemblyInfo.cs" />
     <Compile Include="PluginRegistration\PluginManifest.cs" />
     <Compile Include="PluginRegistration\PluginManifestValidator.cs" />
+    <Compile Include="PluginRegistration\PluginQueries.cs" />
     <Compile Include="PluginRegistration\PluginWrapper.cs" />
+    <Compile Include="PluginRegistration\RegisterCustomApi.cs" />
+    <Compile Include="PluginRegistration\RegisterCustomApiRequestParameter.cs" />
+    <Compile Include="PluginRegistration\RegisterCustomerApiResponseProperty.cs" />
+    <Compile Include="PluginRegistration\RegisterPluginAssembly.cs" />
+    <Compile Include="PluginRegistration\RegisterPluginStep.cs" />
+    <Compile Include="PluginRegistration\RegisterEntityImage.cs" />
+    <Compile Include="PluginRegistration\RegisterPluginType.cs" />
     <Compile Include="ProcessActivation\ProcessActivationManifest.cs" />
     <Compile Include="ProcessActivation\ProcessActivationWrapper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

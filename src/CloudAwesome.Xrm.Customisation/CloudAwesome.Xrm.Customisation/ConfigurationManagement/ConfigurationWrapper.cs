@@ -275,13 +275,19 @@ namespace CloudAwesome.Xrm.Customisation.ConfigurationManagement
                             try
                             {
                                 var attributeMetaData = attribute.CreateOrUpdate(client, publisherPrefix, manifest);
-                                
-                                if (attribute.AddToForm) FormHelper.AddAttributeToForm(attributeMetaData, ref formXml);
-                                t.Debug($"Attribute {attribute.DisplayName} added to form");
-                                
+
+                                if (attribute.AddToForm)
+                                {
+                                    FormHelper.AddAttributeToForm(attributeMetaData, ref formXml);
+                                    t.Debug($"Attribute {attribute.DisplayName} added to form");
+                                }
+
                                 // TODO - add to views
-                                if (attribute.AddToViewOrder.HasValue) attribute.AddToSystemViews();
-                                t.Debug($"Attribute {attribute.DisplayName} added to views");
+                                if (attribute.AddToViewOrder.HasValue)
+                                {
+                                    attribute.AddToSystemViews();
+                                    t.Debug($"Attribute {attribute.DisplayName} added to views");
+                                }
                                 
                                 t.Info($"Attribute {attribute.DisplayName} successfully processed");
                             }
