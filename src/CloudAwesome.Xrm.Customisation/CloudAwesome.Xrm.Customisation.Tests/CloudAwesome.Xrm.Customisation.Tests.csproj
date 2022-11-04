@@ -224,7 +224,6 @@
     <Compile Include="CustomisationExtensions\GenerateLogicalNameFromDisplayNameTests.cs" />
     <Compile Include="CustomisationExtensions\PluraliseTests.cs" />
     <Compile Include="CustomisationManagementTests\ConfigurationManifestValidatorTests.cs" />
-    <Compile Include="DocumentationGenerationTests\SetUpTests.cs" />
     <Compile Include="ModelTests\CdsCustomApiTests.cs" />
     <Compile Include="ModelTests\CdsEntityImageTests.cs" />
     <Compile Include="ModelTests\CdsPluginAssemblyTests.cs" />
