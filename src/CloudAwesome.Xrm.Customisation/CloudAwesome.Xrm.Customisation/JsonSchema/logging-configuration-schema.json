@@ -1,0 +1,14 @@
+{
+  "$schema": "https://json-schema.org/draft-07/schema",
+  "$id": "https://docs.cloudawesome.xyz/schema/logging-configuration-schema",
+  "type": "object",
+  "properties": {
+    "configurationType": {
+      "enum": ["Console", "AppInsights", "TextFile"]
+    },
+    "logLevelToTrace": {
+      "enum": ["debug", "information", "warning", "error"]
+    }
+  },
+  "additionalProperties": false
+}

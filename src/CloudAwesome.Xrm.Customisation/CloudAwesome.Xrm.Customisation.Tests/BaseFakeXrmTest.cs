@@ -12,6 +12,7 @@ namespace CloudAwesome.Xrm.Customisation.Tests
     public class BaseFakeXrmTest
     {
         public const string PluginManifestFolderPath = "../../TestManifests/PluginRegistration";
+        public const string TestManifestFolderPath = "../../TestManifests";
         public const string PortalManifestFolderPath = "../../TestManifests/PortalConfiguration";
 
         #region Query definitions and test data

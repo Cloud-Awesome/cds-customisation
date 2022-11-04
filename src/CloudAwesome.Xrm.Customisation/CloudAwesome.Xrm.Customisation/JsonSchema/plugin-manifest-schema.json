@@ -1,0 +1,107 @@
+﻿{
+  "$schema": "https://json-schema.org/draft-07/schema",
+  "$id": "https://docs.cloudawesome.xyz/plugin-manifest-schema",
+  "type": "object",
+  
+  
+  "$comment": "!! TODO !! I like this - put a 'title' and a 'description' against each  property to assist with intellisense",
+  
+  
+  "properties": {
+    "$schema": {
+      "type": "string",
+      "title": "Schema",
+      "description": "Pointer to the schema against which this document should be validated."
+    },
+    "clobber": {
+      "type": "boolean"
+    },
+    "updateAssemblyOnly": {
+      "type": "boolean"
+    },
+    "cdsConnection": {
+      "$ref": "./cds-connection-schema.json"
+    },
+    "logging" : {
+      "$ref": "./logging-configuration-schema.json"
+    },
+    "assemblies": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/assembly"
+      }
+    },
+    "serviceEndpoints": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/serviceEndpoint"
+      }
+    }
+  },
+  "additionalProperties": false,
+  
+  "$defs": {
+    "assembly": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "friendlyName": {
+          "type": "string"
+        },
+        "filePath": {
+          "type": "string"
+        },
+        "plugins": {
+          "type": "array",
+          "items" : {
+            "$ref": "./cds-plugin-schema.json"
+          }
+        }
+      }
+    },
+    
+    "serviceEndpoint": {
+      "type": "array",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "namespaceAddress": {
+          "type": "string"
+        },
+        "contract": {
+          "enum": ["Queue", "Topic", "OneWay", "TwoWay", "Rest", "EventHub"]
+        },
+        "queueName": {
+          "type": "string"
+        },
+        "messageFormat": {
+          "enum": [".NETBinary", "JSON", "XML"]
+        },
+        "authorisationType": {
+          "enum": ["SASKey", "SASToken"]
+        },
+        "sasKeyName": {
+          "type": "string"
+        },
+        "sasKey": {
+          "type": "string"
+        },
+        "userInformationSent": {
+          "enum": ["None", "UserId"]
+        },
+        "description": {
+          "type": "string"
+        },
+        "steps": {
+          "type": "array",
+          "items": {
+            "$ref": "./cds-plugin-step-schema.json"
+          }
+        }
+      }
+    }
+  }
+}

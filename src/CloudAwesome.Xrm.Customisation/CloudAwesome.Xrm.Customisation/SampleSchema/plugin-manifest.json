@@ -1,0 +1,13 @@
+﻿{
+  "$schema": "../JsonSchema/plugin-manifest-schema.json",
+  "clobber": false,
+  "cdsConnection": {
+    
+  },
+  "assemblies": [
+    {
+      "name": "plugin1",
+      "friendlyName": "Plugin 1"
+    }
+  ]
+}

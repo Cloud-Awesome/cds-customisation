@@ -1,0 +1,53 @@
+{
+  "$schema": "https://json-schema.org/draft-07/schema",
+  "$id": "https://docs.cloudawesome.xyz/schema/cds-plugin-schema",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string"
+    },
+    "friendlyName": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    },
+    "stage": {
+      "enum": ["PostOperation", "PreOperation", "PreValidation"]
+    },
+    "executionMode": {
+      "enum": ["Synchronous", "Asynchronous"]
+    },
+    "message": {
+      "type": "string"
+    },
+    "primaryEntity": {
+      "type": "string"
+    },
+    "executionOrder": {
+      "type": "integer"
+    },
+    "asyncAutoDelete": {
+      "type": "boolean"
+    },
+    "filteringAttributes": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "unsecureConfiguration": {
+      "type": "string"
+    },
+    "secureConfiguration": {
+      "type": "string"
+    },
+    "entityImages": {
+      "type": "array",
+      "items": {
+        "$ref": "./cds-entity-image-schema.json"
+      }
+    }
+  },
+  "additionalProperties": false
+}

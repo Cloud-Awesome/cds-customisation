@@ -264,6 +264,7 @@
   <ItemGroup>
     <Content Include="TestManifests\PluginRegistration\plugin-manifest.xml" />
     <Content Include="TestManifests\PortalConfiguration\portal-manifest.xml" />
+    <Content Include="TestManifests\SampleGenericManifest.json" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

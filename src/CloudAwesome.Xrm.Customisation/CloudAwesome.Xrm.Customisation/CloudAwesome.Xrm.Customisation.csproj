@@ -285,7 +285,14 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="JsonSchema\cds-connection-schema.json" />
+    <Content Include="JsonSchema\cds-entity-image-schema.json" />
+    <Content Include="JsonSchema\cds-plugin-schema.json" />
+    <Content Include="JsonSchema\cds-plugin-step-schema.json" />
+    <Content Include="JsonSchema\logging-configuration-schema.json" />
+    <Content Include="JsonSchema\plugin-manifest-schema.json" />
     <Content Include="SampleSchema\configuration-manifest.xml" />
+    <Content Include="SampleSchema\plugin-manifest.json" />
     <Content Include="SampleSchema\plugin-manifest.xml" />
     <Content Include="SampleSchema\portal-manifest.xml" />
     <Content Include="SampleSchema\process-activation-manifest.xml" />
