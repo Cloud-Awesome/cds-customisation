@@ -19,10 +19,12 @@
       "enum": ["Synchronous", "Asynchronous"]
     },
     "message": {
-      "type": "string"
+      "type": "string",
+      "$comment": "!! IDEA !! Could 1 or many messages here - would register a step for each to save typing out multiple steps?"
     },
     "primaryEntity": {
-      "type": "string"
+      "type": "string",
+      "$comment": "!! IDEA !! Could 1 or many entities here - would register a step for each to save typing out multiple steps?"
     },
     "executionOrder": {
       "type": "integer"

@@ -1,13 +1,51 @@
 ﻿{
   "$schema": "../JsonSchema/plugin-manifest-schema.json",
   "clobber": false,
+  "documentation": {
+    "comments": "This is a way to put random text in a JSON file... Could be stuck at the bottom if you prefer...",
+    "author": "Arthur",
+    "version": "1.0"
+  },
   "cdsConnection": {
-    
+    "connection_type": "AppRegistration",
+    "url": "https://awesome.crm11.dynamics.com"
+  },
+  "logging": {
+    "configurationType": "Console",
+    "logLevelToTrace": "error"
   },
   "assemblies": [
     {
-      "name": "plugin1",
-      "friendlyName": "Plugin 1"
+      "name": "assembly1",
+      "friendlyName": "Assembly 1",
+      "plugins": [
+        {
+          "name": "plugin1",
+          "friendlyName": "Plugin 1",
+          "steps": [
+            {
+              "name": "Step1",
+              "executionMode": "Asynchronous",
+              "asyncAutoDelete": true,
+              "message": "create",
+              "stage": "PreOperation",
+              "primaryEntity": "contact",
+              "filteringAttributes": [
+                "firstname", "lastname"
+              ],
+              "entityImages": [
+                {
+                  "name": "pre",
+                  "preImage": true,
+                  "attributes": [
+                    "lastname"
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
     }
   ]
 }

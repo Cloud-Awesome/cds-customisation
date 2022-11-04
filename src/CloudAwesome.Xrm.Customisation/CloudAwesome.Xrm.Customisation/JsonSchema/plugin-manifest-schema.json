@@ -5,9 +5,19 @@
   
   
   "$comment": "!! TODO !! I like this - put a 'title' and a 'description' against each  property to assist with intellisense",
+  "$comment": "!! TODO !! Need to put mandatory things in, e.g. step always needs: message, stage, name, primaryEntity",
+  "$comment": "!! TODO !! Go back through the models for anything missing - e.g. Solution is missing twice",
+  "$comment": "!! TODO !! Consider the structure of these schema - probably will want some hierarchy before long! And then publish them to docs site",
+  "$comment": "!! TODO !! Also need to version these schemas!! (Maybe inline with API/App versions?)",
   
   
   "properties": {
+    "documentation": {
+      "type": "object",
+      "title": "Documentation",
+      "description": "Optional area to include notes, instructions, version etc. and any additional metadata related to this manifest",
+      "$ref": "./documentation-object-schema.json"
+    },
     "$schema": {
       "type": "string",
       "title": "Schema",

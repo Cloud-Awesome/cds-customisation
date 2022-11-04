@@ -289,6 +289,7 @@
     <Content Include="JsonSchema\cds-entity-image-schema.json" />
     <Content Include="JsonSchema\cds-plugin-schema.json" />
     <Content Include="JsonSchema\cds-plugin-step-schema.json" />
+    <Content Include="JsonSchema\documentation-object-schema.json" />
     <Content Include="JsonSchema\logging-configuration-schema.json" />
     <Content Include="JsonSchema\plugin-manifest-schema.json" />
     <Content Include="SampleSchema\configuration-manifest.xml" />
