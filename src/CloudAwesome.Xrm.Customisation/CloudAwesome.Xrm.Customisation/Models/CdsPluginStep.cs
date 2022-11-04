@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Xml.Serialization;
 using CloudAwesome.Xrm.Core;
+using CloudAwesome.Xrm.Customisation.EarlyBoundModels;
 using CloudAwesome.Xrm.Customisation.Exceptions;
 using Microsoft.Xrm.Sdk;
 using Microsoft.Xrm.Sdk.Query;

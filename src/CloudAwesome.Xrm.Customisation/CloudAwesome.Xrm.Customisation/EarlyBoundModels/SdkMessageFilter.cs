@@ -8,7 +8,7 @@
 //------------------------------------------------------------------------------
 
 
-namespace CloudAwesome.Xrm.Customisation
+namespace CloudAwesome.Xrm.Customisation.EarlyBoundModels
 {
 	
 	/// <summary>
@@ -59,6 +59,24 @@ namespace CloudAwesome.Xrm.Customisation
 		{
 		}
 		
+		[System.Diagnostics.DebuggerNonUserCode()]
+		public SdkMessageFilter(System.Guid id) : 
+				base(EntityLogicalName, id)
+		{
+		}
+		
+		[System.Diagnostics.DebuggerNonUserCode()]
+		public SdkMessageFilter(string keyName, object keyValue) : 
+				base(EntityLogicalName, keyName, keyValue)
+		{
+		}
+		
+		[System.Diagnostics.DebuggerNonUserCode()]
+		public SdkMessageFilter(Microsoft.Xrm.Sdk.KeyAttributeCollection keyAttributes) : 
+				base(EntityLogicalName, keyAttributes)
+		{
+		}
+		
 		public const string EntityLogicalName = "sdkmessagefilter";
 		
 		public const string EntitySchemaName = "SdkMessageFilter";
@@ -70,6 +88,8 @@ namespace CloudAwesome.Xrm.Customisation
 		public const string EntityLogicalCollectionName = "sdkmessagefilters";
 		
 		public const string EntitySetName = "sdkmessagefilters";
+		
+		public const int EntityTypeCode = 4607;
 		
 		public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
 		
@@ -508,18 +528,18 @@ namespace CloudAwesome.Xrm.Customisation
 		/// 1:N sdkmessagefilterid_sdkmessageprocessingstep
 		/// </summary>
 		[Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute("sdkmessagefilterid_sdkmessageprocessingstep")]
-		public System.Collections.Generic.IEnumerable<CloudAwesome.Xrm.Customisation.SdkMessageProcessingStep> sdkmessagefilterid_sdkmessageprocessingstep
+		public System.Collections.Generic.IEnumerable<CloudAwesome.Xrm.Customisation.EarlyBoundModels.SdkMessageProcessingStep> sdkmessagefilterid_sdkmessageprocessingstep
 		{
 			[System.Diagnostics.DebuggerNonUserCode()]
 			get
 			{
-				return this.GetRelatedEntities<CloudAwesome.Xrm.Customisation.SdkMessageProcessingStep>("sdkmessagefilterid_sdkmessageprocessingstep", null);
+				return this.GetRelatedEntities<CloudAwesome.Xrm.Customisation.EarlyBoundModels.SdkMessageProcessingStep>("sdkmessagefilterid_sdkmessageprocessingstep", null);
 			}
 			[System.Diagnostics.DebuggerNonUserCode()]
 			set
 			{
 				this.OnPropertyChanging("sdkmessagefilterid_sdkmessageprocessingstep");
-				this.SetRelatedEntities<CloudAwesome.Xrm.Customisation.SdkMessageProcessingStep>("sdkmessagefilterid_sdkmessageprocessingstep", null, value);
+				this.SetRelatedEntities<CloudAwesome.Xrm.Customisation.EarlyBoundModels.SdkMessageProcessingStep>("sdkmessagefilterid_sdkmessageprocessingstep", null, value);
 				this.OnPropertyChanged("sdkmessagefilterid_sdkmessageprocessingstep");
 			}
 		}
@@ -529,18 +549,18 @@ namespace CloudAwesome.Xrm.Customisation
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("sdkmessageid")]
 		[Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute("sdkmessageid_sdkmessagefilter")]
-		public CloudAwesome.Xrm.Customisation.SdkMessage sdkmessageid_sdkmessagefilter
+		public CloudAwesome.Xrm.Customisation.EarlyBoundModels.SdkMessage sdkmessageid_sdkmessagefilter
 		{
 			[System.Diagnostics.DebuggerNonUserCode()]
 			get
 			{
-				return this.GetRelatedEntity<CloudAwesome.Xrm.Customisation.SdkMessage>("sdkmessageid_sdkmessagefilter", null);
+				return this.GetRelatedEntity<CloudAwesome.Xrm.Customisation.EarlyBoundModels.SdkMessage>("sdkmessageid_sdkmessagefilter", null);
 			}
 			[System.Diagnostics.DebuggerNonUserCode()]
 			set
 			{
 				this.OnPropertyChanging("sdkmessageid_sdkmessagefilter");
-				this.SetRelatedEntity<CloudAwesome.Xrm.Customisation.SdkMessage>("sdkmessageid_sdkmessagefilter", null, value);
+				this.SetRelatedEntity<CloudAwesome.Xrm.Customisation.EarlyBoundModels.SdkMessage>("sdkmessageid_sdkmessagefilter", null, value);
 				this.OnPropertyChanged("sdkmessageid_sdkmessagefilter");
 			}
 		}

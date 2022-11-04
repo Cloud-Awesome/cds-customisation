@@ -8,7 +8,7 @@
 //------------------------------------------------------------------------------
 
 
-namespace CloudAwesome.Xrm.Customisation
+namespace CloudAwesome.Xrm.Customisation.EarlyBoundModels
 {
 	
 	/// <summary>
@@ -50,6 +50,11 @@ namespace CloudAwesome.Xrm.Customisation
 			public const string Referencingrole_parent_root_role = "role_parent_root_role";
 		}
 		
+		public static class Relationships
+		{
+			public const string appmoduleroles_association = "appmoduleroles_association";
+		}
+		
 		/// <summary>
 		/// Default Constructor.
 		/// </summary>
@@ -58,6 +63,27 @@ namespace CloudAwesome.Xrm.Customisation
 				base(EntityLogicalName)
 		{
 		}
+		
+		[System.Diagnostics.DebuggerNonUserCode()]
+		public Role(System.Guid id) : 
+				base(EntityLogicalName, id)
+		{
+		}
+		
+		[System.Diagnostics.DebuggerNonUserCode()]
+		public Role(string keyName, object keyValue) : 
+				base(EntityLogicalName, keyName, keyValue)
+		{
+		}
+		
+		[System.Diagnostics.DebuggerNonUserCode()]
+		public Role(Microsoft.Xrm.Sdk.KeyAttributeCollection keyAttributes) : 
+				base(EntityLogicalName, keyAttributes)
+		{
+		}
+		
+		public const string AlternateKeys = "parentrootroleid,componentstate,businessunitid,overwritetime|businessunitid,overw" +
+			"ritetime,roletemplateid,componentstate";
 		
 		public const string EntityLogicalName = "role";
 		
@@ -70,6 +96,8 @@ namespace CloudAwesome.Xrm.Customisation
 		public const string EntityLogicalCollectionName = "roles";
 		
 		public const string EntitySetName = "roles";
+		
+		public const int EntityTypeCode = 1036;
 		
 		public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
 		
@@ -502,18 +530,18 @@ namespace CloudAwesome.Xrm.Customisation
 		/// 1:N role_parent_role
 		/// </summary>
 		[Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute("role_parent_role", Microsoft.Xrm.Sdk.EntityRole.Referenced)]
-		public System.Collections.Generic.IEnumerable<CloudAwesome.Xrm.Customisation.Role> Referencedrole_parent_role
+		public System.Collections.Generic.IEnumerable<CloudAwesome.Xrm.Customisation.EarlyBoundModels.Role> Referencedrole_parent_role
 		{
 			[System.Diagnostics.DebuggerNonUserCode()]
 			get
 			{
-				return this.GetRelatedEntities<CloudAwesome.Xrm.Customisation.Role>("role_parent_role", Microsoft.Xrm.Sdk.EntityRole.Referenced);
+				return this.GetRelatedEntities<CloudAwesome.Xrm.Customisation.EarlyBoundModels.Role>("role_parent_role", Microsoft.Xrm.Sdk.EntityRole.Referenced);
 			}
 			[System.Diagnostics.DebuggerNonUserCode()]
 			set
 			{
 				this.OnPropertyChanging("Referencedrole_parent_role");
-				this.SetRelatedEntities<CloudAwesome.Xrm.Customisation.Role>("role_parent_role", Microsoft.Xrm.Sdk.EntityRole.Referenced, value);
+				this.SetRelatedEntities<CloudAwesome.Xrm.Customisation.EarlyBoundModels.Role>("role_parent_role", Microsoft.Xrm.Sdk.EntityRole.Referenced, value);
 				this.OnPropertyChanged("Referencedrole_parent_role");
 			}
 		}
@@ -522,18 +550,18 @@ namespace CloudAwesome.Xrm.Customisation
 		/// 1:N role_parent_root_role
 		/// </summary>
 		[Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute("role_parent_root_role", Microsoft.Xrm.Sdk.EntityRole.Referenced)]
-		public System.Collections.Generic.IEnumerable<CloudAwesome.Xrm.Customisation.Role> Referencedrole_parent_root_role
+		public System.Collections.Generic.IEnumerable<CloudAwesome.Xrm.Customisation.EarlyBoundModels.Role> Referencedrole_parent_root_role
 		{
 			[System.Diagnostics.DebuggerNonUserCode()]
 			get
 			{
-				return this.GetRelatedEntities<CloudAwesome.Xrm.Customisation.Role>("role_parent_root_role", Microsoft.Xrm.Sdk.EntityRole.Referenced);
+				return this.GetRelatedEntities<CloudAwesome.Xrm.Customisation.EarlyBoundModels.Role>("role_parent_root_role", Microsoft.Xrm.Sdk.EntityRole.Referenced);
 			}
 			[System.Diagnostics.DebuggerNonUserCode()]
 			set
 			{
 				this.OnPropertyChanging("Referencedrole_parent_root_role");
-				this.SetRelatedEntities<CloudAwesome.Xrm.Customisation.Role>("role_parent_root_role", Microsoft.Xrm.Sdk.EntityRole.Referenced, value);
+				this.SetRelatedEntities<CloudAwesome.Xrm.Customisation.EarlyBoundModels.Role>("role_parent_root_role", Microsoft.Xrm.Sdk.EntityRole.Referenced, value);
 				this.OnPropertyChanged("Referencedrole_parent_root_role");
 			}
 		}
@@ -542,18 +570,18 @@ namespace CloudAwesome.Xrm.Customisation
 		/// N:N appmoduleroles_association
 		/// </summary>
 		[Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute("appmoduleroles_association")]
-		public System.Collections.Generic.IEnumerable<CloudAwesome.Xrm.Customisation.AppModule> appmoduleroles_association
+		public System.Collections.Generic.IEnumerable<CloudAwesome.Xrm.Customisation.EarlyBoundModels.AppModule> appmoduleroles_association
 		{
 			[System.Diagnostics.DebuggerNonUserCode()]
 			get
 			{
-				return this.GetRelatedEntities<CloudAwesome.Xrm.Customisation.AppModule>("appmoduleroles_association", null);
+				return this.GetRelatedEntities<CloudAwesome.Xrm.Customisation.EarlyBoundModels.AppModule>("appmoduleroles_association", null);
 			}
 			[System.Diagnostics.DebuggerNonUserCode()]
 			set
 			{
 				this.OnPropertyChanging("appmoduleroles_association");
-				this.SetRelatedEntities<CloudAwesome.Xrm.Customisation.AppModule>("appmoduleroles_association", null, value);
+				this.SetRelatedEntities<CloudAwesome.Xrm.Customisation.EarlyBoundModels.AppModule>("appmoduleroles_association", null, value);
 				this.OnPropertyChanged("appmoduleroles_association");
 			}
 		}
@@ -563,12 +591,12 @@ namespace CloudAwesome.Xrm.Customisation
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("parentroleid")]
 		[Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute("role_parent_role", Microsoft.Xrm.Sdk.EntityRole.Referencing)]
-		public CloudAwesome.Xrm.Customisation.Role Referencingrole_parent_role
+		public CloudAwesome.Xrm.Customisation.EarlyBoundModels.Role Referencingrole_parent_role
 		{
 			[System.Diagnostics.DebuggerNonUserCode()]
 			get
 			{
-				return this.GetRelatedEntity<CloudAwesome.Xrm.Customisation.Role>("role_parent_role", Microsoft.Xrm.Sdk.EntityRole.Referencing);
+				return this.GetRelatedEntity<CloudAwesome.Xrm.Customisation.EarlyBoundModels.Role>("role_parent_role", Microsoft.Xrm.Sdk.EntityRole.Referencing);
 			}
 		}
 		
@@ -577,12 +605,12 @@ namespace CloudAwesome.Xrm.Customisation
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("parentrootroleid")]
 		[Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute("role_parent_root_role", Microsoft.Xrm.Sdk.EntityRole.Referencing)]
-		public CloudAwesome.Xrm.Customisation.Role Referencingrole_parent_root_role
+		public CloudAwesome.Xrm.Customisation.EarlyBoundModels.Role Referencingrole_parent_root_role
 		{
 			[System.Diagnostics.DebuggerNonUserCode()]
 			get
 			{
-				return this.GetRelatedEntity<CloudAwesome.Xrm.Customisation.Role>("role_parent_root_role", Microsoft.Xrm.Sdk.EntityRole.Referencing);
+				return this.GetRelatedEntity<CloudAwesome.Xrm.Customisation.EarlyBoundModels.Role>("role_parent_root_role", Microsoft.Xrm.Sdk.EntityRole.Referencing);
 			}
 		}
 		

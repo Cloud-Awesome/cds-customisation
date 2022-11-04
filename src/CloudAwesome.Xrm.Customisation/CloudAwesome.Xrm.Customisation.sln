@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SamplePluginAssembly", "Sam
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CloudAwesome.Xrm.Customisation.Cli", "CloudAwesome.Xrm.Customisation.Cli\CloudAwesome.Xrm.Customisation.Cli.csproj", "{35D8FDB1-4302-4A37-9513-4A87AF64616A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CloudAwesome.Xrm.Customisation.IntegrationTests", "CloudAwesome.Xrm.Customisation.IntegrationTests\CloudAwesome.Xrm.Customisation.IntegrationTests.csproj", "{6A26F25B-FA78-46D2-8A5E-ACD9B3B8A6E9}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{35D8FDB1-4302-4A37-9513-4A87AF64616A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{35D8FDB1-4302-4A37-9513-4A87AF64616A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{35D8FDB1-4302-4A37-9513-4A87AF64616A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6A26F25B-FA78-46D2-8A5E-ACD9B3B8A6E9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6A26F25B-FA78-46D2-8A5E-ACD9B3B8A6E9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6A26F25B-FA78-46D2-8A5E-ACD9B3B8A6E9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6A26F25B-FA78-46D2-8A5E-ACD9B3B8A6E9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

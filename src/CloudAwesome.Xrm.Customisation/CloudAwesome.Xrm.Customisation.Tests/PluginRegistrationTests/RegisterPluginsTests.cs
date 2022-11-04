@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using CloudAwesome.Xrm.Core.Models;
+using CloudAwesome.Xrm.Customisation.EarlyBoundModels;
 using CloudAwesome.Xrm.Customisation.Exceptions;
 using CloudAwesome.Xrm.Customisation.PluginRegistration;
 using CloudAwesome.Xrm.Customisation.Tests.Stubs;

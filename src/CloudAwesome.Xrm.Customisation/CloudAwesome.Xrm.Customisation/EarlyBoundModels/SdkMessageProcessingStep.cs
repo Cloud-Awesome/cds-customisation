@@ -8,7 +8,7 @@
 //------------------------------------------------------------------------------
 
 
-namespace CloudAwesome.Xrm.Customisation
+namespace CloudAwesome.Xrm.Customisation.EarlyBoundModels
 {
 	
 	[System.Runtime.Serialization.DataContractAttribute()]
@@ -34,6 +34,7 @@ namespace CloudAwesome.Xrm.Customisation
 		{
 			public const string AsyncAutoDelete = "asyncautodelete";
 			public const string CanUseReadOnlyConnection = "canusereadonlyconnection";
+			public const string Category = "category";
 			public const string ComponentState = "componentstate";
 			public const string Configuration = "configuration";
 			public const string CreatedBy = "createdby";
@@ -59,6 +60,7 @@ namespace CloudAwesome.Xrm.Customisation
 			public const string OverwriteTime = "overwritetime";
 			public const string PluginTypeId = "plugintypeid";
 			public const string Rank = "rank";
+			public const string RuntimeIntegrationProperties = "runtimeintegrationproperties";
 			public const string SdkMessageFilterId = "sdkmessagefilterid";
 			public const string SdkMessageId = "sdkmessageid";
 			public const string SdkMessageProcessingStepId = "sdkmessageprocessingstepid";
@@ -88,6 +90,24 @@ namespace CloudAwesome.Xrm.Customisation
 		{
 		}
 		
+		[System.Diagnostics.DebuggerNonUserCode()]
+		public SdkMessageProcessingStep(System.Guid id) : 
+				base(EntityLogicalName, id)
+		{
+		}
+		
+		[System.Diagnostics.DebuggerNonUserCode()]
+		public SdkMessageProcessingStep(string keyName, object keyValue) : 
+				base(EntityLogicalName, keyName, keyValue)
+		{
+		}
+		
+		[System.Diagnostics.DebuggerNonUserCode()]
+		public SdkMessageProcessingStep(Microsoft.Xrm.Sdk.KeyAttributeCollection keyAttributes) : 
+				base(EntityLogicalName, keyAttributes)
+		{
+		}
+		
 		public const string EntityLogicalName = "sdkmessageprocessingstep";
 		
 		public const string EntitySchemaName = "SdkMessageProcessingStep";
@@ -99,6 +119,8 @@ namespace CloudAwesome.Xrm.Customisation
 		public const string EntityLogicalCollectionName = "sdkmessageprocessingsteps";
 		
 		public const string EntitySetName = "sdkmessageprocessingsteps";
+		
+		public const int EntityTypeCode = 4608;
 		
 		public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
 		
@@ -159,6 +181,26 @@ namespace CloudAwesome.Xrm.Customisation
 				this.OnPropertyChanging("CanUseReadOnlyConnection");
 				this.SetAttributeValue("canusereadonlyconnection", value);
 				this.OnPropertyChanged("CanUseReadOnlyConnection");
+			}
+		}
+		
+		/// <summary>
+		/// For internal use only.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("category")]
+		public string Category
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<string>("category");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.OnPropertyChanging("Category");
+				this.SetAttributeValue("category", value);
+				this.OnPropertyChanged("Category");
 			}
 		}
 		
@@ -602,6 +644,26 @@ namespace CloudAwesome.Xrm.Customisation
 		}
 		
 		/// <summary>
+		/// For internal use only. Holds miscellaneous properties related to runtime integration.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("runtimeintegrationproperties")]
+		public string RuntimeIntegrationProperties
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<string>("runtimeintegrationproperties");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.OnPropertyChanging("RuntimeIntegrationProperties");
+				this.SetAttributeValue("runtimeintegrationproperties", value);
+				this.OnPropertyChanged("RuntimeIntegrationProperties");
+			}
+		}
+		
+		/// <summary>
 		/// Unique identifier of the SDK message filter.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("sdkmessagefilterid")]
@@ -754,7 +816,7 @@ namespace CloudAwesome.Xrm.Customisation
 		/// Status of the SDK message processing step.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("statecode")]
-		public System.Nullable<CloudAwesome.Xrm.Customisation.SdkMessageProcessingStepState> StateCode
+		public System.Nullable<CloudAwesome.Xrm.Customisation.EarlyBoundModels.SdkMessageProcessingStepState> StateCode
 		{
 			[System.Diagnostics.DebuggerNonUserCode()]
 			get
@@ -762,7 +824,7 @@ namespace CloudAwesome.Xrm.Customisation
 				Microsoft.Xrm.Sdk.OptionSetValue optionSet = this.GetAttributeValue<Microsoft.Xrm.Sdk.OptionSetValue>("statecode");
 				if ((optionSet != null))
 				{
-					return ((CloudAwesome.Xrm.Customisation.SdkMessageProcessingStepState)(System.Enum.ToObject(typeof(CloudAwesome.Xrm.Customisation.SdkMessageProcessingStepState), optionSet.Value)));
+					return ((CloudAwesome.Xrm.Customisation.EarlyBoundModels.SdkMessageProcessingStepState)(System.Enum.ToObject(typeof(CloudAwesome.Xrm.Customisation.EarlyBoundModels.SdkMessageProcessingStepState), optionSet.Value)));
 				}
 				else
 				{
@@ -842,18 +904,18 @@ namespace CloudAwesome.Xrm.Customisation
 		/// 1:N sdkmessageprocessingstepid_sdkmessageprocessingstepimage
 		/// </summary>
 		[Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute("sdkmessageprocessingstepid_sdkmessageprocessingstepimage")]
-		public System.Collections.Generic.IEnumerable<CloudAwesome.Xrm.Customisation.SdkMessageProcessingStepImage> sdkmessageprocessingstepid_sdkmessageprocessingstepimage
+		public System.Collections.Generic.IEnumerable<CloudAwesome.Xrm.Customisation.EarlyBoundModels.SdkMessageProcessingStepImage> sdkmessageprocessingstepid_sdkmessageprocessingstepimage
 		{
 			[System.Diagnostics.DebuggerNonUserCode()]
 			get
 			{
-				return this.GetRelatedEntities<CloudAwesome.Xrm.Customisation.SdkMessageProcessingStepImage>("sdkmessageprocessingstepid_sdkmessageprocessingstepimage", null);
+				return this.GetRelatedEntities<CloudAwesome.Xrm.Customisation.EarlyBoundModels.SdkMessageProcessingStepImage>("sdkmessageprocessingstepid_sdkmessageprocessingstepimage", null);
 			}
 			[System.Diagnostics.DebuggerNonUserCode()]
 			set
 			{
 				this.OnPropertyChanging("sdkmessageprocessingstepid_sdkmessageprocessingstepimage");
-				this.SetRelatedEntities<CloudAwesome.Xrm.Customisation.SdkMessageProcessingStepImage>("sdkmessageprocessingstepid_sdkmessageprocessingstepimage", null, value);
+				this.SetRelatedEntities<CloudAwesome.Xrm.Customisation.EarlyBoundModels.SdkMessageProcessingStepImage>("sdkmessageprocessingstepid_sdkmessageprocessingstepimage", null, value);
 				this.OnPropertyChanged("sdkmessageprocessingstepid_sdkmessageprocessingstepimage");
 			}
 		}
@@ -863,18 +925,18 @@ namespace CloudAwesome.Xrm.Customisation
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("eventhandler")]
 		[Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute("plugintype_sdkmessageprocessingstep")]
-		public CloudAwesome.Xrm.Customisation.PluginType plugintype_sdkmessageprocessingstep
+		public CloudAwesome.Xrm.Customisation.EarlyBoundModels.PluginType plugintype_sdkmessageprocessingstep
 		{
 			[System.Diagnostics.DebuggerNonUserCode()]
 			get
 			{
-				return this.GetRelatedEntity<CloudAwesome.Xrm.Customisation.PluginType>("plugintype_sdkmessageprocessingstep", null);
+				return this.GetRelatedEntity<CloudAwesome.Xrm.Customisation.EarlyBoundModels.PluginType>("plugintype_sdkmessageprocessingstep", null);
 			}
 			[System.Diagnostics.DebuggerNonUserCode()]
 			set
 			{
 				this.OnPropertyChanging("plugintype_sdkmessageprocessingstep");
-				this.SetRelatedEntity<CloudAwesome.Xrm.Customisation.PluginType>("plugintype_sdkmessageprocessingstep", null, value);
+				this.SetRelatedEntity<CloudAwesome.Xrm.Customisation.EarlyBoundModels.PluginType>("plugintype_sdkmessageprocessingstep", null, value);
 				this.OnPropertyChanged("plugintype_sdkmessageprocessingstep");
 			}
 		}
@@ -884,18 +946,18 @@ namespace CloudAwesome.Xrm.Customisation
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("plugintypeid")]
 		[Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute("plugintypeid_sdkmessageprocessingstep")]
-		public CloudAwesome.Xrm.Customisation.PluginType plugintypeid_sdkmessageprocessingstep
+		public CloudAwesome.Xrm.Customisation.EarlyBoundModels.PluginType plugintypeid_sdkmessageprocessingstep
 		{
 			[System.Diagnostics.DebuggerNonUserCode()]
 			get
 			{
-				return this.GetRelatedEntity<CloudAwesome.Xrm.Customisation.PluginType>("plugintypeid_sdkmessageprocessingstep", null);
+				return this.GetRelatedEntity<CloudAwesome.Xrm.Customisation.EarlyBoundModels.PluginType>("plugintypeid_sdkmessageprocessingstep", null);
 			}
 			[System.Diagnostics.DebuggerNonUserCode()]
 			set
 			{
 				this.OnPropertyChanging("plugintypeid_sdkmessageprocessingstep");
-				this.SetRelatedEntity<CloudAwesome.Xrm.Customisation.PluginType>("plugintypeid_sdkmessageprocessingstep", null, value);
+				this.SetRelatedEntity<CloudAwesome.Xrm.Customisation.EarlyBoundModels.PluginType>("plugintypeid_sdkmessageprocessingstep", null, value);
 				this.OnPropertyChanged("plugintypeid_sdkmessageprocessingstep");
 			}
 		}
@@ -905,18 +967,18 @@ namespace CloudAwesome.Xrm.Customisation
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("sdkmessagefilterid")]
 		[Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute("sdkmessagefilterid_sdkmessageprocessingstep")]
-		public CloudAwesome.Xrm.Customisation.SdkMessageFilter sdkmessagefilterid_sdkmessageprocessingstep
+		public CloudAwesome.Xrm.Customisation.EarlyBoundModels.SdkMessageFilter sdkmessagefilterid_sdkmessageprocessingstep
 		{
 			[System.Diagnostics.DebuggerNonUserCode()]
 			get
 			{
-				return this.GetRelatedEntity<CloudAwesome.Xrm.Customisation.SdkMessageFilter>("sdkmessagefilterid_sdkmessageprocessingstep", null);
+				return this.GetRelatedEntity<CloudAwesome.Xrm.Customisation.EarlyBoundModels.SdkMessageFilter>("sdkmessagefilterid_sdkmessageprocessingstep", null);
 			}
 			[System.Diagnostics.DebuggerNonUserCode()]
 			set
 			{
 				this.OnPropertyChanging("sdkmessagefilterid_sdkmessageprocessingstep");
-				this.SetRelatedEntity<CloudAwesome.Xrm.Customisation.SdkMessageFilter>("sdkmessagefilterid_sdkmessageprocessingstep", null, value);
+				this.SetRelatedEntity<CloudAwesome.Xrm.Customisation.EarlyBoundModels.SdkMessageFilter>("sdkmessagefilterid_sdkmessageprocessingstep", null, value);
 				this.OnPropertyChanged("sdkmessagefilterid_sdkmessageprocessingstep");
 			}
 		}
@@ -926,18 +988,18 @@ namespace CloudAwesome.Xrm.Customisation
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("sdkmessageid")]
 		[Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute("sdkmessageid_sdkmessageprocessingstep")]
-		public CloudAwesome.Xrm.Customisation.SdkMessage sdkmessageid_sdkmessageprocessingstep
+		public CloudAwesome.Xrm.Customisation.EarlyBoundModels.SdkMessage sdkmessageid_sdkmessageprocessingstep
 		{
 			[System.Diagnostics.DebuggerNonUserCode()]
 			get
 			{
-				return this.GetRelatedEntity<CloudAwesome.Xrm.Customisation.SdkMessage>("sdkmessageid_sdkmessageprocessingstep", null);
+				return this.GetRelatedEntity<CloudAwesome.Xrm.Customisation.EarlyBoundModels.SdkMessage>("sdkmessageid_sdkmessageprocessingstep", null);
 			}
 			[System.Diagnostics.DebuggerNonUserCode()]
 			set
 			{
 				this.OnPropertyChanging("sdkmessageid_sdkmessageprocessingstep");
-				this.SetRelatedEntity<CloudAwesome.Xrm.Customisation.SdkMessage>("sdkmessageid_sdkmessageprocessingstep", null, value);
+				this.SetRelatedEntity<CloudAwesome.Xrm.Customisation.EarlyBoundModels.SdkMessage>("sdkmessageid_sdkmessageprocessingstep", null, value);
 				this.OnPropertyChanged("sdkmessageid_sdkmessageprocessingstep");
 			}
 		}
@@ -947,18 +1009,18 @@ namespace CloudAwesome.Xrm.Customisation
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("sdkmessageprocessingstepsecureconfigid")]
 		[Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute("sdkmessageprocessingstepsecureconfigid_sdkmessageprocessingstep")]
-		public CloudAwesome.Xrm.Customisation.SdkMessageProcessingStepSecureConfig sdkmessageprocessingstepsecureconfigid_sdkmessageprocessingstep
+		public CloudAwesome.Xrm.Customisation.EarlyBoundModels.SdkMessageProcessingStepSecureConfig sdkmessageprocessingstepsecureconfigid_sdkmessageprocessingstep
 		{
 			[System.Diagnostics.DebuggerNonUserCode()]
 			get
 			{
-				return this.GetRelatedEntity<CloudAwesome.Xrm.Customisation.SdkMessageProcessingStepSecureConfig>("sdkmessageprocessingstepsecureconfigid_sdkmessageprocessingstep", null);
+				return this.GetRelatedEntity<CloudAwesome.Xrm.Customisation.EarlyBoundModels.SdkMessageProcessingStepSecureConfig>("sdkmessageprocessingstepsecureconfigid_sdkmessageprocessingstep", null);
 			}
 			[System.Diagnostics.DebuggerNonUserCode()]
 			set
 			{
 				this.OnPropertyChanging("sdkmessageprocessingstepsecureconfigid_sdkmessageprocessingstep");
-				this.SetRelatedEntity<CloudAwesome.Xrm.Customisation.SdkMessageProcessingStepSecureConfig>("sdkmessageprocessingstepsecureconfigid_sdkmessageprocessingstep", null, value);
+				this.SetRelatedEntity<CloudAwesome.Xrm.Customisation.EarlyBoundModels.SdkMessageProcessingStepSecureConfig>("sdkmessageprocessingstepsecureconfigid_sdkmessageprocessingstep", null, value);
 				this.OnPropertyChanged("sdkmessageprocessingstepsecureconfigid_sdkmessageprocessingstep");
 			}
 		}
@@ -968,18 +1030,18 @@ namespace CloudAwesome.Xrm.Customisation
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("eventhandler")]
 		[Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute("serviceendpoint_sdkmessageprocessingstep")]
-		public CloudAwesome.Xrm.Customisation.ServiceEndpoint serviceendpoint_sdkmessageprocessingstep
+		public CloudAwesome.Xrm.Customisation.EarlyBoundModels.ServiceEndpoint serviceendpoint_sdkmessageprocessingstep
 		{
 			[System.Diagnostics.DebuggerNonUserCode()]
 			get
 			{
-				return this.GetRelatedEntity<CloudAwesome.Xrm.Customisation.ServiceEndpoint>("serviceendpoint_sdkmessageprocessingstep", null);
+				return this.GetRelatedEntity<CloudAwesome.Xrm.Customisation.EarlyBoundModels.ServiceEndpoint>("serviceendpoint_sdkmessageprocessingstep", null);
 			}
 			[System.Diagnostics.DebuggerNonUserCode()]
 			set
 			{
 				this.OnPropertyChanging("serviceendpoint_sdkmessageprocessingstep");
-				this.SetRelatedEntity<CloudAwesome.Xrm.Customisation.ServiceEndpoint>("serviceendpoint_sdkmessageprocessingstep", null, value);
+				this.SetRelatedEntity<CloudAwesome.Xrm.Customisation.EarlyBoundModels.ServiceEndpoint>("serviceendpoint_sdkmessageprocessingstep", null, value);
 				this.OnPropertyChanged("serviceendpoint_sdkmessageprocessingstep");
 			}
 		}

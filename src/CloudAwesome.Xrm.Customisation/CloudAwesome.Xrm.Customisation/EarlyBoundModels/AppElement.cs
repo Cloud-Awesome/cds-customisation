@@ -8,7 +8,7 @@
 //------------------------------------------------------------------------------
 
 
-namespace CloudAwesome.Xrm.Customisation
+namespace CloudAwesome.Xrm.Customisation.EarlyBoundModels
 {
 	
 	[System.Runtime.Serialization.DataContractAttribute()]
@@ -71,7 +71,25 @@ namespace CloudAwesome.Xrm.Customisation
 		{
 		}
 		
-		public const string AlternateKeys = "uniquename,overwritetime,componentstate";
+		[System.Diagnostics.DebuggerNonUserCode()]
+		public AppElement(System.Guid id) : 
+				base(EntityLogicalName, id)
+		{
+		}
+		
+		[System.Diagnostics.DebuggerNonUserCode()]
+		public AppElement(string keyName, object keyValue) : 
+				base(EntityLogicalName, keyName, keyValue)
+		{
+		}
+		
+		[System.Diagnostics.DebuggerNonUserCode()]
+		public AppElement(Microsoft.Xrm.Sdk.KeyAttributeCollection keyAttributes) : 
+				base(EntityLogicalName, keyAttributes)
+		{
+		}
+		
+		public const string AlternateKeys = "overwritetime,uniquename,componentstate";
 		
 		public const string EntityLogicalName = "appelement";
 		
@@ -84,6 +102,8 @@ namespace CloudAwesome.Xrm.Customisation
 		public const string EntityLogicalCollectionName = "appelements";
 		
 		public const string EntitySetName = "appelements";
+		
+		public const int EntityTypeCode = 10034;
 		
 		public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
 		
@@ -464,7 +484,7 @@ namespace CloudAwesome.Xrm.Customisation
 		/// Status of the AppElement
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("statecode")]
-		public System.Nullable<CloudAwesome.Xrm.Customisation.AppElementState> StateCode
+		public System.Nullable<CloudAwesome.Xrm.Customisation.EarlyBoundModels.AppElementState> StateCode
 		{
 			[System.Diagnostics.DebuggerNonUserCode()]
 			get
@@ -472,7 +492,7 @@ namespace CloudAwesome.Xrm.Customisation
 				Microsoft.Xrm.Sdk.OptionSetValue optionSet = this.GetAttributeValue<Microsoft.Xrm.Sdk.OptionSetValue>("statecode");
 				if ((optionSet != null))
 				{
-					return ((CloudAwesome.Xrm.Customisation.AppElementState)(System.Enum.ToObject(typeof(CloudAwesome.Xrm.Customisation.AppElementState), optionSet.Value)));
+					return ((CloudAwesome.Xrm.Customisation.EarlyBoundModels.AppElementState)(System.Enum.ToObject(typeof(CloudAwesome.Xrm.Customisation.EarlyBoundModels.AppElementState), optionSet.Value)));
 				}
 				else
 				{
@@ -572,18 +592,18 @@ namespace CloudAwesome.Xrm.Customisation
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("parentappmoduleid")]
 		[Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute("appmodule_appelement_parentappmoduleid")]
-		public CloudAwesome.Xrm.Customisation.AppModule appmodule_appelement_parentappmoduleid
+		public CloudAwesome.Xrm.Customisation.EarlyBoundModels.AppModule appmodule_appelement_parentappmoduleid
 		{
 			[System.Diagnostics.DebuggerNonUserCode()]
 			get
 			{
-				return this.GetRelatedEntity<CloudAwesome.Xrm.Customisation.AppModule>("appmodule_appelement_parentappmoduleid", null);
+				return this.GetRelatedEntity<CloudAwesome.Xrm.Customisation.EarlyBoundModels.AppModule>("appmodule_appelement_parentappmoduleid", null);
 			}
 			[System.Diagnostics.DebuggerNonUserCode()]
 			set
 			{
 				this.OnPropertyChanging("appmodule_appelement_parentappmoduleid");
-				this.SetRelatedEntity<CloudAwesome.Xrm.Customisation.AppModule>("appmodule_appelement_parentappmoduleid", null, value);
+				this.SetRelatedEntity<CloudAwesome.Xrm.Customisation.EarlyBoundModels.AppModule>("appmodule_appelement_parentappmoduleid", null, value);
 				this.OnPropertyChanged("appmodule_appelement_parentappmoduleid");
 			}
 		}

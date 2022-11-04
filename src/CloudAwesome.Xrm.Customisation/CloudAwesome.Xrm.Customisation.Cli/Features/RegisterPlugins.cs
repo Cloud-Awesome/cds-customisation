@@ -54,6 +54,7 @@ namespace CloudAwesome.Xrm.Customisation.Cli.Features
 
             var client = XrmClient.GetCrmServiceClientFromManifestConfiguration(manifest.CdsConnection);
             
+            
             var pluginWrapper = new PluginWrapper();
             pluginWrapper.RegisterPlugins(manifest, client);
             pluginWrapper.RegisterServiceEndpoints(manifest, client);

@@ -6,10 +6,10 @@
 //     Changes to this file may cause incorrect behavior and will be lost if
 //     the code is regenerated.
 // </auto-generated>
-// Created via this command line: "C:\Users\Oculu\AppData\Roaming\MscrmTools\XrmToolBox\Plugins\DLaB.EarlyBoundGenerator\crmsvcutil.exe" /url:"https://awesome-sandbox.api.crm11.dynamics.com" /namespace:"CloudAwesome.Xrm.Customisation" /out:"C:\Source\Cloud-Awesome\cds-customisation\src\CloudAwesome.Xrm.Customisation\CloudAwesome.Xrm.Customisation\EarlyBoundModels\OptionSets.cs" /SuppressGeneratedCodeAttribute /codecustomization:"DLaB.CrmSvcUtilExtensions.OptionSet.CustomizeCodeDomService,DLaB.CrmSvcUtilExtensions" /codegenerationservice:"DLaB.CrmSvcUtilExtensions.OptionSet.CustomCodeGenerationService,DLaB.CrmSvcUtilExtensions" /codewriterfilter:"DLaB.CrmSvcUtilExtensions.OptionSet.CodeWriterFilterService,DLaB.CrmSvcUtilExtensions" /namingservice:"DLaB.CrmSvcUtilExtensions.NamingService,DLaB.CrmSvcUtilExtensions" /metadataproviderservice:"DLaB.CrmSvcUtilExtensions.BaseMetadataProviderService,DLaB.CrmSvcUtilExtensions" /username:"arthur@cloudawesome.uk" /password:"************************************" 
+// Created via this command line: "C:\Users\ArthurNicholson-Gumu\AppData\Roaming\MscrmTools\XrmToolBox\Plugins\DLaB.EarlyBoundGenerator\CrmSvcUtil.exe" /url:"https://altusukes-d365-dev2.api.crm11.dynamics.com" /namespace:"CloudAwesome.Xrm.Customisation.EarlyBoundModels" /SuppressGeneratedCodeAttribute /out:"C:\Source\Cloud-Awesome\cds-customisation\src\CloudAwesome.Xrm.Customisation\CloudAwesome.Xrm.Customisation\EarlyBoundModels\OptionSets.cs" /codecustomization:"DLaB.CrmSvcUtilExtensions.OptionSet.CustomizeCodeDomService,DLaB.CrmSvcUtilExtensions" /codegenerationservice:"DLaB.CrmSvcUtilExtensions.OptionSet.CustomCodeGenerationService,DLaB.CrmSvcUtilExtensions" /codewriterfilter:"DLaB.CrmSvcUtilExtensions.OptionSet.CodeWriterFilterService,DLaB.CrmSvcUtilExtensions" /namingservice:"DLaB.CrmSvcUtilExtensions.NamingService,DLaB.CrmSvcUtilExtensions" /metadataproviderservice:"DLaB.CrmSvcUtilExtensions.BaseMetadataProviderService,DLaB.CrmSvcUtilExtensions" /username:"Arthur.Nicholson-Gumua@altusgroup.com" /password:"************************************" 
 //------------------------------------------------------------------------------
 
-namespace CloudAwesome.Xrm.Customisation
+namespace CloudAwesome.Xrm.Customisation.EarlyBoundModels
 {
 	
 	
@@ -365,6 +365,10 @@ namespace CloudAwesome.Xrm.Customisation
 		Disk = 1,
 		
 		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("File Store", 4)]
+		FileStore = 4,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
 		[OptionSetMetadataAttribute("Normal", 2)]
 		Normal = 2,
 	}
@@ -544,8 +548,16 @@ namespace CloudAwesome.Xrm.Customisation
 	{
 		
 		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("Access Key", 7)]
+		AccessKey = 8,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
 		[OptionSetMetadataAttribute("ACS", 0)]
 		ACS = 1,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("Connection String", 6)]
+		ConnectionString = 7,
 		
 		[System.Runtime.Serialization.EnumMemberAttribute()]
 		[OptionSetMetadataAttribute("Http Header", 4)]
@@ -586,6 +598,10 @@ namespace CloudAwesome.Xrm.Customisation
 	{
 		
 		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("Event Grid", 8)]
+		EventGrid = 9,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
 		[OptionSetMetadataAttribute("Event Hub", 6)]
 		EventHub = 7,
 		
@@ -619,6 +635,19 @@ namespace CloudAwesome.Xrm.Customisation
 	}
 	
 	[System.Runtime.Serialization.DataContractAttribute()]
+	public enum ServiceEndpoint_MessageCharset
+	{
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("Default", 0)]
+		Default = 0,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("UTF8", 1)]
+		UTF8 = 1,
+	}
+	
+	[System.Runtime.Serialization.DataContractAttribute()]
 	public enum ServiceEndpoint_MessageFormat
 	{
 		
@@ -649,6 +678,19 @@ namespace CloudAwesome.Xrm.Customisation
 	}
 	
 	[System.Runtime.Serialization.DataContractAttribute()]
+	public enum ServiceEndpoint_SchemaType
+	{
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("Cloud Events", 1)]
+		CloudEvents = 2,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("Event Grid", 0)]
+		EventGrid = 1,
+	}
+	
+	[System.Runtime.Serialization.DataContractAttribute()]
 	public enum ServiceEndpoint_UserClaim
 	{
 		
@@ -663,5 +705,305 @@ namespace CloudAwesome.Xrm.Customisation
 		[System.Runtime.Serialization.EnumMemberAttribute()]
 		[OptionSetMetadataAttribute("UserInfo", 2)]
 		UserInfo = 3,
+	}
+	
+	[System.Runtime.Serialization.DataContractAttribute()]
+	public enum Workflow_BusinessProcessType
+	{
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("Business Flow", 0)]
+		BusinessFlow = 0,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("Task Flow", 1)]
+		TaskFlow = 1,
+	}
+	
+	[System.Runtime.Serialization.DataContractAttribute()]
+	public enum Workflow_Category
+	{
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("Action", 3)]
+		Action = 3,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("Business Process Flow", 4)]
+		BusinessProcessFlow = 4,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("Business Rule", 2)]
+		BusinessRule = 2,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("Desktop Flow", 7)]
+		DesktopFlow = 6,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("Dialog", 1)]
+		Dialog = 1,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("Modern Flow", 5)]
+		ModernFlow = 5,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("Web Client API Flow", 6)]
+		WebClientAPIFlow = 9000,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("Workflow", 0)]
+		Workflow = 0,
+	}
+	
+	[System.Runtime.Serialization.DataContractAttribute()]
+	public enum Workflow_Mode
+	{
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("Background", 0)]
+		Background = 0,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("Real-time", 1)]
+		Realtime = 1,
+	}
+	
+	[System.Runtime.Serialization.DataContractAttribute()]
+	public enum Workflow_ProcessTriggerScope
+	{
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("Entity", 1)]
+		Entity = 2,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("Form", 0)]
+		Form = 1,
+	}
+	
+	[System.Runtime.Serialization.DataContractAttribute()]
+	public enum Workflow_RunAs
+	{
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("Calling User", 1)]
+		CallingUser = 1,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("Owner", 0)]
+		Owner = 0,
+	}
+	
+	[System.Runtime.Serialization.DataContractAttribute()]
+	public enum Workflow_Scope
+	{
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("Business Unit", 1)]
+		BusinessUnit = 2,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("Organization", 3)]
+		Organization = 4,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("Parent: Child Business Units", 2)]
+		ParentChildBusinessUnits = 3,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("User", 0)]
+		User = 1,
+	}
+	
+	[System.Runtime.Serialization.DataContractAttribute()]
+	public enum Workflow_Stage
+	{
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("Post-operation", 1)]
+		Postoperation = 40,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("Pre-operation", 0)]
+		Preoperation = 20,
+	}
+	
+	[System.Runtime.Serialization.DataContractAttribute()]
+	public enum Workflow_StatusCode
+	{
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("Activated", 1)]
+		Activated = 2,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("CompanyDLPViolation", 2)]
+		CompanyDLPViolation = 3,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("Draft", 0)]
+		Draft = 1,
+	}
+	
+	[System.Runtime.Serialization.DataContractAttribute()]
+	public enum Workflow_Type
+	{
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("Activation", 1)]
+		Activation = 2,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("Definition", 0)]
+		Definition = 1,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("Template", 2)]
+		Template = 3,
+	}
+	
+	[System.Runtime.Serialization.DataContractAttribute()]
+	public enum Workflow_UIFlowType
+	{
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("Power Automate Desktop", 3)]
+		PowerAutomateDesktop = 2,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("Recording", 0)]
+		Recording = 101,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("Selenium IDE", 2)]
+		SeleniumIDE = 1,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("Windows recorder (V1)", 1)]
+		Windowsrecorder_V1 = 0,
+	}
+	
+	[System.Runtime.Serialization.DataContractAttribute()]
+	public enum appaction_ClientType
+	{
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("Browser", 0, "#0000ff")]
+		Browser = 0,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("Mobile", 1, "#0000ff")]
+		Mobile = 1,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("Mail App", 2, "#0000ff")]
+		MailApp = 2,
+	}
+	
+	[System.Runtime.Serialization.DataContractAttribute()]
+	public enum card_Sizes
+	{
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("Small", 0, "#0000ff")]
+		Small = 200000000,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("Medium", 1, "#0000ff")]
+		Medium = 200000001,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("Large", 2, "#0000ff")]
+		Large = 200000002,
+	}
+	
+	[System.Runtime.Serialization.DataContractAttribute()]
+	public enum msdyn_forecastsettingsandsummary_msdyn_ForecastJobStatus
+	{
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("Success", 0, "#0000ff")]
+		Success = 192350000,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("Data Failure", 1, "#0000ff")]
+		DataFailure = 192350001,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("Pipeline Failure", 2, "#0000ff")]
+		PipelineFailure = 192350002,
+	}
+	
+	[System.Runtime.Serialization.DataContractAttribute()]
+	public enum msdyn_knowledgemanagementsetting_msdyn_actionlist
+	{
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("Link / unlink article", 0, "#0000ff")]
+		Linkunlinkarticle = 0,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("Copy URL", 1, "#0000ff")]
+		CopyURL = 1,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("Link article and email URL", 2, "#0000ff")]
+		LinkarticleandemailURL = 2,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("Link article and send article content", 3, "#0000ff")]
+		Linkarticleandsendarticlecontent = 3,
+	}
+	
+	[System.Runtime.Serialization.DataContractAttribute()]
+	public enum msdyn_oc_daysofweek
+	{
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("Sun", 0, "#0000ff", "Sunday")]
+		Sun = 192350000,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("Mon", 1, "#0000ff", "Monday")]
+		Mon = 192350001,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("Tue", 2, "#0000ff", "Tuesday")]
+		Tue = 192350002,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("Wed", 3, "#0000ff", "Wednesday")]
+		Wed = 192350003,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("Thu", 4, "#0000ff", "Thursday")]
+		Thu = 192350004,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("Fri", 5, "#0000ff", "Friday")]
+		Fri = 192350005,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("Sat", 6, "#0000ff", "Saturday")]
+		Sat = 192350006,
+	}
+	
+	[System.Runtime.Serialization.DataContractAttribute()]
+	public enum msdyn_msdyn_requirementrelationship_msdyn_resourcegroupings
+	{
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("Organizational Unit", 0, "#0000ff")]
+		OrganizationalUnit = 192350000,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("Related Resource Pools", 1, "#0000ff")]
+		RelatedResourcePools = 192350001,
+		
+		[System.Runtime.Serialization.EnumMemberAttribute()]
+		[OptionSetMetadataAttribute("Location", 2, "#0000ff")]
+		Location = 192350002,
 	}
 }

@@ -8,7 +8,7 @@
 //------------------------------------------------------------------------------
 
 
-namespace CloudAwesome.Xrm.Customisation
+namespace CloudAwesome.Xrm.Customisation.EarlyBoundModels
 {
 	
 	/// <summary>
@@ -58,6 +58,24 @@ namespace CloudAwesome.Xrm.Customisation
 		{
 		}
 		
+		[System.Diagnostics.DebuggerNonUserCode()]
+		public SdkMessageResponseField(System.Guid id) : 
+				base(EntityLogicalName, id)
+		{
+		}
+		
+		[System.Diagnostics.DebuggerNonUserCode()]
+		public SdkMessageResponseField(string keyName, object keyValue) : 
+				base(EntityLogicalName, keyName, keyValue)
+		{
+		}
+		
+		[System.Diagnostics.DebuggerNonUserCode()]
+		public SdkMessageResponseField(Microsoft.Xrm.Sdk.KeyAttributeCollection keyAttributes) : 
+				base(EntityLogicalName, keyAttributes)
+		{
+		}
+		
 		public const string EntityLogicalName = "sdkmessageresponsefield";
 		
 		public const string EntitySchemaName = "SdkMessageResponseField";
@@ -67,6 +85,8 @@ namespace CloudAwesome.Xrm.Customisation
 		public const string EntityLogicalCollectionName = "sdkmessageresponsefields";
 		
 		public const string EntitySetName = "sdkmessageresponsefields";
+		
+		public const int EntityTypeCode = 4611;
 		
 		public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
 		
@@ -500,12 +520,12 @@ namespace CloudAwesome.Xrm.Customisation
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("sdkmessageresponseid")]
 		[Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute("messageresponse_sdkmessageresponsefield")]
-		public CloudAwesome.Xrm.Customisation.SdkMessageResponse messageresponse_sdkmessageresponsefield
+		public CloudAwesome.Xrm.Customisation.EarlyBoundModels.SdkMessageResponse messageresponse_sdkmessageresponsefield
 		{
 			[System.Diagnostics.DebuggerNonUserCode()]
 			get
 			{
-				return this.GetRelatedEntity<CloudAwesome.Xrm.Customisation.SdkMessageResponse>("messageresponse_sdkmessageresponsefield", null);
+				return this.GetRelatedEntity<CloudAwesome.Xrm.Customisation.EarlyBoundModels.SdkMessageResponse>("messageresponse_sdkmessageresponsefield", null);
 			}
 		}
 		

@@ -63,6 +63,7 @@ namespace CloudAwesome.Xrm.Customisation.Models
         public bool? IsDocumentManagementEnabled { get; set; }
         public bool? IsValidForQueue { get; set; }
         public bool? ChangeTrackingEnabled { get; set; }
+        
         public string NavigationColour { get; set; }
 
         public bool AllBusinessRules { get; set; }

@@ -8,7 +8,7 @@
 //------------------------------------------------------------------------------
 
 
-namespace CloudAwesome.Xrm.Customisation
+namespace CloudAwesome.Xrm.Customisation.EarlyBoundModels
 {
 	
 	/// <summary>
@@ -98,6 +98,24 @@ namespace CloudAwesome.Xrm.Customisation
 		{
 		}
 		
+		[System.Diagnostics.DebuggerNonUserCode()]
+		public Publisher(System.Guid id) : 
+				base(EntityLogicalName, id)
+		{
+		}
+		
+		[System.Diagnostics.DebuggerNonUserCode()]
+		public Publisher(string keyName, object keyValue) : 
+				base(EntityLogicalName, keyName, keyValue)
+		{
+		}
+		
+		[System.Diagnostics.DebuggerNonUserCode()]
+		public Publisher(Microsoft.Xrm.Sdk.KeyAttributeCollection keyAttributes) : 
+				base(EntityLogicalName, keyAttributes)
+		{
+		}
+		
 		public const string EntityLogicalName = "publisher";
 		
 		public const string EntitySchemaName = "Publisher";
@@ -109,6 +127,8 @@ namespace CloudAwesome.Xrm.Customisation
 		public const string EntityLogicalCollectionName = "publishers";
 		
 		public const string EntitySetName = "publishers";
+		
+		public const int EntityTypeCode = 7101;
 		
 		public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
 		
@@ -1375,18 +1395,18 @@ namespace CloudAwesome.Xrm.Customisation
 		/// 1:N publisher_appmodule
 		/// </summary>
 		[Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute("publisher_appmodule")]
-		public System.Collections.Generic.IEnumerable<CloudAwesome.Xrm.Customisation.AppModule> publisher_appmodule
+		public System.Collections.Generic.IEnumerable<CloudAwesome.Xrm.Customisation.EarlyBoundModels.AppModule> publisher_appmodule
 		{
 			[System.Diagnostics.DebuggerNonUserCode()]
 			get
 			{
-				return this.GetRelatedEntities<CloudAwesome.Xrm.Customisation.AppModule>("publisher_appmodule", null);
+				return this.GetRelatedEntities<CloudAwesome.Xrm.Customisation.EarlyBoundModels.AppModule>("publisher_appmodule", null);
 			}
 			[System.Diagnostics.DebuggerNonUserCode()]
 			set
 			{
 				this.OnPropertyChanging("publisher_appmodule");
-				this.SetRelatedEntities<CloudAwesome.Xrm.Customisation.AppModule>("publisher_appmodule", null, value);
+				this.SetRelatedEntities<CloudAwesome.Xrm.Customisation.EarlyBoundModels.AppModule>("publisher_appmodule", null, value);
 				this.OnPropertyChanged("publisher_appmodule");
 			}
 		}

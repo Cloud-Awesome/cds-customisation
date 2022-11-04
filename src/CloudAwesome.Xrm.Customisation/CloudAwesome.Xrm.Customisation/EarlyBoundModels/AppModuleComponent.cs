@@ -8,7 +8,7 @@
 //------------------------------------------------------------------------------
 
 
-namespace CloudAwesome.Xrm.Customisation
+namespace CloudAwesome.Xrm.Customisation.EarlyBoundModels
 {
 	
 	/// <summary>
@@ -55,6 +55,24 @@ namespace CloudAwesome.Xrm.Customisation
 		{
 		}
 		
+		[System.Diagnostics.DebuggerNonUserCode()]
+		public AppModuleComponent(System.Guid id) : 
+				base(EntityLogicalName, id)
+		{
+		}
+		
+		[System.Diagnostics.DebuggerNonUserCode()]
+		public AppModuleComponent(string keyName, object keyValue) : 
+				base(EntityLogicalName, keyName, keyValue)
+		{
+		}
+		
+		[System.Diagnostics.DebuggerNonUserCode()]
+		public AppModuleComponent(Microsoft.Xrm.Sdk.KeyAttributeCollection keyAttributes) : 
+				base(EntityLogicalName, keyAttributes)
+		{
+		}
+		
 		public const string EntityLogicalName = "appmodulecomponent";
 		
 		public const string EntitySchemaName = "AppModuleComponent";
@@ -64,6 +82,8 @@ namespace CloudAwesome.Xrm.Customisation
 		public const string EntityLogicalCollectionName = "appmodulecomponents";
 		
 		public const string EntitySetName = "appmodulecomponents";
+		
+		public const int EntityTypeCode = 9007;
 		
 		public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
 		
@@ -486,18 +506,18 @@ namespace CloudAwesome.Xrm.Customisation
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("appmoduleidunique")]
 		[Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute("appmodule_appmodulecomponent")]
-		public CloudAwesome.Xrm.Customisation.AppModule appmodule_appmodulecomponent
+		public CloudAwesome.Xrm.Customisation.EarlyBoundModels.AppModule appmodule_appmodulecomponent
 		{
 			[System.Diagnostics.DebuggerNonUserCode()]
 			get
 			{
-				return this.GetRelatedEntity<CloudAwesome.Xrm.Customisation.AppModule>("appmodule_appmodulecomponent", null);
+				return this.GetRelatedEntity<CloudAwesome.Xrm.Customisation.EarlyBoundModels.AppModule>("appmodule_appmodulecomponent", null);
 			}
 			[System.Diagnostics.DebuggerNonUserCode()]
 			set
 			{
 				this.OnPropertyChanging("appmodule_appmodulecomponent");
-				this.SetRelatedEntity<CloudAwesome.Xrm.Customisation.AppModule>("appmodule_appmodulecomponent", null, value);
+				this.SetRelatedEntity<CloudAwesome.Xrm.Customisation.EarlyBoundModels.AppModule>("appmodule_appmodulecomponent", null, value);
 				this.OnPropertyChanged("appmodule_appmodulecomponent");
 			}
 		}

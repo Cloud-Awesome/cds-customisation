@@ -8,7 +8,7 @@
 //------------------------------------------------------------------------------
 
 
-namespace CloudAwesome.Xrm.Customisation
+namespace CloudAwesome.Xrm.Customisation.EarlyBoundModels
 {
 	
 	/// <summary>
@@ -63,6 +63,24 @@ namespace CloudAwesome.Xrm.Customisation
 		{
 		}
 		
+		[System.Diagnostics.DebuggerNonUserCode()]
+		public PluginType(System.Guid id) : 
+				base(EntityLogicalName, id)
+		{
+		}
+		
+		[System.Diagnostics.DebuggerNonUserCode()]
+		public PluginType(string keyName, object keyValue) : 
+				base(EntityLogicalName, keyName, keyValue)
+		{
+		}
+		
+		[System.Diagnostics.DebuggerNonUserCode()]
+		public PluginType(Microsoft.Xrm.Sdk.KeyAttributeCollection keyAttributes) : 
+				base(EntityLogicalName, keyAttributes)
+		{
+		}
+		
 		public const string EntityLogicalName = "plugintype";
 		
 		public const string EntitySchemaName = "PluginType";
@@ -74,6 +92,8 @@ namespace CloudAwesome.Xrm.Customisation
 		public const string EntityLogicalCollectionName = "plugintypes";
 		
 		public const string EntitySetName = "plugintypes";
+		
+		public const int EntityTypeCode = 4602;
 		
 		public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
 		
@@ -564,18 +584,18 @@ namespace CloudAwesome.Xrm.Customisation
 		/// 1:N plugintype_customapi
 		/// </summary>
 		[Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute("plugintype_customapi")]
-		public System.Collections.Generic.IEnumerable<CloudAwesome.Xrm.Customisation.CustomAPI> plugintype_customapi
+		public System.Collections.Generic.IEnumerable<CloudAwesome.Xrm.Customisation.EarlyBoundModels.CustomAPI> plugintype_customapi
 		{
 			[System.Diagnostics.DebuggerNonUserCode()]
 			get
 			{
-				return this.GetRelatedEntities<CloudAwesome.Xrm.Customisation.CustomAPI>("plugintype_customapi", null);
+				return this.GetRelatedEntities<CloudAwesome.Xrm.Customisation.EarlyBoundModels.CustomAPI>("plugintype_customapi", null);
 			}
 			[System.Diagnostics.DebuggerNonUserCode()]
 			set
 			{
 				this.OnPropertyChanging("plugintype_customapi");
-				this.SetRelatedEntities<CloudAwesome.Xrm.Customisation.CustomAPI>("plugintype_customapi", null, value);
+				this.SetRelatedEntities<CloudAwesome.Xrm.Customisation.EarlyBoundModels.CustomAPI>("plugintype_customapi", null, value);
 				this.OnPropertyChanged("plugintype_customapi");
 			}
 		}
@@ -584,18 +604,18 @@ namespace CloudAwesome.Xrm.Customisation
 		/// 1:N plugintype_sdkmessageprocessingstep
 		/// </summary>
 		[Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute("plugintype_sdkmessageprocessingstep")]
-		public System.Collections.Generic.IEnumerable<CloudAwesome.Xrm.Customisation.SdkMessageProcessingStep> plugintype_sdkmessageprocessingstep
+		public System.Collections.Generic.IEnumerable<CloudAwesome.Xrm.Customisation.EarlyBoundModels.SdkMessageProcessingStep> plugintype_sdkmessageprocessingstep
 		{
 			[System.Diagnostics.DebuggerNonUserCode()]
 			get
 			{
-				return this.GetRelatedEntities<CloudAwesome.Xrm.Customisation.SdkMessageProcessingStep>("plugintype_sdkmessageprocessingstep", null);
+				return this.GetRelatedEntities<CloudAwesome.Xrm.Customisation.EarlyBoundModels.SdkMessageProcessingStep>("plugintype_sdkmessageprocessingstep", null);
 			}
 			[System.Diagnostics.DebuggerNonUserCode()]
 			set
 			{
 				this.OnPropertyChanging("plugintype_sdkmessageprocessingstep");
-				this.SetRelatedEntities<CloudAwesome.Xrm.Customisation.SdkMessageProcessingStep>("plugintype_sdkmessageprocessingstep", null, value);
+				this.SetRelatedEntities<CloudAwesome.Xrm.Customisation.EarlyBoundModels.SdkMessageProcessingStep>("plugintype_sdkmessageprocessingstep", null, value);
 				this.OnPropertyChanged("plugintype_sdkmessageprocessingstep");
 			}
 		}
@@ -604,18 +624,18 @@ namespace CloudAwesome.Xrm.Customisation
 		/// 1:N plugintypeid_sdkmessageprocessingstep
 		/// </summary>
 		[Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute("plugintypeid_sdkmessageprocessingstep")]
-		public System.Collections.Generic.IEnumerable<CloudAwesome.Xrm.Customisation.SdkMessageProcessingStep> plugintypeid_sdkmessageprocessingstep
+		public System.Collections.Generic.IEnumerable<CloudAwesome.Xrm.Customisation.EarlyBoundModels.SdkMessageProcessingStep> plugintypeid_sdkmessageprocessingstep
 		{
 			[System.Diagnostics.DebuggerNonUserCode()]
 			get
 			{
-				return this.GetRelatedEntities<CloudAwesome.Xrm.Customisation.SdkMessageProcessingStep>("plugintypeid_sdkmessageprocessingstep", null);
+				return this.GetRelatedEntities<CloudAwesome.Xrm.Customisation.EarlyBoundModels.SdkMessageProcessingStep>("plugintypeid_sdkmessageprocessingstep", null);
 			}
 			[System.Diagnostics.DebuggerNonUserCode()]
 			set
 			{
 				this.OnPropertyChanging("plugintypeid_sdkmessageprocessingstep");
-				this.SetRelatedEntities<CloudAwesome.Xrm.Customisation.SdkMessageProcessingStep>("plugintypeid_sdkmessageprocessingstep", null, value);
+				this.SetRelatedEntities<CloudAwesome.Xrm.Customisation.EarlyBoundModels.SdkMessageProcessingStep>("plugintypeid_sdkmessageprocessingstep", null, value);
 				this.OnPropertyChanged("plugintypeid_sdkmessageprocessingstep");
 			}
 		}
@@ -625,18 +645,18 @@ namespace CloudAwesome.Xrm.Customisation
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("pluginassemblyid")]
 		[Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute("pluginassembly_plugintype")]
-		public CloudAwesome.Xrm.Customisation.PluginAssembly pluginassembly_plugintype
+		public CloudAwesome.Xrm.Customisation.EarlyBoundModels.PluginAssembly pluginassembly_plugintype
 		{
 			[System.Diagnostics.DebuggerNonUserCode()]
 			get
 			{
-				return this.GetRelatedEntity<CloudAwesome.Xrm.Customisation.PluginAssembly>("pluginassembly_plugintype", null);
+				return this.GetRelatedEntity<CloudAwesome.Xrm.Customisation.EarlyBoundModels.PluginAssembly>("pluginassembly_plugintype", null);
 			}
 			[System.Diagnostics.DebuggerNonUserCode()]
 			set
 			{
 				this.OnPropertyChanging("pluginassembly_plugintype");
-				this.SetRelatedEntity<CloudAwesome.Xrm.Customisation.PluginAssembly>("pluginassembly_plugintype", null, value);
+				this.SetRelatedEntity<CloudAwesome.Xrm.Customisation.EarlyBoundModels.PluginAssembly>("pluginassembly_plugintype", null, value);
 				this.OnPropertyChanged("pluginassembly_plugintype");
 			}
 		}

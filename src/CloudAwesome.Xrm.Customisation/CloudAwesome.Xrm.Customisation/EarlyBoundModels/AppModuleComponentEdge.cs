@@ -8,7 +8,7 @@
 //------------------------------------------------------------------------------
 
 
-namespace CloudAwesome.Xrm.Customisation
+namespace CloudAwesome.Xrm.Customisation.EarlyBoundModels
 {
 	
 	[System.Runtime.Serialization.DataContractAttribute()]
@@ -64,6 +64,24 @@ namespace CloudAwesome.Xrm.Customisation
 		{
 		}
 		
+		[System.Diagnostics.DebuggerNonUserCode()]
+		public AppModuleComponentEdge(System.Guid id) : 
+				base(EntityLogicalName, id)
+		{
+		}
+		
+		[System.Diagnostics.DebuggerNonUserCode()]
+		public AppModuleComponentEdge(string keyName, object keyValue) : 
+				base(EntityLogicalName, keyName, keyValue)
+		{
+		}
+		
+		[System.Diagnostics.DebuggerNonUserCode()]
+		public AppModuleComponentEdge(Microsoft.Xrm.Sdk.KeyAttributeCollection keyAttributes) : 
+				base(EntityLogicalName, keyAttributes)
+		{
+		}
+		
 		public const string EntityLogicalName = "appmodulecomponentedge";
 		
 		public const string EntitySchemaName = "AppModuleComponentEdge";
@@ -75,6 +93,8 @@ namespace CloudAwesome.Xrm.Customisation
 		public const string EntityLogicalCollectionName = "appmodulecomponentedges";
 		
 		public const string EntitySetName = "appmodulecomponentedges";
+		
+		public const int EntityTypeCode = 10035;
 		
 		public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
 		
@@ -350,7 +370,7 @@ namespace CloudAwesome.Xrm.Customisation
 		/// Status of the Model-Driven App Component Nodes Edge
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("statecode")]
-		public System.Nullable<CloudAwesome.Xrm.Customisation.AppModuleComponentEdgeState> StateCode
+		public System.Nullable<CloudAwesome.Xrm.Customisation.EarlyBoundModels.AppModuleComponentEdgeState> StateCode
 		{
 			[System.Diagnostics.DebuggerNonUserCode()]
 			get
@@ -358,7 +378,7 @@ namespace CloudAwesome.Xrm.Customisation
 				Microsoft.Xrm.Sdk.OptionSetValue optionSet = this.GetAttributeValue<Microsoft.Xrm.Sdk.OptionSetValue>("statecode");
 				if ((optionSet != null))
 				{
-					return ((CloudAwesome.Xrm.Customisation.AppModuleComponentEdgeState)(System.Enum.ToObject(typeof(CloudAwesome.Xrm.Customisation.AppModuleComponentEdgeState), optionSet.Value)));
+					return ((CloudAwesome.Xrm.Customisation.EarlyBoundModels.AppModuleComponentEdgeState)(System.Enum.ToObject(typeof(CloudAwesome.Xrm.Customisation.EarlyBoundModels.AppModuleComponentEdgeState), optionSet.Value)));
 				}
 				else
 				{
@@ -459,18 +479,18 @@ namespace CloudAwesome.Xrm.Customisation
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("componentnodefrom")]
 		[Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute("appmodulecomponentnode_appmodulecomponentedge_ComponentNodeFrom")]
-		public CloudAwesome.Xrm.Customisation.AppModuleComponentNode appmodulecomponentnode_appmodulecomponentedge_ComponentNodeFrom
+		public CloudAwesome.Xrm.Customisation.EarlyBoundModels.AppModuleComponentNode appmodulecomponentnode_appmodulecomponentedge_ComponentNodeFrom
 		{
 			[System.Diagnostics.DebuggerNonUserCode()]
 			get
 			{
-				return this.GetRelatedEntity<CloudAwesome.Xrm.Customisation.AppModuleComponentNode>("appmodulecomponentnode_appmodulecomponentedge_ComponentNodeFrom", null);
+				return this.GetRelatedEntity<CloudAwesome.Xrm.Customisation.EarlyBoundModels.AppModuleComponentNode>("appmodulecomponentnode_appmodulecomponentedge_ComponentNodeFrom", null);
 			}
 			[System.Diagnostics.DebuggerNonUserCode()]
 			set
 			{
 				this.OnPropertyChanging("appmodulecomponentnode_appmodulecomponentedge_ComponentNodeFrom");
-				this.SetRelatedEntity<CloudAwesome.Xrm.Customisation.AppModuleComponentNode>("appmodulecomponentnode_appmodulecomponentedge_ComponentNodeFrom", null, value);
+				this.SetRelatedEntity<CloudAwesome.Xrm.Customisation.EarlyBoundModels.AppModuleComponentNode>("appmodulecomponentnode_appmodulecomponentedge_ComponentNodeFrom", null, value);
 				this.OnPropertyChanged("appmodulecomponentnode_appmodulecomponentedge_ComponentNodeFrom");
 			}
 		}
@@ -480,18 +500,18 @@ namespace CloudAwesome.Xrm.Customisation
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("componentnodeto")]
 		[Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute("appmodulecomponentnode_appmodulecomponentedge_ComponentNodeTo")]
-		public CloudAwesome.Xrm.Customisation.AppModuleComponentNode appmodulecomponentnode_appmodulecomponentedge_ComponentNodeTo
+		public CloudAwesome.Xrm.Customisation.EarlyBoundModels.AppModuleComponentNode appmodulecomponentnode_appmodulecomponentedge_ComponentNodeTo
 		{
 			[System.Diagnostics.DebuggerNonUserCode()]
 			get
 			{
-				return this.GetRelatedEntity<CloudAwesome.Xrm.Customisation.AppModuleComponentNode>("appmodulecomponentnode_appmodulecomponentedge_ComponentNodeTo", null);
+				return this.GetRelatedEntity<CloudAwesome.Xrm.Customisation.EarlyBoundModels.AppModuleComponentNode>("appmodulecomponentnode_appmodulecomponentedge_ComponentNodeTo", null);
 			}
 			[System.Diagnostics.DebuggerNonUserCode()]
 			set
 			{
 				this.OnPropertyChanging("appmodulecomponentnode_appmodulecomponentedge_ComponentNodeTo");
-				this.SetRelatedEntity<CloudAwesome.Xrm.Customisation.AppModuleComponentNode>("appmodulecomponentnode_appmodulecomponentedge_ComponentNodeTo", null, value);
+				this.SetRelatedEntity<CloudAwesome.Xrm.Customisation.EarlyBoundModels.AppModuleComponentNode>("appmodulecomponentnode_appmodulecomponentedge_ComponentNodeTo", null, value);
 				this.OnPropertyChanged("appmodulecomponentnode_appmodulecomponentedge_ComponentNodeTo");
 			}
 		}

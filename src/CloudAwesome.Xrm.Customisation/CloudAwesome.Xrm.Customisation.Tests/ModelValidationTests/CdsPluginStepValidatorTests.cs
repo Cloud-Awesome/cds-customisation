@@ -1,4 +1,5 @@
-﻿using CloudAwesome.Xrm.Customisation.Models;
+﻿using CloudAwesome.Xrm.Customisation.EarlyBoundModels;
+using CloudAwesome.Xrm.Customisation.Models;
 using CloudAwesome.Xrm.Customisation.ModelValidators;
 using FluentAssertions;
 using NUnit.Framework;

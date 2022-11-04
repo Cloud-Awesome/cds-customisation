@@ -1,5 +1,4 @@
-﻿using System.IO;
-using System.Linq;
+﻿using System.Linq;
 using CloudAwesome.Xrm.Core;
 using CloudAwesome.Xrm.Core.Loggers;
 using CloudAwesome.Xrm.Customisation.Exceptions;
@@ -85,8 +84,8 @@ namespace CloudAwesome.Xrm.Customisation.PluginRegistration
             if (manifest.Clobber)
             {
                 t.Warning($"Manifest has 'Clobber' set to true. Deleting referenced Plugins before re-registering");
-                this.UnregisterServiceEndPoints(manifest, client, t);
-                this.UnregisterPlugins(manifest, client, t);
+                //this.UnregisterServiceEndPoints(manifest, client, t);
+                UnregisterPlugins.Run(manifest, client, t);
             }
             
             foreach (var pluginAssembly in manifest.PluginAssemblies)
@@ -142,72 +141,6 @@ namespace CloudAwesome.Xrm.Customisation.PluginRegistration
             t.Debug($"Exiting PluginWrapper.RegisterPlugins");
         }
 
-        public void UnregisterPlugins(PluginManifest manifest, IOrganizationService client)
-        {
-            if (manifest.LoggingConfiguration != null)
-            {
-                var t = new TracingHelper(manifest.LoggingConfiguration);
-                UnregisterPlugins(manifest, client, t);
-            }
-            else
-            {
-                UnregisterPlugins(manifest, client, t: null);
-            }
-        }
-
-        public void UnregisterPlugins(PluginManifest manifest, IOrganizationService client, ILogger logger)
-        {
-            var t = new TracingHelper(logger);
-            UnregisterPlugins(manifest, client, t);
-        }
-
-        public void UnregisterPlugins(PluginManifest manifest, IOrganizationService client, TracingHelper t)
-        {
-            t.Debug($"Entering PluginWrapper.UnregisterPlugins");
-
-            // TODO - need to clobber Custom APIs and child parameters/properties too!!
-
-            foreach (var pluginAssembly in manifest.PluginAssemblies)
-            {
-                t.Debug($"Getting PluginAssemblyInfo from file {pluginAssembly.Assembly}");
-                if (!File.Exists(pluginAssembly.Assembly))
-                {
-                    t.Critical($"Assembly {pluginAssembly.Assembly} cannot be found!");
-                    continue;
-                }
-
-                var pluginAssemblyInfo = new PluginAssemblyInfo(pluginAssembly.Assembly);
-                var existingAssembly = 
-                    pluginAssembly.GetExistingQuery(pluginAssemblyInfo.Version)
-                        .RetrieveSingleRecord(client);
-
-                if (existingAssembly == null) return;
-
-                var childPluginTypesResults = PluginQueries.GetChildPluginTypesQuery(existingAssembly.ToEntityReference()).RetrieveMultiple(client);
-                var pluginsList = childPluginTypesResults.Entities.Select(e => e.Id).ToList();
-
-                PluginQueries.GetChildCustomApisQuery(pluginsList).DeleteAllResults(client);
-
-                var childStepsResults = PluginQueries.GetChildPluginStepsQuery(pluginsList).RetrieveMultiple(client);
-                var pluginStepsList = childStepsResults.Entities.Select(e => e.Id).ToList();
-
-                if (pluginStepsList.Count > 0)
-                {
-                    PluginQueries.GetChildEntityImagesQuery(pluginStepsList).DeleteAllResults(client);
-                }
-
-                if (pluginsList.Count > 0)
-                {
-                    PluginQueries.GetChildPluginStepsQuery(pluginsList).DeleteAllResults(client);
-                }
-
-                PluginQueries.GetChildPluginTypesQuery(existingAssembly.ToEntityReference()).DeleteAllResults(client);
-                pluginAssembly.GetExistingQuery(pluginAssemblyInfo.Version).DeleteSingleRecord(client);
-
-            }
-
-            t.Debug($"Exiting PluginWrapper.UnregisterPlugins");
-        }
         
         public void RegisterServiceEndpoints(PluginManifest manifest, IOrganizationService client)
         {

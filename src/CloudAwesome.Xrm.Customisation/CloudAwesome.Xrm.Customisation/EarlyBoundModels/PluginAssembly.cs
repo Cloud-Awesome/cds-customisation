@@ -8,7 +8,7 @@
 //------------------------------------------------------------------------------
 
 
-namespace CloudAwesome.Xrm.Customisation
+namespace CloudAwesome.Xrm.Customisation.EarlyBoundModels
 {
 	
 	/// <summary>
@@ -37,6 +37,7 @@ namespace CloudAwesome.Xrm.Customisation
 			public const string IsolationMode = "isolationmode";
 			public const string IsPasswordSet = "ispasswordset";
 			public const string Major = "major";
+			public const string ManagedIdentityId = "managedidentityid";
 			public const string Minor = "minor";
 			public const string ModifiedBy = "modifiedby";
 			public const string ModifiedOn = "modifiedon";
@@ -44,6 +45,7 @@ namespace CloudAwesome.Xrm.Customisation
 			public const string Name = "name";
 			public const string OrganizationId = "organizationid";
 			public const string OverwriteTime = "overwritetime";
+			public const string PackageId = "packageid";
 			public const string Password = "password";
 			public const string Path = "path";
 			public const string PluginAssemblyId = "pluginassemblyid";
@@ -68,6 +70,24 @@ namespace CloudAwesome.Xrm.Customisation
 		{
 		}
 		
+		[System.Diagnostics.DebuggerNonUserCode()]
+		public PluginAssembly(System.Guid id) : 
+				base(EntityLogicalName, id)
+		{
+		}
+		
+		[System.Diagnostics.DebuggerNonUserCode()]
+		public PluginAssembly(string keyName, object keyValue) : 
+				base(EntityLogicalName, keyName, keyValue)
+		{
+		}
+		
+		[System.Diagnostics.DebuggerNonUserCode()]
+		public PluginAssembly(Microsoft.Xrm.Sdk.KeyAttributeCollection keyAttributes) : 
+				base(EntityLogicalName, keyAttributes)
+		{
+		}
+		
 		public const string EntityLogicalName = "pluginassembly";
 		
 		public const string EntitySchemaName = "PluginAssembly";
@@ -79,6 +99,8 @@ namespace CloudAwesome.Xrm.Customisation
 		public const string EntityLogicalCollectionName = "pluginassemblies";
 		
 		public const string EntitySetName = "pluginassemblies";
+		
+		public const int EntityTypeCode = 4605;
 		
 		public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
 		
@@ -374,6 +396,26 @@ namespace CloudAwesome.Xrm.Customisation
 		}
 		
 		/// <summary>
+		/// Unique identifier for managedidentity associated with pluginassembly.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("managedidentityid")]
+		public Microsoft.Xrm.Sdk.EntityReference ManagedIdentityId
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<Microsoft.Xrm.Sdk.EntityReference>("managedidentityid");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.OnPropertyChanging("ManagedIdentityId");
+				this.SetAttributeValue("managedidentityid", value);
+				this.OnPropertyChanged("ManagedIdentityId");
+			}
+		}
+		
+		/// <summary>
 		/// Minor of the assembly version.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("minor")]
@@ -475,6 +517,26 @@ namespace CloudAwesome.Xrm.Customisation
 			get
 			{
 				return this.GetAttributeValue<System.Nullable<System.DateTime>>("overwritetime");
+			}
+		}
+		
+		/// <summary>
+		/// Unique identifier for Plugin Package associated with Plug-in Assembly.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("packageid")]
+		public Microsoft.Xrm.Sdk.EntityReference PackageId
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<Microsoft.Xrm.Sdk.EntityReference>("packageid");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.OnPropertyChanging("PackageId");
+				this.SetAttributeValue("packageid", value);
+				this.OnPropertyChanged("PackageId");
 			}
 		}
 		
@@ -724,18 +786,18 @@ namespace CloudAwesome.Xrm.Customisation
 		/// 1:N pluginassembly_plugintype
 		/// </summary>
 		[Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute("pluginassembly_plugintype")]
-		public System.Collections.Generic.IEnumerable<CloudAwesome.Xrm.Customisation.PluginType> pluginassembly_plugintype
+		public System.Collections.Generic.IEnumerable<CloudAwesome.Xrm.Customisation.EarlyBoundModels.PluginType> pluginassembly_plugintype
 		{
 			[System.Diagnostics.DebuggerNonUserCode()]
 			get
 			{
-				return this.GetRelatedEntities<CloudAwesome.Xrm.Customisation.PluginType>("pluginassembly_plugintype", null);
+				return this.GetRelatedEntities<CloudAwesome.Xrm.Customisation.EarlyBoundModels.PluginType>("pluginassembly_plugintype", null);
 			}
 			[System.Diagnostics.DebuggerNonUserCode()]
 			set
 			{
 				this.OnPropertyChanging("pluginassembly_plugintype");
-				this.SetRelatedEntities<CloudAwesome.Xrm.Customisation.PluginType>("pluginassembly_plugintype", null, value);
+				this.SetRelatedEntities<CloudAwesome.Xrm.Customisation.EarlyBoundModels.PluginType>("pluginassembly_plugintype", null, value);
 				this.OnPropertyChanged("pluginassembly_plugintype");
 			}
 		}

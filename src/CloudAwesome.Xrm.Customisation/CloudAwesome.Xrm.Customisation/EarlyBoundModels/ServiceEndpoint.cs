@@ -8,7 +8,7 @@
 //------------------------------------------------------------------------------
 
 
-namespace CloudAwesome.Xrm.Customisation
+namespace CloudAwesome.Xrm.Customisation.EarlyBoundModels
 {
 	
 	/// <summary>
@@ -36,6 +36,8 @@ namespace CloudAwesome.Xrm.Customisation
 			public const string IsManaged = "ismanaged";
 			public const string IsSASKeySet = "issaskeyset";
 			public const string IsSASTokenSet = "issastokenset";
+			public const string KeyVaultReferenceId = "keyvaultreferenceid";
+			public const string MessageCharset = "messagecharset";
 			public const string MessageFormat = "messageformat";
 			public const string ModifiedBy = "modifiedby";
 			public const string ModifiedOn = "modifiedon";
@@ -46,15 +48,18 @@ namespace CloudAwesome.Xrm.Customisation
 			public const string OrganizationId = "organizationid";
 			public const string OverwriteTime = "overwritetime";
 			public const string Path = "path";
+			public const string RuntimeIntegrationProperties = "runtimeintegrationproperties";
 			public const string SASKey = "saskey";
 			public const string SASKeyName = "saskeyname";
 			public const string SASToken = "sastoken";
+			public const string SchemaType = "schematype";
 			public const string ServiceEndpointId = "serviceendpointid";
 			public const string Id = "serviceendpointid";
 			public const string ServiceEndpointIdUnique = "serviceendpointidunique";
 			public const string SolutionId = "solutionid";
 			public const string SolutionNamespace = "solutionnamespace";
 			public const string Url = "url";
+			public const string UseKeyVaultConfiguration = "usekeyvaultconfiguration";
 			public const string UserClaim = "userclaim";
 		}
 		
@@ -64,6 +69,24 @@ namespace CloudAwesome.Xrm.Customisation
 		[System.Diagnostics.DebuggerNonUserCode()]
 		public ServiceEndpoint() : 
 				base(EntityLogicalName)
+		{
+		}
+		
+		[System.Diagnostics.DebuggerNonUserCode()]
+		public ServiceEndpoint(System.Guid id) : 
+				base(EntityLogicalName, id)
+		{
+		}
+		
+		[System.Diagnostics.DebuggerNonUserCode()]
+		public ServiceEndpoint(string keyName, object keyValue) : 
+				base(EntityLogicalName, keyName, keyValue)
+		{
+		}
+		
+		[System.Diagnostics.DebuggerNonUserCode()]
+		public ServiceEndpoint(Microsoft.Xrm.Sdk.KeyAttributeCollection keyAttributes) : 
+				base(EntityLogicalName, keyAttributes)
 		{
 		}
 		
@@ -78,6 +101,8 @@ namespace CloudAwesome.Xrm.Customisation
 		public const string EntityLogicalCollectionName = "serviceendpoints";
 		
 		public const string EntitySetName = "serviceendpoints";
+		
+		public const int EntityTypeCode = 4618;
 		
 		public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
 		
@@ -353,6 +378,46 @@ namespace CloudAwesome.Xrm.Customisation
 		}
 		
 		/// <summary>
+		/// Unique identifier for keyvaultreference associated with serviceendpoint.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("keyvaultreferenceid")]
+		public Microsoft.Xrm.Sdk.EntityReference KeyVaultReferenceId
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<Microsoft.Xrm.Sdk.EntityReference>("keyvaultreferenceid");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.OnPropertyChanging("KeyVaultReferenceId");
+				this.SetAttributeValue("keyvaultreferenceid", value);
+				this.OnPropertyChanged("KeyVaultReferenceId");
+			}
+		}
+		
+		/// <summary>
+		/// Specifies the character encoding for message content
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("messagecharset")]
+		public virtual ServiceEndpoint_MessageCharset? MessageCharset
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return ((ServiceEndpoint_MessageCharset?)(EntityOptionSetEnum.GetEnum(this, "messagecharset")));
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.OnPropertyChanging("MessageCharset");
+				this.SetAttributeValue("messagecharset", value.HasValue ? new Microsoft.Xrm.Sdk.OptionSetValue((int)value) : null);
+				this.OnPropertyChanged("MessageCharset");
+			}
+		}
+		
+		/// <summary>
 		/// Content type of the message
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("messageformat")]
@@ -525,6 +590,26 @@ namespace CloudAwesome.Xrm.Customisation
 		}
 		
 		/// <summary>
+		/// For internal use only. Holds miscellaneous properties related to runtime integration.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("runtimeintegrationproperties")]
+		public string RuntimeIntegrationProperties
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<string>("runtimeintegrationproperties");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.OnPropertyChanging("RuntimeIntegrationProperties");
+				this.SetAttributeValue("runtimeintegrationproperties", value);
+				this.OnPropertyChanged("RuntimeIntegrationProperties");
+			}
+		}
+		
+		/// <summary>
 		/// Shared Access Key
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("saskey")]
@@ -581,6 +666,26 @@ namespace CloudAwesome.Xrm.Customisation
 				this.OnPropertyChanging("SASToken");
 				this.SetAttributeValue("sastoken", value);
 				this.OnPropertyChanged("SASToken");
+			}
+		}
+		
+		/// <summary>
+		/// Specifies schema type for event grid events
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("schematype")]
+		public virtual ServiceEndpoint_SchemaType? SchemaType
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return ((ServiceEndpoint_SchemaType?)(EntityOptionSetEnum.GetEnum(this, "schematype")));
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.OnPropertyChanging("SchemaType");
+				this.SetAttributeValue("schematype", value.HasValue ? new Microsoft.Xrm.Sdk.OptionSetValue((int)value) : null);
+				this.OnPropertyChanged("SchemaType");
 			}
 		}
 		
@@ -694,6 +799,26 @@ namespace CloudAwesome.Xrm.Customisation
 		}
 		
 		/// <summary>
+		/// Use Auth Information in KeyVault
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("usekeyvaultconfiguration")]
+		public System.Nullable<bool> UseKeyVaultConfiguration
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<System.Nullable<bool>>("usekeyvaultconfiguration");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.OnPropertyChanging("UseKeyVaultConfiguration");
+				this.SetAttributeValue("usekeyvaultconfiguration", value);
+				this.OnPropertyChanged("UseKeyVaultConfiguration");
+			}
+		}
+		
+		/// <summary>
 		/// Additional user claim value type.
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("userclaim")]
@@ -717,18 +842,18 @@ namespace CloudAwesome.Xrm.Customisation
 		/// 1:N serviceendpoint_sdkmessageprocessingstep
 		/// </summary>
 		[Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute("serviceendpoint_sdkmessageprocessingstep")]
-		public System.Collections.Generic.IEnumerable<CloudAwesome.Xrm.Customisation.SdkMessageProcessingStep> serviceendpoint_sdkmessageprocessingstep
+		public System.Collections.Generic.IEnumerable<CloudAwesome.Xrm.Customisation.EarlyBoundModels.SdkMessageProcessingStep> serviceendpoint_sdkmessageprocessingstep
 		{
 			[System.Diagnostics.DebuggerNonUserCode()]
 			get
 			{
-				return this.GetRelatedEntities<CloudAwesome.Xrm.Customisation.SdkMessageProcessingStep>("serviceendpoint_sdkmessageprocessingstep", null);
+				return this.GetRelatedEntities<CloudAwesome.Xrm.Customisation.EarlyBoundModels.SdkMessageProcessingStep>("serviceendpoint_sdkmessageprocessingstep", null);
 			}
 			[System.Diagnostics.DebuggerNonUserCode()]
 			set
 			{
 				this.OnPropertyChanging("serviceendpoint_sdkmessageprocessingstep");
-				this.SetRelatedEntities<CloudAwesome.Xrm.Customisation.SdkMessageProcessingStep>("serviceendpoint_sdkmessageprocessingstep", null, value);
+				this.SetRelatedEntities<CloudAwesome.Xrm.Customisation.EarlyBoundModels.SdkMessageProcessingStep>("serviceendpoint_sdkmessageprocessingstep", null, value);
 				this.OnPropertyChanged("serviceendpoint_sdkmessageprocessingstep");
 			}
 		}

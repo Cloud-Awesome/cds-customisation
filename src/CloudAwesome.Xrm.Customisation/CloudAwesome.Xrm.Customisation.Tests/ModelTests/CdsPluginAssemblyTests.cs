@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO.Abstractions.TestingHelpers;
 using System.Linq;
+using CloudAwesome.Xrm.Customisation.EarlyBoundModels;
 using CloudAwesome.Xrm.Customisation.Models;
 using FakeXrmEasy;
 using FluentAssertions;

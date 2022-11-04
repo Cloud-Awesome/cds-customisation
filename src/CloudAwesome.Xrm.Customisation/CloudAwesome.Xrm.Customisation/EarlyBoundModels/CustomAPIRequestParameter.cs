@@ -8,7 +8,7 @@
 //------------------------------------------------------------------------------
 
 
-namespace CloudAwesome.Xrm.Customisation
+namespace CloudAwesome.Xrm.Customisation.EarlyBoundModels
 {
 	
 	[System.Runtime.Serialization.DataContractAttribute()]
@@ -77,6 +77,24 @@ namespace CloudAwesome.Xrm.Customisation
 		{
 		}
 		
+		[System.Diagnostics.DebuggerNonUserCode()]
+		public CustomAPIRequestParameter(System.Guid id) : 
+				base(EntityLogicalName, id)
+		{
+		}
+		
+		[System.Diagnostics.DebuggerNonUserCode()]
+		public CustomAPIRequestParameter(string keyName, object keyValue) : 
+				base(EntityLogicalName, keyName, keyValue)
+		{
+		}
+		
+		[System.Diagnostics.DebuggerNonUserCode()]
+		public CustomAPIRequestParameter(Microsoft.Xrm.Sdk.KeyAttributeCollection keyAttributes) : 
+				base(EntityLogicalName, keyAttributes)
+		{
+		}
+		
 		public const string AlternateKeys = "componentstate,customapiid,overwritetime,uniquename";
 		
 		public const string EntityLogicalName = "customapirequestparameter";
@@ -90,6 +108,8 @@ namespace CloudAwesome.Xrm.Customisation
 		public const string EntityLogicalCollectionName = "customapirequestparameters";
 		
 		public const string EntitySetName = "customapirequestparameters";
+		
+		public const int EntityTypeCode = 10019;
 		
 		public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
 		
@@ -556,7 +576,7 @@ namespace CloudAwesome.Xrm.Customisation
 		/// Status of the Custom API Request Parameter
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("statecode")]
-		public System.Nullable<CloudAwesome.Xrm.Customisation.CustomAPIRequestParameterState> StateCode
+		public System.Nullable<CloudAwesome.Xrm.Customisation.EarlyBoundModels.CustomAPIRequestParameterState> StateCode
 		{
 			[System.Diagnostics.DebuggerNonUserCode()]
 			get
@@ -564,7 +584,7 @@ namespace CloudAwesome.Xrm.Customisation
 				Microsoft.Xrm.Sdk.OptionSetValue optionSet = this.GetAttributeValue<Microsoft.Xrm.Sdk.OptionSetValue>("statecode");
 				if ((optionSet != null))
 				{
-					return ((CloudAwesome.Xrm.Customisation.CustomAPIRequestParameterState)(System.Enum.ToObject(typeof(CloudAwesome.Xrm.Customisation.CustomAPIRequestParameterState), optionSet.Value)));
+					return ((CloudAwesome.Xrm.Customisation.EarlyBoundModels.CustomAPIRequestParameterState)(System.Enum.ToObject(typeof(CloudAwesome.Xrm.Customisation.EarlyBoundModels.CustomAPIRequestParameterState), optionSet.Value)));
 				}
 				else
 				{
@@ -705,18 +725,18 @@ namespace CloudAwesome.Xrm.Customisation
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("customapiid")]
 		[Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute("customapi_customapirequestparameter")]
-		public CloudAwesome.Xrm.Customisation.CustomAPI customapi_customapirequestparameter
+		public CloudAwesome.Xrm.Customisation.EarlyBoundModels.CustomAPI customapi_customapirequestparameter
 		{
 			[System.Diagnostics.DebuggerNonUserCode()]
 			get
 			{
-				return this.GetRelatedEntity<CloudAwesome.Xrm.Customisation.CustomAPI>("customapi_customapirequestparameter", null);
+				return this.GetRelatedEntity<CloudAwesome.Xrm.Customisation.EarlyBoundModels.CustomAPI>("customapi_customapirequestparameter", null);
 			}
 			[System.Diagnostics.DebuggerNonUserCode()]
 			set
 			{
 				this.OnPropertyChanging("customapi_customapirequestparameter");
-				this.SetRelatedEntity<CloudAwesome.Xrm.Customisation.CustomAPI>("customapi_customapirequestparameter", null, value);
+				this.SetRelatedEntity<CloudAwesome.Xrm.Customisation.EarlyBoundModels.CustomAPI>("customapi_customapirequestparameter", null, value);
 				this.OnPropertyChanged("customapi_customapirequestparameter");
 			}
 		}

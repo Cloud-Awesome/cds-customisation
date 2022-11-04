@@ -8,7 +8,7 @@
 //------------------------------------------------------------------------------
 
 
-namespace CloudAwesome.Xrm.Customisation
+namespace CloudAwesome.Xrm.Customisation.EarlyBoundModels
 {
 	
 	/// <summary>
@@ -25,6 +25,7 @@ namespace CloudAwesome.Xrm.Customisation
 			public const string CreatedBy = "createdby";
 			public const string CreatedOn = "createdon";
 			public const string CreatedOnBehalfBy = "createdonbehalfby";
+			public const string EnableCollapsibleGroups = "enablecollapsiblegroups";
 			public const string IsAppAware = "isappaware";
 			public const string IsManaged = "ismanaged";
 			public const string ModifiedBy = "modifiedby";
@@ -32,12 +33,16 @@ namespace CloudAwesome.Xrm.Customisation
 			public const string ModifiedOnBehalfBy = "modifiedonbehalfby";
 			public const string OrganizationId = "organizationid";
 			public const string OverwriteTime = "overwritetime";
+			public const string ShowHome = "showhome";
+			public const string ShowPinned = "showpinned";
+			public const string ShowRecents = "showrecents";
 			public const string SiteMapId = "sitemapid";
 			public const string Id = "sitemapid";
 			public const string SiteMapIdUnique = "sitemapidunique";
 			public const string SiteMapName = "sitemapname";
 			public const string SiteMapNameUnique = "sitemapnameunique";
 			public const string SiteMapXml = "sitemapxml";
+			public const string SiteMapXmlManaged = "sitemapxmlmanaged";
 			public const string SolutionId = "solutionid";
 			public const string VersionNumber = "versionnumber";
 		}
@@ -51,6 +56,24 @@ namespace CloudAwesome.Xrm.Customisation
 		{
 		}
 		
+		[System.Diagnostics.DebuggerNonUserCode()]
+		public SiteMap(System.Guid id) : 
+				base(EntityLogicalName, id)
+		{
+		}
+		
+		[System.Diagnostics.DebuggerNonUserCode()]
+		public SiteMap(string keyName, object keyValue) : 
+				base(EntityLogicalName, keyName, keyValue)
+		{
+		}
+		
+		[System.Diagnostics.DebuggerNonUserCode()]
+		public SiteMap(Microsoft.Xrm.Sdk.KeyAttributeCollection keyAttributes) : 
+				base(EntityLogicalName, keyAttributes)
+		{
+		}
+		
 		public const string EntityLogicalName = "sitemap";
 		
 		public const string EntitySchemaName = "SiteMap";
@@ -60,6 +83,8 @@ namespace CloudAwesome.Xrm.Customisation
 		public const string EntityLogicalCollectionName = "sitemaps";
 		
 		public const string EntitySetName = "sitemaps";
+		
+		public const int EntityTypeCode = 4709;
 		
 		public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
 		
@@ -139,6 +164,26 @@ namespace CloudAwesome.Xrm.Customisation
 				this.OnPropertyChanging("CreatedOnBehalfBy");
 				this.SetAttributeValue("createdonbehalfby", value);
 				this.OnPropertyChanged("CreatedOnBehalfBy");
+			}
+		}
+		
+		/// <summary>
+		/// Enable to allow sitemap groups to be collapsed.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("enablecollapsiblegroups")]
+		public System.Nullable<bool> EnableCollapsibleGroups
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<System.Nullable<bool>>("enablecollapsiblegroups");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.OnPropertyChanging("EnableCollapsibleGroups");
+				this.SetAttributeValue("enablecollapsiblegroups", value);
+				this.OnPropertyChanged("EnableCollapsibleGroups");
 			}
 		}
 		
@@ -248,6 +293,66 @@ namespace CloudAwesome.Xrm.Customisation
 		}
 		
 		/// <summary>
+		/// Enable to show the home button in the sitemap.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("showhome")]
+		public System.Nullable<bool> ShowHome
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<System.Nullable<bool>>("showhome");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.OnPropertyChanging("ShowHome");
+				this.SetAttributeValue("showhome", value);
+				this.OnPropertyChanged("ShowHome");
+			}
+		}
+		
+		/// <summary>
+		/// Enable to show the pinned dropdown in the sitemap.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("showpinned")]
+		public System.Nullable<bool> ShowPinned
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<System.Nullable<bool>>("showpinned");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.OnPropertyChanging("ShowPinned");
+				this.SetAttributeValue("showpinned", value);
+				this.OnPropertyChanged("ShowPinned");
+			}
+		}
+		
+		/// <summary>
+		/// Enable to show the recents dropdown in the sitemap.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("showrecents")]
+		public System.Nullable<bool> ShowRecents
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<System.Nullable<bool>>("showrecents");
+			}
+			[System.Diagnostics.DebuggerNonUserCode()]
+			set
+			{
+				this.OnPropertyChanging("ShowRecents");
+				this.SetAttributeValue("showrecents", value);
+				this.OnPropertyChanged("ShowRecents");
+			}
+		}
+		
+		/// <summary>
 		/// 
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("sitemapid")]
@@ -345,6 +450,19 @@ namespace CloudAwesome.Xrm.Customisation
 				this.OnPropertyChanging("SiteMapXml");
 				this.SetAttributeValue("sitemapxml", value);
 				this.OnPropertyChanged("SiteMapXml");
+			}
+		}
+		
+		/// <summary>
+		/// 
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("sitemapxmlmanaged")]
+		public string SiteMapXmlManaged
+		{
+			[System.Diagnostics.DebuggerNonUserCode()]
+			get
+			{
+				return this.GetAttributeValue<string>("sitemapxmlmanaged");
 			}
 		}
 		

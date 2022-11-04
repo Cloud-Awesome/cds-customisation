@@ -2,6 +2,7 @@
 using System.IO;
 using System.IO.Abstractions.TestingHelpers;
 using CloudAwesome.Xrm.Core.Models;
+using CloudAwesome.Xrm.Customisation.EarlyBoundModels;
 using CloudAwesome.Xrm.Customisation.Models;
 using CloudAwesome.Xrm.Customisation.PluginRegistration;
 using Microsoft.Xrm.Sdk;

@@ -8,7 +8,7 @@
 //------------------------------------------------------------------------------
 
 
-namespace CloudAwesome.Xrm.Customisation
+namespace CloudAwesome.Xrm.Customisation.EarlyBoundModels
 {
 	
 	/// <summary>
@@ -53,6 +53,24 @@ namespace CloudAwesome.Xrm.Customisation
 		{
 		}
 		
+		[System.Diagnostics.DebuggerNonUserCode()]
+		public SdkMessageRequest(System.Guid id) : 
+				base(EntityLogicalName, id)
+		{
+		}
+		
+		[System.Diagnostics.DebuggerNonUserCode()]
+		public SdkMessageRequest(string keyName, object keyValue) : 
+				base(EntityLogicalName, keyName, keyValue)
+		{
+		}
+		
+		[System.Diagnostics.DebuggerNonUserCode()]
+		public SdkMessageRequest(Microsoft.Xrm.Sdk.KeyAttributeCollection keyAttributes) : 
+				base(EntityLogicalName, keyAttributes)
+		{
+		}
+		
 		public const string EntityLogicalName = "sdkmessagerequest";
 		
 		public const string EntitySchemaName = "SdkMessageRequest";
@@ -62,6 +80,8 @@ namespace CloudAwesome.Xrm.Customisation
 		public const string EntityLogicalCollectionName = "sdkmessagerequests";
 		
 		public const string EntitySetName = "sdkmessagerequests";
+		
+		public const int EntityTypeCode = 4609;
 		
 		public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
 		
@@ -394,18 +414,18 @@ namespace CloudAwesome.Xrm.Customisation
 		/// 1:N messagerequest_sdkmessagerequestfield
 		/// </summary>
 		[Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute("messagerequest_sdkmessagerequestfield")]
-		public System.Collections.Generic.IEnumerable<CloudAwesome.Xrm.Customisation.SdkMessageRequestField> messagerequest_sdkmessagerequestfield
+		public System.Collections.Generic.IEnumerable<CloudAwesome.Xrm.Customisation.EarlyBoundModels.SdkMessageRequestField> messagerequest_sdkmessagerequestfield
 		{
 			[System.Diagnostics.DebuggerNonUserCode()]
 			get
 			{
-				return this.GetRelatedEntities<CloudAwesome.Xrm.Customisation.SdkMessageRequestField>("messagerequest_sdkmessagerequestfield", null);
+				return this.GetRelatedEntities<CloudAwesome.Xrm.Customisation.EarlyBoundModels.SdkMessageRequestField>("messagerequest_sdkmessagerequestfield", null);
 			}
 			[System.Diagnostics.DebuggerNonUserCode()]
 			set
 			{
 				this.OnPropertyChanging("messagerequest_sdkmessagerequestfield");
-				this.SetRelatedEntities<CloudAwesome.Xrm.Customisation.SdkMessageRequestField>("messagerequest_sdkmessagerequestfield", null, value);
+				this.SetRelatedEntities<CloudAwesome.Xrm.Customisation.EarlyBoundModels.SdkMessageRequestField>("messagerequest_sdkmessagerequestfield", null, value);
 				this.OnPropertyChanged("messagerequest_sdkmessagerequestfield");
 			}
 		}
@@ -414,18 +434,18 @@ namespace CloudAwesome.Xrm.Customisation
 		/// 1:N messagerequest_sdkmessageresponse
 		/// </summary>
 		[Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute("messagerequest_sdkmessageresponse")]
-		public System.Collections.Generic.IEnumerable<CloudAwesome.Xrm.Customisation.SdkMessageResponse> messagerequest_sdkmessageresponse
+		public System.Collections.Generic.IEnumerable<CloudAwesome.Xrm.Customisation.EarlyBoundModels.SdkMessageResponse> messagerequest_sdkmessageresponse
 		{
 			[System.Diagnostics.DebuggerNonUserCode()]
 			get
 			{
-				return this.GetRelatedEntities<CloudAwesome.Xrm.Customisation.SdkMessageResponse>("messagerequest_sdkmessageresponse", null);
+				return this.GetRelatedEntities<CloudAwesome.Xrm.Customisation.EarlyBoundModels.SdkMessageResponse>("messagerequest_sdkmessageresponse", null);
 			}
 			[System.Diagnostics.DebuggerNonUserCode()]
 			set
 			{
 				this.OnPropertyChanging("messagerequest_sdkmessageresponse");
-				this.SetRelatedEntities<CloudAwesome.Xrm.Customisation.SdkMessageResponse>("messagerequest_sdkmessageresponse", null, value);
+				this.SetRelatedEntities<CloudAwesome.Xrm.Customisation.EarlyBoundModels.SdkMessageResponse>("messagerequest_sdkmessageresponse", null, value);
 				this.OnPropertyChanged("messagerequest_sdkmessageresponse");
 			}
 		}
@@ -435,12 +455,12 @@ namespace CloudAwesome.Xrm.Customisation
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("sdkmessagepairid")]
 		[Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute("messagepair_sdkmessagerequest")]
-		public CloudAwesome.Xrm.Customisation.SdkMessagePair messagepair_sdkmessagerequest
+		public CloudAwesome.Xrm.Customisation.EarlyBoundModels.SdkMessagePair messagepair_sdkmessagerequest
 		{
 			[System.Diagnostics.DebuggerNonUserCode()]
 			get
 			{
-				return this.GetRelatedEntity<CloudAwesome.Xrm.Customisation.SdkMessagePair>("messagepair_sdkmessagerequest", null);
+				return this.GetRelatedEntity<CloudAwesome.Xrm.Customisation.EarlyBoundModels.SdkMessagePair>("messagepair_sdkmessagerequest", null);
 			}
 		}
 		

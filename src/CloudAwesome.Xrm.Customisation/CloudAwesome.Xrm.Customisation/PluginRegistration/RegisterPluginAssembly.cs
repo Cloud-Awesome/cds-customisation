@@ -1,6 +1,7 @@
 ﻿using System.IO;
 using CloudAwesome.Xrm.Core;
 using CloudAwesome.Xrm.Customisation.Models;
+using Microsoft.Crm.Sdk.Messages;
 using Microsoft.Extensions.Logging;
 using Microsoft.Xrm.Sdk;
 
@@ -20,6 +21,7 @@ namespace CloudAwesome.Xrm.Customisation.PluginRegistration
             }
 
             t.Debug($"Registering Assembly {pluginAssembly.FriendlyName}");
+            t.Debug($"Using auth type {manifest.CdsConnection.ConnectionType}");
             var createdAssembly = pluginAssembly.Register(client);
             t.Info($"Assembly {pluginAssembly.FriendlyName} registered with ID {createdAssembly.Id}");
 

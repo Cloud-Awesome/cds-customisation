@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using CloudAwesome.Xrm.Customisation.EarlyBoundModels;
 using Microsoft.Xrm.Sdk;
 using Microsoft.Xrm.Sdk.Query;
 
