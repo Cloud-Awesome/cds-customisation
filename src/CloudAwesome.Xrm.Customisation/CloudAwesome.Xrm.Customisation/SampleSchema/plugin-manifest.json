@@ -1,0 +1,73 @@
+﻿{
+  "$schema": "../JsonSchema/plugin-manifest-schema.json",
+  "clobber": true,
+  "cdsConnection": {
+    "url": "https://tester.crm11.dynamics.com",
+    "connectionType": "ConnectionString"
+  },
+  "logging": {
+    "configurationType": "Console",
+    "logLevelToTrace": "error"
+  },
+  "updateAssemblyOnly": true,
+  "assemblies": [
+    {
+      "name": "assembly1",
+      "friendlyName": "Assembly 1",
+      "plugins": [
+        {
+          "name": "plugin1",
+          "friendlyName": "Plugin 1",
+          "steps": [
+            {
+              "name": "Step1",
+              "executionMode": "Asynchronous",
+              "asyncAutoDelete": true,
+              "message": "create",
+              "stage": "PreOperation",
+              "primaryEntity": "contact",
+              "filteringAttributes": [
+                "firstname", "lastname"
+              ],
+              "entityImages": [
+                {
+                  "name": "pre",
+                  "preImage": true,
+                  "attributes": [
+                    "lastname"
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "assembly.two",
+      "solutionName": "mypluginsolution",
+      "plugins": [
+        {
+          "name": "plugin2.1",
+          "steps": [
+            {
+              "name": "Step1.Create",
+              "primaryEntity": "contact"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "serviceEndpoints": [
+    {
+      "name": "tester",
+      "contract": "Queue",
+      "authorisationType": "SASKey",
+      "messageFormat": "JSON",
+      "queueName": "myQueue",
+      "sasKeyName": "theKey",
+      "sasKey": "kuyi765ctevhtersxgreatreskuygb=="
+    }
+  ]
+}

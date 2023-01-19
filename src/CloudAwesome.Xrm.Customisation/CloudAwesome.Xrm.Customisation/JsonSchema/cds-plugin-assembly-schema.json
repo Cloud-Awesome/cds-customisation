@@ -1,0 +1,38 @@
+﻿{
+  "$schema": "https://json-schema.org/draft-07/schema",
+  "$id": "https://docs.cloudawesome.xyz/schema/cds-plugin-assembly-schema",
+  "type": "object",
+  "title": "Plugin Assembly",
+  "description": "Plugin Assembly to register or update",
+  "properties": {
+    "name": {
+      "type": "string",
+      "title": "Name",
+      "description": "Unique name for the plugin assembly. Typically use the friendly name without spaces and invalid characters"
+    },
+    "friendlyName": {
+      "type": "string",
+      "title": "Friendly Name",
+      "description": "Friendly name for the plugin assembly, as will be displayed in the UI"
+    },
+    "solutionName": {
+      "type": "string",
+      "title": "Solution Name",
+      "description": "Optional unique name of the solution to add this assembly to. Overrides top level manifest solution if provided"
+    },
+    "filePath": {
+      "type": "string",
+      "title": "File Path",
+      "description": "Relative or absolute path to the assembly dll"
+    },
+    "plugins": {
+      "type": "array",
+      "title": "Plugins",
+      "description": "Array of the plugin classes included in the assembly to be registered",
+      "items" : {
+        "$ref": "./cds-plugin-schema.json"
+      }
+    }
+  },
+  "additionalProperties": false
+}

@@ -1,0 +1,81 @@
+{
+  "$schema": "https://json-schema.org/draft-07/schema",
+  "$id": "https://docs.cloudawesome.xyz/schema/cds-plugin-schema",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string",
+      "title": "Name",
+      "description": "Unique name for the plugin step"
+    },
+    "friendlyName": {
+      "type": "string",
+      "title": "Friendly Name",
+      "description": "Friendly name of the plugin step"
+    },
+    "description": {
+      "type": "string",
+      "title": "Description",
+      "description": "Optional description of the plugin step"
+    },
+    "stage": {
+      "enum": ["PostOperation", "PreOperation", "PreValidation"],
+      "title": "Stage",
+      "description": "Stage of execution for the plugin step"
+    },
+    "executionMode": {
+      "enum": ["Synchronous", "Asynchronous"],
+      "title": "Execution Mode",
+      "description": "Defines whether the step is executed synchronously (blocking user interaction) or asynchronously"
+    },
+    "message": {
+      "type": "string",
+      "title": "Message",
+      "description": "SDK Message trigger for this step, e.g. Create, Update, Delete",
+      "$comment": "!! IDEA !! Could 1 or many messages here - would register a step for each to save typing out multiple steps?"
+    },
+    "primaryEntity": {
+      "type": "string",
+      "title": "Primary Entity",
+      "description": "Logical name of the entity to which this step is bound, e.g. contact, account. new_customentity",
+      "$comment": "!! IDEA !! Could 1 or many entities here - would register a step for each to save typing out multiple steps?"
+    },
+    "executionOrder": {
+      "type": "integer",
+      "title": "Execution Order",
+      "description": "Order of execution when multiple steps are registered against the same entity and message"
+    },
+    "asyncAutoDelete": {
+      "type": "boolean",
+      "title": "Delete System Job if Successful",
+      "description": "For Asynchronous jobs only, deletes the System Job record if the result is sucessful"
+    },
+    "filteringAttributes": {
+      "type": "array",
+      "title": "Filtering Attributes",
+      "description": "Filters triggering execution to changes in specific attributes on the primary entity. Not supported for Create or Delete",
+      "items": {
+        "type": "string"
+      }
+    },
+    "unsecureConfiguration": {
+      "type": "string",
+      "title": "Unsecure Configuration",
+      "description": "Public custom configuration that is passed to a plug-in's constructor"
+    },
+    "secureConfiguration": {
+      "type": "string",
+      "title": "Secure Configuration",
+      "description": "Non-public custom configuration that is passed to a plug-in's constructor"
+    },
+    "entityImages": {
+      "type": "array",
+      "title": "Entity Images",
+      "description": "Array of entity images (snapshot of the primary entity data, pre- or post-update) to be passed to the plugin execution",
+      "items": {
+        "$ref": "./cds-entity-image-schema.json"
+      }
+    }
+  },
+  "additionalProperties": false
+}

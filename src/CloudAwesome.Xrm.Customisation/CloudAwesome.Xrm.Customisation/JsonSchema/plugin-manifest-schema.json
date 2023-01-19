@@ -1,0 +1,74 @@
+﻿{
+  "$schema": "https://json-schema.org/draft-07/schema",
+  "$id": "https://docs.cloudawesome.xyz/plugin-manifest-schema",
+  "type": "object",
+  
+  
+  "$comment": "!! TODO !! Need to put mandatory things in, e.g. step always needs: message, stage, name, primaryEntity",
+  "$comment": "!! TODO !! Go back through the models for anything missing",
+  "$comment": "!! TODO !! Consider the structure of these schema - probably will want some hierarchy before long! And then publish them to docs site",
+  "$comment": "!! TODO !! Also need to version these schemas!! (Maybe inline with API/App versions?)",
+  
+  
+  "properties": {
+    "documentation": {
+      "type": "object",
+      "title": "Documentation",
+      "description": "Optional area to include notes, instructions, version etc. and any additional metadata related to this manifest",
+      "$ref": "./documentation-object-schema.json"
+    },
+    "$schema": {
+      "type": "string",
+      "title": "Schema",
+      "description": "Pointer/URL to the schema against which this document should be validated"
+    },
+    "clobber": {
+      "type": "boolean",
+      "title": "Clobber",
+      "description": "Tear down the artefacts before deploying. Helps with any legacy dependency issues or deleted plugin steps"
+    },
+    "solutionName": {
+      "type": "string",
+      "title": "Solution Name",
+      "description": "Unique name of the solution to add all registered artefacts"
+    },
+    "updateAssemblyOnly": {
+      "type": "boolean",
+      "title": "Update Assembly Only",
+      "description": "Update the plugin assembly only. Doesn't loop through registering steps and images, but completes much faster"
+    },
+    "cdsConnection": {
+      "$ref": "./cds-connection-schema.json"
+    },
+    "logging" : {
+      "$ref": "./logging-configuration-schema.json"
+    },
+    "assemblies": {
+      "type": "array",
+      "title": "Plugin Assemblies",
+      "description": "Array of plugin assemblies to register",
+      "items": {
+        "$ref": "./cds-plugin-assembly-schema.json"
+      }
+    },
+    "serviceEndpoints": {
+      "type": "array",
+      "title": "Service Endpoints",
+      "description": "Array of service endpoints (e.g. Azure Service Bus) to register",
+      "items": {
+        "$ref": "./cds-service-endpoint-schema.json"
+      }
+    },
+    "webhooks": {
+      "type": "array",
+      "title": "Webhooks",
+      "description": "Array of custom webhooks to register. NOT YET IMPLEMENTED"
+    },
+    "dataSources":{
+      "type": "array",
+      "title": "Data Sources",
+      "description": "Array of custom data sources to register. NOT YET IMPLEMENTED"
+    }
+  },
+  "additionalProperties": false
+}

@@ -1,0 +1,66 @@
+﻿{
+  "$schema": "https://json-schema.org/draft-07/schema",
+  "$id": "https://docs.cloudawesome.xyz/schema/cds-service-endpoint-schema",
+  "type": "object",
+  "title": "Service Endpoints",
+  "description": "Instance of a service endpoint to register",
+  "properties": {
+    "name": {
+      "type": "string",
+      "title": "Name",
+      "description": "Unique name for the service endpoint"
+    },
+    "namespaceAddress": {
+      "type": "string",
+      "title": "Namespace Address",
+      "description": "Full service endpoint address (e.g. a Service Bus will start with 'sb://')"
+    },
+    "contract": {
+      "enum": ["Queue", "Topic", "OneWay", "TwoWay", "Rest", "EventHub"],
+      "title": "Designation Type",
+      "description": "Type of service endpoint to register, e.g. Event Hub or Service Bus Queue"
+    },
+    "queueName": {
+      "type": "string",
+      "title": "Queue Name",
+      "description": "Unique name of the queue"
+    },
+    "messageFormat": {
+      "enum": [".NETBinary", "JSON", "XML"],
+      "title": "Message Format",
+      "description": "Format of the messages sent to the endpoint"
+    },
+    "authorisationType": {
+      "enum": ["SASKey", "SASToken"],
+      "title": "Authorisation Type",
+      "description": "Specifies mode of authentication with SB"
+    },
+    "sasKeyName": {
+      "type": "string",
+      "title": "SAS Key Name",
+      "description": "Shared Access Key Name"
+    },
+    "sasKey": {
+      "type": "string",
+      "title": "SAS Key",
+      "description": "Shared Access Key"
+    },
+    "userInformationSent": {
+      "enum": ["None", "UserId"],
+      "title": "User Information Sent",
+      "description": "User Information Sent"
+    },
+    "description": {
+      "type": "string",
+      "title": "Description",
+      "description": "Optional description of the service endpoint"
+    },
+    "steps": {
+      "type": "array",
+      "items": {
+        "$ref": "./cds-plugin-step-schema.json"
+      }
+    }
+  },
+  "additionalProperties": false
+}

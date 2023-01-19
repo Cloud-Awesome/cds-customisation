@@ -1,0 +1,23 @@
+{
+  "$schema": "https://json-schema.org/draft-07/schema",
+  "$id": "https://docs.cloudawesome.xyz/schema/cds-connection-schema",
+  "type": "object",
+  "title": "CDS/Dataverse Connection",
+  "description": "Connection details for Dataverse",
+  "properties": {
+    "connectionType": {
+      "enum": ["AppRegistration", "UserNameAndPassword", "ConnectionString"],
+      "title": "Connection Type",
+      "description": "Select the authentication technique to be used to connect to CRM"
+    },
+    "url": {
+      "type": "string",
+      "title": "URL",
+      "description": "Base URL of the CRM environment",
+      "format": "uri",
+      "pattern": "^https://"
+    }
+  },
+  "required": ["url", "connectionType"],
+  "additionalProperties": false
+}

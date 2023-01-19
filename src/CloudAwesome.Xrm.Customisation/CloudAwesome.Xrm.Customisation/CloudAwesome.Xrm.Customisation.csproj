@@ -90,8 +90,14 @@
       <HintPath>..\packages\Microsoft.CrmSdk.XrmTooling.CoreAssembly.9.1.1.1\lib\net462\Microsoft.Xrm.Tooling.Connector.dll</HintPath>
     </Reference>
     <Reference Include="mscorlib" />
+    <Reference Include="Namotion.Reflection, Version=2.1.0.0, Culture=neutral, PublicKeyToken=c2f9c3bdfae56102, processorArchitecture=MSIL">
+      <HintPath>..\packages\Namotion.Reflection.2.1.0\lib\net45\Namotion.Reflection.dll</HintPath>
+    </Reference>
     <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.13.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="NJsonSchema, Version=10.8.0.0, Culture=neutral, PublicKeyToken=c2f9c3bdfae56102, processorArchitecture=MSIL">
+      <HintPath>..\packages\NJsonSchema.10.8.0\lib\net45\NJsonSchema.dll</HintPath>
     </Reference>
     <Reference Include="PresentationFramework" />
     <Reference Include="System" />
@@ -285,7 +291,17 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="JsonSchema\cds-connection-schema.json" />
+    <Content Include="JsonSchema\cds-entity-image-schema.json" />
+    <Content Include="JsonSchema\cds-plugin-assembly-schema.json" />
+    <Content Include="JsonSchema\cds-plugin-schema.json" />
+    <Content Include="JsonSchema\cds-plugin-step-schema.json" />
+    <Content Include="JsonSchema\cds-service-endpoint-schema.json" />
+    <Content Include="JsonSchema\documentation-object-schema.json" />
+    <Content Include="JsonSchema\logging-configuration-schema.json" />
+    <Content Include="JsonSchema\plugin-manifest-schema.json" />
     <Content Include="SampleSchema\configuration-manifest.xml" />
+    <Content Include="SampleSchema\plugin-manifest.json" />
     <Content Include="SampleSchema\plugin-manifest.xml" />
     <Content Include="SampleSchema\portal-manifest.xml" />
     <Content Include="SampleSchema\process-activation-manifest.xml" />
