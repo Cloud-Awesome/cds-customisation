@@ -23,7 +23,7 @@ namespace CloudAwesome.Xrm.Customisation.Cli
             HelpText = "File path to the XML manifest for the selected action")]
         public string Manifest { get; set; }
 
-        [Option("ConnectionType", 
+        [Option("connection-type", 
             HelpText = "Required if you want to override the CdsConnection details in manifest")]
         public CdsConnectionType ConnectionType
         {
@@ -34,37 +34,37 @@ namespace CloudAwesome.Xrm.Customisation.Cli
             }
         }
 
-        [Option("Url")]
+        [Option("url")]
         public string Url
         {
             set => CdsConnectionDetails.CdsUrl = value;
         }
         
-        [Option("AppId")]
+        [Option("app-id")]
         public string AppId
         {
             set => CdsConnectionDetails.CdsAppId = value;
         }
         
-        [Option("AppSecret")]
+        [Option("app-secret")]
         public string AppSecret
         {
             set => CdsConnectionDetails.CdsAppSecret = value;
         }
         
-        [Option("UserName")]
+        [Option("user-name")]
         public string UserName
         {
             set => CdsConnectionDetails.CdsUserName = value;
         }
         
-        [Option("Password")]
+        [Option("password")]
         public string UserPassword
         {
             set => CdsConnectionDetails.CdsUserName = value;
         }
         
-        [Option("ConnectionString")]
+        [Option("connection-string")]
         public string ConnectionString
         {
             set => CdsConnectionDetails.CdsConnectionString = value;

@@ -4,16 +4,24 @@
   "type": "object",
   "properties": {
     "comments": {
-      "type": "string"
+      "type": "string",
+      "title": "Comments",
+      "description": "Optional comments on this manifest"
     },
     "author": {
-      "type": "string"
+      "type": "string",
+      "title": "Author",
+      "description": "Optional author(s) or the manifest"
     },
     "version": {
-      "type": "string"
+      "type": "string",
+      "title": "Version",
+      "description": "Track version number of this manifest"
     },
     "instructions": {
-      "type": "string"
+      "type": "string",
+      "title": "Instructions",
+      "description": "Optional instructions for the execution or maintenance of this manifest"
     }
   },
   "$comment": "AdditionalProperties intentionally left open here so you can whatever you want. It will be ignored by the application anyway"

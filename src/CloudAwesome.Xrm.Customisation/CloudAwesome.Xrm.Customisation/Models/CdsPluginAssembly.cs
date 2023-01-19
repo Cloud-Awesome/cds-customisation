@@ -1,14 +1,17 @@
 ﻿using System;
 using System.IO;
 using System.IO.Abstractions;
+using System.Text.Json.Serialization;
 using System.Xml.Serialization;
 using CloudAwesome.Xrm.Core;
 using CloudAwesome.Xrm.Customisation.EarlyBoundModels;
 using Microsoft.Xrm.Sdk;
 using Microsoft.Xrm.Sdk.Query;
+using Newtonsoft.Json;
 
 namespace CloudAwesome.Xrm.Customisation.Models
 {
+    [JsonObject]
     public class CdsPluginAssembly
     {
         private readonly IFileSystem _fileSystem;
@@ -22,15 +25,19 @@ namespace CloudAwesome.Xrm.Customisation.Models
             this._fileSystem = fileSystem;
         }
 
+        [JsonPropertyName("name")]
         public string Name { get; set; }
 
+        [JsonPropertyName("friendlyName")]
         public string FriendlyName { get; set; }
 
         /// <summary>
         /// FilePath to the built assembly dll
         /// </summary>
+        [JsonPropertyName("filePath")]
         public string Assembly { get; set; }
 
+        [JsonPropertyName("solutionName")]
         public string SolutionName { get; set; }
 
         /// <summary>
@@ -42,6 +49,7 @@ namespace CloudAwesome.Xrm.Customisation.Models
         /// Child plugins
         /// </summary>
         [XmlArrayItem("Plugin")]
+        [JsonPropertyName("plugins")]
         public CdsPlugin[] Plugins { get; set; }
 
         /// <summary>

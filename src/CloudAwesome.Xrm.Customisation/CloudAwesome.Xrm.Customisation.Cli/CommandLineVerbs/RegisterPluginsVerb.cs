@@ -1,5 +1,4 @@
-﻿using System;
-using CloudAwesome.Xrm.Core.Models;
+﻿using CloudAwesome.Xrm.Core.Models;
 using CloudAwesome.Xrm.Customisation.Cli.Features;
 using CommandLine;
 
@@ -13,5 +12,14 @@ namespace CloudAwesome.Xrm.Customisation.Cli.CommandLineVerbs
             var registerPlugins = new RegisterPlugins();
             registerPlugins.Run(manifestPath, cdsConnection);
         }
+        
+        [Option("activate", HelpText = "Should the processes defined in the manifest be activated or deactivated. Overrides value in the manifest if set.")]
+        public ProcessTargetStatusEnum TargetStatus { get; set; }
+    }
+
+    public enum ProcessTargetStatusEnum
+    {
+        Activate,
+        Deactivate
     }
 }

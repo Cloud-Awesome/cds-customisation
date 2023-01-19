@@ -140,7 +140,6 @@ namespace CloudAwesome.Xrm.Customisation.PluginRegistration
             
             t.Debug($"Exiting PluginWrapper.RegisterPlugins");
         }
-
         
         public void RegisterServiceEndpoints(PluginManifest manifest, IOrganizationService client)
         {
@@ -163,6 +162,7 @@ namespace CloudAwesome.Xrm.Customisation.PluginRegistration
 
         public void RegisterServiceEndpoints(PluginManifest manifest, IOrganizationService client, TracingHelper t)
         {
+            if (manifest.ServiceEndpoints == null || manifest.ServiceEndpoints.Length == 0) return;
             t.Debug($"Entering PluginWrapper.RegisterServiceEndpoints");
 
             if (manifest.Clobber)
@@ -234,6 +234,7 @@ namespace CloudAwesome.Xrm.Customisation.PluginRegistration
 
         public void UnregisterServiceEndPoints(PluginManifest manifest, IOrganizationService client, TracingHelper t)
         {
+            if (manifest.ServiceEndpoints == null || manifest.ServiceEndpoints.Length == 0) return;
             t.Debug($"Entering PluginWrapper.UnregisterServiceEndPoints");
 
             foreach (var serviceEndpoint in manifest.ServiceEndpoints)

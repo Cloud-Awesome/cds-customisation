@@ -2,12 +2,18 @@
   "$schema": "https://json-schema.org/draft-07/schema",
   "$id": "https://docs.cloudawesome.xyz/schema/logging-configuration-schema",
   "type": "object",
+  "title": "Logging Configuration",
+  "description": "Optional configuration for logging outputs (e.g. to text file, console, or Azure Application Insights)",
   "properties": {
     "configurationType": {
-      "enum": ["Console", "AppInsights", "TextFile"]
+      "enum": ["Console", "AppInsights", "TextFile"],
+      "title": "Configuration Type",
+      "description": "Type of logging configuration to implement"
     },
     "logLevelToTrace": {
-      "enum": ["debug", "information", "warning", "error"]
+      "enum": ["debug", "information", "warning", "error"],
+      "title": "Log Level to Trace",
+      "description": "Lowest level of tracing to output (e.g. Information will not output Debug logs)"
     }
   },
   "additionalProperties": false

@@ -1,6 +1,6 @@
-﻿using System;
-using System.IO;
+﻿using System.IO;
 using System.Text.Json;
+using System.Text.Json.Serialization;
 using System.Xml.Serialization;
 
 namespace CloudAwesome.Xrm.Customisation
@@ -18,9 +18,17 @@ namespace CloudAwesome.Xrm.Customisation
 
         public static T DeserialiseJsonFromFile<T>(string filePath)
         {
+            var options = new JsonSerializerOptions
+            {
+                Converters =
+                {
+                    new JsonStringEnumConverter(JsonNamingPolicy.CamelCase)
+                }
+            };
+            
             using (var fs = File.OpenRead(filePath))
             {
-                return JsonSerializer.Deserialize<T>(fs);
+                return JsonSerializer.Deserialize<T>(fs, options);
             }
         }
     }

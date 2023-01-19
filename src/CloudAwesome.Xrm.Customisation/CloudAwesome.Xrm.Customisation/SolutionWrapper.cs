@@ -74,7 +74,7 @@ namespace CloudAwesome.Xrm.Customisation
         }
     }
     
-    // TODO - This Enum is probably woefully out of date ;)
+    // TODO - This Enum is probably woefully out of date ;) Especially things like Virtual Entity Data Sources, which I'l be adding soon!
     public enum ComponentType
     {
         All = 0,

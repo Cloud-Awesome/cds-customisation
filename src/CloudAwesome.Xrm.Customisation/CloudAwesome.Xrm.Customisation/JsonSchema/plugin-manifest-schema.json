@@ -4,9 +4,8 @@
   "type": "object",
   
   
-  "$comment": "!! TODO !! I like this - put a 'title' and a 'description' against each  property to assist with intellisense",
   "$comment": "!! TODO !! Need to put mandatory things in, e.g. step always needs: message, stage, name, primaryEntity",
-  "$comment": "!! TODO !! Go back through the models for anything missing - e.g. Solution is missing twice",
+  "$comment": "!! TODO !! Go back through the models for anything missing",
   "$comment": "!! TODO !! Consider the structure of these schema - probably will want some hierarchy before long! And then publish them to docs site",
   "$comment": "!! TODO !! Also need to version these schemas!! (Maybe inline with API/App versions?)",
   
@@ -21,13 +20,22 @@
     "$schema": {
       "type": "string",
       "title": "Schema",
-      "description": "Pointer to the schema against which this document should be validated."
+      "description": "Pointer/URL to the schema against which this document should be validated"
     },
     "clobber": {
-      "type": "boolean"
+      "type": "boolean",
+      "title": "Clobber",
+      "description": "Tear down the artefacts before deploying. Helps with any legacy dependency issues or deleted plugin steps"
+    },
+    "solutionName": {
+      "type": "string",
+      "title": "Solution Name",
+      "description": "Unique name of the solution to add all registered artefacts"
     },
     "updateAssemblyOnly": {
-      "type": "boolean"
+      "type": "boolean",
+      "title": "Update Assembly Only",
+      "description": "Update the plugin assembly only. Doesn't loop through registering steps and images, but completes much faster"
     },
     "cdsConnection": {
       "$ref": "./cds-connection-schema.json"
@@ -37,81 +45,30 @@
     },
     "assemblies": {
       "type": "array",
+      "title": "Plugin Assemblies",
+      "description": "Array of plugin assemblies to register",
       "items": {
-        "$ref": "#/$defs/assembly"
+        "$ref": "./cds-plugin-assembly-schema.json"
       }
     },
     "serviceEndpoints": {
       "type": "array",
+      "title": "Service Endpoints",
+      "description": "Array of service endpoints (e.g. Azure Service Bus) to register",
       "items": {
-        "$ref": "#/$defs/serviceEndpoint"
-      }
-    }
-  },
-  "additionalProperties": false,
-  
-  "$defs": {
-    "assembly": {
-      "type": "object",
-      "properties": {
-        "name": {
-          "type": "string"
-        },
-        "friendlyName": {
-          "type": "string"
-        },
-        "filePath": {
-          "type": "string"
-        },
-        "plugins": {
-          "type": "array",
-          "items" : {
-            "$ref": "./cds-plugin-schema.json"
-          }
-        }
+        "$ref": "./cds-service-endpoint-schema.json"
       }
     },
-    
-    "serviceEndpoint": {
+    "webhooks": {
       "type": "array",
-      "properties": {
-        "name": {
-          "type": "string"
-        },
-        "namespaceAddress": {
-          "type": "string"
-        },
-        "contract": {
-          "enum": ["Queue", "Topic", "OneWay", "TwoWay", "Rest", "EventHub"]
-        },
-        "queueName": {
-          "type": "string"
-        },
-        "messageFormat": {
-          "enum": [".NETBinary", "JSON", "XML"]
-        },
-        "authorisationType": {
-          "enum": ["SASKey", "SASToken"]
-        },
-        "sasKeyName": {
-          "type": "string"
-        },
-        "sasKey": {
-          "type": "string"
-        },
-        "userInformationSent": {
-          "enum": ["None", "UserId"]
-        },
-        "description": {
-          "type": "string"
-        },
-        "steps": {
-          "type": "array",
-          "items": {
-            "$ref": "./cds-plugin-step-schema.json"
-          }
-        }
-      }
+      "title": "Webhooks",
+      "description": "Array of custom webhooks to register. NOT YET IMPLEMENTED"
+    },
+    "dataSources":{
+      "type": "array",
+      "title": "Data Sources",
+      "description": "Array of custom data sources to register. NOT YET IMPLEMENTED"
     }
-  }
+  },
+  "additionalProperties": false
 }

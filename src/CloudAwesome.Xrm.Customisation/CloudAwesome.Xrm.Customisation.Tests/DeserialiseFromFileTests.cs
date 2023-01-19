@@ -1,12 +1,19 @@
-﻿using CloudAwesome.Xrm.Customisation.PluginRegistration;
+﻿using System;
+using System.IO;
+using CloudAwesome.Xrm.Customisation.EarlyBoundModels;
+using CloudAwesome.Xrm.Customisation.PluginRegistration;
 using FluentAssertions;
+using Newtonsoft.Json.Linq;
+using NJsonSchema;
 using NUnit.Framework;
 
 namespace CloudAwesome.Xrm.Customisation.Tests
 {
+    [TestFixture]
     public class DeserialiseFromFileTests: BaseFakeXrmTest
     {
         [Test]
+        [Obsolete]
         public void DeserialisePluginManifest()
         {
             var manifestPath = $"{PluginManifestFolderPath}/plugin-manifest.xml";
@@ -17,20 +24,32 @@ namespace CloudAwesome.Xrm.Customisation.Tests
         }
 
         [Test]
-        public void DeserialiseGenericJsonManifest()
+        public void Deserialise_Json_Plugin_Manifest()
         {
-            var manifestPath = $"{TestManifestFolderPath}/SampleGenericManifest.json";
-            var manifest = SerialisationWrapper.DeserialiseJsonFromFile<TestJsonForSerialisation>(manifestPath);
+            var manifestPath = "../../../CloudAwesome.Xrm.Customisation/SampleSchema/plugin-manifest.json";
+            var manifest = SerialisationWrapper.DeserialiseJsonFromFile<PluginManifest>(manifestPath);
 
-            manifest.FirstName.Should().Be("Arthur");
-            manifest.LastName.Should().Be("Nicholson-Gumula");
+            Console.WriteLine(manifest.JsonSchema);
+            
+            manifest.Clobber.Should().Be(true);
+            manifest.PluginAssemblies.Length.Should().Be(2);
+            manifest.PluginAssemblies[0].Plugins[0]
+                .Steps[0].ExecutionMode.Should().Be(SdkMessageProcessingStep_Mode.Asynchronous);
         }
         
-    }
+        [Test]
+        public void Deserialised_Json_Plugin_Manifest_Validates_Against_Schema()
+        {
+            var schemaPath = "../../../CloudAwesome.Xrm.Customisation/JsonSchema/plugin-manifest-schema.json";
+            var schema = JsonSchema.FromFileAsync(schemaPath).Result;
+            
+            var manifestPath = "../../../CloudAwesome.Xrm.Customisation/SampleSchema/plugin-manifest.json";
+            var text = File.ReadAllText(manifestPath);
+            var json = JToken.Parse(text);
 
-    public class TestJsonForSerialisation
-    {
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
+            var errors = schema.Validate(json);
+            errors.Should().BeEmpty();
+        }
+        
     }
 }

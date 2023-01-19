@@ -25,7 +25,7 @@ namespace CloudAwesome.Xrm.Customisation.Cli.Features
 
         public void Run(string manifestPath, CdsConnection cdsConnection)
         {
-            var manifest = SerialisationWrapper.DeserialiseFromFile<PluginManifest>(manifestPath);
+            var manifest = SerialisationWrapper.DeserialiseJsonFromFile<PluginManifest>(manifestPath);
             
             if (cdsConnection != null)
             {
