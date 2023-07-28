@@ -56,6 +56,7 @@ namespace CloudAwesome.Xrm.Customisation.Models
         /// Grandchild steps
         /// </summary>
         [XmlArrayItem("Step")]
+        [JsonPropertyName("steps")]
         public CdsPluginStep[] Steps { get; set; }
 
         public EntityReference Register(IOrganizationService client, PluginAssemblyInfo pluginAssemblyInfo = null)

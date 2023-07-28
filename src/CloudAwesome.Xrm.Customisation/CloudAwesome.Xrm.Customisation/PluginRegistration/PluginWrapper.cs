@@ -84,7 +84,6 @@ namespace CloudAwesome.Xrm.Customisation.PluginRegistration
             if (manifest.Clobber)
             {
                 t.Warning($"Manifest has 'Clobber' set to true. Deleting referenced Plugins before re-registering");
-                //this.UnregisterServiceEndPoints(manifest, client, t);
                 UnregisterPlugins.Run(manifest, client, t);
             }
             

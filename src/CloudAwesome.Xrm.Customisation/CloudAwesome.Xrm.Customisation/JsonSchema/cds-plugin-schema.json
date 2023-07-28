@@ -27,6 +27,14 @@
       "items": {
         "$ref": "./cds-plugin-step-schema.json"
       }
+    },
+    "customApis": {
+      "type": "array",
+      "title": "Custom APIs",
+      "description": "Array of custom APIs to register to this handler",
+      "items": {
+        "$ref": "./cds-custom-api.json"
+      }
     }
   },
   "additionalProperties": false

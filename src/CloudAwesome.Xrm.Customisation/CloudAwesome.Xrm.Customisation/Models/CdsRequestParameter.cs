@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Text.Json.Serialization;
 using CloudAwesome.Xrm.Core;
 using CloudAwesome.Xrm.Customisation.EarlyBoundModels;
 using Microsoft.Xrm.Sdk;
@@ -8,16 +9,22 @@ namespace CloudAwesome.Xrm.Customisation.Models
 {
     public class CdsRequestParameter
     {
+        [JsonPropertyName("name")]
         public string Name { get; set; }
 
+        [JsonPropertyName("friendlyName")]
         public string FriendlyName { get; set; }
 
+        [JsonPropertyName("description")]
         public string Description { get; set; }
 
+        [JsonPropertyName("logicalEntityName")]
         public string LogicalEntityName { get; set; }
 
+        [JsonPropertyName("isOptional")]
         public bool? IsOptional { get; set; }
         
+        [JsonPropertyName("type")]
         public CustomAPIFieldType Type { get; set; }
 
         public EntityReference Register(IOrganizationService client, EntityReference parentCustomApi)

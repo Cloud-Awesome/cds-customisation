@@ -27,6 +27,7 @@ namespace CloudAwesome.Xrm.Customisation.Models
         [XmlArrayItem("Step")]
         public CdsPluginStep[] Steps { get; set; }
 
+        [JsonPropertyName("customApis")]
         [XmlArrayItem("CustomApi")]
         public CdsCustomApi[] CustomApis { get; set; }
 
@@ -53,22 +54,6 @@ namespace CloudAwesome.Xrm.Customisation.Models
             var existingPluginQuery = this.GetExistingQuery(this.ParentAssembly.Id);
             return pluginType.CreateOrUpdate(client, existingPluginQuery);
         }
-
-        // Maybe redundant as covered in a different method in the PluginWrapper
-        // public void Unregister(IOrganizationService client, EntityReference parentAssembly)
-        // {
-        //     if (parentAssembly.LogicalName != PluginAssembly.EntityLogicalName)
-        //         throw new ArgumentException($"Entity Reference '{nameof(parentAssembly)}' must be of type '{PluginAssembly.EntityLogicalName}'");
-        //
-        //     this.ParentAssembly = parentAssembly;
-        //     this.Unregister(client);
-        // }
-
-        // Maybe redundant as covered in a different method in the PluginWrapper
-        // public void Unregister(IOrganizationService client)
-        // {
-        //     throw new NotImplementedException("Issue #37");
-        // }
 
         public QueryBase GetExistingQuery(Guid parentAssemblyId)
         {

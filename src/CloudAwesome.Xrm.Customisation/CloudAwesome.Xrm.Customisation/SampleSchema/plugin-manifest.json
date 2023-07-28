@@ -1,28 +1,35 @@
 ﻿{
   "$schema": "../JsonSchema/plugin-manifest-schema.json",
   "clobber": true,
+  "solutionName": "PluginRegistrationSandbox",
   "cdsConnection": {
     "url": "https://tester.crm11.dynamics.com",
     "connectionType": "ConnectionString"
   },
   "logging": {
     "configurationType": "Console",
-    "logLevelToTrace": "error"
+    "logLevelToTrace": "debug"
   },
   "updateAssemblyOnly": true,
   "assemblies": [
     {
       "name": "assembly1",
       "friendlyName": "Assembly 1",
+      "filePath": "../../../SamplePluginAssembly/bin/debug/SamplePluginAssembly.dll",
+      "solutionName": "PluginRegistrationSandbox",
       "plugins": [
         {
           "name": "plugin1",
           "friendlyName": "Plugin 1",
+          "description": "This is the description of the plugin",
           "steps": [
             {
               "name": "Step1",
+              "friendlyName": "Step 1",
+              "description": "This is the description for Step 1",
               "executionMode": "Asynchronous",
               "asyncAutoDelete": true,
+              "executionOrder": 1,
               "message": "create",
               "stage": "PreOperation",
               "primaryEntity": "contact",
@@ -36,6 +43,35 @@
                   "attributes": [
                     "lastname"
                   ]
+                }
+              ]
+            }
+          ],
+          "customApis": [
+            {
+              "name": "awe_customapiexample",
+              "friendlyName": "Custom API Example",
+              "description": "The description for the custom API",
+              "executePrivilegeName": "prv_runApi",
+              "isFunction": false,
+              "isPrivate": false,
+              "bindingType": "Entity",
+              "requestParameters": [
+                {
+                  "name": "parameter1",
+                  "friendlyName": "Parameter 1",
+                  "description": "This is the description",
+                  "type": "String",
+                  "isOptional": false
+                }
+              ],
+              "responseProperties": [
+                {
+                  "name": "linkedRecord",
+                  "friendlyName": "Linked Record",
+                  "description": "A reference to the entity we just linked",
+                  "type": "EntityReference",
+                  "logicalEntityName": "awe_laptop"
                 }
               ]
             }

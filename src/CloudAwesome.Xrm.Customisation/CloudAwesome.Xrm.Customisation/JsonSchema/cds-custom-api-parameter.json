@@ -1,0 +1,50 @@
+{
+  "$schema": "https://json-schema.org/draft-07/schema",
+  "$id": "https://docs.cloudawesome.xyz/schema/cds-plugin-custom-api-parameter",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string",
+      "title": "Name",
+      "description": "Unique name of the property"
+    },
+    "friendlyName": {
+      "type": "string",
+      "title": "Friendly Name",
+      "description": "Friendly name of the property"
+    },
+    "description": {
+      "type": "string",
+      "title": "Description",
+      "description": "Optional description of the property"
+    },
+    "logicalEntityName": {
+      "type": "string",
+      "title": "Logical Entity Name",
+      "description": "Logical name of the entity targeted by the property"
+    },
+    "isOptional": {
+      "type": "boolean",
+      "title": "Is Optional",
+      "description": "Is this property optional (false = mandatory)?"
+    },
+    "type": {
+      "enum": ["Boolean", "DateTime", "Decimal", "Entity", "EntityCollection", "EntityReference", "Float", "Guid", "Integer", "Money", "Picklist", "String", "StringArray"],
+      "title": "Type",
+      "description": "Data type of the property"
+    }
+  },
+  "additionalProperties": false,
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "type": { "enum": ["Entity", "EntityReference"] }
+        }
+      },
+      "then": {
+        "required": [ "logicalEntityName" ]
+      }
+    }
+  ]
+}

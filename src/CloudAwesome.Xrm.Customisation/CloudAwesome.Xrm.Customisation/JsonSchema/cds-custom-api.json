@@ -1,0 +1,66 @@
+﻿{
+  "$schema": "https://json-schema.org/draft-07/schema",
+  "$id": "https://docs.cloudawesome.xyz/schema/cds-plugin-custom-api",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string",
+      "title": "Name",
+      "description": "Unique name for the custom api"
+    },
+    "friendlyName": {
+      "type": "string",
+      "title": "Friendly Name",
+      "description": "Friendly name of the custom api"
+    },
+    "description": {
+      "type": "string",
+      "title": "Description",
+      "description": "Optional description of the custom api"
+    },
+    "executePrivilegeName": {
+      "type": "string",
+      "title": "Execute Privilege Name",
+      "description": "Name of the privilege that allows execution of the custom API, e.g. prvCreateContact"
+    },
+    "isFunction": {
+      "type": "boolean",
+      "title": "Is Function",
+      "description": "Controls whether the API is a Function (true) or an Action (false)"
+    },
+    "isPrivate": {
+      "type": "boolean",
+      "title": "Is Private",
+      "description": "Hides the API from appearing within the $metadata service document and indicates it should not be used by other developers"
+    },
+    "allowedCustomProcessingStepName": {
+      "type": "string",
+      "title": "Allowed Custom Processing Step Name",
+      "description": "Async Only, Sync and Async, or None"
+    },
+    "bindingType": {
+      "enum": ["Global", "Entity", "EntityCollection"],
+      "title": "Binding Type",
+      "description": "Global (doesn't applying to a specific entity/table), Entity (accepts a single record), or EntityCollection (applies to or returns results of a specific entity/table)"
+    },
+    "requestParameters": {
+      "type": "array",
+      "title": "Request Parameters",
+      "description": "Array of parameters accepted in the API request call",
+      "items": {
+        "$ref": "./cds-custom-api-parameter.json"
+      }
+    },
+    "responseProperties": {
+      "type": "array",
+      "title": "Response Properties",
+      "description": "Array of attributes returned by the API response",
+      "items": {
+        "$ref": "./cds-custom-api-property.json"
+      }
+    }
+    
+  },
+  "additionalProperties": false,
+  "required": ["name", "bindingType"]
+}

@@ -292,8 +292,11 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="JsonSchema\cds-connection-schema.json" />
+    <Content Include="JsonSchema\cds-custom-api-parameter.json" />
+    <Content Include="JsonSchema\cds-custom-api-property.json" />
     <Content Include="JsonSchema\cds-entity-image-schema.json" />
     <Content Include="JsonSchema\cds-plugin-assembly-schema.json" />
+    <Content Include="JsonSchema\cds-custom-api.json" />
     <Content Include="JsonSchema\cds-plugin-schema.json" />
     <Content Include="JsonSchema\cds-plugin-step-schema.json" />
     <Content Include="JsonSchema\cds-service-endpoint-schema.json" />
