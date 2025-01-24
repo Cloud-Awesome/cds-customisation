@@ -257,6 +257,7 @@
     <Compile Include="Models\CdsWorkflowAssembly.cs" />
     <Compile Include="Models\IAttributeMetadataType.cs" />
     <Compile Include="Models\ManifestValidationResult.cs" />
+    <Compile Include="Models\MissingDependenciesResult.cs" />
     <Compile Include="Models\PluginAssemblyInfo.cs" />
     <Compile Include="PluginRegistration\PluginManifest.cs" />
     <Compile Include="PluginRegistration\PluginManifestValidator.cs" />
@@ -274,6 +275,8 @@
     <Compile Include="ProcessActivation\ProcessActivationWrapper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SerialisationWrapper.cs" />
+    <Compile Include="SolutionDependencyCheck\SolutionDependencies.cs" />
+    <Compile Include="SolutionDependencyCheck\SolutionDependencyCheckManifest.cs" />
     <Compile Include="SolutionWrapper.cs" />
     <Compile Include="ModelValidators\CdsAttributeValidator.cs" />
     <Compile Include="ModelValidators\CdsEntityImageValidator.cs" />

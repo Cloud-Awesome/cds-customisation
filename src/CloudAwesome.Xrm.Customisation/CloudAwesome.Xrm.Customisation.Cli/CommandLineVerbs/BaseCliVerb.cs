@@ -69,5 +69,8 @@ namespace CloudAwesome.Xrm.Customisation.Cli
         {
             set => CdsConnectionDetails.CdsConnectionString = value;
         }
+
+        [Option("filepath")]
+        public string FilePath { get; set; }
     }
 }

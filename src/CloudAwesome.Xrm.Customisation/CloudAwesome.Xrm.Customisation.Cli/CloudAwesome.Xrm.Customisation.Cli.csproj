@@ -197,10 +197,12 @@
     <Compile Include="CommandLineVerbs\BaseCliVerb.cs" />
     <Compile Include="CommandLineVerbs\GenerateCustomisationsVerb.cs" />
     <Compile Include="CommandLineVerbs\RegisterPluginsVerb.cs" />
+    <Compile Include="CommandLineVerbs\RetrieveSolutionDependenciesVerb.cs" />
     <Compile Include="CommandLineVerbs\ToggleProcessesVerb.cs" />
     <Compile Include="CommandLineVerbs\UnregisterPluginsVerb.cs" />
     <Compile Include="Features\GenerateCustomisations.cs" />
     <Compile Include="Features\RegisterPlugins.cs" />
+    <Compile Include="Features\RetrieveSolutionDependencies.cs" />
     <Compile Include="Features\ToggleProcesses.cs" />
     <Compile Include="Features\UnregisterPlugins.cs" />
     <Compile Include="IFeature.cs" />
