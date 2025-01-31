@@ -1,10 +1,8 @@
-﻿using System;
-using CloudAwesome.Xrm.Core.Models;
+﻿using CloudAwesome.Xrm.Core.Models;
+using CommandLine;
 
-namespace CloudAwesome.Xrm.Customisation.Cli
+namespace CloudAwesome.Xrm.Customisation.Cli.CommandLineVerbs
 {
-    using CommandLine;
-    
     public abstract class BaseCliVerb
     {
         /// <summary>

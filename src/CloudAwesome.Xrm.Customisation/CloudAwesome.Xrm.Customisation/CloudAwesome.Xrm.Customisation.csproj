@@ -303,10 +303,12 @@
     <Content Include="JsonSchema\cds-plugin-schema.json" />
     <Content Include="JsonSchema\cds-plugin-step-schema.json" />
     <Content Include="JsonSchema\cds-service-endpoint-schema.json" />
+    <Content Include="JsonSchema\dependency-checker-schema.json" />
     <Content Include="JsonSchema\documentation-object-schema.json" />
     <Content Include="JsonSchema\logging-configuration-schema.json" />
     <Content Include="JsonSchema\plugin-manifest-schema.json" />
     <Content Include="SampleSchema\configuration-manifest.xml" />
+    <Content Include="SampleSchema\dependency-checker.json" />
     <Content Include="SampleSchema\plugin-manifest.json" />
     <Content Include="SampleSchema\plugin-manifest.xml" />
     <Content Include="SampleSchema\portal-manifest.xml" />

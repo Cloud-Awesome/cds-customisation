@@ -18,5 +18,8 @@ namespace CloudAwesome.Xrm.Customisation.SolutionDependencyCheck
 
         [JsonPropertyName("cdsConnection")]
         public CdsConnection CdsConnection { get; set; }
+        
+        [JsonPropertyName("solutionFilePath")]
+        public string SolutionPath { get; set; }
     }
 }

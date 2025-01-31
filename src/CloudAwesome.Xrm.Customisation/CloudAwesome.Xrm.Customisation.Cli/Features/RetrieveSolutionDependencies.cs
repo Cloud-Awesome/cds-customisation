@@ -1,4 +1,6 @@
 ﻿using System;
+using System.IO;
+using System.Net;
 using CloudAwesome.Xrm.Core;
 using CloudAwesome.Xrm.Core.Models;
 using CloudAwesome.Xrm.Customisation.Exceptions;
@@ -55,8 +57,10 @@ namespace CloudAwesome.Xrm.Customisation.Cli.Features
             
             var client = XrmClient.GetCrmServiceClientFromManifestConfiguration(manifest.CdsConnection);
 
+            var solution = File.ReadAllBytes(manifest.SolutionFilepath);
+            
             var tester = new SolutionDependencies();
-            var dependencies = tester.GetMissingSolutionDependencies(client, null);
+            var dependencies = tester.GetMissingSolutionDependencies(client, solution);
             
             Console.WriteLine(dependencies.MissingComponentsResult);
         }

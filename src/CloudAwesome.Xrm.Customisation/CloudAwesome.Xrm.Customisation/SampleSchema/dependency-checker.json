@@ -1,0 +1,12 @@
+﻿{
+  "$schema": "../JsonSchema/dependency-checker-schema.json",
+  "solutionFilepath": "C:\\Users\\ArthurNicholson-Gumu\\Downloads\\WorkingSolution_1_0_0_1_managed.zip",
+  "cdsConnection": {
+    "url": "https://awesome.crm11.dynamics.com",
+    "connectionType": "ConnectionString"
+  },
+  "logging": {
+    "configurationType": "Console",
+    "logLevelToTrace": "debug"
+  }
+}

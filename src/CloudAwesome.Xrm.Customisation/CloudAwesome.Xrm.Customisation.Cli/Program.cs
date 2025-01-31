@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Reflection;
+using CloudAwesome.Xrm.Customisation.Cli.CommandLineVerbs;
 using CommandLine;
 
 namespace CloudAwesome.Xrm.Customisation.Cli
