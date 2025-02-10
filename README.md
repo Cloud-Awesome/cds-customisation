@@ -21,7 +21,7 @@
     - Include in source control which processes should be disabled (or which shouldn't be re-enabled)
     - Supports plugin steps, workflows, modern flows and case creation rules
 - [Migrate Bulk Deletion Jobs between environments](documentation/features/bulk-deletion-jobs/bulk-deletion-jobs.md)
-- Manage team security roles
+- Manage security role assignment for teams and service accounts
     - Generate a manifest of team-role assignments from source environment (and commit that manifest to source control)
     - Import team-role assignments from manifest (auto- or manually-generated) to target environment
 
