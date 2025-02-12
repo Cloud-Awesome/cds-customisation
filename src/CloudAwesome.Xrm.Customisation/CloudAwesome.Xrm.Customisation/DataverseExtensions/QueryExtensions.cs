@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Linq;
-using CloudAwesome.Xrm.Core;
 using Microsoft.Crm.Sdk.Messages;
 using Microsoft.Xrm.Sdk;
 using Microsoft.Xrm.Sdk.Messages;

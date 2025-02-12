@@ -84,6 +84,8 @@ namespace CloudAwesome.Xrm.Customisation.DataverseExtensions
                 case CdsConnectionType.UserNameAndPassword:
                     return GetCrmServiceClientWithO365(cdsConnection.CdsUrl, cdsConnection.CdsUserName,
                         cdsConnection.CdsPassword);
+                case CdsConnectionType.BearerToken:
+                    return GetCrmServiceClientWithBearerToken(cdsConnection.CdsUrl, cdsConnection.BearerToken);
                 default:
                     throw new ArgumentOutOfRangeException(nameof(cdsConnection), "Type of CdsConnection.ConnectionType not recognised");
             }

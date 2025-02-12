@@ -5,7 +5,7 @@ using Microsoft.ApplicationInsights.DataContracts;
 using Microsoft.ApplicationInsights.Extensibility;
 using Microsoft.Extensions.Logging;
 
-namespace CloudAwesome.Xrm.Core.Loggers
+namespace CloudAwesome.Xrm.Customisation.Loggers
 {
     /// <summary>
     /// Implements an Azure Application Insights ILogger to be consumed in the TracingHelper class.

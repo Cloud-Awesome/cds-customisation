@@ -1,7 +1,7 @@
 ﻿using System;
 using Microsoft.Extensions.Logging;
 
-namespace CloudAwesome.Xrm.Core.Loggers
+namespace CloudAwesome.Xrm.Customisation.Loggers
 {
     /// <summary>
     /// Implements an Console ILogger to be consumed in the TracingHelper class.

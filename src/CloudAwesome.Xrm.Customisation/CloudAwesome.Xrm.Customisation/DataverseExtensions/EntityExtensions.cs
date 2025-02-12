@@ -1,11 +1,10 @@
-﻿using Microsoft.Xrm.Sdk;
-using Microsoft.Xrm.Sdk.Query;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using CloudAwesome.Xrm.Customisation.DataverseExtensions;
+using Microsoft.Xrm.Sdk;
+using Microsoft.Xrm.Sdk.Query;
 
-namespace CloudAwesome.Xrm.Core
+namespace CloudAwesome.Xrm.Customisation.DataverseExtensions
 {
     /// <summary>
     /// Extensions to the Xrm SDK Entity class

@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using CloudAwesome.Xrm.Core;
 using CloudAwesome.Xrm.Customisation.DataverseExtensions;
 using CloudAwesome.Xrm.Customisation.EarlyBoundModels;
 using CloudAwesome.Xrm.Customisation.PluginRegistration;

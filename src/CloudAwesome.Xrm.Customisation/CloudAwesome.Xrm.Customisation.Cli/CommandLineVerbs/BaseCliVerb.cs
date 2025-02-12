@@ -1,5 +1,4 @@
 ﻿using CloudAwesome.Xrm.Customisation.Models;
-using CommandLine;
 
 namespace CloudAwesome.Xrm.Customisation.Cli.CommandLineVerbs
 {
@@ -17,12 +16,8 @@ namespace CloudAwesome.Xrm.Customisation.Cli.CommandLineVerbs
         /// <summary>
         /// Commandline param: File path to the manifest
         /// </summary>
-        [Option('m', "manifest", Required = true,
-            HelpText = "File path to the XML manifest for the selected action")]
         public string Manifest { get; set; }
-
-        [Option("connection-type", 
-            HelpText = "Required if you want to override the CdsConnection details in manifest")]
+        
         public CdsConnectionType ConnectionType
         {
             set
@@ -31,44 +26,37 @@ namespace CloudAwesome.Xrm.Customisation.Cli.CommandLineVerbs
                 OverrideManifestConnectionDetails = true;
             }
         }
-
-        [Option("url")]
+        
         public string Url
         {
             set => CdsConnectionDetails.CdsUrl = value;
         }
         
-        [Option("app-id")]
         public string AppId
         {
             set => CdsConnectionDetails.CdsAppId = value;
         }
         
-        [Option("app-secret")]
         public string AppSecret
         {
             set => CdsConnectionDetails.CdsAppSecret = value;
         }
         
-        [Option("user-name")]
         public string UserName
         {
             set => CdsConnectionDetails.CdsUserName = value;
         }
         
-        [Option("password")]
         public string UserPassword
         {
             set => CdsConnectionDetails.CdsUserName = value;
         }
         
-        [Option("connection-string")]
         public string ConnectionString
         {
             set => CdsConnectionDetails.CdsConnectionString = value;
         }
-
-        [Option("filepath")]
+        
         public string FilePath { get; set; }
     }
 }

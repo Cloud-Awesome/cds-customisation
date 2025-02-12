@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Linq;
 using System.Xml;
-using CloudAwesome.Xrm.Core;
 using CloudAwesome.Xrm.Customisation.DataverseExtensions;
 using Microsoft.Xrm.Sdk;
 using Microsoft.Xrm.Sdk.Metadata;

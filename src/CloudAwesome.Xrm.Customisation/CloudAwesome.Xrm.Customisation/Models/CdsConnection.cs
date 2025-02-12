@@ -2,7 +2,7 @@
 
 namespace CloudAwesome.Xrm.Customisation.Models
 {
-    public enum CdsConnectionType { AppRegistration, ConnectionString, UserNameAndPassword }
+    public enum CdsConnectionType { AppRegistration, ConnectionString, UserNameAndPassword, BearerToken }
 
     /// <summary>
     /// Configuration for creating a connection to the Common Data Service (aka CDS, Dynamics365, DataVerse)
@@ -44,5 +44,10 @@ namespace CloudAwesome.Xrm.Customisation.Models
         /// Required if ConnectionType == AppRegistration
         /// </summary>
         public string CdsAppSecret { get; set; }
+        
+        /// <summary>
+        /// Required if ConnectionType = BearerToken
+        /// </summary>
+        public string BearerToken { get; set; }
     }
 }

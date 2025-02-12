@@ -1,11 +1,8 @@
-﻿using System;
-using CloudAwesome.Xrm.Customisation.Cli.Features;
+﻿using CloudAwesome.Xrm.Customisation.Cli.Features;
 using CloudAwesome.Xrm.Customisation.Models;
-using CommandLine;
 
 namespace CloudAwesome.Xrm.Customisation.Cli.CommandLineVerbs
 {
-    [Verb("toggle", HelpText = "Toggle status of system processes such as plugin steps, flows, and workflows")]
     public class ToggleProcessesVerb: BaseCliVerb
     {
         public override void Run(string manifestPath, CdsConnection cdsConnection = null)

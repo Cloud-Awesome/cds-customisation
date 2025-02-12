@@ -3,7 +3,6 @@ using System.IO;
 using System.IO.Abstractions;
 using System.Text.Json.Serialization;
 using System.Xml.Serialization;
-using CloudAwesome.Xrm.Core;
 using CloudAwesome.Xrm.Customisation.DataverseExtensions;
 using CloudAwesome.Xrm.Customisation.EarlyBoundModels;
 using Microsoft.Xrm.Sdk;

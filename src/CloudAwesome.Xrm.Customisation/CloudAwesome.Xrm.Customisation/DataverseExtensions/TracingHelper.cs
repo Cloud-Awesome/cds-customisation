@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using CloudAwesome.Xrm.Core.Loggers;
+using CloudAwesome.Xrm.Customisation.Loggers;
 using CloudAwesome.Xrm.Customisation.Models;
 using Microsoft.Extensions.Logging;
 
