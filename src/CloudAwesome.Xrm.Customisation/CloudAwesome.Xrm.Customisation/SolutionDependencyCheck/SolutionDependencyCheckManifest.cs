@@ -1,5 +1,5 @@
 ﻿using System.Text.Json.Serialization;
-using CloudAwesome.Xrm.Core.Models;
+using CloudAwesome.Xrm.Customisation.Models;
 using Newtonsoft.Json;
 
 namespace CloudAwesome.Xrm.Customisation.SolutionDependencyCheck

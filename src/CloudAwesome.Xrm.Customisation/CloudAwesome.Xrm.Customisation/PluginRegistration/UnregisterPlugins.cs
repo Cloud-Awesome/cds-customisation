@@ -1,6 +1,6 @@
 ﻿using System.IO;
 using System.Linq;
-using CloudAwesome.Xrm.Core;
+using CloudAwesome.Xrm.Customisation.DataverseExtensions;
 using CloudAwesome.Xrm.Customisation.Models;
 using Microsoft.Extensions.Logging;
 using Microsoft.Xrm.Sdk;

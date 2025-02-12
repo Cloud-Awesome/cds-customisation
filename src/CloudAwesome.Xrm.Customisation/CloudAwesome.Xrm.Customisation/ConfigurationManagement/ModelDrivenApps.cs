@@ -1,4 +1,4 @@
-﻿using CloudAwesome.Xrm.Core;
+﻿using CloudAwesome.Xrm.Customisation.DataverseExtensions;
 using Microsoft.Xrm.Sdk;
 
 namespace CloudAwesome.Xrm.Customisation.ConfigurationManagement

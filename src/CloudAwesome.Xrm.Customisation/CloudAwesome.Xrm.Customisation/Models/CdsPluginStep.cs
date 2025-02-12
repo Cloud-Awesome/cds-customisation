@@ -2,6 +2,7 @@
 using System.Text.Json.Serialization;
 using System.Xml.Serialization;
 using CloudAwesome.Xrm.Core;
+using CloudAwesome.Xrm.Customisation.DataverseExtensions;
 using CloudAwesome.Xrm.Customisation.EarlyBoundModels;
 using CloudAwesome.Xrm.Customisation.Exceptions;
 using Microsoft.Xrm.Sdk;

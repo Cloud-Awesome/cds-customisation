@@ -4,7 +4,7 @@ using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Runtime.Serialization;
 using System.Text;
-using CloudAwesome.MarkdownMaker;
+//using CloudAwesome.MarkdownMaker;
 using Microsoft.Xrm.Sdk;
 using Microsoft.Xrm.Sdk.Metadata;
 
@@ -41,7 +41,7 @@ namespace CloudAwesome.Xrm.Customisation.DocumentationGenerator
         public void GenerateEntityDocumentation(IOrganizationService client, EntityMetadata entityMetadata, string folderPath)
         {
             // Top-level entity
-            var document = new MdDocument($"{folderPath}/{entityMetadata.LogicalName}.md")
+            /*var document = new MdDocument($"{folderPath}/{entityMetadata.LogicalName}.md")
                 .Add(new MdHeader(entityMetadata.DisplayName.UserLocalizedLabel?.Label, 1))
                 .Add(new MdParagraph(entityMetadata.Description.UserLocalizedLabel?.Label))
                 .Add(new MdTable()
@@ -142,7 +142,7 @@ namespace CloudAwesome.Xrm.Customisation.DocumentationGenerator
                     .Add(new MdParagraph(""));;
             }
 
-            document.Save();
+            document.Save();*/
 
         }
         
@@ -176,11 +176,11 @@ namespace CloudAwesome.Xrm.Customisation.DocumentationGenerator
                               $"documentType: Erd{Environment.NewLine}" +
                               $"---{Environment.NewLine}";
 
-            var document = new MdDocument($"{folderPath}/erd.md")
+            /*var document = new MdDocument($"{folderPath}/erd.md")
                 .Add(new MdPlainText(docFxHeader))
                 .Add(new MdHeader("Entity relationship diagram", 1))
                 .Add(new MdCodeBlock(stringBuilder.ToString(), "mermaid"))
-                .Save();
+                .Save();*/
 
         }
 

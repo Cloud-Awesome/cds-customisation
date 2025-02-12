@@ -1,4 +1,5 @@
-﻿using Microsoft.Xrm.Sdk;
+﻿using FluentAssertions;
+using Microsoft.Xrm.Sdk;
 using NUnit.Framework;
 
 namespace CloudAwesome.Xrm.Customisation.Tests.CustomisationExtensions
@@ -13,8 +14,8 @@ namespace CloudAwesome.Xrm.Customisation.Tests.CustomisationExtensions
             var label = displayName.CreateLabelFromString();
             var expectedOutput = new Label(displayName, 1033);
 
-            Assert.AreEqual(expectedOutput.LocalizedLabels[0].Label, label.LocalizedLabels[0].Label);
-            Assert.AreEqual(expectedOutput.LocalizedLabels[0].LanguageCode, label.LocalizedLabels[0].LanguageCode);
+            label.LocalizedLabels[0].Label.Should().Be(expectedOutput.LocalizedLabels[0].Label);
+            label.LocalizedLabels[0].LanguageCode.Should().Be(expectedOutput.LocalizedLabels[0].LanguageCode);
         }
 
         [Test]
@@ -25,8 +26,8 @@ namespace CloudAwesome.Xrm.Customisation.Tests.CustomisationExtensions
             var label = displayName.CreateLabelFromString(languageCode);
             var expectedOutput = new Label(displayName, languageCode);
 
-            Assert.AreEqual(expectedOutput.LocalizedLabels[0].Label, label.LocalizedLabels[0].Label);
-            Assert.AreEqual(expectedOutput.LocalizedLabels[0].LanguageCode, label.LocalizedLabels[0].LanguageCode);
+            label.LocalizedLabels[0].Label.Should().Be(expectedOutput.LocalizedLabels[0].Label);
+            label.LocalizedLabels[0].LanguageCode.Should().Be(expectedOutput.LocalizedLabels[0].LanguageCode);
         }
     }
 }

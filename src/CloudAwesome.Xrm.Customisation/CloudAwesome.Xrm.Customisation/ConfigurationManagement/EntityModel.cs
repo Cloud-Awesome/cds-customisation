@@ -1,5 +1,5 @@
 ﻿using System.Xml;
-using CloudAwesome.Xrm.Core;
+using CloudAwesome.Xrm.Customisation.DataverseExtensions;
 using CloudAwesome.Xrm.Customisation.Exceptions;
 using Microsoft.Xrm.Sdk;
 

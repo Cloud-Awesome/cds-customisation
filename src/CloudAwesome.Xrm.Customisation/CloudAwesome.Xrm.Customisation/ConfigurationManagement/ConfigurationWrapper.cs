@@ -1,5 +1,5 @@
 ﻿using System.Linq;
-using CloudAwesome.Xrm.Core;
+using CloudAwesome.Xrm.Customisation.DataverseExtensions;
 using CloudAwesome.Xrm.Customisation.EarlyBoundModels;
 using CloudAwesome.Xrm.Customisation.Models;
 using Microsoft.Crm.Sdk.Messages;

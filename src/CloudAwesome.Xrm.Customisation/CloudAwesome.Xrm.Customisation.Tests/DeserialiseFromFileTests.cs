@@ -19,8 +19,8 @@ namespace CloudAwesome.Xrm.Customisation.Tests
             var manifestPath = $"{PluginManifestFolderPath}/plugin-manifest.xml";
             var manifest = SerialisationWrapper.DeserialiseFromFile<PluginManifest>(manifestPath);
 
-            Assert.AreEqual(1, manifest.PluginAssemblies.Length);
-            Assert.AreEqual(2, manifest.PluginAssemblies[0].Plugins.Length);
+            manifest.PluginAssemblies.Length.Should().Be(1);
+            manifest.PluginAssemblies[0].Plugins.Length.Should().Be(2);
         }
 
         [Test]

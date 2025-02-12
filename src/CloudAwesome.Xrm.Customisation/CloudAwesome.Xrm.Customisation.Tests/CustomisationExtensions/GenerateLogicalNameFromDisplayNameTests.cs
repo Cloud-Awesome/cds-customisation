@@ -1,4 +1,5 @@
-﻿using NUnit.Framework;
+﻿using FluentAssertions;
+using NUnit.Framework;
 
 namespace CloudAwesome.Xrm.Customisation.Tests.CustomisationExtensions
 {
@@ -13,7 +14,7 @@ namespace CloudAwesome.Xrm.Customisation.Tests.CustomisationExtensions
         public void HappyPath(string displayName, string publisherPrefix, bool isLookup, string expectedOutput)
         {
             var logicalName = displayName.GenerateLogicalNameFromDisplayName(publisherPrefix, isLookup);
-            Assert.AreEqual(expectedOutput, logicalName);
+            logicalName.Should().Be(expectedOutput);
         }
     }
 }

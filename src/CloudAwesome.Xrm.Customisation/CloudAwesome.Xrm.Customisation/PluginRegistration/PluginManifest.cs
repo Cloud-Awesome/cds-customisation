@@ -1,6 +1,5 @@
 ﻿using System.Text.Json.Serialization;
 using System.Xml.Serialization;
-using CloudAwesome.Xrm.Core.Models;
 using CloudAwesome.Xrm.Customisation.Models;
 using Newtonsoft.Json;
 

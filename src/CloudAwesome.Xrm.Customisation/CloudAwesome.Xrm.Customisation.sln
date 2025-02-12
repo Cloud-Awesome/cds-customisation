@@ -1,17 +1,15 @@
-﻿
+
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30717.126
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CloudAwesome.Xrm.Customisation", "CloudAwesome.Xrm.Customisation\CloudAwesome.Xrm.Customisation.csproj", "{4521B755-48E9-437A-A1BF-2211D9837F7E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CloudAwesome.Xrm.Customisation", "CloudAwesome.Xrm.Customisation\CloudAwesome.Xrm.Customisation.csproj", "{4521B755-48E9-437A-A1BF-2211D9837F7E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CloudAwesome.Xrm.Customisation.Tests", "CloudAwesome.Xrm.Customisation.Tests\CloudAwesome.Xrm.Customisation.Tests.csproj", "{8BBF7A3A-F481-4D9B-9FC6-9E8A4B98D92F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CloudAwesome.Xrm.Customisation.Tests", "CloudAwesome.Xrm.Customisation.Tests\CloudAwesome.Xrm.Customisation.Tests.csproj", "{8BBF7A3A-F481-4D9B-9FC6-9E8A4B98D92F}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SamplePluginAssembly", "SamplePluginAssembly\SamplePluginAssembly.csproj", "{542385A1-BCF9-482D-97F9-E4F77EE698DC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CloudAwesome.Xrm.Customisation.Cli", "CloudAwesome.Xrm.Customisation.Cli\CloudAwesome.Xrm.Customisation.Cli.csproj", "{35D8FDB1-4302-4A37-9513-4A87AF64616A}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CloudAwesome.Xrm.Customisation.IntegrationTests", "CloudAwesome.Xrm.Customisation.IntegrationTests\CloudAwesome.Xrm.Customisation.IntegrationTests.csproj", "{6A26F25B-FA78-46D2-8A5E-ACD9B3B8A6E9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CloudAwesome.Xrm.Customisation.Cli", "CloudAwesome.Xrm.Customisation.Cli\CloudAwesome.Xrm.Customisation.Cli.csproj", "{35D8FDB1-4302-4A37-9513-4A87AF64616A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -35,10 +33,6 @@ Global
 		{35D8FDB1-4302-4A37-9513-4A87AF64616A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{35D8FDB1-4302-4A37-9513-4A87AF64616A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{35D8FDB1-4302-4A37-9513-4A87AF64616A}.Release|Any CPU.Build.0 = Release|Any CPU
-		{6A26F25B-FA78-46D2-8A5E-ACD9B3B8A6E9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{6A26F25B-FA78-46D2-8A5E-ACD9B3B8A6E9}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{6A26F25B-FA78-46D2-8A5E-ACD9B3B8A6E9}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{6A26F25B-FA78-46D2-8A5E-ACD9B3B8A6E9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

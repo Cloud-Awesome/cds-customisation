@@ -1,8 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Net;
-using CloudAwesome.Xrm.Core;
-using CloudAwesome.Xrm.Core.Models;
+using CloudAwesome.Xrm.Customisation.DataverseExtensions;
 using CloudAwesome.Xrm.Customisation.Exceptions;
 using CloudAwesome.Xrm.Customisation.Models;
 using CloudAwesome.Xrm.Customisation.PluginRegistration;

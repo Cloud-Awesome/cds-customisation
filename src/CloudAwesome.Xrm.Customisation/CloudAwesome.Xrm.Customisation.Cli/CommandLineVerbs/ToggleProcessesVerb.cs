@@ -1,6 +1,6 @@
 ﻿using System;
-using CloudAwesome.Xrm.Core.Models;
 using CloudAwesome.Xrm.Customisation.Cli.Features;
+using CloudAwesome.Xrm.Customisation.Models;
 using CommandLine;
 
 namespace CloudAwesome.Xrm.Customisation.Cli.CommandLineVerbs

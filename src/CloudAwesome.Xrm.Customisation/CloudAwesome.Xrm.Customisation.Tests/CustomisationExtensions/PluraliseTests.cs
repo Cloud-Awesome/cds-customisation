@@ -1,4 +1,5 @@
-﻿using NUnit.Framework;
+﻿using FluentAssertions;
+using NUnit.Framework;
 
 namespace CloudAwesome.Xrm.Customisation.Tests.CustomisationExtensions
 {
@@ -16,7 +17,7 @@ namespace CloudAwesome.Xrm.Customisation.Tests.CustomisationExtensions
         public void HappyPath(string inputString, string expectedOutput)
         {
             var actual = inputString.Pluralise();
-            Assert.AreEqual(expectedOutput, actual);
+            actual.Should().Be(expectedOutput);
         }
     }
 }

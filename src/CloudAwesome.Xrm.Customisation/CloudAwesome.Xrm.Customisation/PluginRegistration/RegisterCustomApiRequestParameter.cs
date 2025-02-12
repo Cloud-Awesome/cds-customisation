@@ -1,4 +1,4 @@
-﻿using CloudAwesome.Xrm.Core;
+﻿using CloudAwesome.Xrm.Customisation.DataverseExtensions;
 using CloudAwesome.Xrm.Customisation.Models;
 using Microsoft.Xrm.Sdk;
 

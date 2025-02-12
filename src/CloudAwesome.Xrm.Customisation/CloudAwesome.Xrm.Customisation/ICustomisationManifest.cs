@@ -1,4 +1,4 @@
-﻿using CloudAwesome.Xrm.Core.Models;
+﻿using CloudAwesome.Xrm.Customisation.Models;
 
 namespace CloudAwesome.Xrm.Customisation
 {
