@@ -74,6 +74,13 @@ namespace CloudAwesome.Xrm.Customisation.Cli
 
                     pjops.AddCommand<PlaceholderCommand>("generate-pricing-dimensions");
                 });
+                
+                config.AddBranch("test", test =>
+                {
+                    test.SetDescription("Test connectivity");
+
+                    test.AddCommand<WhoAmI>("who-am-i");
+                });
             });
 
             cli.Run(args);

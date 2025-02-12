@@ -1,20 +1,26 @@
-﻿using CloudAwesome.Xrm.Customisation.Models;
+﻿using System;
+using System.ComponentModel;
+using CloudAwesome.Xrm.Customisation.Models;
+using Spectre.Console.Cli;
 
 namespace CloudAwesome.Xrm.Customisation.Cli.Features;
 
-public class WhoAmI: IFeature
+public class WhoAmI: Command<WhoAmISettings>
 {
-	public string FeatureName => "WhoAmI";
-	public ManifestValidationResult ValidationResult { get; set; }
-	public ManifestValidationResult ValidateManifest(ICustomisationManifest manifest)
+	public override int Execute(CommandContext context, WhoAmISettings settings)
 	{
-		throw new System.NotImplementedException();
+		Console.WriteLine("You're Arthur...");
+		return 0;
 	}
+}
 
-	public void Run(string manifestPath, CdsConnection cdsConnection = null)
-	{
-		
-		
-		
-	}
+public class WhoAmISettings : CommandSettings
+{
+	[CommandArgument(0, "<url>")]
+	[Description("URL of the target dataverse environment")]
+	public string Url { get; set; }
+
+	[CommandArgument(1, "[bearer-token]")]
+	[Description("Previously generated bearer token authenticating you to the target environment")]
+	public string BearerToken { get; set; }
 }

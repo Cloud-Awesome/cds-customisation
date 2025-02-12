@@ -6,9 +6,9 @@
     <authors>Arthur Nicholson-Gumuła (@arthur82)</authors>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <projectUrl>https://github.com/Cloud-Awesome/cds-customisation/issues</projectUrl>
-    <description>Console Application to automate common, time-consuming and error prone tasks during customisation and configuration of Dynamics 365/CDS</description>
+    <description>Automate common, time-consuming, error prone, or otherwise non-automatable tasks during customisation and configuration of Dataverse/Dynamics 365 CE</description>
     <releaseNotes>See changelog at https://github.com/Cloud-Awesome/cds-customisation/releases</releaseNotes>
-    <copyright>Cloud Awesome Limited 2020</copyright>
+    <copyright>Cloud Awesome Limited 2025</copyright>
     <tags>Dynamics365 PowerPlatform Xrm Plugin Entity Processes DataVerse Cds</tags>
     <repository type="GitHub" url="https://github.com/Cloud-Awesome/cds-customisation" />
     <dependencies />
@@ -19,7 +19,7 @@
     <file src="../CloudAwesome.Xrm.Customisation/SampleSchema/plugin-manifest.xml" target="sample-manifests" />
     <file src="../CloudAwesome.Xrm.Customisation/SampleSchema/process-activation-manifest.xml" target="sample-manifests" />
 
-    <file src="bin/Release/CommandLine.dll" target="tools" />
+    <file src="bin/Release/Spectre.Console.dll" target="tools" />
     <file src="bin/Release/CloudAwesome.Xrm.Core.dll" target="tools" />
     <file src="bin/Release/CloudAwesome.Xrm.Customisation.dll" target="tools" />
     <file src="bin/Release/Microsoft.ApplicationInsights.dll" target="tools" />
